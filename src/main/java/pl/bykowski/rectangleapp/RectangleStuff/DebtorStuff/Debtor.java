@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp;
+package pl.bykowski.rectangleapp.RectangleStuff.DebtorStuff;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,19 +18,38 @@ public class Debtor {
     private Long id;
 
     String name;
-    Long debt;
-    Long totalDebt;
-//    LocalDate date;
+    float debt;
+    float totalDebt;
+    LocalDate date;
+    String dateNow;
 
     //nalezy zrobic bezargumentowy konstruktor
     public Debtor() {
     }
 
-    public Debtor(String name, Long debt, Long totalDebt) {
+    public Debtor(String name, float debt, float totalDebt) {
         this.name = name;
         this.debt = debt;
         this.totalDebt = totalDebt;
+        this.date = LocalDate.now();
+        this.dateNow = String.valueOf(this.date);
 //        this.date = date;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getDateNow() {
+        return dateNow;
+    }
+
+    public void setDateNow(String dateNow) {
+        this.dateNow = dateNow;
     }
 
     public Long getId() {
@@ -49,19 +68,19 @@ public class Debtor {
         this.name = name;
     }
 
-    public Long getDebt() {
+    public float getDebt() {
         return debt;
     }
 
-    public void setDebt(Long debt) {
+    public void setDebt(float debt) {
         this.debt = debt;
     }
 
-    public Long getTotalDebt() {
+    public float getTotalDebt() {
         return totalDebt;
     }
 
-    public void setTotalDebt(Long totalDebt) {
+    public void setTotalDebt(float totalDebt) {
         this.totalDebt = totalDebt;
     }
 
@@ -72,4 +91,21 @@ public class Debtor {
 //    public void setDate(LocalDate date) {
 //        this.date = date;
 //    }
+
+
+    @Override
+    public String toString() {
+        return "Name -------> " + name + "\n" +
+                "Total Debt -> " + totalDebt;
+    }
+
+    public static void main(String[] args) {
+//        String s = String.valueOf(LocalDate.now());
+//        System.out.println(s);
+//
+//        Debtor debtor = new Debtor("Jan", 300, 25);
+//
+//        System.out.println(debtor);
+
+    }
 }

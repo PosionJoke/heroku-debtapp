@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp;
+package pl.bykowski.rectangleapp.RectangleStuff;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

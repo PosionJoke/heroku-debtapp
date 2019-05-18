@@ -1,10 +1,11 @@
-package pl.bykowski.rectangleapp;
+package pl.bykowski.rectangleapp.RectangleStuff;
 
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import pl.bykowski.rectangleapp.RectangleStuff.Rectangle;
 
 import java.util.List;
 

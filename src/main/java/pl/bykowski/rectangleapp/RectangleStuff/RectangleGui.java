@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp;
+package pl.bykowski.rectangleapp.RectangleStuff;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;

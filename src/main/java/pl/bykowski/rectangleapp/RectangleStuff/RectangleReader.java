@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp;
+package pl.bykowski.rectangleapp.RectangleStuff;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 //wczytuje pliki z pliku konfiguracyjnego (resources > application.properties) do bazy danych
 @Service
 public class RectangleReader {
-
+/*
     private RectangleRepo rectangleRepo;
 
     //wstrzykuje instancje rectanglerepo
@@ -54,5 +54,5 @@ public class RectangleReader {
         rectangleRepo.save(rectangle4);
         //System.out.println("~~~~~~~~~~~~~~~~~~~~~~``");
     }
-
+*/
 }

@@ -1,19 +1,12 @@
-package pl.bykowski.rectangleapp;
+package pl.bykowski.rectangleapp.RectangleStuff.DebtorStuff;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.Date;
 
 //wczytuje pliki z pliku konfiguracyjnego (resources > application.properties) do bazy danych
 @Service
 public class DebtorReader {
-
+/*
     private DebtorRepo debtorRepo;
 
     @Autowired
@@ -47,5 +40,5 @@ public class DebtorReader {
         debtorRepo.save(debtor1);
         //System.out.println("~~~~~~~~~~~~~~~~~~~~~~``");
     }
-
+*/
 }
