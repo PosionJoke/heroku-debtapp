@@ -60,7 +60,7 @@ public class DebtorGUI extends VerticalLayout {
     }
     //metoda do przycisku
     private void addNewDebt() {
-        //jezeli wpisany uzytkownik nie istnieje
+        //jezeli wpisany uzytkownik nie istnieje, dodaj go i dopisz mu dług
         List<Debtor> debtorList = debtorRepo.returnAllDebtors();
         boolean isNameFree = true;
 
@@ -74,15 +74,14 @@ public class DebtorGUI extends VerticalLayout {
             addNewDebtor();
             areaInfo.setValue(textFieldName.getValue() + " is added! \n Debt value -> " + textFieldDebt.getValue());
         }
+        //w innym wypadku zaktualizuj jego dług o nową wartość
         else {
-
-            areaInfo.setValue("D1");
-            float fa = 12121212;
-            areaInfo.setValue("D2");
-            debtorRepo.setNewTotalDebtByNameTest();
-            areaInfo.setValue("D3");
-            areaInfo.setValue(String.valueOf(debtorRepo.getTotalDebt("Jan")));
-
+                for(Debtor debtor : debtorRepo.getDebtorByName(textFieldName.getValue())){
+                    float newDebt = Integer.parseInt(textFieldDebt.getValue()) + debtor.getTotalDebt();
+                    debtor.setTotalDebt(newDebt);
+                    debtorRepo.save(debtor);
+                    areaInfo.setValue("New debt of " + debtor.getName() + " \nis equals to " + debtor.getTotalDebt());
+                }
         }
     }
 

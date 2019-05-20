@@ -19,17 +19,17 @@ public interface DebtorRepo extends CrudRepository<Debtor, Long> {
     //zwraca WSZYSTKICH z bazy
     List<Debtor> returnAllDebtors();
 
-    @Query(nativeQuery = true, value = "SELECT 1 FROM DEBTOR debt WHERE debt.name = :name")
+    @Query(nativeQuery = true, value = "SELECT * FROM DEBTOR debt WHERE debt.name = :name")
     //zwraca jeden wynik ktory odpowiada podanemu imieniu
-    Debtor getDebtorByName(@Param("name") String name);
+    List<Debtor> getDebtorByName(@Param("name") String name);
 
     @Query(nativeQuery = true, value = "SELECT TOTAL_DEBT FROM DEBTOR debt WHERE debt.name = :name")
     //zwraca totalDebt szukajac po imieniu
     float getTotalDebt(@Param("name") String name);
 
-    @Modifying()
-    @Query(nativeQuery = true, value = "UPDATE DEBTOR debt SET debt.total_debt = :newTotalDebt WHERE debt.name = :name")
-    Float setNewTotalDebtByNameTest(
+    @Modifying
+    @Query(nativeQuery = true, value = "UPDATE DEBTOR debt SET debt.total_debt = ? WHERE debt.name = ?")
+    void setNewTotalDebtByNameTest(
             @Param("newTotalDebt") float newTotalDebt,
             @Param("name") String name);
 }
