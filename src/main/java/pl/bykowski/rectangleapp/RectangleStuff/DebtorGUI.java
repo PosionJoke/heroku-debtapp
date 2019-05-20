@@ -33,6 +33,7 @@ public class DebtorGUI extends VerticalLayout {
     @Autowired
     //inicjalizacja REPO jak i wszystkich innych pol
     public DebtorGUI (DebtorRepo debtorRepo){
+
         this.debtorRepo = debtorRepo;
 
         this.textFieldName = new TextField("Type Name: ");
@@ -45,9 +46,9 @@ public class DebtorGUI extends VerticalLayout {
         this.areaInfo = new TextArea("Info");
 
         //dodawanie eventu do przycisku
-        buttonInfo.addClickListener(buttonClickEvent -> showInfo());
-        buttonAddDebtor.addClickListener(buttonClickEvent -> addNewDebtor());
-        buttonAddDebt.addClickListener(buttonClickEvent -> addNewDebt());
+        buttonInfo.addClickListener(buttonClickEvent -> debtorGUIEvents.showInfo(textFieldName, areaInfo, debtorRepo));
+        buttonAddDebtor.addClickListener(buttonClickEvent -> debtorGUIEvents.addNewDebtor(textFieldName, textFieldDebt, areaInfo, debtorRepo));
+        buttonAddDebt.addClickListener(buttonClickEvent -> debtorGUIEvents.addNewDebt(textFieldName, textFieldDebt, areaInfo, debtorRepo));
 
         add(textFieldName);
         add(textFieldDebt);
@@ -58,58 +59,7 @@ public class DebtorGUI extends VerticalLayout {
 
         add(areaInfo);
     }
-    //metoda do przycisku
-    private void addNewDebt() {
-        //jezeli wpisany uzytkownik nie istnieje, dodaj go i dopisz mu dług
-        List<Debtor> debtorList = debtorRepo.returnAllDebtors();
-        boolean isNameFree = true;
 
-        for(Debtor debtor : debtorList){
-            if(debtor.getName().equalsIgnoreCase(textFieldName.getValue())){
-                isNameFree = false;
-            }
-        }//end for each
-
-        if(isNameFree == true){
-            addNewDebtor();
-            areaInfo.setValue(textFieldName.getValue() + " is added! \n Debt value -> " + textFieldDebt.getValue());
-        }
-        //w innym wypadku zaktualizuj jego dług o nową wartość
-        else {
-                for(Debtor debtor : debtorRepo.getDebtorByName(textFieldName.getValue())){
-                    float newDebt = Integer.parseInt(textFieldDebt.getValue()) + debtor.getTotalDebt();
-                    debtor.setTotalDebt(newDebt);
-                    debtorRepo.save(debtor);
-                    areaInfo.setValue("New debt of " + debtor.getName() + " \nis equals to " + debtor.getTotalDebt());
-                }
-        }
-    }
-
-    //metoda do przycisku
-    private void addNewDebtor() {
-        List<Debtor> debtorList = debtorRepo.returnAllDebtors();
-        boolean isNameFree = true;
-
-        for(Debtor debtor : debtorList){
-            if(debtor.getName().equalsIgnoreCase(textFieldName.getValue())){
-                isNameFree = false;
-            }
-        }//end for each
-
-        if(isNameFree == true){
-            Debtor debtor = new Debtor();
-            debtor.setName(textFieldName.getValue());
-            debtor.setTotalDebt((Integer.parseInt(textFieldDebt.getValue()) + debtor.getTotalDebt()));
-
-            debtorRepo.save(debtor);
-            areaInfo.setValue(textFieldName.getValue() + " is Added! :)");
-        }else areaInfo.setValue("This Debtor arledy exist! :(");
-    }
-
-    //metoda do przycisku
-    private void showInfo() {
-        areaInfo.setValue(debtorRepo.isThisUserEgsist(textFieldName.getValue()).toString());
-        //info.setValue("xD");
-    }
+    DebtorGUIEvents debtorGUIEvents = new DebtorGUIEvents();
 
 }
