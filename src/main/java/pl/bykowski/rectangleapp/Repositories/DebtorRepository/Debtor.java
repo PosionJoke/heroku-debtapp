@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp.RectangleStuff.DebtorStuff;
+package pl.bykowski.rectangleapp.Repositories.DebtorRepository;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,11 +17,11 @@ public class Debtor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    String name;
-    float debt;
-    float totalDebt;
-    LocalDate date;
-    String dateNow;
+    private String name;
+    private float debt;
+    private float totalDebt;
+    private LocalDate date;
+    private String dateNow;
 
     //nalezy zrobic bezargumentowy konstruktor
     public Debtor() {

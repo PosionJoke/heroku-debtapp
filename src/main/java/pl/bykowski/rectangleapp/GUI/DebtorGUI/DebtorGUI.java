@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp.RectangleStuff;
+package pl.bykowski.rectangleapp.GUI.DebtorGUI;
 
 
 import com.vaadin.flow.component.button.Button;
@@ -7,10 +7,8 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.bykowski.rectangleapp.RectangleStuff.DebtorStuff.Debtor;
-import pl.bykowski.rectangleapp.RectangleStuff.DebtorStuff.DebtorRepo;
-
-import java.util.List;
+import pl.bykowski.rectangleapp.DebtorGUIEvents;
+import pl.bykowski.rectangleapp.Repositories.DebtorRepository.DebtorRepo;
 
 //aby korzystac z bibliotegi Vaadin nalezy dodac adnotacje @Route
 @Route

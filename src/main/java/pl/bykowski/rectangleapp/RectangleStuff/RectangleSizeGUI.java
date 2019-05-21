@@ -6,7 +6,6 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.bykowski.rectangleapp.RectangleStuff.RectangleRepo;
 
 @Route
 public class RectangleSizeGUI extends VerticalLayout {

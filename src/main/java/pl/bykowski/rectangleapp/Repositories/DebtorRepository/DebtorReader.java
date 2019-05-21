@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp.RectangleStuff.DebtorStuff;
+package pl.bykowski.rectangleapp.Repositories.DebtorRepository;
 
 
 import org.springframework.stereotype.Service;

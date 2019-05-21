@@ -1,16 +1,17 @@
-package pl.bykowski.rectangleapp.RectangleStuff.DebtorStuff;
+package pl.bykowski.rectangleapp.Repositories.DebtorRepository;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import pl.bykowski.rectangleapp.RectangleStuff.Rectangle;
 
 import java.util.List;
 
 @Repository
 public interface DebtorRepo extends CrudRepository<Debtor, Long> {
+
+
     @Query(nativeQuery = true, value = "SELECT * FROM DEBTOR debt WHERE debt.name = :name")
     //zwraca wszystko z bazy gdzie wiersz zawiera konkretne imie
     List<Debtor> isThisUserEgsist(@Param("name") String name);

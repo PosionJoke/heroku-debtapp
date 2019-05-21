@@ -1,11 +1,11 @@
-package pl.bykowski.rectangleapp.RectangleStuff;
+package pl.bykowski.rectangleapp;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import pl.bykowski.rectangleapp.RectangleStuff.DebtorStuff.Debtor;
-import pl.bykowski.rectangleapp.RectangleStuff.DebtorStuff.DebtorRepo;
+import pl.bykowski.rectangleapp.Repositories.DebtorRepository.Debtor;
+import pl.bykowski.rectangleapp.Repositories.DebtorRepository.DebtorRepo;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
-import java.awt.*;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public class DebtorGUIEvents {
@@ -57,6 +57,7 @@ public class DebtorGUIEvents {
             Debtor debtor = new Debtor();
             debtor.setName(textFieldName.getValue());
             debtor.setTotalDebt((Integer.parseInt(textFieldDebt.getValue()) + debtor.getTotalDebt()));
+            debtor.setDate(LocalDate.now());
 
             debtorRepo.save(debtor);
             areaInfo.setValue(textFieldName.getValue() + " is Added! :)");
