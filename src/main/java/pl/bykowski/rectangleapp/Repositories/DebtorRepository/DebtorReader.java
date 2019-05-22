@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class DebtorReader {
 /*
-    private DebtorRepo debtorRepo;
+    private DebtorDetailsRepo debtorRepo;
 
     @Autowired
-    public DebtorReader(DebtorRepo debtorRepo){
+    public DebtorReader(DebtorDetailsRepo debtorRepo){
 
         this.debtorRepo = debtorRepo;
 
