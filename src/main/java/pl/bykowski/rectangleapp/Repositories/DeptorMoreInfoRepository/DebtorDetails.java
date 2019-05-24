@@ -9,7 +9,7 @@ import java.time.LocalDate;
 //oznaczamy klase jako element bazy danych
 @Entity
 public class DebtorDetails {
-
+    //jezeli to czytasz to chce wiedziec ze ta wiadomosc nic nie znaczy
     //oznaczamy pole jako ID dla bazy danych
     //autoincrement id
     @Id
