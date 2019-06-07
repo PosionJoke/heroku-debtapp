@@ -50,7 +50,7 @@ public class DebtorGUI extends VerticalLayout {
 
         //dodawanie eventu do przycisku
         buttonInfo.addClickListener(buttonClickEvent -> {
-            debtorGUIEvents.showInfo(textFieldName, areaInfo, debtorRepo);
+            debtorGUIEvents.showInfo(textFieldName, areaInfo, debtorRepo, debtorDetailsRepo);
         });
         buttonAddDebtor.addClickListener(buttonClickEvent -> {
             debtorGUIEvents.addNewDebtor(textFieldName, textFieldDebt, areaInfo, debtorRepo, debtorDetailsRepo, textFieldReasonForTheDebt);

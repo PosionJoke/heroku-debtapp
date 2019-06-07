@@ -4200,3 +4200,114 @@ org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "id" not found [42122-199]
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
+2019-06-07 18:58:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:58:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:59:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:59:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:59:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:59:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:59:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 18:59:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 19:01:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 19:01:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 19:01:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 19:01:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 19:01:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 19:01:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 19:01:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 19:01:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT DATE FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 19:19:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT * FROM DEBTORDETAILS debt WHERE debt.name = ? [42102-199]
+2019-06-07 19:20:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT * FROM DEBTORDETAILS debtd WHERE debtd.name = ? [42102-199]
+2019-06-07 19:22:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEBTORDETAILS" not found; SQL statement:
+SELECT * FROM DEBTORDETAILS [42102-199]

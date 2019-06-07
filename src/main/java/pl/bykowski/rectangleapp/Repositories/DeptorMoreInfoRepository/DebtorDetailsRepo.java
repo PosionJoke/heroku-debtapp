@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import pl.bykowski.rectangleapp.Repositories.DebtorRepository.Debtor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface DebtorDetailsRepo extends CrudRepository<DebtorDetails, Long> {
@@ -15,12 +16,17 @@ public interface DebtorDetailsRepo extends CrudRepository<DebtorDetails, Long> {
 //    List<Debtor> isThisUserEgsist(@Param("name") String name);
 
     //zwraca liste wszystkich urzytkownikow o podanym imieniu
-    @Query(nativeQuery = true, value = "SELECT * FROM DEBTORDETAILS debtd WHWRE debtd.name = : name")
+    @Query(nativeQuery = true, value = "SELECT * FROM DEBTOR_DETAILS debt WHERE debt.name = : name")
     List<DebtorDetails> getAllDebtorsWithThatName(@Param("name") String name);
 
     //zwraca liste wszystkich dłużnikow
-    @Query(nativeQuery = true, value = "SELECT * FROM DEBTORDETAILS")
+    @Query(nativeQuery = true, value = "SELECT * FROM DEBTOR_DETAILS")
     List<DebtorDetails> getAllDebtors();
+
+    //Zwraca liste dat z pozyczkami
+    @Query(nativeQuery = true, value = "SELECT * FROM DEBTOR_DETAILS debt WHERE debt.name = :name")
+    //zwraca jeden wynik ktory odpowiada podanemu imieniu
+    List<DebtorDetails> getDebtDate(@Param("name") String name);
 
 //    //ustawia nowy total debt
 //    @Modifying

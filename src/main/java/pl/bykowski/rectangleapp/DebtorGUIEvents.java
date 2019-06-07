@@ -92,9 +92,20 @@ public class DebtorGUIEvents {
     }
 
     //metoda do przycisku
-    public void showInfo(TextField textFieldName, TextArea areaInfo, DebtorRepo debtorRepo) {
-        areaInfo.setValue(debtorRepo.isThisUserEgsist(textFieldName.getValue()).toString());
-        //info.setValue("xD");
+    public void showInfo(TextField textFieldName, TextArea areaInfo, DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo) {
+        //TODO: 07.06.19 Nalezy zmienic konkatenacje stringa, chyba to byl string buffor, teraz tworzymy nowy obiekt na kazda iteracje co jest nieefektywne
+        String dataAndDebt = "================" + "\n" +
+                             "   Debt list"     + "\n" +
+                             "================";
+        for(DebtorDetails debtorDetails : debtorDetailsRepo.getDebtDate(textFieldName.getValue())){
+            dataAndDebt += "\n" + " Date ---> " + debtorDetails.getDate() + "\n" +
+                    " Debt ---> " + debtorDetails.getDebt() + "\n" +
+                    " Reason ---> " + debtorDetails.getReasonForTheDebt() +
+                    "\n-----------------------------";
+        }
+        // TODO: 07.06.19 UWAGA zmien nazwe metody getDebtDate ^, jest ona pare linijek wyzej
+        areaInfo.setValue("Name ---> " + debtorRepo.getDebtorByName(textFieldName.getValue()).get(0).getName() + "\n" +
+                dataAndDebt);
     }
 
 }
