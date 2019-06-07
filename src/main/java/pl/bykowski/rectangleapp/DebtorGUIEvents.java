@@ -105,6 +105,7 @@ public class DebtorGUIEvents {
         }
         // TODO: 07.06.19 UWAGA zmien nazwe metody getDebtDate ^, jest ona pare linijek wyzej
         areaInfo.setValue("Name ---> " + debtorRepo.getDebtorByName(textFieldName.getValue()).get(0).getName() + "\n" +
+                          "Total debt ---> " + debtorRepo.getDebtorByName(textFieldName.getValue()).get(0).getTotalDebt() + "\n" +
                 dataAndDebt);
     }
 
