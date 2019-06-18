@@ -20,7 +20,7 @@ public class DebtorGUIEvents {
     //metoda do przycisku
     public void addNewDebt(TextField textFieldName, TextField textFieldDebt, TextArea areaInfo, DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, TextField reasonForTheDebt) {
         //jezeli wpisany uzytkownik nie istnieje, dodaj go i dopisz mu dług
-        List<Debtor> debtorList = debtorRepo.returnAllDebtors();
+        List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
         boolean isNameFree = true;
 
         for(Debtor debtor : debtorList){
@@ -37,7 +37,7 @@ public class DebtorGUIEvents {
         //w innym wypadku zaktualizuj jego dług o nową wartość
         else {
             //dodawanie do bazy Debtor
-            for(Debtor debtor : debtorRepo.getDebtorByName(textFieldName.getValue())){
+            for(Debtor debtor : debtorRepo.findByName(textFieldName.getValue())){
                 float newDebt = Integer.parseInt(textFieldDebt.getValue()) + debtor.getTotalDebt();
                 debtor.setTotalDebt(newDebt);
                 debtorRepo.save(debtor);
@@ -59,7 +59,7 @@ public class DebtorGUIEvents {
     //metoda do przycisku
     public void addNewDebtor(TextField textFieldName, TextField textFieldDebt, TextArea areaInfo, DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, TextField reasonForTheDebt) {
 
-        List<Debtor> debtorList = debtorRepo.returnAllDebtors();
+        List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
         boolean isNameFree = true;
 
         for(Debtor debtor : debtorList){
@@ -97,15 +97,15 @@ public class DebtorGUIEvents {
         String dataAndDebt = "================" + "\n" +
                              "   Debt list"     + "\n" +
                              "================";
-        for(DebtorDetails debtorDetails : debtorDetailsRepo.getDebtDate(textFieldName.getValue())){
+        for(DebtorDetails debtorDetails : debtorDetailsRepo.findByName(textFieldName.getValue())){
             dataAndDebt += "\n" + " Date ---> " + debtorDetails.getDate() + "\n" +
                     " Debt ---> " + debtorDetails.getDebt() + "\n" +
                     " Reason ---> " + debtorDetails.getReasonForTheDebt() +
                     "\n-----------------------------";
         }
         // TODO: 07.06.19 UWAGA zmien nazwe metody getDebtDate ^, jest ona pare linijek wyzej
-        areaInfo.setValue("Name ---> " + debtorRepo.getDebtorByName(textFieldName.getValue()).get(0).getName() + "\n" +
-                          "Total debt ---> " + debtorRepo.getDebtorByName(textFieldName.getValue()).get(0).getTotalDebt() + "\n" +
+        areaInfo.setValue("Name ---> " + debtorRepo.findByName(textFieldName.getValue()).get(0).getName() + "\n" +
+                          "Total debt ---> " + debtorRepo.findByName(textFieldName.getValue()).get(0).getTotalDebt() + "\n" +
                 dataAndDebt);
     }
 
