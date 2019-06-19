@@ -99,7 +99,7 @@ public class DebtorGUIEvents {
                              "================";
         for(DebtorDetails debtorDetails : debtorDetailsRepo.findByName(textFieldName.getValue())){
             dataAndDebt += "\n" +
-                    " ID of Debt " + debtorDetails.getId() + "\n" +
+                    " ID of Debt ---->  " + debtorDetails.getId() + "\n" +
                     " Date ---> " + debtorDetails.getDate() + "\n" +
                     " Debt ---> " + debtorDetails.getDebt() + "\n" +
                     " Reason ---> " + debtorDetails.getReasonForTheDebt() +
