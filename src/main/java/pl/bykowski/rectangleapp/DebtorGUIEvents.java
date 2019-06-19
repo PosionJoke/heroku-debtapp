@@ -98,7 +98,9 @@ public class DebtorGUIEvents {
                              "   Debt list"     + "\n" +
                              "================";
         for(DebtorDetails debtorDetails : debtorDetailsRepo.findByName(textFieldName.getValue())){
-            dataAndDebt += "\n" + " Date ---> " + debtorDetails.getDate() + "\n" +
+            dataAndDebt += "\n" +
+                    " ID of Debt " + debtorDetails.getId() + "\n" +
+                    " Date ---> " + debtorDetails.getDate() + "\n" +
                     " Debt ---> " + debtorDetails.getDebt() + "\n" +
                     " Reason ---> " + debtorDetails.getReasonForTheDebt() +
                     "\n-----------------------------";
@@ -109,4 +111,12 @@ public class DebtorGUIEvents {
                 dataAndDebt);
     }
 
+    //metoda do przycisku
+    public void updateDebtByNewDebt(TextField textFieldName, TextField textFieldUpdate, TextField textFieldDebt, DebtorDetailsRepo debtorDetailsRepo) {
+        for(DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldUpdate.getValue()))){
+            Float updatedDebt222 = debtorDetails.getDebt() + Float.parseFloat(textFieldDebt.getValue());
+            debtorDetails.setDebt(updatedDebt222);
+            debtorDetailsRepo.save(debtorDetails);
+        }
+    }
 }
