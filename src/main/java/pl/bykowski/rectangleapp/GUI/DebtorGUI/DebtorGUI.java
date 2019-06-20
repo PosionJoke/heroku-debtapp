@@ -8,6 +8,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.bykowski.rectangleapp.DebtorGUIEvents;
+import pl.bykowski.rectangleapp.Repositories.DebtorHistoryRepository.DebtorHistory;
+import pl.bykowski.rectangleapp.Repositories.DebtorHistoryRepository.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.Repositories.DebtorRepository.DebtorRepo;
 import pl.bykowski.rectangleapp.Repositories.DeptorMoreInfoRepository.DebtorDetailsRepo;
 
@@ -18,6 +20,7 @@ public class DebtorGUI extends VerticalLayout {
     //aby dodawac, korzystac z repo nalezy dodac tylko zmienna repo bez jej instancji
     private DebtorRepo debtorRepo;
     private DebtorDetailsRepo debtorDetailsRepo;
+    private DebtorHistoryRepo debtorHistoryRepo;
 
 
     //definiowanie pol jakie maja byc w GUI
@@ -30,15 +33,17 @@ public class DebtorGUI extends VerticalLayout {
     private Button buttonAddDebtor;
     private Button buttonAddDebt;
     private Button buttonUpdate;
+    private Button buttonDeleteDebt;
 
     private TextArea areaInfo;
 
     @Autowired
     //inicjalizacja REPO jak i wszystkich innych pol
-    public DebtorGUI (DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo){
+    public DebtorGUI (DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo){
 
         this.debtorRepo = debtorRepo;
         this.debtorDetailsRepo = debtorDetailsRepo;
+        this.debtorHistoryRepo = debtorHistoryRepo;
 
         this.textFieldName = new TextField("Type Name: ");
         this.textFieldDebt = new TextField("Type Debt: ");
@@ -49,14 +54,13 @@ public class DebtorGUI extends VerticalLayout {
         this.buttonAddDebtor = new Button("Add new Debtor");
         this.buttonAddDebt = new Button("Add new Debt");
         this.buttonUpdate = new Button("Update debt");
+        this.buttonDeleteDebt = new Button("Delete Debt by ID ");
 
         this.areaInfo = new TextArea("Info");
 
         //dodawanie eventu do przycisku
         buttonInfo.addClickListener(buttonClickEvent -> {
             debtorGUIEvents.showInfo(textFieldName, areaInfo, debtorRepo, debtorDetailsRepo);
-            //only for tests
-//            areaInfo.setValue(Float.toString(debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), (long) Float.parseFloat(textFieldDebt.getValue())).get(0).getDebt()));
         });
         buttonAddDebtor.addClickListener(buttonClickEvent -> {
             debtorGUIEvents.addNewDebtor(textFieldName, textFieldDebt, areaInfo, debtorRepo, debtorDetailsRepo, textFieldReasonForTheDebt);
@@ -68,6 +72,10 @@ public class DebtorGUI extends VerticalLayout {
            debtorGUIEvents.updateDebtByNewDebt(textFieldName, textFieldIdDebt, textFieldDebt, debtorDetailsRepo);
            debtorGUIEvents.showInfo(textFieldName, areaInfo, debtorRepo, debtorDetailsRepo);
         });
+        buttonDeleteDebt.addClickListener(buttonClickEvent -> {
+            debtorGUIEvents.deleteDebtByID(textFieldName, textFieldIdDebt, debtorDetailsRepo, debtorHistoryRepo);
+            debtorGUIEvents.showInfo(textFieldName, areaInfo, debtorRepo, debtorDetailsRepo);
+        });
 
         add(textFieldName);
         add(textFieldDebt);
@@ -78,6 +86,7 @@ public class DebtorGUI extends VerticalLayout {
         add(buttonInfo);
         add(buttonAddDebtor);
         add(buttonAddDebt);
+        add(buttonDeleteDebt);
 
         add(areaInfo);
     }

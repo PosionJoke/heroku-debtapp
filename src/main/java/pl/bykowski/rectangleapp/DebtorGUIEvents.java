@@ -1,5 +1,7 @@
 package pl.bykowski.rectangleapp;
 
+import pl.bykowski.rectangleapp.Repositories.DebtorHistoryRepository.DebtorHistory;
+import pl.bykowski.rectangleapp.Repositories.DebtorHistoryRepository.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.Repositories.DebtorRepository.Debtor;
 import pl.bykowski.rectangleapp.Repositories.DebtorRepository.DebtorRepo;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -8,6 +10,7 @@ import pl.bykowski.rectangleapp.Repositories.DeptorMoreInfoRepository.DebtorDeta
 import pl.bykowski.rectangleapp.Repositories.DeptorMoreInfoRepository.DebtorDetailsRepo;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 
 public class DebtorGUIEvents {
@@ -118,5 +121,62 @@ public class DebtorGUIEvents {
             debtorDetails.setDebt(updatedDebt222);
             debtorDetailsRepo.save(debtorDetails);
         }
+    }
+
+    //metoda do przycisku
+    public void deleteDebtByID(TextField textFieldName, TextField textFieldIdDebt, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo) {
+        DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldIdDebt.getValue())).get(0);
+
+        DebtorHistory debtorHistoryNew = new DebtorHistory();
+        debtorHistoryNew.setDebt(debtorDetailsCopy.getDebt());
+        debtorHistoryNew.setName(debtorDetailsCopy.getName());
+        debtorHistoryNew.setReasonForTheDebt(debtorDetailsCopy.getReasonForTheDebt());
+
+        int dayDebt = debtorDetailsCopy.getDate().getDayOfMonth();
+        int monthDebt = debtorDetailsCopy.getDate().getMonthValue();
+        int yearDebt = debtorDetailsCopy.getDate().getYear();
+
+        int dayNow = LocalDate.now().getDayOfMonth();
+        int monthNow = LocalDate.now().getMonthValue();
+        int yearNow = LocalDate.now().getYear();
+
+        LocalDate newLocalDate = LocalDate.now();
+        LocalDate localDate2 = newLocalDate.minusDays(dayDebt);
+        localDate2 = localDate2.minusMonths(monthDebt);
+//        localDate2 = localDate2.minusYears(yearDebt);
+        //newLocalDate = newLocalDate.minusYears(yearDebt).minusMonths(monthDebt).minusDays(dayDebt);
+
+
+        debtorHistoryNew.setTimeOfDebt(localDate2);
+
+        debtorHistoryRepo.save(debtorHistoryNew);
+        debtorDetailsRepo.delete(debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldIdDebt.getValue())).get(0));
+    }
+
+    public static void main(String[] args) {
+        LocalDate localDate = LocalDate.now();
+        System.out.println(localDate);
+        localDate = localDate.minusDays(10);
+        localDate = localDate.minusDays(5);
+        localDate = localDate.minusMonths(6);
+        localDate = localDate.minusYears(2018);
+        System.out.println(localDate);
+
+        LocalDate localDate1 = LocalDate.now();
+        int xx = localDate1.getYear();
+        int xx2 = localDate1.getDayOfMonth();
+        int xx3 = localDate1.getMonthValue();
+        System.out.println(xx);
+        System.out.println(xx2);
+        System.out.println(xx3);
+        System.out.println("@@@ @@@ @@@");
+        LocalDate localDate2 = LocalDate.now();
+        System.out.println(localDate2);
+        localDate2 = localDate2.minusDays(xx2);
+        System.out.println(localDate2);
+        localDate2 = localDate2.minusMonths(xx3);
+        System.out.println(localDate2);
+        localDate2 = localDate2.minusYears(xx);
+        System.out.println(localDate2);
     }
 }
