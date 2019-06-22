@@ -11,6 +11,8 @@ import pl.bykowski.rectangleapp.Repositories.DeptorMoreInfoRepository.DebtorDeta
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class DebtorGUIEvents {
@@ -132,22 +134,21 @@ public class DebtorGUIEvents {
         debtorHistoryNew.setName(debtorDetailsCopy.getName());
         debtorHistoryNew.setReasonForTheDebt(debtorDetailsCopy.getReasonForTheDebt());
 
-        int dayDebt = debtorDetailsCopy.getDate().getDayOfMonth();
-        int monthDebt = debtorDetailsCopy.getDate().getMonthValue();
-        int yearDebt = debtorDetailsCopy.getDate().getYear();
+        int dayOld = debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldIdDebt.getValue())).get(0).getDate().getDayOfMonth();
+        int monthOld = debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldIdDebt.getValue())).get(0).getDate().getMonthValue();
+        int yearOld = debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldIdDebt.getValue())).get(0).getDate().getYear();
 
-        int dayNow = LocalDate.now().getDayOfMonth();
-        int monthNow = LocalDate.now().getMonthValue();
-        int yearNow = LocalDate.now().getYear();
+        int dayNew = LocalDate.now().getDayOfMonth();
+        int monthNew = LocalDate.now().getMonthValue();
+        int yearNew = LocalDate.now().getYear();
 
-        LocalDate newLocalDate = LocalDate.now();
-        LocalDate localDate2 = newLocalDate.minusDays(dayDebt);
-        localDate2 = localDate2.minusMonths(monthDebt);
-//        localDate2 = localDate2.minusYears(yearDebt);
-        //newLocalDate = newLocalDate.minusYears(yearDebt).minusMonths(monthDebt).minusDays(dayDebt);
+        LocalDate localDateNew = LocalDate.now();
+        localDateNew = localDateNew.minusYears(yearOld);
+        localDateNew = localDateNew.minusMonths(monthOld);
+        localDateNew = localDateNew.minusDays(dayOld);
 
 
-        debtorHistoryNew.setTimeOfDebt(localDate2);
+        debtorHistoryNew.setTimeOfDebt(localDateNew);
 
         debtorHistoryRepo.save(debtorHistoryNew);
         debtorDetailsRepo.delete(debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldIdDebt.getValue())).get(0));
@@ -155,28 +156,82 @@ public class DebtorGUIEvents {
 
     public static void main(String[] args) {
         LocalDate localDate = LocalDate.now();
-        System.out.println(localDate);
+        System.out.println("localDate -> " + localDate);
         localDate = localDate.minusDays(10);
         localDate = localDate.minusDays(5);
-        localDate = localDate.minusMonths(6);
+        localDate = localDate.minusMonths(0);
         localDate = localDate.minusYears(2018);
-        System.out.println(localDate);
+        System.out.println("localDate -> " + localDate);
+        System.out.println(" ");
 
         LocalDate localDate1 = LocalDate.now();
-        int xx = localDate1.getYear();
-        int xx2 = localDate1.getDayOfMonth();
-        int xx3 = localDate1.getMonthValue();
-        System.out.println(xx);
-        System.out.println(xx2);
-        System.out.println(xx3);
+        int yearFromlocalDate1 = localDate1.getYear();
+        int dayFromlocalDate1 = localDate1.getDayOfMonth();
+        int monthFromlocalDate1 = localDate1.getMonthValue();
+        System.out.println("yearFromlocalDate1 - " + yearFromlocalDate1);
+        System.out.println("dayFromlocalDate1 " + dayFromlocalDate1);
+        System.out.println("monthFromlocalDate1 - " + monthFromlocalDate1);
+        System.out.println("localDate1 -> " + localDate1);
+        System.out.println("localDate -> " + localDate);
+
         System.out.println("@@@ @@@ @@@");
-        LocalDate localDate2 = LocalDate.now();
-        System.out.println(localDate2);
-        localDate2 = localDate2.minusDays(xx2);
-        System.out.println(localDate2);
-        localDate2 = localDate2.minusMonths(xx3);
-        System.out.println(localDate2);
-        localDate2 = localDate2.minusYears(xx);
-        System.out.println(localDate2);
+
+        localDate1 = localDate1.minusYears(localDate.getYear());
+        System.out.println("@@ localDate.getYear() @@ " + localDate.getYear());
+        localDate1 = localDate1.minusMonths(localDate.getMonthValue());
+        System.out.println("@@ localDate.getMonthValue() @@ " + localDate.getMonthValue());
+        localDate1 = localDate1.minusDays(localDate.getDayOfMonth());
+        System.out.println("@@ localDate.getDayOfMonth(localDateNow) @@ " + localDate.getDayOfMonth());
+
+        System.out.println("localDate1 after changes -> " + localDate1);
+
+        System.out.println(" ~~ ~~ ~~ ");
+
+
+
+
+        LocalDate localDateOld = LocalDate.of(2019,6,22);
+        System.out.println("localDateOld -> "  +  localDateOld);
+
+        LocalDate localDateNow = LocalDate.now();
+
+        LocalDate localDateNowCopu = localDateNow;
+
+        System.out.println("localDateNew -> "  +  localDateNow + "\n");
+        int getDatofYear = localDateOld.getDayOfYear();
+        System.out.println(" getDayOfYear " + getDatofYear);
+
+        int dayOld = localDateOld.getDayOfMonth();
+        int monthOld = localDateOld.getMonthValue();
+        int yearOld = localDateOld.getYear();
+
+//        localDateNow = localDateNow.minusDays(dayOld);
+//        localDateNow = localDateNow.minusMonths(monthOld);
+//        localDateNow = localDateNow.minusYears(yearOld);
+
+        localDateNow = localDateNow.minusDays(getDatofYear);
+
+        System.out.println("localDateNow before update -> -> " +localDateNowCopu + " \nlocalDateNow after update -> -> " + localDateNow);
+
+        System.out.println(" ");
+        System.out.println(" >>> ");
+
+        LocalDate localDate10 = LocalDate.now();
+        String stringA = localDate10.toString();
+        LocalDate localDateOld10 = LocalDate.of(2019,6,22);
+        String stringB = localDateOld10.toString();
+
+        String startDate = "2016 01 02";
+        String passedDate = "2016 02 29";
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
+
+        LocalDate date1 = LocalDate.parse(startDate, formatter);
+        LocalDate date2 = LocalDate.parse(passedDate, formatter);
+
+        long elapsedDays = ChronoUnit.DAYS.between(date1, date2);
+        System.out.println(elapsedDays); // 58 (correct)
+
+
     }
 }
