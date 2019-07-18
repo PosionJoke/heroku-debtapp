@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp.Repositories.DebtorRepository;
+package pl.bykowski.rectangleapp.Repositories.RepoStruct;
 
 import lombok.Data;
 
@@ -11,9 +11,8 @@ import java.time.LocalDate;
 @Data
 //oznaczamy klase jako element bazy danych
 @Entity
-public class
-Debtor {
-
+public class DebtorDetails {
+    //jezeli to czytasz to chce wiedziec ze ta wiadomosc nic nie znaczy
     //oznaczamy pole jako ID dla bazy danych
     //autoincrement id
     @Id
@@ -24,23 +23,16 @@ Debtor {
     private float debt;
     private float totalDebt;
     private LocalDate date;
-    private String dateNow;
+    private String reasonForTheDebt;
 
     //nalezy zrobic bezargumentowy konstruktor
-    public Debtor() {
+    public DebtorDetails() {
     }
 
-    public Debtor(String name, float debt, float totalDebt) {
+    public DebtorDetails(String name, float debt, LocalDate date, String reasonForTheDebt) {
         this.name = name;
         this.debt = debt;
-        this.totalDebt = totalDebt;
-        this.date = LocalDate.now();
-        this.dateNow = String.valueOf(this.date);
-    }
-
-    @Override
-    public String toString() {
-        return "Name -------> " + name + "\n" +
-                "Total Debt -> " + totalDebt;
+        this.date = date;
+        this.reasonForTheDebt = reasonForTheDebt;
     }
 }

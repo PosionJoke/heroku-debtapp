@@ -1,19 +1,20 @@
 package pl.bykowski.rectangleapp;
 
-import pl.bykowski.rectangleapp.Repositories.DebtorHistoryRepository.DebtorHistory;
-import pl.bykowski.rectangleapp.Repositories.DebtorHistoryRepository.DebtorHistoryRepo;
-import pl.bykowski.rectangleapp.Repositories.DebtorRepository.Debtor;
-import pl.bykowski.rectangleapp.Repositories.DebtorRepository.DebtorRepo;
+import pl.bykowski.rectangleapp.Repositories.RepoStruct.DebtorHistory;
+import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorHistoryRepo;
+import pl.bykowski.rectangleapp.Repositories.RepoStruct.Debtor;
+import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorRepo;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
-import pl.bykowski.rectangleapp.Repositories.DeptorMoreInfoRepository.DebtorDetails;
-import pl.bykowski.rectangleapp.Repositories.DeptorMoreInfoRepository.DebtorDetailsRepo;
+import pl.bykowski.rectangleapp.Repositories.RepoStruct.DebtorDetails;
+import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorDetailsRepo;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class DebtorGUIEvents {
 
@@ -134,21 +135,9 @@ public class DebtorGUIEvents {
         debtorHistoryNew.setName(debtorDetailsCopy.getName());
         debtorHistoryNew.setReasonForTheDebt(debtorDetailsCopy.getReasonForTheDebt());
 
-        int dayOld = debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldIdDebt.getValue())).get(0).getDate().getDayOfMonth();
-        int monthOld = debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldIdDebt.getValue())).get(0).getDate().getMonthValue();
-        int yearOld = debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldIdDebt.getValue())).get(0).getDate().getYear();
+        long daysBetween = DAYS.between(debtorDetailsCopy.getDate(), LocalDate.now());
 
-        int dayNew = LocalDate.now().getDayOfMonth();
-        int monthNew = LocalDate.now().getMonthValue();
-        int yearNew = LocalDate.now().getYear();
-
-        LocalDate localDateNew = LocalDate.now();
-        localDateNew = localDateNew.minusYears(yearOld);
-        localDateNew = localDateNew.minusMonths(monthOld);
-        localDateNew = localDateNew.minusDays(dayOld);
-
-
-        debtorHistoryNew.setTimeOfDebt(localDateNew);
+        debtorHistoryNew.setTimeOfDebt(daysBetween);
 
         debtorHistoryRepo.save(debtorHistoryNew);
         debtorDetailsRepo.delete(debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldIdDebt.getValue())).get(0));
@@ -229,7 +218,7 @@ public class DebtorGUIEvents {
         LocalDate date1 = LocalDate.parse(startDate, formatter);
         LocalDate date2 = LocalDate.parse(passedDate, formatter);
 
-        long elapsedDays = ChronoUnit.DAYS.between(date1, date2);
+        long elapsedDays = DAYS.between(date1, date2);
         System.out.println(elapsedDays); // 58 (correct)
 
 

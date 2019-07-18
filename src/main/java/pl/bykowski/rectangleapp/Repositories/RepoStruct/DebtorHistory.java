@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp.Repositories.DebtorHistoryRepository;
+package pl.bykowski.rectangleapp.Repositories.RepoStruct;
 
 import lombok.Data;
 
@@ -18,14 +18,15 @@ public class DebtorHistory {
 
     private String name;
     private float debt;
-    private LocalDate timeOfDebt;
+    private long timeOfDebt;
     private String reasonForTheDebt;
+
 
     //nalezy zrobic bezargumentowy konstruktor
     public DebtorHistory() {
     }
 
-    public DebtorHistory(String name, float debt, LocalDate timeOfDebt, String reasonForTheDebt) {
+    public DebtorHistory(String name, float debt, long timeOfDebt, String reasonForTheDebt) {
         this.name = name;
         this.debt = debt;
         this.timeOfDebt = timeOfDebt;

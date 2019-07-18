@@ -8,10 +8,9 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.bykowski.rectangleapp.DebtorGUIEvents;
-import pl.bykowski.rectangleapp.Repositories.DebtorHistoryRepository.DebtorHistory;
-import pl.bykowski.rectangleapp.Repositories.DebtorHistoryRepository.DebtorHistoryRepo;
-import pl.bykowski.rectangleapp.Repositories.DebtorRepository.DebtorRepo;
-import pl.bykowski.rectangleapp.Repositories.DeptorMoreInfoRepository.DebtorDetailsRepo;
+import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorHistoryRepo;
+import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorRepo;
+import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorDetailsRepo;
 
 //aby korzystac z bibliotegi Vaadin nalezy dodac adnotacje @Route
 @Route
