@@ -68,7 +68,7 @@ public class DebtorGUI extends VerticalLayout {
             debtorGUIEvents.addNewDebt(textFieldName, textFieldDebt, areaInfo, debtorRepo, debtorDetailsRepo, textFieldReasonForTheDebt);
         });
         buttonUpdate.addClickListener(buttonClickEvent -> {
-           debtorGUIEvents.updateDebtByNewDebt(textFieldName, textFieldIdDebt, textFieldDebt, debtorDetailsRepo);
+           debtorGUIEvents.updateDebtByNewDebt(textFieldName, textFieldIdDebt, textFieldDebt, debtorDetailsRepo, debtorHistoryRepo);
            debtorGUIEvents.showInfo(textFieldName, areaInfo, debtorRepo, debtorDetailsRepo);
         });
         buttonDeleteDebt.addClickListener(buttonClickEvent -> {

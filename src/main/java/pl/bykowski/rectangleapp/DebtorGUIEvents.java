@@ -118,10 +118,14 @@ public class DebtorGUIEvents {
     }
 
     //metoda do przycisku
-    public void updateDebtByNewDebt(TextField textFieldName, TextField textFieldUpdate, TextField textFieldDebt, DebtorDetailsRepo debtorDetailsRepo) {
+    public void updateDebtByNewDebt(TextField textFieldName, TextField textFieldUpdate, TextField textFieldDebt, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo) {
         for(DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldUpdate.getValue()))){
-            Float updatedDebt222 = debtorDetails.getDebt() + Float.parseFloat(textFieldDebt.getValue());
-            debtorDetails.setDebt(updatedDebt222);
+            Float newDebt = debtorDetails.getDebt() + Float.parseFloat(textFieldDebt.getValue());
+            debtorDetails.setDebt(newDebt);
+            if(newDebt <= 0){
+                deleteDebtByID(textFieldName, textFieldUpdate, debtorDetailsRepo, debtorHistoryRepo);
+            }
+            else
             debtorDetailsRepo.save(debtorDetails);
         }
     }
