@@ -24,6 +24,7 @@ public class DebtorDetails {
     private float totalDebt;
     private LocalDate date;
     private String reasonForTheDebt;
+    private Debtor debtor;
 
     //nalezy zrobic bezargumentowy konstruktor
     public DebtorDetails() {
