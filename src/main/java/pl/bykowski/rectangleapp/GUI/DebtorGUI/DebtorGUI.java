@@ -8,6 +8,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.bykowski.rectangleapp.DebtorGUIEvents;
+import pl.bykowski.rectangleapp.ExampleController;
 import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorRepo;
 import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorDetailsRepo;
@@ -88,6 +89,7 @@ public class DebtorGUI extends VerticalLayout {
         add(buttonDeleteDebt);
 
         add(areaInfo);
+
     }
 
     DebtorGUIEvents debtorGUIEvents = new DebtorGUIEvents();
