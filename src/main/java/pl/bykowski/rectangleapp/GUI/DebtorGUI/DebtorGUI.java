@@ -21,6 +21,7 @@ public class DebtorGUI extends VerticalLayout {
     private DebtorDetailsRepo debtorDetailsRepo;
     private DebtorHistoryRepo debtorHistoryRepo;
 
+    private DebtorGUIEvents debtorGUIEvents;
 
     //definiowanie pol jakie maja byc w GUI
     private TextField textFieldName;
@@ -38,11 +39,13 @@ public class DebtorGUI extends VerticalLayout {
 
     @Autowired
     //inicjalizacja REPO jak i wszystkich innych pol
-    public DebtorGUI (DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo){
+    public DebtorGUI (DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo, DebtorGUIEvents debtorGUIEvents){
 
         this.debtorRepo = debtorRepo;
         this.debtorDetailsRepo = debtorDetailsRepo;
         this.debtorHistoryRepo = debtorHistoryRepo;
+
+        this.debtorGUIEvents = debtorGUIEvents;
 
         this.textFieldName = new TextField("Type Name: ");
         this.textFieldDebt = new TextField("Type Debt: ");
@@ -59,21 +62,21 @@ public class DebtorGUI extends VerticalLayout {
 
         //dodawanie eventu do przycisku
         buttonInfo.addClickListener(buttonClickEvent -> {
-            debtorGUIEvents.showInfo(textFieldName, areaInfo, debtorRepo, debtorDetailsRepo);
+            debtorGUIEvents.showInfo(textFieldName, areaInfo);
         });
         buttonAddDebtor.addClickListener(buttonClickEvent -> {
-            debtorGUIEvents.addNewDebtor(textFieldName, textFieldDebt, areaInfo, debtorRepo, debtorDetailsRepo, textFieldReasonForTheDebt);
+            debtorGUIEvents.addNewDebtor(textFieldName, textFieldDebt, areaInfo, textFieldReasonForTheDebt);
         });
         buttonAddDebt.addClickListener(buttonClickEvent -> {
-            debtorGUIEvents.addNewDebt(textFieldName, textFieldDebt, areaInfo, debtorRepo, debtorDetailsRepo, textFieldReasonForTheDebt);
+            debtorGUIEvents.addNewDebt(textFieldName, textFieldDebt, areaInfo, textFieldReasonForTheDebt);
         });
         buttonUpdate.addClickListener(buttonClickEvent -> {
-           debtorGUIEvents.updateDebtByNewDebt(textFieldName, textFieldIdDebt, textFieldDebt, debtorDetailsRepo, debtorHistoryRepo);
-           debtorGUIEvents.showInfo(textFieldName, areaInfo, debtorRepo, debtorDetailsRepo);
+           debtorGUIEvents.updateDebtByNewDebt(textFieldName, textFieldIdDebt, textFieldDebt);
+           debtorGUIEvents.showInfo(textFieldName, areaInfo);
         });
         buttonDeleteDebt.addClickListener(buttonClickEvent -> {
-            debtorGUIEvents.deleteDebtByID(textFieldName, textFieldIdDebt, debtorDetailsRepo, debtorHistoryRepo);
-            debtorGUIEvents.showInfo(textFieldName, areaInfo, debtorRepo, debtorDetailsRepo);
+            debtorGUIEvents.deleteDebtByID(textFieldName, textFieldIdDebt);
+            debtorGUIEvents.showInfo(textFieldName, areaInfo);
         });
 
         add(textFieldName);
@@ -89,7 +92,4 @@ public class DebtorGUI extends VerticalLayout {
 
         add(areaInfo);
     }
-
-    DebtorGUIEvents debtorGUIEvents = new DebtorGUIEvents();
-
 }

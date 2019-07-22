@@ -1,5 +1,7 @@
 package pl.bykowski.rectangleapp;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import pl.bykowski.rectangleapp.Repositories.RepoStruct.DebtorHistory;
 import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.Repositories.RepoStruct.Debtor;
@@ -16,15 +18,22 @@ import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+@Controller
 public class DebtorGUIEvents {
 
-//    @Autowired
-//    DebtorDetailsRepo debtorRepo;
+    private DebtorRepo debtorRepo;
+    private DebtorDetailsRepo debtorDetailsRepo;
+    private DebtorHistoryRepo debtorHistoryRepo;
 
-    //TextField testetst = new TextField("a");
+    @Autowired
+    public DebtorGUIEvents (DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo){
+        this.debtorDetailsRepo = debtorDetailsRepo;
+        this.debtorHistoryRepo = debtorHistoryRepo;
+        this.debtorRepo = debtorRepo;
+    }
 
     //metoda do przycisku
-    public void addNewDebt(TextField textFieldName, TextField textFieldDebt, TextArea areaInfo, DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, TextField reasonForTheDebt) {
+    public void addNewDebt(TextField textFieldName, TextField textFieldDebt, TextArea areaInfo, TextField reasonForTheDebt) {
         //jezeli wpisany uzytkownik nie istnieje, dodaj go i dopisz mu dług
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
         boolean isNameFree = true;
@@ -37,7 +46,7 @@ public class DebtorGUIEvents {
 
         //dodawanie uzytkownika
         if(isNameFree == true){
-            addNewDebtor(textFieldName, textFieldDebt, areaInfo, debtorRepo, debtorDetailsRepo, reasonForTheDebt);
+            addNewDebtor(textFieldName, textFieldDebt, areaInfo, reasonForTheDebt);
             areaInfo.setValue(textFieldName.getValue() + " is added! \n Debt value -> " + textFieldDebt.getValue());
         }
         //w innym wypadku zaktualizuj jego dług o nową wartość
@@ -63,7 +72,7 @@ public class DebtorGUIEvents {
 
 
     //metoda do przycisku
-    public void addNewDebtor(TextField textFieldName, TextField textFieldDebt, TextArea areaInfo, DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, TextField reasonForTheDebt) {
+    public void addNewDebtor(TextField textFieldName, TextField textFieldDebt, TextArea areaInfo, TextField reasonForTheDebt) {
 
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
         boolean isNameFree = true;
@@ -98,7 +107,7 @@ public class DebtorGUIEvents {
     }
 
     //metoda do przycisku
-    public void showInfo(TextField textFieldName, TextArea areaInfo, DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo) {
+    public void showInfo(TextField textFieldName, TextArea areaInfo) {
         //TODO: 07.06.19 Nalezy zmienic konkatenacje stringa, chyba to byl string buffor, teraz tworzymy nowy obiekt na kazda iteracje co jest nieefektywne
         String dataAndDebt = "================" + "\n" +
                              "   Debt list"     + "\n" +
@@ -118,12 +127,12 @@ public class DebtorGUIEvents {
     }
 
     //metoda do przycisku
-    public void updateDebtByNewDebt(TextField textFieldName, TextField textFieldUpdate, TextField textFieldDebt, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo) {
+    public void updateDebtByNewDebt(TextField textFieldName, TextField textFieldUpdate, TextField textFieldDebt) {
         for(DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldUpdate.getValue()))){
             Float newDebt = debtorDetails.getDebt() + Float.parseFloat(textFieldDebt.getValue());
             debtorDetails.setDebt(newDebt);
             if(newDebt <= 0){
-                deleteDebtByID(textFieldName, textFieldUpdate, debtorDetailsRepo, debtorHistoryRepo);
+                deleteDebtByID(textFieldName, textFieldUpdate);
             }
             else
             debtorDetailsRepo.save(debtorDetails);
@@ -131,7 +140,7 @@ public class DebtorGUIEvents {
     }
 
     //metoda do przycisku
-    public void deleteDebtByID(TextField textFieldName, TextField textFieldIdDebt, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo) {
+    public void deleteDebtByID(TextField textFieldName, TextField textFieldIdDebt) {
         DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldIdDebt.getValue())).get(0);
 
         DebtorHistory debtorHistoryNew = new DebtorHistory();
@@ -147,84 +156,7 @@ public class DebtorGUIEvents {
         debtorDetailsRepo.delete(debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldIdDebt.getValue())).get(0));
     }
 
-    public static void main(String[] args) {
-        LocalDate localDate = LocalDate.now();
-        System.out.println("localDate -> " + localDate);
-        localDate = localDate.minusDays(10);
-        localDate = localDate.minusDays(5);
-        localDate = localDate.minusMonths(0);
-        localDate = localDate.minusYears(2018);
-        System.out.println("localDate -> " + localDate);
-        System.out.println(" ");
-
-        LocalDate localDate1 = LocalDate.now();
-        int yearFromlocalDate1 = localDate1.getYear();
-        int dayFromlocalDate1 = localDate1.getDayOfMonth();
-        int monthFromlocalDate1 = localDate1.getMonthValue();
-        System.out.println("yearFromlocalDate1 - " + yearFromlocalDate1);
-        System.out.println("dayFromlocalDate1 " + dayFromlocalDate1);
-        System.out.println("monthFromlocalDate1 - " + monthFromlocalDate1);
-        System.out.println("localDate1 -> " + localDate1);
-        System.out.println("localDate -> " + localDate);
-
-        System.out.println("@@@ @@@ @@@");
-
-        localDate1 = localDate1.minusYears(localDate.getYear());
-        System.out.println("@@ localDate.getYear() @@ " + localDate.getYear());
-        localDate1 = localDate1.minusMonths(localDate.getMonthValue());
-        System.out.println("@@ localDate.getMonthValue() @@ " + localDate.getMonthValue());
-        localDate1 = localDate1.minusDays(localDate.getDayOfMonth());
-        System.out.println("@@ localDate.getDayOfMonth(localDateNow) @@ " + localDate.getDayOfMonth());
-
-        System.out.println("localDate1 after changes -> " + localDate1);
-
-        System.out.println(" ~~ ~~ ~~ ");
-
-
-
-
-        LocalDate localDateOld = LocalDate.of(2019,6,22);
-        System.out.println("localDateOld -> "  +  localDateOld);
-
-        LocalDate localDateNow = LocalDate.now();
-
-        LocalDate localDateNowCopu = localDateNow;
-
-        System.out.println("localDateNew -> "  +  localDateNow + "\n");
-        int getDatofYear = localDateOld.getDayOfYear();
-        System.out.println(" getDayOfYear " + getDatofYear);
-
-        int dayOld = localDateOld.getDayOfMonth();
-        int monthOld = localDateOld.getMonthValue();
-        int yearOld = localDateOld.getYear();
-
-//        localDateNow = localDateNow.minusDays(dayOld);
-//        localDateNow = localDateNow.minusMonths(monthOld);
-//        localDateNow = localDateNow.minusYears(yearOld);
-
-        localDateNow = localDateNow.minusDays(getDatofYear);
-
-        System.out.println("localDateNow before update -> -> " +localDateNowCopu + " \nlocalDateNow after update -> -> " + localDateNow);
-
-        System.out.println(" ");
-        System.out.println(" >>> ");
-
-        LocalDate localDate10 = LocalDate.now();
-        String stringA = localDate10.toString();
-        LocalDate localDateOld10 = LocalDate.of(2019,6,22);
-        String stringB = localDateOld10.toString();
-
-        String startDate = "2016 01 02";
-        String passedDate = "2016 02 29";
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
-
-        LocalDate date1 = LocalDate.parse(startDate, formatter);
-        LocalDate date2 = LocalDate.parse(passedDate, formatter);
-
-        long elapsedDays = DAYS.between(date1, date2);
-        System.out.println(elapsedDays); // 58 (correct)
-
+    public void addDebtorFromDebtorDetailsToDebtorHistory(){
 
     }
 }
