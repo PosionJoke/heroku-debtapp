@@ -2,6 +2,7 @@ package pl.bykowski.rectangleapp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import pl.bykowski.rectangleapp.Repositories.RepoStruct.DebtorHistory;
 import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.Repositories.RepoStruct.Debtor;
@@ -10,6 +11,7 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import pl.bykowski.rectangleapp.Repositories.RepoStruct.DebtorDetails;
 import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorDetailsRepo;
+import pl.bykowski.rectangleapp.form.DebtorGUIForm;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,25 +23,29 @@ import static java.time.temporal.ChronoUnit.DAYS;
 @Controller
 public class DebtorGUIEvents {
 
+    private DebtorGUIForm debtorGUIForm;
+
     private DebtorRepo debtorRepo;
     private DebtorDetailsRepo debtorDetailsRepo;
     private DebtorHistoryRepo debtorHistoryRepo;
 
     @Autowired
-    public DebtorGUIEvents (DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo){
+    public DebtorGUIEvents (DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo, DebtorGUIForm debtorGUIForm){
+        this.debtorGUIForm = debtorGUIForm;
+
         this.debtorDetailsRepo = debtorDetailsRepo;
         this.debtorHistoryRepo = debtorHistoryRepo;
         this.debtorRepo = debtorRepo;
     }
 
     //metoda do przycisku
-    public void addNewDebt(TextField textFieldName, TextField textFieldDebt, TextArea areaInfo, TextField reasonForTheDebt) {
+    public void addNewDebt(String textFieldName, float textFieldDebt, TextArea areaInfo, String reasonForTheDebt) {
         //jezeli wpisany uzytkownik nie istnieje, dodaj go i dopisz mu dług
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
         boolean isNameFree = true;
 
         for(Debtor debtor : debtorList){
-            if(debtor.getName().equalsIgnoreCase(textFieldName.getValue())){
+            if(debtor.getName().equalsIgnoreCase(textFieldName)){
                 isNameFree = false;
             }
         }//end for each
@@ -47,24 +53,24 @@ public class DebtorGUIEvents {
         //dodawanie uzytkownika
         if(isNameFree == true){
             addNewDebtor(textFieldName, textFieldDebt, areaInfo, reasonForTheDebt);
-            areaInfo.setValue(textFieldName.getValue() + " is added! \n Debt value -> " + textFieldDebt.getValue());
+            areaInfo.setValue(textFieldName + " is added! \n Debt value -> " + textFieldDebt);
         }
         //w innym wypadku zaktualizuj jego dług o nową wartość
         else {
             //dodawanie do bazy Debtor
-            for(Debtor debtor : debtorRepo.findByName(textFieldName.getValue())){
-                float newDebt = Integer.parseInt(textFieldDebt.getValue()) + debtor.getTotalDebt();
+            for(Debtor debtor : debtorRepo.findByName(textFieldName)){
+                float newDebt = textFieldDebt + debtor.getTotalDebt();
                 debtor.setTotalDebt(newDebt);
                 debtorRepo.save(debtor);
                 areaInfo.setValue("New debt of " + debtor.getName() + " \nis equals to " + debtor.getTotalDebt());
             }
             //dodawanie do bazy DebtorDetails, skoro jestesmy tutja to znaczy ze dłużnik juz jest w bazie danych, nalezy zaaktualizowac DebtorDetails
             DebtorDetails debtorDetails = new DebtorDetails();
-            debtorDetails.setName(textFieldName.getValue());
-            debtorDetails.setDebt(Integer.parseInt(textFieldDebt.getValue()));
+            debtorDetails.setName(textFieldName);
+            debtorDetails.setDebt(textFieldDebt);
             debtorDetails.setDate(LocalDate.now());
             //debtorDetails.setTotalDebt(debtorDetails.getTotalDebt() + Integer.parseInt(textFieldDebt.getValue()));
-            debtorDetails.setReasonForTheDebt(reasonForTheDebt.getValue());
+            debtorDetails.setReasonForTheDebt(reasonForTheDebt);
 
             debtorDetailsRepo.save(debtorDetails);
             }
@@ -72,13 +78,13 @@ public class DebtorGUIEvents {
 
 
     //metoda do przycisku
-    public void addNewDebtor(TextField textFieldName, TextField textFieldDebt, TextArea areaInfo, TextField reasonForTheDebt) {
+    public void addNewDebtor(String textFieldName, float textFieldDebt, TextArea areaInfo, String reasonForTheDebt) {
 
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
         boolean isNameFree = true;
 
         for(Debtor debtor : debtorList){
-            if(debtor.getName().equalsIgnoreCase(textFieldName.getValue())){
+            if(debtor.getName().equalsIgnoreCase(textFieldName)){
                 isNameFree = false;
             }
         }//end for each
@@ -87,32 +93,32 @@ public class DebtorGUIEvents {
         if(isNameFree == true){
             //nowy dluznik do DebtorRepo
             Debtor debtor = new Debtor();
-            debtor.setName(textFieldName.getValue());
-            debtor.setTotalDebt((Integer.parseInt(textFieldDebt.getValue()) + debtor.getTotalDebt()));
+            debtor.setName(textFieldName);
+            debtor.setTotalDebt((textFieldDebt + debtor.getTotalDebt()));
             debtor.setDate(LocalDate.now());
 
             //nowy dluznik do DebtorDetailsRepo
             DebtorDetails debtorDetails = new DebtorDetails();
-            debtorDetails.setName(textFieldName.getValue());
+            debtorDetails.setName(textFieldName);
             //debtorDetails.setTotalDebt((Integer.parseInt(textFieldDebt.getValue()) + debtorDetails.getTotalDebt()));
             debtorDetails.setDate(LocalDate.now());
-            debtorDetails.setDebt((Integer.parseInt(textFieldDebt.getValue())));
-            debtorDetails.setReasonForTheDebt(reasonForTheDebt.getValue());
+            debtorDetails.setDebt((textFieldDebt));
+            debtorDetails.setReasonForTheDebt(reasonForTheDebt);
 
             debtorDetailsRepo.save(debtorDetails);
             debtorRepo.save(debtor);
 
-            areaInfo.setValue(textFieldName.getValue() + " is Added! :)");
+            areaInfo.setValue(textFieldName + " is Added! :)");
         }else areaInfo.setValue("This Debtor arledy exist! :(");
     }
 
     //metoda do przycisku
-    public void showInfo(TextField textFieldName, TextArea areaInfo) {
+    public void showInfo(String textFieldName, TextArea areaInfo) {
         //TODO: 07.06.19 Nalezy zmienic konkatenacje stringa, chyba to byl string buffor, teraz tworzymy nowy obiekt na kazda iteracje co jest nieefektywne
         String dataAndDebt = "================" + "\n" +
                              "   Debt list"     + "\n" +
                              "================";
-        for(DebtorDetails debtorDetails : debtorDetailsRepo.findByName(textFieldName.getValue())){
+        for(DebtorDetails debtorDetails : debtorDetailsRepo.findByName(textFieldName)){
             dataAndDebt += "\n" +
                     " ID of Debt ---->  " + debtorDetails.getId() + "\n" +
                     " Date ---> " + debtorDetails.getDate() + "\n" +
@@ -121,15 +127,15 @@ public class DebtorGUIEvents {
                     "\n-----------------------------";
         }
         // TODO: 07.06.19 UWAGA zmien nazwe metody getDebtDate ^, jest ona pare linijek wyzej
-        areaInfo.setValue("Name ---> " + debtorRepo.findByName(textFieldName.getValue()).get(0).getName() + "\n" +
-                          "Total debt ---> " + debtorRepo.findByName(textFieldName.getValue()).get(0).getTotalDebt() + "\n" +
+        areaInfo.setValue("Name ---> " + debtorRepo.findByName(textFieldName).get(0).getName() + "\n" +
+                          "Total debt ---> " + debtorRepo.findByName(textFieldName).get(0).getTotalDebt() + "\n" +
                 dataAndDebt);
     }
 
     //metoda do przycisku
-    public void updateDebtByNewDebt(TextField textFieldName, TextField textFieldUpdate, TextField textFieldDebt) {
-        for(DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldUpdate.getValue()))){
-            Float newDebt = debtorDetails.getDebt() + Float.parseFloat(textFieldDebt.getValue());
+    public void updateDebtByNewDebt(String textFieldName, Long textFieldUpdate, float textFieldDebt) {
+        for(DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(textFieldName, textFieldUpdate)){
+            Float newDebt = debtorDetails.getDebt() + textFieldDebt;
             debtorDetails.setDebt(newDebt);
             if(newDebt <= 0){
                 deleteDebtByID(textFieldName, textFieldUpdate);
@@ -139,9 +145,18 @@ public class DebtorGUIEvents {
         }
     }
 
-    //metoda do przycisku
-    public void deleteDebtByID(TextField textFieldName, TextField textFieldIdDebt) {
-        DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldIdDebt.getValue())).get(0);
+    @Transactional
+    public void deleteDebtByID(String textFieldName, Long textFieldIdDebt) {
+
+
+        addDebtorFromDebtorDetailsToDebtorHistory(textFieldName, textFieldIdDebt);
+
+        debtorDetailsRepo.delete(debtorDetailsRepo.findByNameAndId(textFieldName, textFieldIdDebt).get(0));
+    }
+
+
+    public void addDebtorFromDebtorDetailsToDebtorHistory(String textFieldName, Long textFieldIdDebt){
+        DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(textFieldName, textFieldIdDebt).get(0);
 
         DebtorHistory debtorHistoryNew = new DebtorHistory();
         debtorHistoryNew.setDebt(debtorDetailsCopy.getDebt());
@@ -153,10 +168,5 @@ public class DebtorGUIEvents {
         debtorHistoryNew.setTimeOfDebt(daysBetween);
 
         debtorHistoryRepo.save(debtorHistoryNew);
-        debtorDetailsRepo.delete(debtorDetailsRepo.findByNameAndId(textFieldName.getValue(), Long.parseLong(textFieldIdDebt.getValue())).get(0));
-    }
-
-    public void addDebtorFromDebtorDetailsToDebtorHistory(){
-
     }
 }

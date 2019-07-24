@@ -11,6 +11,8 @@ import pl.bykowski.rectangleapp.DebtorGUIEvents;
 import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorRepo;
 import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorDetailsRepo;
+import pl.bykowski.rectangleapp.domian.DebtorGUIConverter;
+import pl.bykowski.rectangleapp.form.DebtorGUIForm;
 
 //aby korzystac z bibliotegi Vaadin nalezy dodac adnotacje @Route
 @Route
@@ -21,6 +23,8 @@ public class DebtorGUI extends VerticalLayout {
     private DebtorDetailsRepo debtorDetailsRepo;
     private DebtorHistoryRepo debtorHistoryRepo;
 
+    private DebtorGUIConverter debtorGUIConverter;
+    private DebtorGUIForm debtorGUIForm;
     private DebtorGUIEvents debtorGUIEvents;
 
     //definiowanie pol jakie maja byc w GUI
@@ -39,13 +43,15 @@ public class DebtorGUI extends VerticalLayout {
 
     @Autowired
     //inicjalizacja REPO jak i wszystkich innych pol
-    public DebtorGUI (DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo, DebtorGUIEvents debtorGUIEvents){
+    public DebtorGUI(DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo, DebtorGUIEvents debtorGUIEvents, DebtorGUIConverter debtorGUIConverter, DebtorGUIForm debtorGUIForm){
 
         this.debtorRepo = debtorRepo;
         this.debtorDetailsRepo = debtorDetailsRepo;
         this.debtorHistoryRepo = debtorHistoryRepo;
 
         this.debtorGUIEvents = debtorGUIEvents;
+        this.debtorGUIForm = debtorGUIForm;
+        this.debtorGUIConverter = debtorGUIConverter;
 
         this.textFieldName = new TextField("Type Name: ");
         this.textFieldDebt = new TextField("Type Debt: ");
@@ -60,23 +66,28 @@ public class DebtorGUI extends VerticalLayout {
 
         this.areaInfo = new TextArea("Info");
 
+        debtorGUIForm.setTextFieldName(debtorGUIConverter.convertTextFileToString(textFieldName));
+        debtorGUIForm.setTextFieldDebt(debtorGUIConverter.convertTextFieldToFloat(textFieldDebt));
+        debtorGUIForm.setTextFieldIdDebt(debtorGUIConverter.convertTextFIeldToLong(textFieldIdDebt));
+        debtorGUIForm.setTextFieldReasonForTheDebt(debtorGUIConverter.convertTextFileToString(textFieldReasonForTheDebt));
+
         //dodawanie eventu do przycisku
         buttonInfo.addClickListener(buttonClickEvent -> {
-            debtorGUIEvents.showInfo(textFieldName, areaInfo);
+            debtorGUIEvents.showInfo(debtorGUIForm.getTextFieldName(), areaInfo);
         });
         buttonAddDebtor.addClickListener(buttonClickEvent -> {
-            debtorGUIEvents.addNewDebtor(textFieldName, textFieldDebt, areaInfo, textFieldReasonForTheDebt);
+            debtorGUIEvents.addNewDebtor(debtorGUIForm.getTextFieldName(), debtorGUIForm.getTextFieldDebt(), areaInfo, debtorGUIForm.getTextFieldReasonForTheDebt());
         });
         buttonAddDebt.addClickListener(buttonClickEvent -> {
-            debtorGUIEvents.addNewDebt(textFieldName, textFieldDebt, areaInfo, textFieldReasonForTheDebt);
+            debtorGUIEvents.addNewDebt(debtorGUIForm.getTextFieldName(), debtorGUIForm.getTextFieldDebt(), areaInfo, debtorGUIForm.getTextFieldReasonForTheDebt());
         });
         buttonUpdate.addClickListener(buttonClickEvent -> {
-           debtorGUIEvents.updateDebtByNewDebt(textFieldName, textFieldIdDebt, textFieldDebt);
-           debtorGUIEvents.showInfo(textFieldName, areaInfo);
+           debtorGUIEvents.updateDebtByNewDebt(debtorGUIForm.getTextFieldName(), debtorGUIForm.getTextFieldIdDebt(), debtorGUIForm.getTextFieldDebt());
+           debtorGUIEvents.showInfo(debtorGUIForm.getTextFieldName(), areaInfo);
         });
         buttonDeleteDebt.addClickListener(buttonClickEvent -> {
-            debtorGUIEvents.deleteDebtByID(textFieldName, textFieldIdDebt);
-            debtorGUIEvents.showInfo(textFieldName, areaInfo);
+            debtorGUIEvents.deleteDebtByID(debtorGUIForm.getTextFieldName(), debtorGUIForm.getTextFieldIdDebt());
+            debtorGUIEvents.showInfo(debtorGUIForm.getTextFieldName(), areaInfo);
         });
 
         add(textFieldName);
