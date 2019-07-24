@@ -35,7 +35,6 @@ public class DebtorService {
         this.debtorRepo = debtorRepo;
     }
 
-    //metoda do przycisku
     public void addNewDebt(String textFieldName, float textFieldDebt, TextArea areaInfo, String reasonForTheDebt) {
         //jezeli wpisany uzytkownik nie istnieje, dodaj go i dopisz mu dług
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
@@ -45,7 +44,7 @@ public class DebtorService {
             if (debtor.getName().equalsIgnoreCase(textFieldName)) {
                 isNameFree = false;
             }
-        }//end for each
+        }
 
         //dodawanie uzytkownika
         if (isNameFree == true) {
@@ -73,8 +72,6 @@ public class DebtorService {
         }
     }
 
-
-    //metoda do przycisku
     public void addNewDebtor(String textFieldName, float textFieldDebt, TextArea areaInfo, String reasonForTheDebt) {
 
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
@@ -84,7 +81,7 @@ public class DebtorService {
             if (debtor.getName().equalsIgnoreCase(textFieldName)) {
                 isNameFree = false;
             }
-        }//end for each
+        }
 
         //jezeli imie nie jest uzywane, dodajemy nowego dluznika
         if (isNameFree == true) {
@@ -109,7 +106,6 @@ public class DebtorService {
         } else areaInfo.setValue("This Debtor arledy exist! :(");
     }
 
-    //metoda do przycisku
     public void showInfo(String textFieldName, TextArea areaInfo) {
         //TODO: 07.06.19 Nalezy zmienic konkatenacje stringa, chyba to byl string buffor, teraz tworzymy nowy obiekt na kazda iteracje co jest nieefektywne
         String dataAndDebt = "================" + "\n" +
@@ -129,7 +125,6 @@ public class DebtorService {
                 dataAndDebt);
     }
 
-    //metoda do przycisku
     public void updateDebtByNewDebt(String textFieldName, Long textFieldUpdate, float textFieldDebt) {
         for (DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(textFieldName, textFieldUpdate)) {
             Float newDebt = debtorDetails.getDebt() + textFieldDebt;
