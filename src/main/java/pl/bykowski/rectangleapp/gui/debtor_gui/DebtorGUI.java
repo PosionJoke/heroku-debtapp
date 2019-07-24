@@ -7,7 +7,7 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.bykowski.rectangleapp.DebtorGUIEvents;
+import pl.bykowski.rectangleapp.DebtorService;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
@@ -25,7 +25,7 @@ public class DebtorGUI extends VerticalLayout {
 
     private DebtorGUIConverter debtorGUIConverter;
     private DebtorGUIForm debtorGUIForm;
-    private DebtorGUIEvents debtorGUIEvents;
+    private DebtorService debtorGUIEvents;
 
     //definiowanie pol jakie maja byc w GUI
     private TextField textFieldName;
@@ -43,7 +43,7 @@ public class DebtorGUI extends VerticalLayout {
 
     @Autowired
     //inicjalizacja REPO jak i wszystkich innych pol
-    public DebtorGUI(DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo, DebtorGUIEvents debtorGUIEvents, DebtorGUIConverter debtorGUIConverter, DebtorGUIForm debtorGUIForm){
+    public DebtorGUI(DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo, DebtorService debtorGUIEvents, DebtorGUIConverter debtorGUIConverter, DebtorGUIForm debtorGUIForm){
 
         this.debtorRepo = debtorRepo;
         this.debtorDetailsRepo = debtorDetailsRepo;

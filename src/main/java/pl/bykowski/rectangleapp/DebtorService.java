@@ -18,7 +18,7 @@ import java.util.List;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 @Controller
-public class DebtorGUIEvents {
+public class DebtorService {
 
     private DebtorGUIForm debtorGUIForm;
 
@@ -27,7 +27,7 @@ public class DebtorGUIEvents {
     private DebtorHistoryRepo debtorHistoryRepo;
 
     @Autowired
-    public DebtorGUIEvents (DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo, DebtorGUIForm debtorGUIForm){
+    public DebtorService(DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo, DebtorGUIForm debtorGUIForm) {
         this.debtorGUIForm = debtorGUIForm;
 
         this.debtorDetailsRepo = debtorDetailsRepo;
@@ -41,21 +41,21 @@ public class DebtorGUIEvents {
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
         boolean isNameFree = true;
 
-        for(Debtor debtor : debtorList){
-            if(debtor.getName().equalsIgnoreCase(textFieldName)){
+        for (Debtor debtor : debtorList) {
+            if (debtor.getName().equalsIgnoreCase(textFieldName)) {
                 isNameFree = false;
             }
         }//end for each
 
         //dodawanie uzytkownika
-        if(isNameFree == true){
+        if (isNameFree == true) {
             addNewDebtor(textFieldName, textFieldDebt, areaInfo, reasonForTheDebt);
             areaInfo.setValue(textFieldName + " is added! \n Debt value -> " + textFieldDebt);
         }
         //w innym wypadku zaktualizuj jego dług o nową wartość
         else {
             //dodawanie do bazy Debtor
-            for(Debtor debtor : debtorRepo.findByName(textFieldName)){
+            for (Debtor debtor : debtorRepo.findByName(textFieldName)) {
                 float newDebt = textFieldDebt + debtor.getTotalDebt();
                 debtor.setTotalDebt(newDebt);
                 debtorRepo.save(debtor);
@@ -70,8 +70,8 @@ public class DebtorGUIEvents {
             debtorDetails.setReasonForTheDebt(reasonForTheDebt);
 
             debtorDetailsRepo.save(debtorDetails);
-            }
         }
+    }
 
 
     //metoda do przycisku
@@ -80,14 +80,14 @@ public class DebtorGUIEvents {
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
         boolean isNameFree = true;
 
-        for(Debtor debtor : debtorList){
-            if(debtor.getName().equalsIgnoreCase(textFieldName)){
+        for (Debtor debtor : debtorList) {
+            if (debtor.getName().equalsIgnoreCase(textFieldName)) {
                 isNameFree = false;
             }
         }//end for each
 
         //jezeli imie nie jest uzywane, dodajemy nowego dluznika
-        if(isNameFree == true){
+        if (isNameFree == true) {
             //nowy dluznik do DebtorRepo
             Debtor debtor = new Debtor();
             debtor.setName(textFieldName);
@@ -106,16 +106,16 @@ public class DebtorGUIEvents {
             debtorRepo.save(debtor);
 
             areaInfo.setValue(textFieldName + " is Added! :)");
-        }else areaInfo.setValue("This Debtor arledy exist! :(");
+        } else areaInfo.setValue("This Debtor arledy exist! :(");
     }
 
     //metoda do przycisku
     public void showInfo(String textFieldName, TextArea areaInfo) {
         //TODO: 07.06.19 Nalezy zmienic konkatenacje stringa, chyba to byl string buffor, teraz tworzymy nowy obiekt na kazda iteracje co jest nieefektywne
         String dataAndDebt = "================" + "\n" +
-                             "   Debt list"     + "\n" +
-                             "================";
-        for(DebtorDetails debtorDetails : debtorDetailsRepo.findByName(textFieldName)){
+                "   Debt list" + "\n" +
+                "================";
+        for (DebtorDetails debtorDetails : debtorDetailsRepo.findByName(textFieldName)) {
             dataAndDebt += "\n" +
                     " ID of Debt ---->  " + debtorDetails.getId() + "\n" +
                     " Date ---> " + debtorDetails.getDate() + "\n" +
@@ -125,20 +125,19 @@ public class DebtorGUIEvents {
         }
         // TODO: 07.06.19 UWAGA zmien nazwe metody getDebtDate ^, jest ona pare linijek wyzej
         areaInfo.setValue("Name ---> " + debtorRepo.findByName(textFieldName).get(0).getName() + "\n" +
-                          "Total debt ---> " + debtorRepo.findByName(textFieldName).get(0).getTotalDebt() + "\n" +
+                "Total debt ---> " + debtorRepo.findByName(textFieldName).get(0).getTotalDebt() + "\n" +
                 dataAndDebt);
     }
 
     //metoda do przycisku
     public void updateDebtByNewDebt(String textFieldName, Long textFieldUpdate, float textFieldDebt) {
-        for(DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(textFieldName, textFieldUpdate)){
+        for (DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(textFieldName, textFieldUpdate)) {
             Float newDebt = debtorDetails.getDebt() + textFieldDebt;
             debtorDetails.setDebt(newDebt);
-            if(newDebt <= 0){
+            if (newDebt <= 0) {
                 deleteDebtByID(textFieldName, textFieldUpdate);
-            }
-            else
-            debtorDetailsRepo.save(debtorDetails);
+            } else
+                debtorDetailsRepo.save(debtorDetails);
         }
     }
 
@@ -152,7 +151,7 @@ public class DebtorGUIEvents {
     }
 
 
-    public void addDebtorFromDebtorDetailsToDebtorHistory(String textFieldName, Long textFieldIdDebt){
+    public void addDebtorFromDebtorDetailsToDebtorHistory(String textFieldName, Long textFieldIdDebt) {
         DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(textFieldName, textFieldIdDebt).get(0);
 
         DebtorHistory debtorHistoryNew = new DebtorHistory();
