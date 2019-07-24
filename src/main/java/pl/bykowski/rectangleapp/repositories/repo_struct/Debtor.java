@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp.Repositories.RepoStruct;
+package pl.bykowski.rectangleapp.repositories.repo_struct;
 
 import lombok.Data;
 

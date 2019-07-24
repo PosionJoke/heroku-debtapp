@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp.GUI.DebtorGUI;
+package pl.bykowski.rectangleapp.gui.debtor_gui;
 
 
 import com.vaadin.flow.component.button.Button;
@@ -8,9 +8,9 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.bykowski.rectangleapp.DebtorGUIEvents;
-import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorHistoryRepo;
-import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorRepo;
-import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorDetailsRepo;
+import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
+import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
+import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.domian.DebtorGUIConverter;
 import pl.bykowski.rectangleapp.form.DebtorGUIForm;
 

@@ -1,6 +1,4 @@
-package pl.bykowski.rectangleapp.TestThrash;
-
-import pl.bykowski.rectangleapp.TestThrash.Cat;
+package pl.bykowski.rectangleapp.test_thrash;
 
 public class Tiger extends Cat {
 

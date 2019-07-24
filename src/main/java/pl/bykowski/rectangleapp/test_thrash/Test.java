@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp.TestThrash;
+package pl.bykowski.rectangleapp.test_thrash;
 
 public class Test {
 
