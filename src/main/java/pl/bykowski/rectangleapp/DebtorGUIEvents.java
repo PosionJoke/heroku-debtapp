@@ -8,14 +8,11 @@ import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.Repositories.RepoStruct.Debtor;
 import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorRepo;
 import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.component.textfield.TextField;
 import pl.bykowski.rectangleapp.Repositories.RepoStruct.DebtorDetails;
 import pl.bykowski.rectangleapp.Repositories.RepoInterfaces.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.form.DebtorGUIForm;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
