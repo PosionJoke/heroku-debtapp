@@ -84,7 +84,7 @@ public class DebtorService {
         }
 
         //jezeli imie nie jest uzywane, dodajemy nowego dluznika
-        if (isNameFree == true) {
+        if (isNameFree) {
             //nowy dluznik do DebtorRepo
             Debtor debtor = new Debtor();
             debtor.setName(textFieldName);
