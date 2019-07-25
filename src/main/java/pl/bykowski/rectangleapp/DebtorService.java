@@ -1,17 +1,16 @@
 package pl.bykowski.rectangleapp;
 
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.data.binder.Binder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorHistory;
-import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
-import pl.bykowski.rectangleapp.repositories.repo_struct.Debtor;
-import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
-import com.vaadin.flow.component.textfield.TextArea;
-import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorDetails;
-import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.form.DebtorGUIForm;
+import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
+import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
+import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
+import pl.bykowski.rectangleapp.repositories.repo_struct.Debtor;
+import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorDetails;
+import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorHistory;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -35,15 +34,15 @@ public class DebtorService {
         this.debtorRepo = debtorRepo;
     }
 
-    private void setBean(Binder<DebtorGUIForm> bean){
+    private void setBean(Binder<DebtorGUIForm> bean) {
         this.bean = bean;
     }
 
-    private void setDebtorGUIForm(){
+    private void setDebtorGUIForm() {
         this.debtorGUIForm = this.bean.getBean();
     }
 
-    public void setUpController(Binder<DebtorGUIForm> bean){
+    public void setUpController(Binder<DebtorGUIForm> bean) {
         setBean(bean);
         setDebtorGUIForm();
     }
@@ -60,7 +59,7 @@ public class DebtorService {
         }
 
         //dodawanie uzytkownika
-        if (isNameFree == true) {
+        if (isNameFree) {
             addNewDebtor(textFieldName, textFieldDebt, areaInfo, reasonForTheDebt);
             areaInfo.setValue(textFieldName + " is added! \n Debt value -> " + textFieldDebt);
         }
