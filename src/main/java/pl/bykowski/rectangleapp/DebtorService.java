@@ -1,7 +1,6 @@
 package pl.bykowski.rectangleapp;
 
 import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.data.binder.Binder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import pl.bykowski.rectangleapp.form.DebtorGUIForm;
@@ -37,35 +36,35 @@ public class DebtorService {
         this.debtorGUIForm = bean;
     }
 
-    public void addNewDebt(String textFieldName, float textFieldDebt, TextArea areaInfo, String reasonForTheDebt) {
+    public void addNewDebt(String debtorName, float debtValue, TextArea areaInfo, String reasonForTheDebt) {
         //jezeli wpisany uzytkownik nie istnieje, dodaj go i dopisz mu dług
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
         boolean isNameFree = true;
 
         for (Debtor debtor : debtorList) {
-            if (debtor.getName().equalsIgnoreCase(textFieldName)) {
+            if (debtor.getName().equalsIgnoreCase(debtorName)) {
                 isNameFree = false;
             }
         }
 
         //dodawanie uzytkownika
         if (isNameFree) {
-            addNewDebtor(textFieldName, textFieldDebt, areaInfo, reasonForTheDebt);
-            areaInfo.setValue(textFieldName + " is added! \n Debt value -> " + textFieldDebt);
+            addNewDebtor(debtorName, debtValue, areaInfo, reasonForTheDebt);
+            areaInfo.setValue(debtorName + " is added! \n Debt value -> " + debtValue);
         }
         //w innym wypadku zaktualizuj jego dług o nową wartość
         else {
             //dodawanie do bazy Debtor
-            for (Debtor debtor : debtorRepo.findByName(textFieldName)) {
-                float newDebt = textFieldDebt + debtor.getTotalDebt();
+            for (Debtor debtor : debtorRepo.findByName(debtorName)) {
+                float newDebt = debtValue + debtor.getTotalDebt();
                 debtor.setTotalDebt(newDebt);
                 debtorRepo.save(debtor);
                 areaInfo.setValue("New debt of " + debtor.getName() + " \nis equals to " + debtor.getTotalDebt());
             }
             //dodawanie do bazy DebtorDetails, skoro jestesmy tutja to znaczy ze dłużnik juz jest w bazie danych, nalezy zaaktualizowac DebtorDetails
             DebtorDetails debtorDetails = new DebtorDetails();
-            debtorDetails.setName(textFieldName);
-            debtorDetails.setDebt(textFieldDebt);
+            debtorDetails.setName(debtorName);
+            debtorDetails.setDebt(debtValue);
             debtorDetails.setDate(LocalDate.now());
             //debtorDetails.setTotalDebt(debtorDetails.getTotalDebt() + Integer.parseInt(textFieldDebt.getValue()));
             debtorDetails.setReasonForTheDebt(reasonForTheDebt);
@@ -74,13 +73,13 @@ public class DebtorService {
         }
     }
 
-    public void addNewDebtor(String textFieldName, float textFieldDebt, TextArea areaInfo, String reasonForTheDebt) {
+    public void addNewDebtor(String debtorName, float debtValue, TextArea areaInfo, String reasonForTheDebt) {
 
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
         boolean isNameFree = true;
 
         for (Debtor debtor : debtorList) {
-            if (debtor.getName().equalsIgnoreCase(textFieldName)) {
+            if (debtor.getName().equalsIgnoreCase(debtorName)) {
                 isNameFree = false;
             }
         }
@@ -89,26 +88,26 @@ public class DebtorService {
         if (isNameFree) {
             //nowy dluznik do DebtorRepo
             Debtor debtor = new Debtor();
-            debtor.setName(textFieldName);
-            debtor.setTotalDebt((textFieldDebt + debtor.getTotalDebt()));
+            debtor.setName(debtorName);
+            debtor.setTotalDebt((debtValue + debtor.getTotalDebt()));
             debtor.setDate(LocalDate.now());
 
             //nowy dluznik do DebtorDetailsRepo
             DebtorDetails debtorDetails = new DebtorDetails();
-            debtorDetails.setName(textFieldName);
+            debtorDetails.setName(debtorName);
             //debtorDetails.setTotalDebt((Integer.parseInt(textFieldDebt.getValue()) + debtorDetails.getTotalDebt()));
             debtorDetails.setDate(LocalDate.now());
-            debtorDetails.setDebt((textFieldDebt));
+            debtorDetails.setDebt((debtValue));
             debtorDetails.setReasonForTheDebt(reasonForTheDebt);
 
             debtorDetailsRepo.save(debtorDetails);
             debtorRepo.save(debtor);
 
-            areaInfo.setValue(textFieldName + " is Added! :)");
+            areaInfo.setValue(debtorName + " is Added! :)");
         } else areaInfo.setValue("This Debtor arledy exist! :(");
     }
 
-    public void showInfo(String textFieldName, TextArea areaInfo) {
+    public void showInfo(String debtorName, TextArea areaInfo) {
 
         //TODO: 07.06.19 Nalezy zmienic konkatenacje stringa, chyba to byl string buffor, teraz tworzymy nowy obiekt na kazda iteracje co jest nieefektywne
         String dataAndDebt = "================" + "\n" +
@@ -128,29 +127,29 @@ public class DebtorService {
                 dataAndDebt);
     }
 
-    public void updateDebtByNewDebt(String textFieldName, Long textFieldUpdate, float textFieldDebt) {
-        for (DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(textFieldName, textFieldUpdate)) {
-            Float newDebt = debtorDetails.getDebt() + textFieldDebt;
+    public void updateDebtByNewDebt(String debtorName, Long debtID, float debtValue) {
+        for (DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(debtorName, debtID)) {
+            Float newDebt = debtorDetails.getDebt() + debtValue;
             debtorDetails.setDebt(newDebt);
             if (newDebt <= 0) {
-                deleteDebtByID(textFieldName, textFieldUpdate);
+                deleteDebtByID(debtorName, debtID);
             } else
                 debtorDetailsRepo.save(debtorDetails);
         }
     }
 
     @Transactional
-    public void deleteDebtByID(String textFieldName, Long textFieldIdDebt) {
+    public void deleteDebtByID(String debtorName, Long debtorID) {
 
 
-        addDebtorFromDebtorDetailsToDebtorHistory(textFieldName, textFieldIdDebt);
+        addDebtorFromDebtorDetailsToDebtorHistory(debtorName, debtorID);
 
-        debtorDetailsRepo.delete(debtorDetailsRepo.findByNameAndId(textFieldName, textFieldIdDebt).get(0));
+        debtorDetailsRepo.delete(debtorDetailsRepo.findByNameAndId(debtorName, debtorID).get(0));
     }
 
 
-    public void addDebtorFromDebtorDetailsToDebtorHistory(String textFieldName, Long textFieldIdDebt) {
-        DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(textFieldName, textFieldIdDebt).get(0);
+    public void addDebtorFromDebtorDetailsToDebtorHistory(String debtorName, Long debtorID) {
+        DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(debtorName, debtorID).get(0);
 
         DebtorHistory debtorHistoryNew = new DebtorHistory();
         debtorHistoryNew.setDebt(debtorDetailsCopy.getDebt());
