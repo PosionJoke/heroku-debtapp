@@ -81,7 +81,7 @@ public class DebtorGUI extends VerticalLayout {
         debtorGUIFormBinder.setBean(new DebtorGUIForm());
 
 
-        debtorGUIEvents.setUpController(debtorGUIFormBinder);
+        debtorGUIEvents.setDebtorGUIForm(debtorGUIFormBinder.getBean());
 
         //dodawanie eventu do przycisku
         buttonInfo.addClickListener(buttonClickEvent -> {

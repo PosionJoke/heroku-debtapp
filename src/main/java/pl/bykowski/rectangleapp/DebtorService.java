@@ -20,13 +20,12 @@ import static java.time.temporal.ChronoUnit.DAYS;
 @Controller
 public class DebtorService {
 
-    private Binder<DebtorGUIForm> bean;
+    //    private Binder<DebtorGUIForm> bean;
     private DebtorGUIForm debtorGUIForm;
 
     private DebtorRepo debtorRepo;
     private DebtorDetailsRepo debtorDetailsRepo;
     private DebtorHistoryRepo debtorHistoryRepo;
-
 
     public DebtorService(DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo) {
         this.debtorDetailsRepo = debtorDetailsRepo;
@@ -34,17 +33,8 @@ public class DebtorService {
         this.debtorRepo = debtorRepo;
     }
 
-    private void setBean(Binder<DebtorGUIForm> bean) {
-        this.bean = bean;
-    }
-
-    private void setDebtorGUIForm() {
-        this.debtorGUIForm = this.bean.getBean();
-    }
-
-    public void setUpController(Binder<DebtorGUIForm> bean) {
-        setBean(bean);
-        setDebtorGUIForm();
+    public void setDebtorGUIForm(DebtorGUIForm bean) {
+        this.debtorGUIForm = bean;
     }
 
     public void addNewDebt(String textFieldName, float textFieldDebt, TextArea areaInfo, String reasonForTheDebt) {
