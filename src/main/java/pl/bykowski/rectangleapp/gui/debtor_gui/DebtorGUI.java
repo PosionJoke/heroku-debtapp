@@ -5,6 +5,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.bykowski.rectangleapp.DebtorService;
@@ -41,6 +42,8 @@ public class DebtorGUI extends VerticalLayout {
 
     private TextArea areaInfo;
 
+    private Binder<DebtorGUIForm> debtorGUIFormBinder;
+
     @Autowired
     //inicjalizacja REPO jak i wszystkich innych pol
     public DebtorGUI(DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo, DebtorService debtorGUIEvents, DebtorGUIConverter debtorGUIConverter, DebtorGUIForm debtorGUIForm){
@@ -66,14 +69,24 @@ public class DebtorGUI extends VerticalLayout {
 
         this.areaInfo = new TextArea("Info");
 
-        debtorGUIForm.setTextFieldName(debtorGUIConverter.convertTextFileToString(textFieldName));
+
+//        debtorGUIForm.setTextFieldName(debtorGUIConverter.convertTextFileToString(textFieldName));
         debtorGUIForm.setTextFieldDebt(debtorGUIConverter.convertTextFieldToFloat(textFieldDebt));
         debtorGUIForm.setTextFieldIdDebt(debtorGUIConverter.convertTextFIeldToLong(textFieldIdDebt));
-        debtorGUIForm.setTextFieldReasonForTheDebt(debtorGUIConverter.convertTextFileToString(textFieldReasonForTheDebt));
+//        debtorGUIForm.setTextFieldReasonForTheDebt(debtorGUIConverter.convertTextFileToString(textFieldReasonForTheDebt));
+
+        debtorGUIFormBinder = new Binder<>();
+        debtorGUIFormBinder.forField(textFieldName).bind(DebtorGUIForm::getTextFieldName, DebtorGUIForm::setTextFieldName);
+        debtorGUIFormBinder.forField(textFieldReasonForTheDebt).bind(DebtorGUIForm::getTextFieldReasonForTheDebt, DebtorGUIForm::setTextFieldReasonForTheDebt);
+        debtorGUIFormBinder.setBean(new DebtorGUIForm());
+
+
+        debtorGUIEvents.setUpController(debtorGUIFormBinder);
 
         //dodawanie eventu do przycisku
         buttonInfo.addClickListener(buttonClickEvent -> {
             debtorGUIEvents.showInfo(debtorGUIForm.getTextFieldName(), areaInfo);
+//            testMethodUsingBindValues();
         });
         buttonAddDebtor.addClickListener(buttonClickEvent -> {
             debtorGUIEvents.addNewDebtor(debtorGUIForm.getTextFieldName(), debtorGUIForm.getTextFieldDebt(), areaInfo, debtorGUIForm.getTextFieldReasonForTheDebt());
@@ -102,5 +115,11 @@ public class DebtorGUI extends VerticalLayout {
         add(buttonDeleteDebt);
 
         add(areaInfo);
+    }
+
+    private void testMethodUsingBindValues(){
+        DebtorGUIForm bean = debtorGUIFormBinder.getBean();
+        areaInfo.setValue(bean.getTextFieldName());
+//        return bean.getTextFieldName();
     }
 }

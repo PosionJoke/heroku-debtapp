@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp;
 
+import com.vaadin.flow.data.binder.Binder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,19 +21,31 @@ import static java.time.temporal.ChronoUnit.DAYS;
 @Controller
 public class DebtorService {
 
+    private Binder<DebtorGUIForm> bean;
     private DebtorGUIForm debtorGUIForm;
 
     private DebtorRepo debtorRepo;
     private DebtorDetailsRepo debtorDetailsRepo;
     private DebtorHistoryRepo debtorHistoryRepo;
 
-    @Autowired
-    public DebtorService(DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo, DebtorGUIForm debtorGUIForm) {
-        this.debtorGUIForm = debtorGUIForm;
 
+    public DebtorService(DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo) {
         this.debtorDetailsRepo = debtorDetailsRepo;
         this.debtorHistoryRepo = debtorHistoryRepo;
         this.debtorRepo = debtorRepo;
+    }
+
+    private void setBean(Binder<DebtorGUIForm> bean){
+        this.bean = bean;
+    }
+
+    private void setDebtorGUIForm(){
+        this.debtorGUIForm = this.bean.getBean();
+    }
+
+    public void setUpController(Binder<DebtorGUIForm> bean){
+        setBean(bean);
+        setDebtorGUIForm();
     }
 
     public void addNewDebt(String textFieldName, float textFieldDebt, TextArea areaInfo, String reasonForTheDebt) {
@@ -107,11 +120,12 @@ public class DebtorService {
     }
 
     public void showInfo(String textFieldName, TextArea areaInfo) {
+
         //TODO: 07.06.19 Nalezy zmienic konkatenacje stringa, chyba to byl string buffor, teraz tworzymy nowy obiekt na kazda iteracje co jest nieefektywne
         String dataAndDebt = "================" + "\n" +
                 "   Debt list" + "\n" +
                 "================";
-        for (DebtorDetails debtorDetails : debtorDetailsRepo.findByName(textFieldName)) {
+        for (DebtorDetails debtorDetails : debtorDetailsRepo.findByName(debtorGUIForm.getTextFieldName())) {
             dataAndDebt += "\n" +
                     " ID of Debt ---->  " + debtorDetails.getId() + "\n" +
                     " Date ---> " + debtorDetails.getDate() + "\n" +
@@ -120,8 +134,8 @@ public class DebtorService {
                     "\n-----------------------------";
         }
         // TODO: 07.06.19 UWAGA zmien nazwe metody getDebtDate ^, jest ona pare linijek wyzej
-        areaInfo.setValue("Name ---> " + debtorRepo.findByName(textFieldName).get(0).getName() + "\n" +
-                "Total debt ---> " + debtorRepo.findByName(textFieldName).get(0).getTotalDebt() + "\n" +
+        areaInfo.setValue("Name ---> " + debtorRepo.findByName(debtorGUIForm.getTextFieldName()).get(0).getName() + "\n" +
+                "Total debt ---> " + debtorRepo.findByName(debtorGUIForm.getTextFieldName()).get(0).getTotalDebt() + "\n" +
                 dataAndDebt);
     }
 
