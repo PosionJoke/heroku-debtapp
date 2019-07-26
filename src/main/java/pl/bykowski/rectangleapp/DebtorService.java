@@ -30,15 +30,13 @@ public class DebtorService {
 
     public boolean isThisNameFree(String debtorName) {
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
-        boolean isNameFree = true;
 
         for (Debtor debtor : debtorList) {
             if (debtor.getName().equalsIgnoreCase(debtorName)) {
-                isNameFree = false;
-                return isNameFree;
+                return false;
             }
         }
-        return isNameFree;
+        return true;
     }
 
     public String addNewDebt(String debtorName, float debtValue, String reasonForTheDebt) {
@@ -118,7 +116,6 @@ public class DebtorService {
     @Transactional
     public void updateDebtByNewDebt(String debtorName, Long debtID, float debtValue) {
         for (DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(debtorName, debtID)) {
-//            Float newDebt = debtorDetails.getDebt() + debtValue;
             float newDebt = debtorDetails.getDebt() + debtValue;
             debtorDetails.setDebt(newDebt);
             if (newDebt <= 0) {
