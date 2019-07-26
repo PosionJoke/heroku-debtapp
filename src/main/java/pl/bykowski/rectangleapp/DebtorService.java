@@ -28,26 +28,29 @@ public class DebtorService {
     }
 
 
-    public String addNewDebt(String debtorName, float debtValue, String reasonForTheDebt) {
-        //If we don't have any debts with this name, make him with new debt
+    public boolean isThisNameFree(String debtorName) {
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
         boolean isNameFree = true;
-        String areaInfoValue = "";
 
         for (Debtor debtor : debtorList) {
             if (debtor.getName().equalsIgnoreCase(debtorName)) {
                 isNameFree = false;
+                return isNameFree;
             }
         }
+        return isNameFree;
+    }
 
-        //dodawanie uzytkownika
-        if (isNameFree) {
+    public String addNewDebt(String debtorName, float debtValue, String reasonForTheDebt) {
+        String areaInfoValue = "";
+        //If we don't have any debts with this name, make him with new debt
+        if (isThisNameFree(debtorName)) {
             addNewDebtor(debtorName, debtValue, reasonForTheDebt);
             areaInfoValue = (debtorName + " is added! \n Debt value -> " + debtValue);
         }
         //otherwise add to him extra debt
         else {
-            //add new Debotr
+            //add new Debtor
             for (Debtor debtor : debtorRepo.findByName(debtorName)) {
                 float newDebt = debtValue + debtor.getTotalDebt();
                 debtor.setTotalDebt(newDebt);
@@ -67,19 +70,10 @@ public class DebtorService {
     }
 
     public String addNewDebtor(String debtorName, float debtValue, String reasonForTheDebt) {
-
-        List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
-        boolean isNameFree = true;
         String areaInfoValue = "";
 
-        for (Debtor debtor : debtorList) {
-            if (debtor.getName().equalsIgnoreCase(debtorName)) {
-                isNameFree = false;
-            }
-        }
-
-        //If the name isnt use, add new debtor
-        if (isNameFree) {
+        //If the name isn't use, add new debtor
+        if (isThisNameFree(debtorName)) {
             //nowy dluznik do DebtorRepo
             Debtor debtor = new Debtor();
             debtor.setName(debtorName);
@@ -105,7 +99,6 @@ public class DebtorService {
 
         String areaInfoValue = "";
 
-        //TODO: 07.06.19 Nalezy zmienic konkatenacje stringa, chyba to byl string buffor, teraz tworzymy nowy obiekt na kazda iteracje co jest nieefektywne
         String dataAndDebt = "================" + "\n" +
                 "   Debt list" + "\n" +
                 "================";
@@ -117,15 +110,16 @@ public class DebtorService {
                     " Reason ---> " + debtorDetails.getReasonForTheDebt() +
                     "\n-----------------------------";
         }
-        // TODO: 07.06.19 UWAGA zmien nazwe metody getDebtDate ^, jest ona pare linijek wyzej
         areaInfoValue = ("Name ---> " + debtorRepo.findByName(debtorName).get(0).getName() + "\n" +
                 "Total debt ---> " + debtorRepo.findByName(debtorName).get(0).getTotalDebt() + "\n" +
                 dataAndDebt);
         return areaInfoValue;
     }
 
+    @Transactional
     public void updateDebtByNewDebt(String debtorName, Long debtID, float debtValue) {
         for (DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(debtorName, debtID)) {
+//            Float newDebt = debtorDetails.getDebt() + debtValue;
             Float newDebt = debtorDetails.getDebt() + debtValue;
             debtorDetails.setDebt(newDebt);
             if (newDebt <= 0) {

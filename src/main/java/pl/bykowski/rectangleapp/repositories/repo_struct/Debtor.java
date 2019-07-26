@@ -17,7 +17,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class
 Debtor {
-    //Annotation @Id makes spring shure that variable is the id of class
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,18 +26,6 @@ Debtor {
     private float totalDebt;
     private LocalDate date;
     private String dateNow;
-
-    //We need to make argument less constructor
-//    public Debtor() {
-//    }
-//
-//    public Debtor(String name, float debt, float totalDebt) {
-//        this.name = name;
-//        this.debt = debt;
-//        this.totalDebt = totalDebt;
-//        this.date = LocalDate.now();
-//        this.dateNow = String.valueOf(this.date);
-//    }
 
     @Override
     public String toString() {

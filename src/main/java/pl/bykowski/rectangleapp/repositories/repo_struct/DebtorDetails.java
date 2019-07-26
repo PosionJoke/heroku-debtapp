@@ -26,15 +26,4 @@ public class DebtorDetails {
     private float totalDebt;
     private LocalDate date;
     private String reasonForTheDebt;
-
-//    //We need to make argument less constructor
-//    public DebtorDetails() {
-//    }
-//
-//    public DebtorDetails(String name, float debt, LocalDate date, String reasonForTheDebt) {
-//        this.name = name;
-//        this.debt = debt;
-//        this.date = date;
-//        this.reasonForTheDebt = reasonForTheDebt;
-//    }
 }

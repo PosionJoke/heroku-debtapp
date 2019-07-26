@@ -27,8 +27,9 @@ public class DebtorGUI extends VerticalLayout {
     private DebtorDetailsRepo debtorDetailsRepo;
     private DebtorHistoryRepo debtorHistoryRepo;
 
-    private Binder<DebtorGUIForm> debtorGUIFormBinder;
     private DebtorService debtorGUIEvents;
+
+    private Binder<DebtorGUIForm> debtorGUIFormBinder;
 
     //define variables which should be in GUI
     private TextField textFieldName;
@@ -106,7 +107,6 @@ public class DebtorGUI extends VerticalLayout {
 
             String info = debtorGUIEvents.showInfo(name);
             areaInfo.setValue(info);
-
         });
 
         add(textFieldName);

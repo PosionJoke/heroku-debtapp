@@ -23,14 +23,4 @@ public class DebtorHistory {
     private float debt;
     private long timeOfDebt;
     private String reasonForTheDebt;
-
-//    public DebtorHistory() {
-//    }
-//
-//    public DebtorHistory(String name, float debt, long timeOfDebt, String reasonForTheDebt) {
-//        this.name = name;
-//        this.debt = debt;
-//        this.timeOfDebt = timeOfDebt;
-//        this.reasonForTheDebt = reasonForTheDebt;
-//    }
 }
