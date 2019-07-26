@@ -1,10 +1,10 @@
 package pl.bykowski.rectangleapp.form;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 @Data
-@Component
+@Service
 public class DebtorGUIForm {
     private String textFieldName;
     private float textFieldDebt;
