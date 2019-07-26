@@ -2,7 +2,10 @@ package pl.bykowski.rectangleapp.repositories.repo_struct;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Data
 @Entity
@@ -17,8 +20,6 @@ public class DebtorHistory {
     private long timeOfDebt;
     private String reasonForTheDebt;
 
-
-    //nalezy zrobic bezargumentowy konstruktor
     public DebtorHistory() {
     }
 

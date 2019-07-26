@@ -29,7 +29,7 @@ public class DebtorService {
 
 
     public String addNewDebt(String debtorName, float debtValue, String reasonForTheDebt) {
-        //jezeli wpisany uzytkownik nie istnieje, dodaj go i dopisz mu dług
+        //If we don't have any debts with this name, make him with new debt
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
         boolean isNameFree = true;
         String areaInfoValue = "";
@@ -45,21 +45,20 @@ public class DebtorService {
             addNewDebtor(debtorName, debtValue, reasonForTheDebt);
             areaInfoValue = (debtorName + " is added! \n Debt value -> " + debtValue);
         }
-        //w innym wypadku zaktualizuj jego dług o nową wartość
+        //otherwise add to him extra debt
         else {
-            //dodawanie do bazy Debtor
+            //add new Debotr
             for (Debtor debtor : debtorRepo.findByName(debtorName)) {
                 float newDebt = debtValue + debtor.getTotalDebt();
                 debtor.setTotalDebt(newDebt);
                 debtorRepo.save(debtor);
                 areaInfoValue = ("New debt of " + debtor.getName() + " \nis equals to " + debtor.getTotalDebt());
             }
-            //dodawanie do bazy DebtorDetails, skoro jestesmy tutja to znaczy ze dłużnik juz jest w bazie danych, nalezy zaaktualizowac DebtorDetails
+            //add a Debtor Details, if we are there its means Debtor Details should be update by new Debtor
             DebtorDetails debtorDetails = new DebtorDetails();
             debtorDetails.setName(debtorName);
             debtorDetails.setDebt(debtValue);
             debtorDetails.setDate(LocalDate.now());
-            //debtorDetails.setTotalDebt(debtorDetails.getTotalDebt() + Integer.parseInt(textFieldDebt.getValue()));
             debtorDetails.setReasonForTheDebt(reasonForTheDebt);
 
             debtorDetailsRepo.save(debtorDetails);
@@ -79,7 +78,7 @@ public class DebtorService {
             }
         }
 
-        //jezeli imie nie jest uzywane, dodajemy nowego dluznika
+        //If the name isnt use, add new debtor
         if (isNameFree) {
             //nowy dluznik do DebtorRepo
             Debtor debtor = new Debtor();
@@ -87,10 +86,8 @@ public class DebtorService {
             debtor.setTotalDebt((debtValue + debtor.getTotalDebt()));
             debtor.setDate(LocalDate.now());
 
-            //nowy dluznik do DebtorDetailsRepo
             DebtorDetails debtorDetails = new DebtorDetails();
             debtorDetails.setName(debtorName);
-            //debtorDetails.setTotalDebt((Integer.parseInt(textFieldDebt.getValue()) + debtorDetails.getTotalDebt()));
             debtorDetails.setDate(LocalDate.now());
             debtorDetails.setDebt((debtValue));
             debtorDetails.setReasonForTheDebt(reasonForTheDebt);

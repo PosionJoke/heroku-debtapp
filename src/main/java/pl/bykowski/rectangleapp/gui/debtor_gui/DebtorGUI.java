@@ -16,7 +16,7 @@ import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
 
-//aby korzystac z biblioteki Vaadin nalezy dodac adnotacje @Route
+//To use vaadin library need use @Route add notation
 @Route
 public class DebtorGUI extends VerticalLayout {
 
@@ -31,7 +31,7 @@ public class DebtorGUI extends VerticalLayout {
     private Binder<DebtorGUIForm> debtorGUIFormBinder;
     private DebtorService debtorGUIEvents;
 
-    //definiowanie pol jakie maja byc w GUI
+    //define variables which should be in GUI
     private TextField textFieldName;
     private TextField textFieldDebt;
     private TextField textFieldReasonForTheDebt;
@@ -47,7 +47,7 @@ public class DebtorGUI extends VerticalLayout {
 
 
     @Autowired
-    //inicjalizacja REPO jak i wszystkich innych pol
+    // initialization whole Repository and all of variables
     public DebtorGUI(DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo, DebtorService debtorGUIEvents, DebtorGUIFloatConverter debtorGUIFloatConverter, DebtorGUILongConverter debtorGUILongConverter) {
 
         this.debtorRepo = debtorRepo;
@@ -55,7 +55,6 @@ public class DebtorGUI extends VerticalLayout {
         this.debtorHistoryRepo = debtorHistoryRepo;
 
         this.debtorGUIEvents = debtorGUIEvents;
-//        this.debtorGUIForm = debtorGUIForm;
         this.debtorGUICFloatonverter = debtorGUIFloatConverter;
         this.debtorGUILongConverter = debtorGUILongConverter;
 
@@ -76,25 +75,17 @@ public class DebtorGUI extends VerticalLayout {
         debtorGUIFormBinder.forField(textFieldName).bind(DebtorGUIForm::getTextFieldName, DebtorGUIForm::setTextFieldName);
         debtorGUIFormBinder.forField(textFieldReasonForTheDebt).bind(DebtorGUIForm::getTextFieldReasonForTheDebt, DebtorGUIForm::setTextFieldReasonForTheDebt);
         debtorGUIFormBinder.forField(textFieldDebt).withConverter(this.debtorGUICFloatonverter).bind(DebtorGUIForm::getTextFieldDebt, DebtorGUIForm::setTextFieldDebt);
-//        debtorGUIFormBinder.forField(textFieldIdDebt).withConverter(this.debtorGUILongConverter).bind(DebtorGUIForm::getTextFieldIdDebt, DebtorGUIForm::setTextFieldIdDebt);
         debtorGUIFormBinder.setBean(new DebtorGUIForm());
 
 
-//        debtorGUIEvents.setDebtorGUIForm(debtorGUIFormBinder.getBean());
-
-        //dodawanie eventu do przycisku
         buttonInfo.addClickListener(buttonClickEvent -> {
             setAreaInfo(areaInfo, debtorGUIEvents.showInfo(debtorGUIFormBinder.getBean().getTextFieldName()));
-//            debtorGUIEvents.showInfo(debtorGUIFormBinder.getBean().getTextFieldName());
-//            testMethodUsingBindValues();
         });
         buttonAddDebtor.addClickListener(buttonClickEvent -> {
             setAreaInfo(areaInfo, debtorGUIEvents.addNewDebtor(debtorGUIFormBinder.getBean().getTextFieldName(), debtorGUIFormBinder.getBean().getTextFieldDebt(), debtorGUIFormBinder.getBean().getTextFieldReasonForTheDebt()));
-//            debtorGUIEvents.addNewDebtor(debtorGUIFormBinder.getBean().getTextFieldName(), debtorGUIFormBinder.getBean().getTextFieldDebt(), debtorGUIFormBinder.getBean().getTextFieldReasonForTheDebt());
         });
         buttonAddDebt.addClickListener(buttonClickEvent -> {
             setAreaInfo(areaInfo, debtorGUIEvents.addNewDebt(debtorGUIFormBinder.getBean().getTextFieldName(), debtorGUIFormBinder.getBean().getTextFieldDebt(), debtorGUIFormBinder.getBean().getTextFieldReasonForTheDebt()));
-//            debtorGUIEvents.addNewDebt(debtorGUIFormBinder.getBean().getTextFieldName(), debtorGUIFormBinder.getBean().getTextFieldDebt(), debtorGUIFormBinder.getBean().getTextFieldReasonForTheDebt());
         });
         buttonUpdate.addClickListener(buttonClickEvent -> {
             debtorGUIEvents.updateDebtByNewDebt(debtorGUIFormBinder.getBean().getTextFieldName(), debtorGUIFormBinder.getBean().getTextFieldIdDebt(), debtorGUIFormBinder.getBean().getTextFieldDebt());

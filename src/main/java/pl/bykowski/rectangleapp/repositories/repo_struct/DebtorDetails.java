@@ -9,12 +9,10 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 
 @Data
-//oznaczamy klase jako element bazy danych
+//Use annotation @Entity to mark that class as database
 @Entity
 public class DebtorDetails {
-    //jezeli to czytasz to chce wiedziec ze ta wiadomosc nic nie znaczy
-    //oznaczamy pole jako ID dla bazy danych
-    //autoincrement id
+    //Annotation @Id makes spring shure that variable is the id of class
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +23,7 @@ public class DebtorDetails {
     private LocalDate date;
     private String reasonForTheDebt;
 
-    //nalezy zrobic bezargumentowy konstruktor
+    //We need to make argument less constructor
     public DebtorDetails() {
     }
 
