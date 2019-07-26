@@ -28,7 +28,7 @@ public class DebtorService {
     }
 
 
-    public boolean isThisNameFree(String debtorName) {
+    private boolean isThisNameFree(String debtorName) {
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
 
         for (Debtor debtor : debtorList) {
@@ -124,7 +124,6 @@ public class DebtorService {
                 debtorDetailsRepo.save(debtorDetails);
         }
     }
-
     @Transactional
     public void deleteDebtByID(String debtorName, Long debtorID) {
 
