@@ -1,6 +1,8 @@
 package pl.bykowski.rectangleapp.repositories.repo_struct;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,8 @@ import java.time.LocalDate;
 @Data
 //Use annotation @Entity to mark that class as database
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class DebtorDetails {
     //Annotation @Id makes spring shure that variable is the id of class
     @Id
@@ -23,14 +27,14 @@ public class DebtorDetails {
     private LocalDate date;
     private String reasonForTheDebt;
 
-    //We need to make argument less constructor
-    public DebtorDetails() {
-    }
-
-    public DebtorDetails(String name, float debt, LocalDate date, String reasonForTheDebt) {
-        this.name = name;
-        this.debt = debt;
-        this.date = date;
-        this.reasonForTheDebt = reasonForTheDebt;
-    }
+//    //We need to make argument less constructor
+//    public DebtorDetails() {
+//    }
+//
+//    public DebtorDetails(String name, float debt, LocalDate date, String reasonForTheDebt) {
+//        this.name = name;
+//        this.debt = debt;
+//        this.date = date;
+//        this.reasonForTheDebt = reasonForTheDebt;
+//    }
 }

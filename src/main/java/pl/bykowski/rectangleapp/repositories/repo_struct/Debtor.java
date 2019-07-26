@@ -1,6 +1,8 @@
 package pl.bykowski.rectangleapp.repositories.repo_struct;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,8 @@ import java.time.LocalDate;
 @Data
 //Use annotation @Entity to mark that class as database
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class
 Debtor {
     //Annotation @Id makes spring shure that variable is the id of class
@@ -25,16 +29,16 @@ Debtor {
     private String dateNow;
 
     //We need to make argument less constructor
-    public Debtor() {
-    }
-
-    public Debtor(String name, float debt, float totalDebt) {
-        this.name = name;
-        this.debt = debt;
-        this.totalDebt = totalDebt;
-        this.date = LocalDate.now();
-        this.dateNow = String.valueOf(this.date);
-    }
+//    public Debtor() {
+//    }
+//
+//    public Debtor(String name, float debt, float totalDebt) {
+//        this.name = name;
+//        this.debt = debt;
+//        this.totalDebt = totalDebt;
+//        this.date = LocalDate.now();
+//        this.dateNow = String.valueOf(this.date);
+//    }
 
     @Override
     public String toString() {
