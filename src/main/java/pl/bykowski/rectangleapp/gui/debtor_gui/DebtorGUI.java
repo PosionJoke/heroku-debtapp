@@ -6,11 +6,11 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.converter.StringToFloatConverter;
+import com.vaadin.flow.data.converter.StringToLongConverter;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.bykowski.rectangleapp.DebtorService;
-import pl.bykowski.rectangleapp.domian.DebtorGUIFloatConverter;
-import pl.bykowski.rectangleapp.domian.DebtorGUILongConverter;
 import pl.bykowski.rectangleapp.form.DebtorGUIForm;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
@@ -20,13 +20,13 @@ import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
 @Route
 public class DebtorGUI extends VerticalLayout {
 
-    //aby dodawac, korzystac z repo nalezy dodac tylko zmienna repo bez jej instancji
+    private static final StringToFloatConverter DEBT_TO_FLOAT_COVERTER = new StringToFloatConverter("Invalid debt format");
+    private static final StringToLongConverter DEBT_TO_LONG_COVERTER = new StringToLongConverter("Invalid debt format");
+
     private DebtorRepo debtorRepo;
     private DebtorDetailsRepo debtorDetailsRepo;
     private DebtorHistoryRepo debtorHistoryRepo;
 
-    private DebtorGUIFloatConverter debtorGUICFloatonverter;
-    private DebtorGUILongConverter debtorGUILongConverter;
     private Binder<DebtorGUIForm> debtorGUIFormBinder;
     private DebtorService debtorGUIEvents;
 
@@ -47,15 +47,13 @@ public class DebtorGUI extends VerticalLayout {
 
     @Autowired
     // initialization whole Repository and all of variables
-    public DebtorGUI(DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo, DebtorService debtorGUIEvents, DebtorGUIFloatConverter debtorGUIFloatConverter, DebtorGUILongConverter debtorGUILongConverter) {
+    public DebtorGUI(DebtorRepo debtorRepo, DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryRepo debtorHistoryRepo, DebtorService debtorGUIEvents) {
 
         this.debtorRepo = debtorRepo;
         this.debtorDetailsRepo = debtorDetailsRepo;
         this.debtorHistoryRepo = debtorHistoryRepo;
 
         this.debtorGUIEvents = debtorGUIEvents;
-        this.debtorGUICFloatonverter = debtorGUIFloatConverter;
-        this.debtorGUILongConverter = debtorGUILongConverter;
 
         this.textFieldName = new TextField("Type Name: ");
         this.textFieldDebt = new TextField("Type Debt: ");
@@ -73,7 +71,8 @@ public class DebtorGUI extends VerticalLayout {
         debtorGUIFormBinder = new Binder<>();
         debtorGUIFormBinder.forField(textFieldName).bind(DebtorGUIForm::getTextFieldName, DebtorGUIForm::setTextFieldName);
         debtorGUIFormBinder.forField(textFieldReasonForTheDebt).bind(DebtorGUIForm::getTextFieldReasonForTheDebt, DebtorGUIForm::setTextFieldReasonForTheDebt);
-        debtorGUIFormBinder.forField(textFieldDebt).withConverter(this.debtorGUICFloatonverter).bind(DebtorGUIForm::getTextFieldDebt, DebtorGUIForm::setTextFieldDebt);
+        debtorGUIFormBinder.forField(textFieldDebt).withConverter(DEBT_TO_FLOAT_COVERTER).bind(DebtorGUIForm::getTextFieldDebt, DebtorGUIForm::setTextFieldDebt);
+        debtorGUIFormBinder.forField(textFieldIdDebt).withConverter(DEBT_TO_LONG_COVERTER).bind(DebtorGUIForm::getTextFieldIdDebt, DebtorGUIForm::setTextFieldIdDebt);
         debtorGUIFormBinder.setBean(new DebtorGUIForm());
 
 
