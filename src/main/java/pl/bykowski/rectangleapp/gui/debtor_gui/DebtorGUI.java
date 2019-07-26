@@ -20,8 +20,8 @@ import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
 @Route
 public class DebtorGUI extends VerticalLayout {
 
-    private static final StringToFloatConverter DEBT_TO_FLOAT_COVERTER = new StringToFloatConverter("Invalid debt format");
-    private static final StringToLongConverter DEBT_TO_LONG_COVERTER = new StringToLongConverter("Invalid debt format");
+    private static final StringToFloatConverter DEBT_TO_FLOAT_CONVERTER = new StringToFloatConverter("Invalid debt format");
+    private static final StringToLongConverter DEBT_TO_LONG_CONVERTER = new StringToLongConverter("Invalid debt format");
 
     private DebtorRepo debtorRepo;
     private DebtorDetailsRepo debtorDetailsRepo;
@@ -72,42 +72,20 @@ public class DebtorGUI extends VerticalLayout {
         debtorGUIFormBinder = new Binder<>();
         debtorGUIFormBinder.forField(textFieldName).bind(DebtorGUIForm::getTextFieldName, DebtorGUIForm::setTextFieldName);
         debtorGUIFormBinder.forField(textFieldReasonForTheDebt).bind(DebtorGUIForm::getTextFieldReasonForTheDebt, DebtorGUIForm::setTextFieldReasonForTheDebt);
-        debtorGUIFormBinder.forField(textFieldDebt).withConverter(DEBT_TO_FLOAT_COVERTER).bind(DebtorGUIForm::getTextFieldDebt, DebtorGUIForm::setTextFieldDebt);
-        debtorGUIFormBinder.forField(textFieldIdDebt).withConverter(DEBT_TO_LONG_COVERTER).bind(DebtorGUIForm::getTextFieldIdDebt, DebtorGUIForm::setTextFieldIdDebt);
+        debtorGUIFormBinder.forField(textFieldDebt).withConverter(DEBT_TO_FLOAT_CONVERTER).bind(DebtorGUIForm::getTextFieldDebt, DebtorGUIForm::setTextFieldDebt);
+        debtorGUIFormBinder.forField(textFieldIdDebt).withConverter(DEBT_TO_LONG_CONVERTER).bind(DebtorGUIForm::getTextFieldIdDebt, DebtorGUIForm::setTextFieldIdDebt);
         debtorGUIFormBinder.setBean(new DebtorGUIForm());
 
 
-        buttonInfo.addClickListener(buttonClickEvent -> {
-            String name = debtorGUIFormBinder.getBean().getTextFieldName();
-            areaInfo.setValue(debtorGUIEvents.showInfo(name));
+        buttonInfo.addClickListener(buttonClickEvent -> onInfoButtonClick());
 
-        });
-        buttonAddDebtor.addClickListener(buttonClickEvent -> {
-            String name = debtorGUIFormBinder.getBean().getTextFieldName();
-            float debtValue = debtorGUIFormBinder.getBean().getTextFieldDebt();
-            String reason = debtorGUIFormBinder.getBean().getTextFieldReasonForTheDebt();
-            areaInfo.setValue(debtorGUIEvents.addNewDebtor(name, debtValue, reason));
-        });
-        buttonAddDebt.addClickListener(buttonClickEvent -> {
-            String name = debtorGUIFormBinder.getBean().getTextFieldName();
-            float debtValue = debtorGUIFormBinder.getBean().getTextFieldDebt();
-            String reason = debtorGUIFormBinder.getBean().getTextFieldReasonForTheDebt();
-            areaInfo.setValue(debtorGUIEvents.addNewDebt(name, debtValue, reason));
-        });
-        buttonUpdate.addClickListener(buttonClickEvent -> {
-            String name = debtorGUIFormBinder.getBean().getTextFieldName();
-            Long debtorID = debtorGUIFormBinder.getBean().getTextFieldIdDebt();
-            float debtValue = debtorGUIFormBinder.getBean().getTextFieldDebt();
-            debtorGUIEvents.updateDebtByNewDebt(name, debtorID, debtValue);
-        });
-        buttonDeleteDebt.addClickListener(buttonClickEvent -> {
-            String name = debtorGUIFormBinder.getBean().getTextFieldName();
-            Long debtorID = debtorGUIFormBinder.getBean().getTextFieldIdDebt();
-            debtorGUIEvents.deleteDebtByID(name, debtorID);
+        buttonAddDebtor.addClickListener(buttonClickEvent -> onButtonAddDebtor());
 
-            String info = debtorGUIEvents.showInfo(name);
-            areaInfo.setValue(info);
-        });
+        buttonAddDebt.addClickListener(buttonClickEvent -> onButtonAddDebt());
+
+        buttonUpdate.addClickListener(buttonClickEvent -> onButtonUpdate());
+
+        buttonDeleteDebt.addClickListener(buttonClickEvent -> onButtonDeleteDebt());
 
         add(textFieldName);
         add(textFieldDebt);
@@ -122,4 +100,40 @@ public class DebtorGUI extends VerticalLayout {
 
         add(areaInfo);
     }
+
+    private void onInfoButtonClick() {
+        String name = debtorGUIFormBinder.getBean().getTextFieldName();
+        areaInfo.setValue(debtorGUIEvents.showInfo(name));
+    }
+
+    private void onButtonAddDebtor() {
+        String name = debtorGUIFormBinder.getBean().getTextFieldName();
+        float debtValue = debtorGUIFormBinder.getBean().getTextFieldDebt();
+        String reason = debtorGUIFormBinder.getBean().getTextFieldReasonForTheDebt();
+        areaInfo.setValue(debtorGUIEvents.addNewDebtor(name, debtValue, reason));
+    }
+
+    private void onButtonAddDebt() {
+        String name = debtorGUIFormBinder.getBean().getTextFieldName();
+        float debtValue = debtorGUIFormBinder.getBean().getTextFieldDebt();
+        String reason = debtorGUIFormBinder.getBean().getTextFieldReasonForTheDebt();
+        areaInfo.setValue(debtorGUIEvents.addNewDebt(name, debtValue, reason));
+    }
+
+    private void onButtonUpdate() {
+        String name = debtorGUIFormBinder.getBean().getTextFieldName();
+        Long debtorID = debtorGUIFormBinder.getBean().getTextFieldIdDebt();
+        float debtValue = debtorGUIFormBinder.getBean().getTextFieldDebt();
+        debtorGUIEvents.updateDebtByNewDebt(name, debtorID, debtValue);
+    }
+
+    private void onButtonDeleteDebt() {
+        String name = debtorGUIFormBinder.getBean().getTextFieldName();
+        Long debtorID = debtorGUIFormBinder.getBean().getTextFieldIdDebt();
+        debtorGUIEvents.deleteDebtByID(name, debtorID);
+
+        String info = debtorGUIEvents.showInfo(name);
+        areaInfo.setValue(info);
+    }
+
 }

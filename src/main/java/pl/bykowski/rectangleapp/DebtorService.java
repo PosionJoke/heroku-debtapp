@@ -74,7 +74,6 @@ public class DebtorService {
 
         //If the name isn't use, add new debtor
         if (isThisNameFree(debtorName)) {
-            //nowy dluznik do DebtorRepo
             Debtor debtor = new Debtor();
             debtor.setName(debtorName);
             debtor.setTotalDebt((debtValue + debtor.getTotalDebt()));
@@ -120,7 +119,7 @@ public class DebtorService {
     public void updateDebtByNewDebt(String debtorName, Long debtID, float debtValue) {
         for (DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(debtorName, debtID)) {
 //            Float newDebt = debtorDetails.getDebt() + debtValue;
-            Float newDebt = debtorDetails.getDebt() + debtValue;
+            float newDebt = debtorDetails.getDebt() + debtValue;
             debtorDetails.setDebt(newDebt);
             if (newDebt <= 0) {
                 deleteDebtByID(debtorName, debtID);
