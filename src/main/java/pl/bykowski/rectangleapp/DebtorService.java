@@ -126,10 +126,7 @@ public class DebtorService {
     }
     @Transactional
     public void deleteDebtByID(String debtorName, Long debtorID) {
-
-
         DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(debtorName, debtorID).get(0);
-
         DebtorHistory debtorHistoryNew = new DebtorHistory();
         debtorHistoryNew.setDebt(debtorDetailsCopy.getDebt());
         debtorHistoryNew.setName(debtorDetailsCopy.getName());
