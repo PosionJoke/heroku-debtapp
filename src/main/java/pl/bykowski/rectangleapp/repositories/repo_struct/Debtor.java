@@ -1,6 +1,8 @@
-package pl.bykowski.rectangleapp.Repositories.RepoStruct;
+package pl.bykowski.rectangleapp.repositories.repo_struct;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,13 +11,12 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 
 @Data
-//oznaczamy klase jako element bazy danych
+//Use annotation @Entity to mark that class as database
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class
 Debtor {
-
-    //oznaczamy pole jako ID dla bazy danych
-    //autoincrement id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,18 +26,6 @@ Debtor {
     private float totalDebt;
     private LocalDate date;
     private String dateNow;
-
-    //nalezy zrobic bezargumentowy konstruktor
-    public Debtor() {
-    }
-
-    public Debtor(String name, float debt, float totalDebt) {
-        this.name = name;
-        this.debt = debt;
-        this.totalDebt = totalDebt;
-        this.date = LocalDate.now();
-        this.dateNow = String.valueOf(this.date);
-    }
 
     @Override
     public String toString() {
