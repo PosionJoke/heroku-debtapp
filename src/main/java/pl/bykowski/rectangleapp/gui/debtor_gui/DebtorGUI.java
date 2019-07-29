@@ -2,6 +2,7 @@ package pl.bykowski.rectangleapp.gui.debtor_gui;
 
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -17,7 +18,8 @@ import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
 
 //To use vaadin library need use @Route add notation
-@Route
+@Route(value = "debtorgui")
+@StyleSheet("/css/style.css")
 public class DebtorGUI extends VerticalLayout {
 
     private static final StringToFloatConverter DEBT_TO_FLOAT_CONVERTER = new StringToFloatConverter("Invalid debt format");
@@ -41,6 +43,7 @@ public class DebtorGUI extends VerticalLayout {
     private Button addDebtButton;
     private Button updateButton;
     private Button deleteDebtButton;
+    private Button showDebtorDetailsButton;
 
     private TextArea areaInfo;
 
@@ -65,6 +68,7 @@ public class DebtorGUI extends VerticalLayout {
         this.addDebtButton = new Button("Add new Debt");
         this.updateButton = new Button("Update debt");
         this.deleteDebtButton = new Button("Delete Debt by ID ");
+        this.showDebtorDetailsButton = new Button("Show Debtor Details");
 
         this.areaInfo = new TextArea("Info");
 
@@ -85,6 +89,9 @@ public class DebtorGUI extends VerticalLayout {
         updateButton.addClickListener(buttonClickEvent -> onUpdateButtonClick());
 
         deleteDebtButton.addClickListener(buttonClickEvent -> onDeleteDebtButtonClick());
+        showDebtorDetailsButton.addClickListener(e -> {
+            showDebtorDetailsButton.getUI().ifPresent(ui -> ui.navigate("debtorlistgui"));
+        });
 
         add(textFieldName);
         add(textFieldDebt);
@@ -98,6 +105,8 @@ public class DebtorGUI extends VerticalLayout {
         add(deleteDebtButton);
 
         add(areaInfo);
+        add(showDebtorDetailsButton);
+        setDefaultHorizontalComponentAlignment(Alignment.CENTER);
     }
 
     private void onInfoButtonClick() {

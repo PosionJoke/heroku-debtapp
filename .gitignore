@@ -18,6 +18,7 @@ db.trace.db
 *.iws
 *.iml
 *.ipr
+db.mv.db
 
 ### NetBeans ###
 /nbproject/private/

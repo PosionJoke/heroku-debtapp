@@ -9,9 +9,9 @@ import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
 import pl.bykowski.rectangleapp.repositories.repo_struct.Debtor;
 import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorDetails;
 
-
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -141,4 +141,25 @@ public class DebtorService {
 
         debtorDetailsRepo.delete(debtorDetailsRepo.findByNameAndId(debtorName, debtorID).get(0));
     }
+
+    public void deleteDebtByID(Long debtorID) {
+        Optional<DebtorDetails> debtorDetailsCopyOptional = debtorDetailsRepo.findById(debtorID);
+
+        DebtorDetails debtorDetailsCopy = debtorDetailsCopyOptional.get();
+
+        DebtorHistory debtorHistoryNew = new DebtorHistory();
+
+        debtorHistoryNew.setDebt(debtorDetailsCopy.getDebt());
+        debtorHistoryNew.setName(debtorDetailsCopy.getName());
+        debtorHistoryNew.setReasonForTheDebt(debtorDetailsCopy.getReasonForTheDebt());
+
+        long daysBetween = DAYS.between(debtorDetailsCopy.getDate(), LocalDate.now());
+
+        debtorHistoryNew.setTimeOfDebt(daysBetween);
+
+        debtorHistoryRepo.save(debtorHistoryNew);
+
+        debtorDetailsRepo.delete(debtorDetailsRepo.findByid(debtorID).get(0));
+    }
+
 }
