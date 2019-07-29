@@ -162,4 +162,13 @@ public class DebtorService {
         debtorDetailsRepo.delete(debtorDetailsRepo.findByid(debtorID).get(0));
     }
 
+    public void deleteFromDebtorHistoryById(Long debtorID) {
+//        debtorHistoryRepo.delete(debtorHistoryRepo.findByid(debtorID).get());
+        debtorHistoryRepo.delete(debtorHistoryRepo.findById(debtorID).get());
+    }
+
+    public void onDeleteDebtByIdButtonClickDebtorHistory() {
+
+    }
+
 }

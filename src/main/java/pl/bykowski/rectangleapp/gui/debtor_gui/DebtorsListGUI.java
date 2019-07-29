@@ -18,15 +18,15 @@ import java.util.Collection;
 @Route(value = "debtorlistgui")
 public class DebtorsListGUI extends VerticalLayout {
 
-    DebtorService debtorService;
+    private DebtorService debtorService;
 
-    Button deleteDebtByIdButton;
-    Button backToMainViewButton;
-    Button editDebtByIdAndValueButton;
+    private Button deleteDebtByIdButton;
+    private Button backToMainViewButton;
+    private Button editDebtByIdAndValueButton;
 
-    TextField idToDeleteTextField;
-    TextField newValueField;
-    TextField debtorNameField;
+    private TextField idToDeleteTextField;
+    private TextField newValueField;
+    private TextField debtorNameField;
 
     Grid<DebtorDetails> grid = new Grid<>(DebtorDetails.class);
 
