@@ -31,6 +31,8 @@ public class DebtorHistoryListGUI extends VerticalLayout {
 
 
         add(grid);
+
+
         add(backToMainViewButton);
     }
 }

@@ -16,32 +16,48 @@ import java.util.Collection;
 public class DebtorsListGUI extends VerticalLayout {
 
     DebtorService debtorService;
+    DebtorDetailsRepo debtorDetailsRepo;
 
     Button deleteDebtByIdButton;
     Button backToMainViewButton;
+    Button editDebtByIdAndValueButton;
 
     TextField idToDeleteTextField;
+    TextField newValueField;
+    TextField debtorNameField;
+
+    Grid<DebtorDetails> grid = new Grid<>(DebtorDetails.class);
 
     @Autowired
     public DebtorsListGUI(DebtorDetailsRepo debtorDetailsRepo, DebtorService debtorService) {
 
-        Grid<DebtorDetails> grid = new Grid<>(DebtorDetails.class);
+
         grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
 
         this.debtorService = debtorService;
+
         this.idToDeleteTextField = new TextField("Delete by ID");
+        this.newValueField = new TextField("Add value");
+        this.debtorNameField = new TextField("Debtor Name");
+
         this.deleteDebtByIdButton = new Button("Delete debt by ID");
         this.backToMainViewButton = new Button("Back to main view");
+        this.editDebtByIdAndValueButton = new Button("Edit debt by ID and new value");
 
 
-        deleteDebtByIdButton.addClickListener(buttonClickEvent -> {
-            onDeleteDebtByIdButtonClick();
-
-            grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
-        });
 
         backToMainViewButton.addClickListener(e -> {
             backToMainViewButton.getUI().ifPresent(ui -> ui.navigate("debtorgui"));
+        });
+
+        deleteDebtByIdButton.addClickListener(buttonClickEvent -> {
+            onDeleteDebtByIdButtonClick();
+            grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
+        });
+
+        editDebtByIdAndValueButton.addClickListener(buttonClickEvent -> {
+            onEditDebtByIdAndValueButtonClick();
+            grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
         });
 
 
@@ -49,14 +65,30 @@ public class DebtorsListGUI extends VerticalLayout {
         add(grid);
 
         add(idToDeleteTextField);
+        add(debtorNameField);
+        add(newValueField);
+
         add(deleteDebtByIdButton);
+        add(editDebtByIdAndValueButton);
+
+
         add(backToMainViewButton);
 
 
     }
 
+    private void onEditDebtByIdAndValueButtonClick() {
+        String name = debtorNameField.getValue();
+        float value = Float.parseFloat(newValueField.getValue());
+        Long id = Long.parseLong(idToDeleteTextField.getValue());
+
+        debtorService.updateDebtByNewDebt(name, id, value);
+//        grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
+    }
+
     private void onDeleteDebtByIdButtonClick() {
         Long id = Long.parseLong(idToDeleteTextField.getValue());
         debtorService.deleteDebtByID(id);
+//        grid.setItems((Collection<DebtorDetails>) this.debtorDetailsRepo.findAll());
     }
 }
