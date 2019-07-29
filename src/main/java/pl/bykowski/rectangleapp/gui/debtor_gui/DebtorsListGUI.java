@@ -1,7 +1,9 @@
 package pl.bykowski.rectangleapp.gui.debtor_gui;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
@@ -12,11 +14,11 @@ import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorDetails;
 
 import java.util.Collection;
 
+@StyleSheet("/css/style.css")
 @Route(value = "debtorlistgui")
 public class DebtorsListGUI extends VerticalLayout {
 
     DebtorService debtorService;
-    DebtorDetailsRepo debtorDetailsRepo;
 
     Button deleteDebtByIdButton;
     Button backToMainViewButton;
@@ -45,7 +47,6 @@ public class DebtorsListGUI extends VerticalLayout {
         this.editDebtByIdAndValueButton = new Button("Edit debt by ID and new value");
 
 
-
         backToMainViewButton.addClickListener(e -> {
             backToMainViewButton.getUI().ifPresent(ui -> ui.navigate("debtorgui"));
         });
@@ -64,16 +65,19 @@ public class DebtorsListGUI extends VerticalLayout {
         add(deleteDebtByIdButton);
         add(grid);
 
-        add(idToDeleteTextField);
-        add(debtorNameField);
-        add(newValueField);
+        HorizontalLayout buttonsLayout = new HorizontalLayout();
+        buttonsLayout.add(idToDeleteTextField);
+        buttonsLayout.add(debtorNameField);
+        buttonsLayout.add(newValueField);
+
+        add(buttonsLayout);
 
         add(deleteDebtByIdButton);
         add(editDebtByIdAndValueButton);
 
 
         add(backToMainViewButton);
-
+        setDefaultHorizontalComponentAlignment(Alignment.CENTER);
 
     }
 
