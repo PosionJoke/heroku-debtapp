@@ -24,6 +24,7 @@ public class DebtorGUI extends VerticalLayout {
 
     private static final StringToFloatConverter DEBT_TO_FLOAT_CONVERTER = new StringToFloatConverter("Invalid debt format");
     private static final StringToLongConverter DEBT_TO_LONG_CONVERTER = new StringToLongConverter("Invalid debt format");
+    private Button showDebtorHistoryButton;
 
     private DebtorRepo debtorRepo;
     private DebtorDetailsRepo debtorDetailsRepo;
@@ -69,6 +70,7 @@ public class DebtorGUI extends VerticalLayout {
         this.updateButton = new Button("Update debt");
         this.deleteDebtButton = new Button("Delete Debt by ID ");
         this.showDebtorDetailsButton = new Button("Show Debtor Details");
+        this.showDebtorHistoryButton = new Button("Show Debtor History");
 
         this.areaInfo = new TextArea("Info");
 
@@ -89,8 +91,13 @@ public class DebtorGUI extends VerticalLayout {
         updateButton.addClickListener(buttonClickEvent -> onUpdateButtonClick());
 
         deleteDebtButton.addClickListener(buttonClickEvent -> onDeleteDebtButtonClick());
+
         showDebtorDetailsButton.addClickListener(e -> {
             showDebtorDetailsButton.getUI().ifPresent(ui -> ui.navigate("debtorlistgui"));
+        });
+
+        showDebtorHistoryButton.addClickListener(e -> {
+            showDebtorDetailsButton.getUI().ifPresent(ui -> ui.navigate("debtorhistrylistgui"));
         });
 
         add(textFieldName);
@@ -105,7 +112,10 @@ public class DebtorGUI extends VerticalLayout {
         add(deleteDebtButton);
 
         add(areaInfo);
+
         add(showDebtorDetailsButton);
+        add(showDebtorHistoryButton);
+
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
     }
 

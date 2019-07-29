@@ -10,9 +10,7 @@ import pl.bykowski.rectangleapp.DebtorService;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Route(value = "debtorlistgui")
 public class DebtorsListGUI extends VerticalLayout {
@@ -20,9 +18,9 @@ public class DebtorsListGUI extends VerticalLayout {
     DebtorService debtorService;
 
     Button deleteDebtByIdButton;
-    TextField idToDeleteTextField;
+    Button backToMainViewButton;
 
-    List<DebtorDetails> refreshGrid = new ArrayList<>();
+    TextField idToDeleteTextField;
 
     @Autowired
     public DebtorsListGUI(DebtorDetailsRepo debtorDetailsRepo, DebtorService debtorService) {
@@ -30,30 +28,35 @@ public class DebtorsListGUI extends VerticalLayout {
         Grid<DebtorDetails> grid = new Grid<>(DebtorDetails.class);
         grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
 
-        this.deleteDebtByIdButton = new Button("Delete debt by ID");
         this.debtorService = debtorService;
         this.idToDeleteTextField = new TextField("Delete by ID");
+        this.deleteDebtByIdButton = new Button("Delete debt by ID");
+        this.backToMainViewButton = new Button("Back to main view");
+
 
         deleteDebtByIdButton.addClickListener(buttonClickEvent -> {
             onDeleteDebtByIdButtonClick();
 
             grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
         });
+
+        backToMainViewButton.addClickListener(e -> {
+            backToMainViewButton.getUI().ifPresent(ui -> ui.navigate("debtorgui"));
+        });
+
+
         add(deleteDebtByIdButton);
         add(grid);
 
         add(idToDeleteTextField);
         add(deleteDebtByIdButton);
+        add(backToMainViewButton);
 
 
     }
 
     private void onDeleteDebtByIdButtonClick() {
-
         Long id = Long.parseLong(idToDeleteTextField.getValue());
         debtorService.deleteDebtByID(id);
-
-//        String info = debtorService.showInfo(name);
-//        areaInfo.setValue(info);
     }
 }
