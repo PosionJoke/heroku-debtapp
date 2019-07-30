@@ -6,10 +6,14 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.converter.StringToFloatConverter;
+import com.vaadin.flow.data.converter.StringToLongConverter;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.bykowski.rectangleapp.DebtorService;
 import pl.bykowski.rectangleapp.Repositories.RepoStruct.DebtorHistory;
+import pl.bykowski.rectangleapp.form.DebtorHistoryListGUIForm;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
 
 import java.util.Collection;
@@ -29,6 +33,11 @@ public class DebtorHistoryListGUI extends VerticalLayout {
     private TextField newValueField;
     private TextField debtorNameField;
 
+    private static final StringToFloatConverter DEBT_TO_FLOAT_CONVERTER = new StringToFloatConverter("Invalid debt format");
+    private static final StringToLongConverter DEBT_TO_LONG_CONVERTER = new StringToLongConverter("Invalid debt format");
+    private Binder<DebtorHistoryListGUIForm> debtorHistoryListGUIFormBinder;
+
+
     @Autowired
     public DebtorHistoryListGUI(DebtorHistoryRepo debtorHistoryRepo, DebtorService debtorService) {
 
@@ -45,6 +54,12 @@ public class DebtorHistoryListGUI extends VerticalLayout {
         this.deleteDebtByIdButton = new Button("Delete debt by ID");
         this.backToMainViewButton = new Button("Back to main view");
         this.editDebtByIdAndValueButton = new Button("Edit debt by ID and new value");
+
+        debtorHistoryListGUIFormBinder = new Binder<>();
+        debtorHistoryListGUIFormBinder.forField(debtorNameField).bind(DebtorHistoryListGUIForm::getDebtorNameField, DebtorHistoryListGUIForm::setDebtorNameField);
+        debtorHistoryListGUIFormBinder.forField(newValueField).withConverter(DEBT_TO_FLOAT_CONVERTER).bind(DebtorHistoryListGUIForm::getNewValueField, DebtorHistoryListGUIForm::setNewValueField);
+        debtorHistoryListGUIFormBinder.forField(idToDeleteTextField).withConverter(DEBT_TO_LONG_CONVERTER).bind(DebtorHistoryListGUIForm::getIdToDeleteTextField, DebtorHistoryListGUIForm::setIdToDeleteTextField);
+        debtorHistoryListGUIFormBinder.setBean(new DebtorHistoryListGUIForm());
 
         backToMainViewButton.addClickListener(e -> {
             backToMainViewButton.getUI().ifPresent(ui -> ui.navigate("debtorgui"));
@@ -88,7 +103,7 @@ public class DebtorHistoryListGUI extends VerticalLayout {
 //    }
 
     private void onDeleteDebtByIdButtonClick() {
-        Long id = Long.parseLong(idToDeleteTextField.getValue());
+        Long id = debtorHistoryListGUIFormBinder.getBean().getIdToDeleteTextField();
         debtorService.deleteFromDebtorHistoryById(id);
     }
 }
