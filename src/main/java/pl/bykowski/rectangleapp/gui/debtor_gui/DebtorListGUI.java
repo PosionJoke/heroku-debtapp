@@ -5,7 +5,6 @@ import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import org.springframework.beans.factory.annotation.Autowired;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
 import pl.bykowski.rectangleapp.repositories.repo_struct.Debtor;
 
@@ -17,7 +16,6 @@ public class DebtorListGUI extends VerticalLayout {
 
     private DebtorRepo debtorRepo;
 
-    @Autowired
     public DebtorListGUI(DebtorRepo debtorRepo) {
 
         this.debtorRepo = debtorRepo;

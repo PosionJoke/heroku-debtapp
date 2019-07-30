@@ -41,9 +41,6 @@ public class DebtorDetailsListGUI extends VerticalLayout {
     Grid<DebtorDetails> grid = new Grid<>(DebtorDetails.class);
 
     public DebtorDetailsListGUI(DebtorDetailsRepo debtorDetailsRepo, DebtorService debtorService) {
-
-
-
         grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
 
         this.debtorService = debtorService;
@@ -64,9 +61,7 @@ public class DebtorDetailsListGUI extends VerticalLayout {
         debtorsLIstGUIFormBinder.forField(idToDeleteTextField).withConverter(DEBT_TO_LONG_CONVERTER).bind(DebtorsLIstGUIForm::getIdToDeleteTextField, DebtorsLIstGUIForm::setIdToDeleteTextField);
         debtorsLIstGUIFormBinder.setBean(new DebtorsLIstGUIForm());
 
-        backToMainViewButton.addClickListener(e ->
-                backToMainViewButton.getUI().ifPresent(ui -> ui.navigate("debtorgui")));
-
+        backToMainViewButton.addClickListener(e -> backToMainViewButton.getUI().ifPresent(ui -> ui.navigate("debtorgui")));
 
         deleteDebtByIdButton.addClickListener(buttonClickEvent -> {
             onDeleteDebtByIdButtonClick();
@@ -99,7 +94,6 @@ public class DebtorDetailsListGUI extends VerticalLayout {
 
         add(backToMainViewButton);
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
-
     }
 
     private void onEditDebtByIdAndValueButtonClick() {
@@ -108,12 +102,10 @@ public class DebtorDetailsListGUI extends VerticalLayout {
         Long id = debtorsLIstGUIFormBinder.getBean().getIdToDeleteTextField();
 
         debtorService.updateDebtByNewDebt(name, id, value);
-//        grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
     }
 
     private void onDeleteDebtByIdButtonClick() {
         Long id = debtorsLIstGUIFormBinder.getBean().getIdToDeleteTextField();
         debtorService.deleteDebtByID(id);
-//        grid.setItems((Collection<DebtorDetails>) this.debtorDetailsRepo.findAll());
     }
 }
