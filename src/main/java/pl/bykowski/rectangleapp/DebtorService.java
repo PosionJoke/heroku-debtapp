@@ -163,7 +163,6 @@ public class DebtorService {
     }
 
     public void deleteFromDebtorHistoryById(Long debtorID) {
-//        debtorHistoryRepo.delete(debtorHistoryRepo.findByid(debtorID).get());
         debtorHistoryRepo.delete(debtorHistoryRepo.findById(debtorID).get());
     }
 

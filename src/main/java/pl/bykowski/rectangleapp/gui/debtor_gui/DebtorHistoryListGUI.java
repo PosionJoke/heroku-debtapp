@@ -45,7 +45,7 @@ public class DebtorHistoryListGUI extends VerticalLayout {
     @Autowired
     public DebtorHistoryListGUI(DebtorHistoryRepo debtorHistoryRepo, DebtorService debtorService) {
 
-        Grid<pl.bykowski.rectangleapp.Repositories.RepoStruct.DebtorHistory> grid = new Grid<>(pl.bykowski.rectangleapp.Repositories.RepoStruct.DebtorHistory.class);
+        Grid<DebtorHistory> grid = new Grid<>(DebtorHistory.class);
         grid.setItems((Collection<DebtorHistory>) debtorHistoryRepo.findAll());
 
         this.debtorService = debtorService;
@@ -59,7 +59,7 @@ public class DebtorHistoryListGUI extends VerticalLayout {
         this.backToMainViewButton = new Button("Back to main view");
 //        this.editDebtByIdAndValueButton = new Button("Edit debt by ID and new value");
 
-        this.notification = new Notification("example text", 3000);
+        this.notification = new Notification("", 3000);
 
         debtorHistoryListGUIFormBinder = new Binder<>();
 //        debtorHistoryListGUIFormBinder.forField(debtorNameField).bind(DebtorHistoryListGUIForm::getDebtorNameField, DebtorHistoryListGUIForm::setDebtorNameField);
@@ -67,9 +67,9 @@ public class DebtorHistoryListGUI extends VerticalLayout {
         debtorHistoryListGUIFormBinder.forField(idToDeleteTextField).withConverter(DEBT_TO_LONG_CONVERTER).bind(DebtorHistoryListGUIForm::getIdToDeleteTextField, DebtorHistoryListGUIForm::setIdToDeleteTextField);
         debtorHistoryListGUIFormBinder.setBean(new DebtorHistoryListGUIForm());
 
-        backToMainViewButton.addClickListener(e -> {
-            backToMainViewButton.getUI().ifPresent(ui -> ui.navigate("debtorgui"));
-        });
+        backToMainViewButton.addClickListener(e ->
+                backToMainViewButton.getUI().ifPresent(ui -> ui.navigate("debtorgui")));
+
 
         deleteDebtByIdButton.addClickListener(buttonClickEvent -> {
             onDeleteDebtByIdButtonClick();

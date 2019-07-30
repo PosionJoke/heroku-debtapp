@@ -33,10 +33,10 @@ public class DebtorGUI extends VerticalLayout {
     private Binder<DebtorGUIForm> debtorGUIFormBinder;
 
     //define variables which should be in GUI
-    private TextField textFieldName;
-    private TextField textFieldDebt;
-    private TextField textFieldReasonForTheDebt;
-    private TextField textFieldIdDebt;
+    private TextField nameTextField;
+    private TextField debtTextField;
+    private TextField reasonForTheDebtTextField;
+    private TextField idDebtTextField;
 
     private Button infoButton;
     private Button addDebtorButton;
@@ -60,10 +60,10 @@ public class DebtorGUI extends VerticalLayout {
 
         this.debtorService = debtorGUIEvents;
 
-        this.textFieldName = new TextField("Type Name: ");
-        this.textFieldDebt = new TextField("Type Debt: ");
-        this.textFieldReasonForTheDebt = new TextField("Type Reason for the debt: ");
-        this.textFieldIdDebt = new TextField("Type ID of debt: ");
+        this.nameTextField = new TextField("Type Name: ");
+        this.debtTextField = new TextField("Type Debt: ");
+        this.reasonForTheDebtTextField = new TextField("Type Reason for the debt: ");
+        this.idDebtTextField = new TextField("Type ID of debt: ");
 
         this.infoButton = new Button("Show info by name");
         this.addDebtorButton = new Button("Add new Debtor");
@@ -77,10 +77,10 @@ public class DebtorGUI extends VerticalLayout {
         this.areaInfo = new TextArea("Info");
 
         debtorGUIFormBinder = new Binder<>();
-        debtorGUIFormBinder.forField(textFieldName).bind(DebtorGUIForm::getTextFieldName, DebtorGUIForm::setTextFieldName);
-        debtorGUIFormBinder.forField(textFieldReasonForTheDebt).bind(DebtorGUIForm::getTextFieldReasonForTheDebt, DebtorGUIForm::setTextFieldReasonForTheDebt);
-        debtorGUIFormBinder.forField(textFieldDebt).withConverter(DEBT_TO_FLOAT_CONVERTER).bind(DebtorGUIForm::getTextFieldDebt, DebtorGUIForm::setTextFieldDebt);
-        debtorGUIFormBinder.forField(textFieldIdDebt).withConverter(DEBT_TO_LONG_CONVERTER).bind(DebtorGUIForm::getTextFieldIdDebt, DebtorGUIForm::setTextFieldIdDebt);
+        debtorGUIFormBinder.forField(nameTextField).bind(DebtorGUIForm::getTextFieldName, DebtorGUIForm::setTextFieldName);
+        debtorGUIFormBinder.forField(reasonForTheDebtTextField).bind(DebtorGUIForm::getTextFieldReasonForTheDebt, DebtorGUIForm::setTextFieldReasonForTheDebt);
+        debtorGUIFormBinder.forField(debtTextField).withConverter(DEBT_TO_FLOAT_CONVERTER).bind(DebtorGUIForm::getTextFieldDebt, DebtorGUIForm::setTextFieldDebt);
+        debtorGUIFormBinder.forField(idDebtTextField).withConverter(DEBT_TO_LONG_CONVERTER).bind(DebtorGUIForm::getTextFieldIdDebt, DebtorGUIForm::setTextFieldIdDebt);
         debtorGUIFormBinder.setBean(new DebtorGUIForm());
 
 
@@ -94,22 +94,22 @@ public class DebtorGUI extends VerticalLayout {
 
         deleteDebtButton.addClickListener(buttonClickEvent -> onDeleteDebtButtonClick());
 
-        showDebtorDetailsButton.addClickListener(e -> {
-            showDebtorDetailsButton.getUI().ifPresent(ui -> ui.navigate("debtorlistgui"));
-        });
+        showDebtorDetailsButton.addClickListener(e ->
+                showDebtorDetailsButton.getUI().ifPresent(ui -> ui.navigate("debtordetailslistgui")));
 
-        showDebtorHistoryButton.addClickListener(e -> {
-            showDebtorDetailsButton.getUI().ifPresent(ui -> ui.navigate("debtordetailslistgui"));
-        });
 
-        showDebtorListButton.addClickListener(e -> {
-            showDebtorDetailsButton.getUI().ifPresent(ui -> ui.navigate("debtorlistgui"));
-        });
+        showDebtorHistoryButton.addClickListener(e ->
+                showDebtorHistoryButton.getUI().ifPresent(ui -> ui.navigate("debtorhistrylistgui")));
 
-        add(textFieldName);
-        add(textFieldDebt);
-        add(textFieldReasonForTheDebt);
-        add(textFieldIdDebt);
+
+        showDebtorListButton.addClickListener(e ->
+                showDebtorListButton.getUI().ifPresent(ui -> ui.navigate("debtorlistgui")));
+
+
+        add(nameTextField);
+        add(debtTextField);
+        add(reasonForTheDebtTextField);
+        add(idDebtTextField);
 
         add(updateButton);
         add(infoButton);
