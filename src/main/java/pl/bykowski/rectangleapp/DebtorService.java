@@ -159,15 +159,10 @@ public class DebtorService {
 
         debtorHistoryRepo.save(debtorHistoryNew);
 
-        debtorDetailsRepo.delete(debtorDetailsRepo.findByid(debtorID).get(0));
+        debtorDetailsRepo.deleteById(debtorID);
     }
 
     public void deleteFromDebtorHistoryById(Long debtorID) {
-        debtorHistoryRepo.delete(debtorHistoryRepo.findById(debtorID).get());
+        debtorHistoryRepo.deleteById(debtorID);
     }
-
-    public void onDeleteDebtByIdButtonClickDebtorHistory() {
-
-    }
-
 }

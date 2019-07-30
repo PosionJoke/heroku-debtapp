@@ -10,9 +10,8 @@ import java.util.List;
 @Repository
 public interface DebtorHistoryRepo extends CrudRepository<DebtorHistory, Long> {
     List<DebtorHistory> findByName(String name);
-    List<DebtorDetails> findByNameAndId(String name, Long ID);
+
+    List<DebtorHistory> findByNameAndId(String name, Long ID);
 
     List<DebtorDetails> findByid(Long ID);
-
-//    void delete(DebtorDetails debtorDetails);
 }
