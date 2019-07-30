@@ -3,6 +3,7 @@ package pl.bykowski.rectangleapp.gui.debtor_gui;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -32,6 +33,8 @@ public class DebtorsListGUI extends VerticalLayout {
     private TextField newValueField;
     private TextField debtorNameField;
 
+    private Notification notification;
+
     private static final StringToFloatConverter DEBT_TO_FLOAT_CONVERTER = new StringToFloatConverter("Invalid debt format");
     private static final StringToLongConverter DEBT_TO_LONG_CONVERTER = new StringToLongConverter("Invalid debt format");
     private Binder<DebtorsLIstGUIForm> debtorsLIstGUIFormBinder;
@@ -53,7 +56,9 @@ public class DebtorsListGUI extends VerticalLayout {
 
         this.deleteDebtByIdButton = new Button("Delete debt by ID");
         this.backToMainViewButton = new Button("Back to main view");
-        this.editDebtByIdAndValueButton = new Button("Edit debt by ID and new value");
+        this.editDebtByIdAndValueButton = new Button("Edit debt value by ID and debtor name");
+
+        this.notification = new Notification("example text", 3000);
 
         debtorsLIstGUIFormBinder = new Binder<>();
         debtorsLIstGUIFormBinder.forField(debtorNameField).bind(DebtorsLIstGUIForm::getDebtorNameField, DebtorsLIstGUIForm::setDebtorNameField);
@@ -68,11 +73,15 @@ public class DebtorsListGUI extends VerticalLayout {
         deleteDebtByIdButton.addClickListener(buttonClickEvent -> {
             onDeleteDebtByIdButtonClick();
             grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
+            notification.setText("Debt deleted");
+            notification.open();
         });
 
         editDebtByIdAndValueButton.addClickListener(buttonClickEvent -> {
             onEditDebtByIdAndValueButtonClick();
             grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
+            notification.setText("Debt updated");
+            notification.open();
         });
 
 

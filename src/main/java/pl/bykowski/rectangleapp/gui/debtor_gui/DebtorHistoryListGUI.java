@@ -3,6 +3,7 @@ package pl.bykowski.rectangleapp.gui.debtor_gui;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -33,6 +34,8 @@ public class DebtorHistoryListGUI extends VerticalLayout {
 //    private TextField newValueField;
 //    private TextField debtorNameField;
 
+    private Notification notification;
+
     private static final StringToFloatConverter DEBT_TO_FLOAT_CONVERTER = new StringToFloatConverter("Invalid debt format");
     private static final StringToLongConverter DEBT_TO_LONG_CONVERTER = new StringToLongConverter("Invalid debt format");
     private Binder<DebtorHistoryListGUIForm> debtorHistoryListGUIFormBinder;
@@ -55,6 +58,8 @@ public class DebtorHistoryListGUI extends VerticalLayout {
         this.backToMainViewButton = new Button("Back to main view");
 //        this.editDebtByIdAndValueButton = new Button("Edit debt by ID and new value");
 
+        this.notification = new Notification("example text", 3000);
+
         debtorHistoryListGUIFormBinder = new Binder<>();
 //        debtorHistoryListGUIFormBinder.forField(debtorNameField).bind(DebtorHistoryListGUIForm::getDebtorNameField, DebtorHistoryListGUIForm::setDebtorNameField);
 //        debtorHistoryListGUIFormBinder.forField(newValueField).withConverter(DEBT_TO_FLOAT_CONVERTER).bind(DebtorHistoryListGUIForm::getNewValueField, DebtorHistoryListGUIForm::setNewValueField);
@@ -68,6 +73,8 @@ public class DebtorHistoryListGUI extends VerticalLayout {
         deleteDebtByIdButton.addClickListener(buttonClickEvent -> {
             onDeleteDebtByIdButtonClick();
             grid.setItems((Collection<DebtorHistory>) debtorHistoryRepo.findAll());
+            notification.setText("Debt deleted");
+            notification.open();
         });
 
 //        editDebtByIdAndValueButton.addClickListener(buttonClickEvent -> {
