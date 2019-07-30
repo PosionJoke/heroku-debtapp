@@ -27,11 +27,11 @@ public class DebtorHistoryListGUI extends VerticalLayout {
 
     private Button deleteDebtByIdButton;
     private Button backToMainViewButton;
-    private Button editDebtByIdAndValueButton;
+//    private Button editDebtByIdAndValueButton;
 
     private TextField idToDeleteTextField;
     private TextField newValueField;
-    private TextField debtorNameField;
+//    private TextField debtorNameField;
 
     private static final StringToFloatConverter DEBT_TO_FLOAT_CONVERTER = new StringToFloatConverter("Invalid debt format");
     private static final StringToLongConverter DEBT_TO_LONG_CONVERTER = new StringToLongConverter("Invalid debt format");
@@ -49,14 +49,14 @@ public class DebtorHistoryListGUI extends VerticalLayout {
 
         this.idToDeleteTextField = new TextField("Delete by ID");
         this.newValueField = new TextField("Add value");
-        this.debtorNameField = new TextField("Debtor Name");
+//        this.debtorNameField = new TextField("Debtor Name");
 
         this.deleteDebtByIdButton = new Button("Delete debt by ID");
         this.backToMainViewButton = new Button("Back to main view");
-        this.editDebtByIdAndValueButton = new Button("Edit debt by ID and new value");
+//        this.editDebtByIdAndValueButton = new Button("Edit debt by ID and new value");
 
         debtorHistoryListGUIFormBinder = new Binder<>();
-        debtorHistoryListGUIFormBinder.forField(debtorNameField).bind(DebtorHistoryListGUIForm::getDebtorNameField, DebtorHistoryListGUIForm::setDebtorNameField);
+//        debtorHistoryListGUIFormBinder.forField(debtorNameField).bind(DebtorHistoryListGUIForm::getDebtorNameField, DebtorHistoryListGUIForm::setDebtorNameField);
         debtorHistoryListGUIFormBinder.forField(newValueField).withConverter(DEBT_TO_FLOAT_CONVERTER).bind(DebtorHistoryListGUIForm::getNewValueField, DebtorHistoryListGUIForm::setNewValueField);
         debtorHistoryListGUIFormBinder.forField(idToDeleteTextField).withConverter(DEBT_TO_LONG_CONVERTER).bind(DebtorHistoryListGUIForm::getIdToDeleteTextField, DebtorHistoryListGUIForm::setIdToDeleteTextField);
         debtorHistoryListGUIFormBinder.setBean(new DebtorHistoryListGUIForm());
@@ -81,13 +81,13 @@ public class DebtorHistoryListGUI extends VerticalLayout {
 
         HorizontalLayout buttonsLayout = new HorizontalLayout();
         buttonsLayout.add(idToDeleteTextField);
-        buttonsLayout.add(debtorNameField);
+//        buttonsLayout.add(debtorNameField);
         buttonsLayout.add(newValueField);
 
         add(buttonsLayout);
 
         add(deleteDebtByIdButton);
-        add(editDebtByIdAndValueButton);
+//        add(editDebtByIdAndValueButton);
 
 
         add(backToMainViewButton);
