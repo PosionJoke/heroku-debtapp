@@ -20,8 +20,8 @@ import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorDetails;
 import java.util.Collection;
 
 @StyleSheet("/css/style.css")
-@Route(value = "debtorlistgui")
-public class DebtorsListGUI extends VerticalLayout {
+@Route(value = "debtordetailslistgui")
+public class DebtorDetailsListGUI extends VerticalLayout {
 
     private DebtorService debtorService;
 
@@ -42,7 +42,7 @@ public class DebtorsListGUI extends VerticalLayout {
     Grid<DebtorDetails> grid = new Grid<>(DebtorDetails.class);
 
     @Autowired
-    public DebtorsListGUI(DebtorDetailsRepo debtorDetailsRepo, DebtorService debtorService) {
+    public DebtorDetailsListGUI(DebtorDetailsRepo debtorDetailsRepo, DebtorService debtorService) {
 
 
 

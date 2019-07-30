@@ -2,6 +2,7 @@ package pl.bykowski.rectangleapp.gui.debtor_gui;
 
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -19,7 +20,7 @@ import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
 
 import java.util.Collection;
 
-
+@StyleSheet("/css/style.css")
 @Route(value = "debtorhistrylistgui")
 public class DebtorHistoryListGUI extends VerticalLayout {
 
