@@ -3,7 +3,10 @@ package pl.bykowski.rectangleapp.gui.debtor_gui;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
@@ -30,6 +33,17 @@ public class DebtorGUI extends VerticalLayout {
     private DebtorService debtorService;
 
     private Binder<DebtorGUIForm> debtorGUIFormBinder;
+
+    private Tab showDebtorDetails;
+    private Tab showDebtorHistory;
+    private Tab showDebtors;
+
+//    Tab tab1 = new Tab("Tab one");
+//    Tab tab2 = new Tab("Tab two");
+//    Tab tab3 = new Tab("Tab three");
+//    Tabs tabs = new Tabs(tab1, tab2, tab3);
+//
+//    add(tabs);
 
     //define variables which should be in GUI
     private TextField nameTextField;
@@ -91,6 +105,7 @@ public class DebtorGUI extends VerticalLayout {
 
         deleteDebtButton.addClickListener(buttonClickEvent -> onDeleteDebtButtonClick());
 
+
         showDebtorDetailsButton.addClickListener(e ->
                 showDebtorDetailsButton.getUI().ifPresent(ui -> ui.navigate("debtordetailslistgui")));
 
@@ -102,6 +117,11 @@ public class DebtorGUI extends VerticalLayout {
         showDebtorListButton.addClickListener(e ->
                 showDebtorListButton.getUI().ifPresent(ui -> ui.navigate("debtorlistgui")));
 
+        HorizontalLayout horizontalLayoutShowDebtorsGrid = new HorizontalLayout();
+        horizontalLayoutShowDebtorsGrid.add(showDebtorDetailsButton);
+        horizontalLayoutShowDebtorsGrid.add(showDebtorHistoryButton);
+        horizontalLayoutShowDebtorsGrid.add(showDebtorListButton);
+        add(horizontalLayoutShowDebtorsGrid);
 
         add(nameTextField);
         add(debtTextField);
@@ -116,9 +136,7 @@ public class DebtorGUI extends VerticalLayout {
 
         add(areaInfo);
 
-        add(showDebtorDetailsButton);
-        add(showDebtorHistoryButton);
-        add(showDebtorListButton);
+
 
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
     }
