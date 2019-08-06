@@ -2,7 +2,7 @@ package pl.bykowski.rectangleapp;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.bykowski.rectangleapp.Repositories.RepoStruct.DebtorHistory;
+import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorHistory;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
@@ -27,7 +27,6 @@ public class DebtorService {
         this.debtorHistoryRepo = debtorHistoryRepo;
         this.debtorRepo = debtorRepo;
     }
-
 
     private boolean isThisNameFree(String debtorName) {
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
