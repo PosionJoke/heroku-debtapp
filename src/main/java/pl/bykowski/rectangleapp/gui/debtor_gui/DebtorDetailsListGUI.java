@@ -72,14 +72,10 @@ public class DebtorDetailsListGUI extends VerticalLayout {
 
         deleteDebtByIdButton.addClickListener(buttonClickEvent -> {
             onDeleteDebtByIdButtonClick();
-//            notification.setText("Debt deleted");
-//            notification.open();
         });
 
         editDebtByIdAndValueButton.addClickListener(buttonClickEvent -> {
             onEditDebtByIdAndValueButtonClick();
-//            notification.setText("Debt updated");
-//            notification.open();
         });
 
 
@@ -107,7 +103,6 @@ public class DebtorDetailsListGUI extends VerticalLayout {
         String name = debtorListGUIForm.getDebtorNameField();
         float value = debtorListGUIForm.getNewValueField();
         Long id = debtorListGUIForm.getIdToDeleteTextField();
-
         debtorService.updateDebtByNewDebt(name, id, value);
 
         grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
@@ -118,6 +113,7 @@ public class DebtorDetailsListGUI extends VerticalLayout {
     private void onDeleteDebtByIdButtonClick() {
         Long id = debtorsLIstGUIFormBinder.getBean().getIdToDeleteTextField();
         debtorService.deleteDebtByID(id);
+
         grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
         notification.setText("Debt deleted");
         notification.open();
