@@ -14,9 +14,9 @@ import com.vaadin.flow.router.Route;
 import pl.bykowski.rectangleapp.DebtorService;
 import pl.bykowski.rectangleapp.form.DebtorGUIForm;
 
-//To use vaadin library need use @Route add notation
-@Route(value = DebtorGUI.VIEW_NAME)
+
 @StyleSheet("/css/style.css")
+@Route(value = DebtorGUI.VIEW_NAME)
 public class DebtorGUI extends VerticalLayout {
 
     public static final String VIEW_NAME = "debtorgui";
@@ -163,3 +163,4 @@ public class DebtorGUI extends VerticalLayout {
     }
 
 }
+
