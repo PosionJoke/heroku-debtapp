@@ -38,6 +38,8 @@ public class DebtorDetailsListGUI extends VerticalLayout {
     private TextField newValueTextField;
     private TextField debtorNameTextField;
 
+    private DebtorDetailsRepo debtorDetailsRepo;
+
     private Notification notification;
 
 
@@ -56,6 +58,8 @@ public class DebtorDetailsListGUI extends VerticalLayout {
         this.backToMainViewButton = new Button("Back to main view");
         this.editDebtByIdAndValueButton = new Button("Edit debt value by ID and debtor name");
 
+        this.debtorDetailsRepo = debtorDetailsRepo;
+
         this.notification = new Notification("", 3000);
 
         debtorsLIstGUIFormBinder = new Binder<>();
@@ -68,16 +72,14 @@ public class DebtorDetailsListGUI extends VerticalLayout {
 
         deleteDebtByIdButton.addClickListener(buttonClickEvent -> {
             onDeleteDebtByIdButtonClick();
-            grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
-            notification.setText("Debt deleted");
-            notification.open();
+//            notification.setText("Debt deleted");
+//            notification.open();
         });
 
         editDebtByIdAndValueButton.addClickListener(buttonClickEvent -> {
             onEditDebtByIdAndValueButtonClick();
-            grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
-            notification.setText("Debt updated");
-            notification.open();
+//            notification.setText("Debt updated");
+//            notification.open();
         });
 
 
@@ -107,10 +109,17 @@ public class DebtorDetailsListGUI extends VerticalLayout {
         Long id = debtorListGUIForm.getIdToDeleteTextField();
 
         debtorService.updateDebtByNewDebt(name, id, value);
+
+        grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
+        notification.setText("Debt updated");
+        notification.open();
     }
 
     private void onDeleteDebtByIdButtonClick() {
         Long id = debtorsLIstGUIFormBinder.getBean().getIdToDeleteTextField();
         debtorService.deleteDebtByID(id);
+        grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
+        notification.setText("Debt deleted");
+        notification.open();
     }
 }
