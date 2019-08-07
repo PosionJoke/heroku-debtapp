@@ -86,11 +86,11 @@ public class DebtorGUI extends VerticalLayout {
 
         deleteDebtButton.addClickListener(buttonClickEvent -> onDeleteDebtButtonClick());
 
-        showDebtorDetailsButton.addClickListener(e -> showDebtorDetailsButton.getUI().ifPresent(ui -> ui.navigate(DebtorDetailsListGUI.VIEW_NAME)));
+        showDebtorDetailsButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate(DebtorDetailsListGUI.VIEW_NAME)));
 
-        showDebtorHistoryButton.addClickListener(e -> showDebtorHistoryButton.getUI().ifPresent(ui -> ui.navigate(DebtorHistoryListGUI.VIEW_NAME)));
+        showDebtorHistoryButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate(DebtorHistoryListGUI.VIEW_NAME)));
 
-        showDebtorListButton.addClickListener(e -> showDebtorListButton.getUI().ifPresent(ui -> ui.navigate(DebtorListGUI.VIEW_NAME)));
+        showDebtorListButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate(DebtorListGUI.VIEW_NAME)));
 
         HorizontalLayout horizontalLayoutShowDebtorsGrid = new HorizontalLayout();
         horizontalLayoutShowDebtorsGrid.add(showDebtorDetailsButton);

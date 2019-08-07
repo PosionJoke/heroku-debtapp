@@ -68,7 +68,7 @@ public class DebtorDetailsListGUI extends VerticalLayout {
         debtorsLIstGUIFormBinder.forField(idToDeleteTextField).withConverter(DEBT_TO_LONG_CONVERTER).bind(DebtorListGUIForm::getIdToDeleteTextField, DebtorListGUIForm::setIdToDeleteTextField);
         debtorsLIstGUIFormBinder.setBean(new DebtorListGUIForm());
 
-        backToMainViewButton.addClickListener(e -> backToMainViewButton.getUI().ifPresent(ui -> ui.navigate(DebtorGUI.VIEW_NAME)));
+        backToMainViewButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate(DebtorGUI.VIEW_NAME)));
 
         deleteDebtByIdButton.addClickListener(buttonClickEvent -> {
             onDeleteDebtByIdButtonClick();

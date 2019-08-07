@@ -58,7 +58,7 @@ public class DebtorHistoryListGUI extends VerticalLayout {
         debtorHistoryListGUIFormBinder.setBean(new DebtorHistoryListGUIForm());
 
         backToMainViewButton.addClickListener(e ->
-                backToMainViewButton.getUI().ifPresent(ui -> ui.navigate(DebtorGUI.VIEW_NAME)));
+                getUI().ifPresent(ui -> ui.navigate(DebtorGUI.VIEW_NAME)));
 
 
         deleteDebtByIdButton.addClickListener(buttonClickEvent -> {
