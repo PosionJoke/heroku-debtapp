@@ -11,7 +11,7 @@ public class DebtorGUIForm {
     private Long textFieldIdDebt = 0L;
     private TextArea areaInfo = new TextArea();
 
-    public String getAreaInfo() {
+    public String getValueOfAreaInfo() {
         return areaInfo.getValue();
     }
 
