@@ -11,7 +11,7 @@ import pl.bykowski.rectangleapp.repositories.repo_struct.Debtor;
 import java.util.Collection;
 
 @StyleSheet("/css/style.css")
-@Route(value = "debtorlistgui")
+@Route(value = DebtorListGUI.VIEW_NAME)
 public class DebtorListGUI extends VerticalLayout {
 
     public static final String VIEW_NAME = "debtorlistgui";

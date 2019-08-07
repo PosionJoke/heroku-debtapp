@@ -19,7 +19,7 @@ import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorHistory;
 import java.util.Collection;
 
 @StyleSheet("/css/style.css")
-@Route(value = "debtorhistrylistgui")
+@Route(value = DebtorHistoryListGUI.VIEW_NAME)
 public class DebtorHistoryListGUI extends VerticalLayout {
 
     public static final String VIEW_NAME = "debtorhistrylistgui";
