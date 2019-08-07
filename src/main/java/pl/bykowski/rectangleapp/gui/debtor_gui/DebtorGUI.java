@@ -47,9 +47,9 @@ public class DebtorGUI extends VerticalLayout {
     private TextArea areaTest;
 
     // initialization whole Repository and all of variables
-    public DebtorGUI(DebtorService debtorGUIEvents) {
+    public DebtorGUI(DebtorService debtorService) {
 
-        this.debtorService = debtorGUIEvents;
+        this.debtorService = debtorService;
 
         this.nameTextField = new TextField("Type Name: ");
         this.debtTextField = new TextField("Type Debt: ");
