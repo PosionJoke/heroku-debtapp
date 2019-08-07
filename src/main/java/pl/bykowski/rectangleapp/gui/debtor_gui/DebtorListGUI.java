@@ -16,7 +16,7 @@ public class DebtorListGUI extends VerticalLayout {
 
     public static final String VIEW_NAME = "debtorlistgui";
 
-    private DebtorRepo debtorRepo;
+    private transient DebtorRepo debtorRepo;
 
     public DebtorListGUI(DebtorRepo debtorRepo) {
 

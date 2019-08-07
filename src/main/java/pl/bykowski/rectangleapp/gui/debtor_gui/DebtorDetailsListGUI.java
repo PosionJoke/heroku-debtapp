@@ -38,7 +38,7 @@ public class DebtorDetailsListGUI extends VerticalLayout {
     private TextField newValueTextField;
     private TextField debtorNameTextField;
 
-    private DebtorDetailsRepo debtorDetailsRepo;
+    private transient DebtorDetailsRepo debtorDetailsRepo;
 
     private Notification notification;
 
