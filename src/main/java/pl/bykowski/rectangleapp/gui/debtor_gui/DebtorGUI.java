@@ -118,7 +118,8 @@ public class DebtorGUI extends VerticalLayout {
 
         String name = debtorGUIForm.getTextFieldName();
         debtorGUIForm.setAreaInfo(debtorService.showInfo(name));
-        areaInfo.setValue(debtorGUIForm.getAreaInfo());
+        debtorGUIFormBinder.readBean(debtorGUIForm);
+//        areaInfo.setValue(debtorGUIForm.getAreaInfo());
     }
 
     private void onAddDebtorButtonClick() {
@@ -128,7 +129,8 @@ public class DebtorGUI extends VerticalLayout {
         float debtValue = debtorGUIForm.getTextFieldDebt();
         String reason = debtorGUIForm.getTextFieldReasonForTheDebt();
         debtorGUIForm.setAreaInfo(debtorService.addNewDebtor(name, debtValue, reason));
-        areaInfo.setValue(debtorGUIForm.getAreaInfo());
+        debtorGUIFormBinder.readBean(debtorGUIForm);
+//        areaInfo.setValue(debtorGUIForm.getAreaInfo());
     }
 
     private void onAddDebtButtonClick() {
@@ -138,8 +140,8 @@ public class DebtorGUI extends VerticalLayout {
         float debtValue = debtorGUIForm.getTextFieldDebt();
         String reason = debtorGUIForm.getTextFieldReasonForTheDebt();
         debtorGUIForm.setAreaInfo(debtorService.addNewDebt(name, debtValue, reason));
-//        debtorGUIFormBinder.readBean(debtorGUIForm);
-        areaInfo.setValue(debtorGUIForm.getAreaInfo());
+        debtorGUIFormBinder.readBean(debtorGUIForm);
+//        areaInfo.setValue(debtorGUIForm.getAreaInfo());
     }
 
     private void onUpdateButtonClick() {
@@ -160,7 +162,8 @@ public class DebtorGUI extends VerticalLayout {
 
         String info = debtorService.showInfo(name);
         debtorGUIForm.setAreaInfo(info);
-        areaInfo.setValue(debtorGUIForm.getAreaInfo());
+        debtorGUIFormBinder.readBean(debtorGUIForm);
+//        areaInfo.setValue(debtorGUIForm.getAreaInfo());
     }
 
 }
