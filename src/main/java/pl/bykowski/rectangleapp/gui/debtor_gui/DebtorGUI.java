@@ -44,6 +44,7 @@ public class DebtorGUI extends VerticalLayout {
     private Button showDebtorListButton;
 
     private TextArea areaInfo;
+    private TextArea areaTest;
 
     // initialization whole Repository and all of variables
     public DebtorGUI(DebtorService debtorGUIEvents) {
@@ -109,7 +110,6 @@ public class DebtorGUI extends VerticalLayout {
         add(deleteDebtButton);
 
         add(areaInfo);
-
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
     }
 
@@ -119,7 +119,6 @@ public class DebtorGUI extends VerticalLayout {
         String name = debtorGUIForm.getTextFieldName();
         debtorGUIForm.setAreaInfo(debtorService.showInfo(name));
         debtorGUIFormBinder.readBean(debtorGUIForm);
-//        areaInfo.setValue(debtorGUIForm.getAreaInfo());
     }
 
     private void onAddDebtorButtonClick() {
@@ -130,7 +129,6 @@ public class DebtorGUI extends VerticalLayout {
         String reason = debtorGUIForm.getTextFieldReasonForTheDebt();
         debtorGUIForm.setAreaInfo(debtorService.addNewDebtor(name, debtValue, reason));
         debtorGUIFormBinder.readBean(debtorGUIForm);
-//        areaInfo.setValue(debtorGUIForm.getAreaInfo());
     }
 
     private void onAddDebtButtonClick() {
@@ -141,7 +139,6 @@ public class DebtorGUI extends VerticalLayout {
         String reason = debtorGUIForm.getTextFieldReasonForTheDebt();
         debtorGUIForm.setAreaInfo(debtorService.addNewDebt(name, debtValue, reason));
         debtorGUIFormBinder.readBean(debtorGUIForm);
-//        areaInfo.setValue(debtorGUIForm.getAreaInfo());
     }
 
     private void onUpdateButtonClick() {
@@ -163,7 +160,6 @@ public class DebtorGUI extends VerticalLayout {
         String info = debtorService.showInfo(name);
         debtorGUIForm.setAreaInfo(info);
         debtorGUIFormBinder.readBean(debtorGUIForm);
-//        areaInfo.setValue(debtorGUIForm.getAreaInfo());
     }
 
 }
