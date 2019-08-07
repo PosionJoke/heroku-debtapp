@@ -2,16 +2,11 @@ package pl.bykowski.rectangleapp.repositories.repo_interfaces;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pl.bykowski.rectangleapp.Repositories.RepoStruct.DebtorHistory;
-import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorDetails;
+import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorHistory;
 
 import java.util.List;
 
 @Repository
 public interface DebtorHistoryRepo extends CrudRepository<DebtorHistory, Long> {
-    List<DebtorHistory> findByName(String name);
-
     List<DebtorHistory> findByNameAndId(String name, Long ID);
-
-    List<DebtorDetails> findByid(Long ID);
 }

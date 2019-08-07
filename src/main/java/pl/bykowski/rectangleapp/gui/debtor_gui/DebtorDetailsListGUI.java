@@ -12,7 +12,7 @@ import com.vaadin.flow.data.converter.StringToFloatConverter;
 import com.vaadin.flow.data.converter.StringToLongConverter;
 import com.vaadin.flow.router.Route;
 import pl.bykowski.rectangleapp.DebtorService;
-import pl.bykowski.rectangleapp.form.DebtorsListGUIForm;
+import pl.bykowski.rectangleapp.form.DebtorListGUIForm;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorDetails;
 
@@ -22,7 +22,13 @@ import java.util.Collection;
 @Route(value = "debtordetailslistgui")
 public class DebtorDetailsListGUI extends VerticalLayout {
 
-    private DebtorService debtorService;
+    public static final String VIEW_NAME = "debtordetailslistgui";
+
+    private static final StringToFloatConverter DEBT_TO_FLOAT_CONVERTER = new StringToFloatConverter("Invalid debt format");
+    private static final StringToLongConverter DEBT_TO_LONG_CONVERTER = new StringToLongConverter("Invalid debt format");
+    private Binder<DebtorListGUIForm> debtorsLIstGUIFormBinder;
+
+    private transient DebtorService debtorService;
 
     private Button deleteDebtByIdButton;
     private Button backToMainViewButton;
@@ -34,11 +40,8 @@ public class DebtorDetailsListGUI extends VerticalLayout {
 
     private Notification notification;
 
-    private static final StringToFloatConverter DEBT_TO_FLOAT_CONVERTER = new StringToFloatConverter("Invalid debt format");
-    private static final StringToLongConverter DEBT_TO_LONG_CONVERTER = new StringToLongConverter("Invalid debt format");
-    private Binder<DebtorsListGUIForm> debtorsLIstGUIFormBinder;
 
-    Grid<DebtorDetails> grid = new Grid<>(DebtorDetails.class);
+    private Grid<DebtorDetails> grid = new Grid<>(DebtorDetails.class);
 
     public DebtorDetailsListGUI(DebtorDetailsRepo debtorDetailsRepo, DebtorService debtorService) {
         grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
@@ -56,12 +59,12 @@ public class DebtorDetailsListGUI extends VerticalLayout {
         this.notification = new Notification("", 3000);
 
         debtorsLIstGUIFormBinder = new Binder<>();
-        debtorsLIstGUIFormBinder.forField(debtorNameTextField).bind(DebtorsListGUIForm::getDebtorNameField, DebtorsListGUIForm::setDebtorNameField);
-        debtorsLIstGUIFormBinder.forField(newValueTextField).withConverter(DEBT_TO_FLOAT_CONVERTER).bind(DebtorsListGUIForm::getNewValueField, DebtorsListGUIForm::setNewValueField);
-        debtorsLIstGUIFormBinder.forField(idToDeleteTextField).withConverter(DEBT_TO_LONG_CONVERTER).bind(DebtorsListGUIForm::getIdToDeleteTextField, DebtorsListGUIForm::setIdToDeleteTextField);
-        debtorsLIstGUIFormBinder.setBean(new DebtorsListGUIForm());
+        debtorsLIstGUIFormBinder.forField(debtorNameTextField).bind(DebtorListGUIForm::getDebtorNameField, DebtorListGUIForm::setDebtorNameField);
+        debtorsLIstGUIFormBinder.forField(newValueTextField).withConverter(DEBT_TO_FLOAT_CONVERTER).bind(DebtorListGUIForm::getNewValueField, DebtorListGUIForm::setNewValueField);
+        debtorsLIstGUIFormBinder.forField(idToDeleteTextField).withConverter(DEBT_TO_LONG_CONVERTER).bind(DebtorListGUIForm::getIdToDeleteTextField, DebtorListGUIForm::setIdToDeleteTextField);
+        debtorsLIstGUIFormBinder.setBean(new DebtorListGUIForm());
 
-        backToMainViewButton.addClickListener(e -> backToMainViewButton.getUI().ifPresent(ui -> ui.navigate("debtorgui")));
+        backToMainViewButton.addClickListener(e -> backToMainViewButton.getUI().ifPresent(ui -> ui.navigate(DebtorGUI.VIEW_NAME)));
 
         deleteDebtByIdButton.addClickListener(buttonClickEvent -> {
             onDeleteDebtByIdButtonClick();
@@ -97,9 +100,11 @@ public class DebtorDetailsListGUI extends VerticalLayout {
     }
 
     private void onEditDebtByIdAndValueButtonClick() {
-        String name = debtorsLIstGUIFormBinder.getBean().getDebtorNameField();
-        float value = debtorsLIstGUIFormBinder.getBean().getNewValueField();
-        Long id = debtorsLIstGUIFormBinder.getBean().getIdToDeleteTextField();
+        DebtorListGUIForm debtorListGUIForm = debtorsLIstGUIFormBinder.getBean();
+
+        String name = debtorListGUIForm.getDebtorNameField();
+        float value = debtorListGUIForm.getNewValueField();
+        Long id = debtorListGUIForm.getIdToDeleteTextField();
 
         debtorService.updateDebtByNewDebt(name, id, value);
     }

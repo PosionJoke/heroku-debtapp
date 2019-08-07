@@ -14,6 +14,8 @@ import java.util.Collection;
 @Route(value = "debtorlistgui")
 public class DebtorListGUI extends VerticalLayout {
 
+    public static final String VIEW_NAME = "debtorlistgui";
+
     private DebtorRepo debtorRepo;
 
     public DebtorListGUI(DebtorRepo debtorRepo) {
