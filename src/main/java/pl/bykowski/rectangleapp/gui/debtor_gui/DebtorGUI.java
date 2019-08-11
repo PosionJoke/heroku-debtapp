@@ -72,7 +72,7 @@ public class DebtorGUI extends VerticalLayout {
         debtorGUIFormBinder.forField(reasonForTheDebtTextField).bind(DebtorGUIForm::getTextFieldReasonForTheDebt, DebtorGUIForm::setTextFieldReasonForTheDebt);
         debtorGUIFormBinder.forField(debtTextField).withConverter(DEBT_TO_FLOAT_CONVERTER).bind(DebtorGUIForm::getTextFieldDebt, DebtorGUIForm::setTextFieldDebt);
         debtorGUIFormBinder.forField(idDebtTextField).withConverter(DEBT_TO_LONG_CONVERTER).bind(DebtorGUIForm::getTextFieldIdDebt, DebtorGUIForm::setTextFieldIdDebt);
-        debtorGUIFormBinder.forField(areaInfo).bind(DebtorGUIForm::getValueOfAreaInfo, DebtorGUIForm::setAreaInfo);
+        debtorGUIFormBinder.forField(areaInfo).bind(DebtorGUIForm::getAreaInfo, DebtorGUIForm::setAreaInfo);
         debtorGUIFormBinder.setBean(new DebtorGUIForm());
 
 
