@@ -10,7 +10,6 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.converter.StringToFloatConverter;
 import com.vaadin.flow.data.converter.StringToLongConverter;
-import com.vaadin.flow.data.selection.SingleSelect;
 import com.vaadin.flow.router.Route;
 import pl.bykowski.rectangleapp.DebtorService;
 import pl.bykowski.rectangleapp.form.DebtorListGUIForm;
@@ -47,13 +46,7 @@ public class DebtorDetailsListGUI extends VerticalLayout {
     private Grid<DebtorDetails> grid = new Grid<>(DebtorDetails.class);
 
     public DebtorDetailsListGUI(DebtorDetailsRepo debtorDetailsRepo, DebtorService debtorService) {
-
         grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
-        grid.setSelectionMode(Grid.SelectionMode.SINGLE);
-        SingleSelect<Grid<DebtorDetails>, DebtorDetails> debtorListSelect = grid.asSingleSelect();
-        debtorListSelect.addValueChangeListener(e -> {
-            DebtorDetails selectDebtor = e.getValue();
-        });
 
         this.debtorService = debtorService;
 
