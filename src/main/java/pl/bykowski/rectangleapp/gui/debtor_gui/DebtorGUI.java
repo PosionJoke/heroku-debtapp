@@ -44,7 +44,6 @@ public class DebtorGUI extends VerticalLayout {
     private Button showDebtorListButton;
 
     private TextArea areaInfo;
-    private TextArea areaTest;
 
     // initialization whole Repository and all of variables
     public DebtorGUI(DebtorService debtorService) {

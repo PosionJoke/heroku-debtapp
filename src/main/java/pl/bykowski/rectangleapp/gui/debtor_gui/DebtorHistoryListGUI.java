@@ -28,6 +28,7 @@ public class DebtorHistoryListGUI extends VerticalLayout {
     private Binder<DebtorHistoryListGUIForm> debtorHistoryListGUIFormBinder;
 
     private transient DebtorService debtorService;
+    private transient DebtorHistoryRepo debtorHistoryRepo;
 
     private Button deleteDebtByIdButton;
     private Button backToMainViewButton;
@@ -36,10 +37,10 @@ public class DebtorHistoryListGUI extends VerticalLayout {
 
     private Notification notification;
 
+    private Grid<DebtorHistory> grid = new Grid<>(DebtorHistory.class);
 
     public DebtorHistoryListGUI(DebtorHistoryRepo debtorHistoryRepo, DebtorService debtorService) {
 
-        Grid<DebtorHistory> grid = new Grid<>(DebtorHistory.class);
         grid.setItems((Collection<DebtorHistory>) debtorHistoryRepo.findAll());
 
         this.debtorService = debtorService;
@@ -65,7 +66,6 @@ public class DebtorHistoryListGUI extends VerticalLayout {
 
         deleteDebtByIdButton.addClickListener(buttonClickEvent -> {
             onDeleteDebtByIdButtonClick();
-            grid.setItems((Collection<DebtorHistory>) debtorHistoryRepo.findAll());
             notification.setText("Debt deleted");
             notification.open();
         });
@@ -87,5 +87,6 @@ public class DebtorHistoryListGUI extends VerticalLayout {
     private void onDeleteDebtByIdButtonClick() {
         Long id = debtorHistoryListGUIFormBinder.getBean().getIdToDeleteTextField();
         debtorService.deleteFromDebtorHistoryById(id);
+        grid.setItems((Collection<DebtorHistory>) debtorHistoryRepo.findAll());
     }
 }
