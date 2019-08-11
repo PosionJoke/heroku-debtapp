@@ -52,9 +52,11 @@ public class DebtorHistoryListGUI extends VerticalLayout {
         this.notification = new Notification("", 3000);
 
         debtorHistoryListGUIFormBinder = new Binder<>();
+
         debtorHistoryListGUIFormBinder.forField(idToDeleteTextField)
                 .withConverter(DEBT_TO_LONG_CONVERTER)
                 .bind(DebtorHistoryListGUIForm::getIdToDeleteTextField, DebtorHistoryListGUIForm::setIdToDeleteTextField);
+
         debtorHistoryListGUIFormBinder.setBean(new DebtorHistoryListGUIForm());
 
         backToMainViewButton.addClickListener(e ->

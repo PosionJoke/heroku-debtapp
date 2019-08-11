@@ -70,13 +70,10 @@ public class DebtorDetailsListGUI extends VerticalLayout {
 
         backToMainViewButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate(DebtorGUI.VIEW_NAME)));
 
-        deleteDebtByIdButton.addClickListener(buttonClickEvent -> {
-            onDeleteDebtByIdButtonClick();
-        });
+        deleteDebtByIdButton.addClickListener(buttonClickEvent -> onDeleteDebtByIdButtonClick());
 
-        editDebtByIdAndValueButton.addClickListener(buttonClickEvent -> {
-            onEditDebtByIdAndValueButtonClick();
-        });
+        editDebtByIdAndValueButton.addClickListener(buttonClickEvent -> onEditDebtByIdAndValueButtonClick());
+
 
 
         add(deleteDebtByIdButton);
