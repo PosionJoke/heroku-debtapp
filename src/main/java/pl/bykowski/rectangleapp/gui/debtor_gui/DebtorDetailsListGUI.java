@@ -74,8 +74,6 @@ public class DebtorDetailsListGUI extends VerticalLayout {
 
         editDebtByIdAndValueButton.addClickListener(buttonClickEvent -> onEditDebtByIdAndValueButtonClick());
 
-
-
         add(deleteDebtByIdButton);
         add(grid);
 
@@ -88,7 +86,6 @@ public class DebtorDetailsListGUI extends VerticalLayout {
 
         add(deleteDebtByIdButton);
         add(editDebtByIdAndValueButton);
-
 
         add(backToMainViewButton);
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
