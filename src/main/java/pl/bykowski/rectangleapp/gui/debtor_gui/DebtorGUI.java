@@ -143,10 +143,10 @@ public class DebtorGUI extends VerticalLayout {
     private void onUpdateButtonClick() {
         DebtorGUIForm debtorGUIForm = debtorGUIFormBinder.getBean();
 
-        String name = debtorGUIForm.getTextFieldName();
         Long debtorID = debtorGUIForm.getTextFieldIdDebt();
         float debtValue = debtorGUIForm.getTextFieldDebt();
-        debtorService.updateDebtByNewDebt(name, debtorID, debtValue);
+        debtorService.updateDebtByNewDebt(debtorID, debtValue);
+        debtorGUIFormBinder.readBean(debtorGUIForm);
     }
 
     private void onDeleteDebtButtonClick() {

@@ -36,12 +36,10 @@ public class DebtorDetailsListGUI extends VerticalLayout {
 
     private TextField idToDeleteTextField;
     private TextField newValueTextField;
-    private TextField debtorNameTextField;
 
     private transient DebtorDetailsRepo debtorDetailsRepo;
 
     private Notification notification;
-
 
     private Grid<DebtorDetails> grid = new Grid<>(DebtorDetails.class);
 
@@ -52,18 +50,16 @@ public class DebtorDetailsListGUI extends VerticalLayout {
 
         this.idToDeleteTextField = new TextField("Delete by ID");
         this.newValueTextField = new TextField("Add value");
-        this.debtorNameTextField = new TextField("Debtor Name");
 
         this.deleteDebtByIdButton = new Button("Delete debt by ID");
         this.backToMainViewButton = new Button("Back to main view");
-        this.editDebtByIdAndValueButton = new Button("Edit debt value by ID and debtor name");
+        this.editDebtByIdAndValueButton = new Button("Edit debt value by ID");
 
         this.debtorDetailsRepo = debtorDetailsRepo;
 
         this.notification = new Notification("", 3000);
 
         debtorsLIstGUIFormBinder = new Binder<>();
-        debtorsLIstGUIFormBinder.forField(debtorNameTextField).bind(DebtorListGUIForm::getDebtorNameField, DebtorListGUIForm::setDebtorNameField);
         debtorsLIstGUIFormBinder.forField(newValueTextField).withConverter(DEBT_TO_FLOAT_CONVERTER).bind(DebtorListGUIForm::getNewValueField, DebtorListGUIForm::setNewValueField);
         debtorsLIstGUIFormBinder.forField(idToDeleteTextField).withConverter(DEBT_TO_LONG_CONVERTER).bind(DebtorListGUIForm::getIdToDeleteTextField, DebtorListGUIForm::setIdToDeleteTextField);
         debtorsLIstGUIFormBinder.setBean(new DebtorListGUIForm());
@@ -79,7 +75,6 @@ public class DebtorDetailsListGUI extends VerticalLayout {
 
         HorizontalLayout buttonsLayout = new HorizontalLayout();
         buttonsLayout.add(idToDeleteTextField);
-        buttonsLayout.add(debtorNameTextField);
         buttonsLayout.add(newValueTextField);
 
         add(buttonsLayout);
@@ -94,10 +89,9 @@ public class DebtorDetailsListGUI extends VerticalLayout {
     private void onEditDebtByIdAndValueButtonClick() {
         DebtorListGUIForm debtorListGUIForm = debtorsLIstGUIFormBinder.getBean();
 
-        String name = debtorListGUIForm.getDebtorNameField();
         float value = debtorListGUIForm.getNewValueField();
         Long id = debtorListGUIForm.getIdToDeleteTextField();
-        debtorService.updateDebtByNewDebt(name, id, value);
+        debtorService.updateDebtByNewDebt(id, value);
 
         grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
         notification.setText("Debt updated");
@@ -112,4 +106,5 @@ public class DebtorDetailsListGUI extends VerticalLayout {
         notification.setText("Debt deleted");
         notification.open();
     }
+
 }

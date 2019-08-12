@@ -114,16 +114,16 @@ public class DebtorService {
     }
 
     @Transactional
-    public void updateDebtByNewDebt(String debtorName, Long debtID, float debtValue) {
-        for (DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(debtorName, debtID)) {
-            float newDebt = debtorDetails.getDebt() + debtValue;
-            debtorDetails.setDebt(newDebt);
-            if (newDebt <= 0) {
-                deleteDebtByID(debtorName, debtID);
-            } else
-                debtorDetailsRepo.save(debtorDetails);
-        }
+    public void updateDebtByNewDebt(Long debtID, float debtValue) {
+        Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(debtID);
+        DebtorDetails debtorDetails1 = debtorDetails.get();
+
+        float newDebt = debtorDetails1.getDebt() + debtValue;
+
+        debtorDetails1.setDebt(newDebt);
+        debtorDetailsRepo.save(debtorDetails1);
     }
+
     @Transactional
     public void deleteDebtByID(String debtorName, Long debtorID) {
         DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(debtorName, debtorID).get(0);
