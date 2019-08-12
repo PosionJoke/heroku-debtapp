@@ -8,4 +8,5 @@ public class DebtorGUIForm {
     private float textFieldDebt;
     private String textFieldReasonForTheDebt;
     private Long textFieldIdDebt = 0L;
+    private String areaInfo;
 }

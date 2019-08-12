@@ -2,12 +2,12 @@ package pl.bykowski.rectangleapp;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.bykowski.rectangleapp.Repositories.RepoStruct.DebtorHistory;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
 import pl.bykowski.rectangleapp.repositories.repo_struct.Debtor;
 import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorDetails;
+import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorHistory;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,7 +27,6 @@ public class DebtorService {
         this.debtorHistoryRepo = debtorHistoryRepo;
         this.debtorRepo = debtorRepo;
     }
-
 
     private boolean isThisNameFree(String debtorName) {
         List<Debtor> debtorList = (List<Debtor>) debtorRepo.findAll();
@@ -115,16 +114,16 @@ public class DebtorService {
     }
 
     @Transactional
-    public void updateDebtByNewDebt(String debtorName, Long debtID, float debtValue) {
-        for (DebtorDetails debtorDetails : debtorDetailsRepo.findByNameAndId(debtorName, debtID)) {
-            float newDebt = debtorDetails.getDebt() + debtValue;
-            debtorDetails.setDebt(newDebt);
-            if (newDebt <= 0) {
-                deleteDebtByID(debtorName, debtID);
-            } else
-                debtorDetailsRepo.save(debtorDetails);
-        }
+    public void updateDebtByNewDebt(Long debtID, float debtValue) {
+        Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(debtID);
+        DebtorDetails debtorDetails1 = debtorDetails.get();
+
+        float newDebt = debtorDetails1.getDebt() + debtValue;
+
+        debtorDetails1.setDebt(newDebt);
+        debtorDetailsRepo.save(debtorDetails1);
     }
+
     @Transactional
     public void deleteDebtByID(String debtorName, Long debtorID) {
         DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(debtorName, debtorID).get(0);
@@ -159,7 +158,10 @@ public class DebtorService {
 
         debtorHistoryRepo.save(debtorHistoryNew);
 
-        debtorDetailsRepo.delete(debtorDetailsRepo.findByid(debtorID).get(0));
+        debtorDetailsRepo.deleteById(debtorID);
     }
 
+    public void deleteFromDebtorHistoryById(Long debtorID) {
+        debtorHistoryRepo.deleteById(debtorID);
+    }
 }
