@@ -32,6 +32,5 @@ public class DbInit implements CommandLineRunner {
         List<DebtorUser> users = Arrays.asList(admin, manager, user);
 
         this.debtorUserRepo.saveAll(users);
-
     }
 }

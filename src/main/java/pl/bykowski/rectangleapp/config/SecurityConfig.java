@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/debtorhistrylistgui").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers("/test2").hasAuthority("ACCESS_TEST2")
                 .and()
-                .httpBasic();
+                .formLogin().permitAll();
     }
 
     @Bean
