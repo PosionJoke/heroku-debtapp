@@ -1,8 +1,11 @@
 package pl.bykowski.rectangleapp.gui.debtor_gui;
 
 
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -13,6 +16,8 @@ import com.vaadin.flow.data.converter.StringToLongConverter;
 import com.vaadin.flow.router.Route;
 import pl.bykowski.rectangleapp.DebtorService;
 import pl.bykowski.rectangleapp.form.DebtorGUIForm;
+
+import java.util.Locale;
 
 
 @StyleSheet("/css/style.css")
@@ -42,6 +47,8 @@ public class DebtorGUI extends VerticalLayout {
     private Button showDebtorDetailsButton;
     private Button showDebtorHistoryButton;
     private Button showDebtorListButton;
+    private Button logOutButton;
+    private Button logInButton;
 
     private TextArea areaInfo;
 
@@ -63,6 +70,8 @@ public class DebtorGUI extends VerticalLayout {
         this.showDebtorDetailsButton = new Button("Show Debtor Details");
         this.showDebtorHistoryButton = new Button("Show Debtor History");
         this.showDebtorListButton = new Button("Show Debtor List");
+        this.logOutButton = new Button("Logout");
+        this.logInButton = new Button(("Login"));
 
         this.areaInfo = new TextArea("Info");
 
@@ -90,6 +99,15 @@ public class DebtorGUI extends VerticalLayout {
         showDebtorHistoryButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate(DebtorHistoryListGUI.VIEW_NAME)));
 
         showDebtorListButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate(DebtorListGUI.VIEW_NAME)));
+
+        logOutButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate("logout")));
+
+        logInButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate("login")));
+
+        VerticalLayout topBar = new VerticalLayout();
+        topBar.add(logOutButton);
+        topBar.add(logInButton);
+        add(topBar);
 
         HorizontalLayout horizontalLayoutShowDebtorsGrid = new HorizontalLayout();
         horizontalLayoutShowDebtorsGrid.add(showDebtorDetailsButton);
@@ -161,5 +179,8 @@ public class DebtorGUI extends VerticalLayout {
         debtorGUIFormBinder.readBean(debtorGUIForm);
     }
 
+    private void testMethod(){
+
+    }
 }
 
