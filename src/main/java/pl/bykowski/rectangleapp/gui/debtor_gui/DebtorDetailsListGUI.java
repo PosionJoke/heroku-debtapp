@@ -16,8 +16,6 @@ import pl.bykowski.rectangleapp.form.DebtorListGUIForm;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorDetails;
 
-import java.util.Collection;
-
 @StyleSheet("/css/style.css")
 @Route(value = DebtorDetailsListGUI.VIEW_NAME)
 public class DebtorDetailsListGUI extends VerticalLayout {
@@ -44,7 +42,7 @@ public class DebtorDetailsListGUI extends VerticalLayout {
     private Grid<DebtorDetails> grid = new Grid<>(DebtorDetails.class);
 
     public DebtorDetailsListGUI(DebtorDetailsRepo debtorDetailsRepo, DebtorService debtorService) {
-        grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
+        grid.setItems(debtorDetailsRepo.findByUserName(debtorService.findUserName()));
 
         this.debtorService = debtorService;
 
@@ -93,16 +91,17 @@ public class DebtorDetailsListGUI extends VerticalLayout {
         Long id = debtorListGUIForm.getIdToDeleteTextField();
         debtorService.updateDebtByNewDebt(id, value);
 
-        grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
+        grid.setItems(debtorDetailsRepo.findByUserName(debtorService.findUserName()));
         notification.setText("Debt updated");
         notification.open();
     }
 
     private void onDeleteDebtByIdButtonClick() {
         Long id = debtorsLIstGUIFormBinder.getBean().getIdToDeleteTextField();
-        debtorService.deleteDebtByID(id);
+        String userName = debtorService.findUserName();
+        debtorService.deleteDebtByID(id, userName);
 
-        grid.setItems((Collection<DebtorDetails>) debtorDetailsRepo.findAll());
+        grid.setItems(debtorDetailsRepo.findByUserName(debtorService.findUserName()));
         notification.setText("Debt deleted");
         notification.open();
     }

@@ -60,6 +60,7 @@ public class DebtorService {
             for (Debtor debtor : debtorRepo.findByName(debtorName)) {
                 float newDebt = debtValue + debtor.getTotalDebt();
                 debtor.setTotalDebt(newDebt);
+                debtor.setUserName(userName);
                 debtorRepo.save(debtor);
                 areaInfoValue = ("New debt of " + debtor.getName() + " \nis equals to " + debtor.getTotalDebt());
             }
@@ -85,6 +86,7 @@ public class DebtorService {
             debtor.setName(debtorName);
             debtor.setTotalDebt((debtValue + debtor.getTotalDebt()));
             debtor.setDate(LocalDate.now());
+            debtor.setUserName(userName);
 
             DebtorDetails debtorDetails = new DebtorDetails();
             debtorDetails.setName(debtorName);
@@ -135,12 +137,13 @@ public class DebtorService {
     }
 
     @Transactional
-    public void deleteDebtByID(String debtorName, Long debtorID) {
+    public void deleteDebtByID(String debtorName, Long debtorID, String userName) {
         DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(debtorName, debtorID).get(0);
         DebtorHistory debtorHistoryNew = new DebtorHistory();
         debtorHistoryNew.setDebt(debtorDetailsCopy.getDebt());
         debtorHistoryNew.setName(debtorDetailsCopy.getName());
         debtorHistoryNew.setReasonForTheDebt(debtorDetailsCopy.getReasonForTheDebt());
+        debtorDetailsCopy.setUserName(userName);
 
         long daysBetween = DAYS.between(debtorDetailsCopy.getDate(), LocalDate.now());
 
@@ -151,7 +154,7 @@ public class DebtorService {
         debtorDetailsRepo.delete(debtorDetailsRepo.findByNameAndId(debtorName, debtorID).get(0));
     }
 
-    public void deleteDebtByID(Long debtorID) {
+    public void deleteDebtByID(Long debtorID, String userName) {
         Optional<DebtorDetails> debtorDetailsCopyOptional = debtorDetailsRepo.findById(debtorID);
 
         DebtorDetails debtorDetailsCopy = debtorDetailsCopyOptional.get();
@@ -161,6 +164,7 @@ public class DebtorService {
         debtorHistoryNew.setDebt(debtorDetailsCopy.getDebt());
         debtorHistoryNew.setName(debtorDetailsCopy.getName());
         debtorHistoryNew.setReasonForTheDebt(debtorDetailsCopy.getReasonForTheDebt());
+        debtorHistoryNew.setUserName(userName);
 
         long daysBetween = DAYS.between(debtorDetailsCopy.getDate(), LocalDate.now());
 

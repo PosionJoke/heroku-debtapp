@@ -176,8 +176,9 @@ public class DebtorGUI extends VerticalLayout {
         DebtorGUIForm debtorGUIForm = debtorGUIFormBinder.getBean();
 
         String name = debtorGUIForm.getTextFieldName();
+        String userName = findUserName();
         Long debtorID = debtorGUIForm.getTextFieldIdDebt();
-        debtorService.deleteDebtByID(name, debtorID);
+        debtorService.deleteDebtByID(name, debtorID, userName);
 
         String info = debtorService.showInfo(name);
         debtorGUIForm.setAreaInfo(info);
