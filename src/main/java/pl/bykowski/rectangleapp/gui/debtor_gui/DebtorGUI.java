@@ -1,11 +1,8 @@
 package pl.bykowski.rectangleapp.gui.debtor_gui;
 
 
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.StyleSheet;
-import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -14,10 +11,11 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.converter.StringToFloatConverter;
 import com.vaadin.flow.data.converter.StringToLongConverter;
 import com.vaadin.flow.router.Route;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import pl.bykowski.rectangleapp.DebtorService;
 import pl.bykowski.rectangleapp.form.DebtorGUIForm;
-
-import java.util.Locale;
 
 
 @StyleSheet("/css/style.css")
@@ -104,6 +102,9 @@ public class DebtorGUI extends VerticalLayout {
 
         logInButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate("login")));
 
+        Button testB = new Button(debtorService.findUserName());
+        add(testB);
+
         VerticalLayout topBar = new VerticalLayout();
         topBar.add(logOutButton);
         topBar.add(logInButton);
@@ -144,7 +145,9 @@ public class DebtorGUI extends VerticalLayout {
         String name = debtorGUIForm.getTextFieldName();
         float debtValue = debtorGUIForm.getTextFieldDebt();
         String reason = debtorGUIForm.getTextFieldReasonForTheDebt();
-        debtorGUIForm.setAreaInfo(debtorService.addNewDebtor(name, debtValue, reason));
+//        DebtorUser debtorUser = (DebtorUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userName = findUserName();
+        debtorGUIForm.setAreaInfo(debtorService.addNewDebtor(name, debtValue, reason, userName));
         debtorGUIFormBinder.readBean(debtorGUIForm);
     }
 
@@ -154,7 +157,9 @@ public class DebtorGUI extends VerticalLayout {
         String name = debtorGUIForm.getTextFieldName();
         float debtValue = debtorGUIForm.getTextFieldDebt();
         String reason = debtorGUIForm.getTextFieldReasonForTheDebt();
-        debtorGUIForm.setAreaInfo(debtorService.addNewDebt(name, debtValue, reason));
+//        DebtorUser debtorUser = (DebtorUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userName = findUserName();
+        debtorGUIForm.setAreaInfo(debtorService.addNewDebt(name, debtValue, reason, userName));
         debtorGUIFormBinder.readBean(debtorGUIForm);
     }
 
@@ -179,7 +184,28 @@ public class DebtorGUI extends VerticalLayout {
         debtorGUIFormBinder.readBean(debtorGUIForm);
     }
 
-    private void testMethod(){
+    private String findUserName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return currentPrincipalName;
+    }
+
+    private String findUserObj() {
+//        return (DebtorUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        DebtorUser debtorUser = (DebtorUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        debtorUser.getRoleList();
+//        return debtorUser.getPassword();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        UserDetails userDetails;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getPassword();
+            userDetails = (UserDetails) principal;
+        } else {
+            username = principal.toString();
+        }
+        return username;
+
 
     }
 }

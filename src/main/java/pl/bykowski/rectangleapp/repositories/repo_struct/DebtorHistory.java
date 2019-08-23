@@ -22,4 +22,5 @@ public class DebtorHistory {
     private float debt;
     private long timeOfDebt;
     private String reasonForTheDebt;
+    private String userName;
 }

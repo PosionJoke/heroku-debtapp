@@ -26,6 +26,7 @@ Debtor {
     private float totalDebt;
     private LocalDate date;
     private String dateNow;
+    private String userName;
 
     @Override
     public String toString() {

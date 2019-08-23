@@ -1,5 +1,7 @@
 package pl.bykowski.rectangleapp;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
@@ -39,11 +41,17 @@ public class DebtorService {
         return true;
     }
 
-    public String addNewDebt(String debtorName, float debtValue, String reasonForTheDebt) {
+    public String findUserName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return currentPrincipalName;
+    }
+
+    public String addNewDebt(String debtorName, float debtValue, String reasonForTheDebt, String userName) {
         String areaInfoValue = "";
         //If we don't have any debts with this name, make him with new debt
         if (isThisNameFree(debtorName)) {
-            addNewDebtor(debtorName, debtValue, reasonForTheDebt);
+            addNewDebtor(debtorName, debtValue, reasonForTheDebt, userName);
             areaInfoValue = (debtorName + " is added! \n Debt value -> " + debtValue);
         }
         //otherwise add to him extra debt
@@ -61,13 +69,14 @@ public class DebtorService {
             debtorDetails.setDebt(debtValue);
             debtorDetails.setDate(LocalDate.now());
             debtorDetails.setReasonForTheDebt(reasonForTheDebt);
+            debtorDetails.setUserName(userName);
 
             debtorDetailsRepo.save(debtorDetails);
         }
         return areaInfoValue;
     }
 
-    public String addNewDebtor(String debtorName, float debtValue, String reasonForTheDebt) {
+    public String addNewDebtor(String debtorName, float debtValue, String reasonForTheDebt, String userName) {
         String areaInfoValue = "";
 
         //If the name isn't use, add new debtor
@@ -82,6 +91,7 @@ public class DebtorService {
             debtorDetails.setDate(LocalDate.now());
             debtorDetails.setDebt((debtValue));
             debtorDetails.setReasonForTheDebt(reasonForTheDebt);
+            debtorDetails.setUserName(userName);
 
             debtorDetailsRepo.save(debtorDetails);
             debtorRepo.save(debtor);

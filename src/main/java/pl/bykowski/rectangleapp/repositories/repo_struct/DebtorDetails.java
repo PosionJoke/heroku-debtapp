@@ -26,4 +26,5 @@ public class DebtorDetails {
     private float totalDebt;
     private LocalDate date;
     private String reasonForTheDebt;
+    private String userName;
 }

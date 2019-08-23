@@ -28,8 +28,9 @@ public class DbInit implements CommandLineRunner {
         DebtorUser admin = new DebtorUser("admin", passwordEncoder.encode("1234"), "ADMIN", "ACCESS_TEST1,ACCESS_TEST2");
         DebtorUser manager = new DebtorUser("manager", passwordEncoder.encode("1234"), "MANAGER", "ACCESS_TEST2");
         DebtorUser user = new DebtorUser("user", passwordEncoder.encode("1234"), "USER", "");
+        DebtorUser adrianUser = new DebtorUser("adik0013", passwordEncoder.encode("oktet"), "USER", "");
 
-        List<DebtorUser> users = Arrays.asList(admin, manager, user);
+        List<DebtorUser> users = Arrays.asList(admin, manager, user, adrianUser);
 
         this.debtorUserRepo.saveAll(users);
     }
