@@ -5,10 +5,9 @@ import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import pl.bykowski.rectangleapp.DebtorService;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
 import pl.bykowski.rectangleapp.repositories.repo_struct.Debtor;
-
-import java.util.Collection;
 
 @StyleSheet("/css/style.css")
 @Route(value = DebtorListGUI.VIEW_NAME)
@@ -17,13 +16,15 @@ public class DebtorListGUI extends VerticalLayout {
     public static final String VIEW_NAME = "debtorlistgui";
 
     private transient DebtorRepo debtorRepo;
+    private transient DebtorService debtorService;
 
-    public DebtorListGUI(DebtorRepo debtorRepo) {
+    public DebtorListGUI(DebtorRepo debtorRepo, DebtorService debtorService) {
 
         this.debtorRepo = debtorRepo;
+        this.debtorService = debtorService;
 
         Grid<Debtor> grid = new Grid<>(Debtor.class);
-        grid.setItems((Collection<Debtor>) debtorRepo.findAll());
+        grid.setItems(debtorRepo.findByUserName(debtorService.findUserName()));
 
         add(grid);
     }

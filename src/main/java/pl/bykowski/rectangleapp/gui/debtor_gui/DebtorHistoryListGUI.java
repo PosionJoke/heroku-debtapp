@@ -16,8 +16,6 @@ import pl.bykowski.rectangleapp.form.DebtorHistoryListGUIForm;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorHistory;
 
-import java.util.Collection;
-
 @StyleSheet("/css/style.css")
 @Route(value = DebtorHistoryListGUI.VIEW_NAME)
 public class DebtorHistoryListGUI extends VerticalLayout {
@@ -41,9 +39,10 @@ public class DebtorHistoryListGUI extends VerticalLayout {
 
     public DebtorHistoryListGUI(DebtorHistoryRepo debtorHistoryRepo, DebtorService debtorService) {
 
-        grid.setItems((Collection<DebtorHistory>) debtorHistoryRepo.findAll());
+        grid.setItems(debtorHistoryRepo.findByUserName(debtorService.findUserName()));
 
         this.debtorService = debtorService;
+        this.debtorHistoryRepo = debtorHistoryRepo;
 
         this.idToDeleteTextField = new TextField("Delete by ID");
 
@@ -87,6 +86,8 @@ public class DebtorHistoryListGUI extends VerticalLayout {
     private void onDeleteDebtByIdButtonClick() {
         Long id = debtorHistoryListGUIFormBinder.getBean().getIdToDeleteTextField();
         debtorService.deleteFromDebtorHistoryById(id);
-        grid.setItems((Collection<DebtorHistory>) debtorHistoryRepo.findAll());
+        grid.setItems(debtorHistoryRepo.findByUserName(debtorService.findUserName()));
+        notification.setText("Debt deleted");
+        notification.open();
     }
 }
