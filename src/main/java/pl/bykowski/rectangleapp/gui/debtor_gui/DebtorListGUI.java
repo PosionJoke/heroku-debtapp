@@ -5,9 +5,9 @@ import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import pl.bykowski.rectangleapp.DebtorService;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
 import pl.bykowski.rectangleapp.repositories.repo_struct.Debtor;
+import pl.bykowski.rectangleapp.services.DebtorService;
 
 @StyleSheet("/css/style.css")
 @Route(value = DebtorListGUI.VIEW_NAME)

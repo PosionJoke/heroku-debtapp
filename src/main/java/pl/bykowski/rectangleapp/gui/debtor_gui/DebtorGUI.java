@@ -13,8 +13,8 @@ import com.vaadin.flow.data.converter.StringToLongConverter;
 import com.vaadin.flow.router.Route;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import pl.bykowski.rectangleapp.DebtorService;
 import pl.bykowski.rectangleapp.form.DebtorGUIForm;
+import pl.bykowski.rectangleapp.services.DebtorService;
 
 
 @StyleSheet("/css/style.css")

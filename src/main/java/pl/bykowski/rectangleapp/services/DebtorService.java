@@ -1,9 +1,10 @@
-package pl.bykowski.rectangleapp;
+package pl.bykowski.rectangleapp.services;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.bykowski.rectangleapp.config.UserPrincipal;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
@@ -44,7 +45,22 @@ public class DebtorService {
     public String findUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
+
         return currentPrincipalName;
+    }
+
+    public String testGetUserEmail() {
+        String email = "";
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserPrincipal) {
+            String emailAddress = ((UserPrincipal) principal).getEmail();
+            email = emailAddress;
+        } else {
+            String username = principal.toString();
+            email = username;
+        }
+        return email;
     }
 
     public String addNewDebt(String debtorName, float debtValue, String reasonForTheDebt, String userName) {

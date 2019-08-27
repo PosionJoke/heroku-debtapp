@@ -11,10 +11,10 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.converter.StringToFloatConverter;
 import com.vaadin.flow.data.converter.StringToLongConverter;
 import com.vaadin.flow.router.Route;
-import pl.bykowski.rectangleapp.DebtorService;
 import pl.bykowski.rectangleapp.form.DebtorListGUIForm;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorDetails;
+import pl.bykowski.rectangleapp.services.DebtorService;
 
 @StyleSheet("/css/style.css")
 @Route(value = DebtorDetailsListGUI.VIEW_NAME)
