@@ -16,13 +16,13 @@ public class NotificationService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendNotification(String email) throws MailException {
+    public void sendNotification(String email, String code) throws MailException {
         //send email
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(email);
         mail.setFrom("rostkowskiadrian00@gmail.com");
         mail.setSubject("Rarity is best Pony!");
-        mail.setText("Yep, Rararara is best pony");
+        mail.setText("Yep, Rararara is best pony\nAuthenticationCode = " + code);
 
         javaMailSender.send(mail);
     }

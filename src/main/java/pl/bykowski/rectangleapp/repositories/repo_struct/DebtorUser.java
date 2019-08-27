@@ -31,13 +31,14 @@ public class DebtorUser {
     private String email;
     private String authenticationCode = "";
 
-    public DebtorUser(String name, String password, String roles, String permissions, String email) {
+    public DebtorUser(String name, String password, String roles, String permissions, String email, Integer active, String authenticationCode) {
         this.name = name;
         this.password = password;
         this.roles = roles;
         this.permissions = permissions;
-        this.active = 1;
+        this.active = 0;
         this.email = email;
+        this.authenticationCode = authenticationCode;
     }
 
     public List<String> getRoleList() {
