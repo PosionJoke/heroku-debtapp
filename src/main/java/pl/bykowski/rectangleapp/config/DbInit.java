@@ -25,10 +25,10 @@ public class DbInit implements CommandLineRunner {
 
         this.debtorUserRepo.deleteAll();
 
-        DebtorUser admin = new DebtorUser("admin", passwordEncoder.encode("1234"), "ADMIN", "ACCESS_TEST1,ACCESS_TEST2", "aaadik0013@gmail.com");
-        DebtorUser manager = new DebtorUser("manager", passwordEncoder.encode("1234"), "MANAGER", "ACCESS_TEST2", "aaadik0013@gmail.com");
-        DebtorUser user = new DebtorUser("user", passwordEncoder.encode("1234"), "USER", "", "aaadik0013@gmail.com");
-        DebtorUser adrianUser = new DebtorUser("adik0013", passwordEncoder.encode("oktet"), "USER", "", "posionjoke@gmail.com");
+        DebtorUser admin = new DebtorUser("admin", passwordEncoder.encode("1234"), "ADMIN", "ACCESS_TEST1,ACCESS_TEST2", "aaadik0013@gmail.com", 1, "");
+        DebtorUser manager = new DebtorUser("manager", passwordEncoder.encode("1234"), "MANAGER", "ACCESS_TEST2", "aaadik0013@gmail.com", 1, "");
+        DebtorUser user = new DebtorUser("user", passwordEncoder.encode("1234"), "USER", "", "aaadik0013@gmail.com", 1, "");
+        DebtorUser adrianUser = new DebtorUser("adik0013", passwordEncoder.encode("oktet"), "USER", "", "posionjoke@gmail.com", 1, "");
 
         List<DebtorUser> users = Arrays.asList(admin, manager, user, adrianUser);
 
