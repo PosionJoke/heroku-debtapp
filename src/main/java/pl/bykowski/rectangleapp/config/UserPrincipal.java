@@ -47,6 +47,10 @@ public class UserPrincipal implements UserDetails {
         return debtorUser.getName();
     }
 
+    public String getEmail() {
+        return debtorUser.getEmail();
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

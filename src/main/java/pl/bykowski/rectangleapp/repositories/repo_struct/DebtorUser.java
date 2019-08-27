@@ -28,13 +28,16 @@ public class DebtorUser {
     private Integer active;
     private String roles;
     private String permissions;
+    private String email;
+    private String authenticationCode = "";
 
-    public DebtorUser(String name, String password, String roles, String permissions) {
+    public DebtorUser(String name, String password, String roles, String permissions, String email) {
         this.name = name;
         this.password = password;
         this.roles = roles;
         this.permissions = permissions;
         this.active = 1;
+        this.email = email;
     }
 
     public List<String> getRoleList() {
