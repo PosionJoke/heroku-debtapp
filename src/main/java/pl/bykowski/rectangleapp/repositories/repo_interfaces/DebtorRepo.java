@@ -8,6 +8,8 @@ import java.util.List;
 
 @Repository
 public interface DebtorRepo extends CrudRepository<Debtor, Long> {
-    List<Debtor> findByName(String name);
+    Debtor findByName(String name);
     List<Debtor> findByUserName(String userName);
+
+    List<Debtor> findAll();
 }
