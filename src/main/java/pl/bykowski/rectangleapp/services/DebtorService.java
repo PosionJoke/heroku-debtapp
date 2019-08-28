@@ -4,7 +4,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.bykowski.rectangleapp.config.UserPrincipal;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
@@ -49,20 +48,6 @@ public class DebtorService {
         return currentPrincipalName;
     }
 
-    public String testGetUserEmail() {
-        String email = "";
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserPrincipal) {
-            String emailAddress = ((UserPrincipal) principal).getEmail();
-            email = emailAddress;
-        } else {
-            String username = principal.toString();
-            email = username;
-        }
-        return email;
-    }
-
     public String addNewDebt(String debtorName, float debtValue, String reasonForTheDebt, String userName) {
         String areaInfoValue = "";
         if (isThisNameFree(debtorName)) {
@@ -72,8 +57,16 @@ public class DebtorService {
         else {
             areaInfoValue = addExtraDebt(debtorName, debtValue, userName);
             addNewDebtorDetails(debtorName, debtValue, reasonForTheDebt, userName);
+//            updateDebtorTotalDebt(debtorName, debtValue);
         }
         return areaInfoValue;
+    }
+
+    public void updateDebtorTotalDebt(String debtorName, float debtValue) {
+        Debtor debtor = debtorRepo.findByName(debtorName);
+        float newDebt = debtor.getTotalDebt() + debtValue;
+        debtor.setTotalDebt(newDebt);
+        debtorRepo.save(debtor);
     }
 
     public String addExtraDebt(String debtorName, float debtValue, String userName) {
@@ -149,6 +142,9 @@ public class DebtorService {
 
         debtorDetails1.setDebt(newDebt);
         debtorDetailsRepo.save(debtorDetails1);
+
+        String debtorName = debtorDetailsRepo.findById(debtID).get().getName();
+        addExtraDebt(debtorName, debtValue, findUserName());
     }
 
     @Transactional

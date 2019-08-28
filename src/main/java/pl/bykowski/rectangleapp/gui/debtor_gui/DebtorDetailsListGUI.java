@@ -91,6 +91,7 @@ public class DebtorDetailsListGUI extends VerticalLayout {
         Long id = debtorListGUIForm.getIdToDeleteTextField();
         debtorService.updateDebtByNewDebt(id, value);
 
+
         grid.setItems(debtorDetailsRepo.findByUserName(debtorService.findUserName()));
         notification.setText("Debt updated");
         notification.open();

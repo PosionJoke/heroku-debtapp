@@ -36,7 +36,7 @@ public class DebtorUser {
         this.password = password;
         this.roles = roles;
         this.permissions = permissions;
-        this.active = 0;
+        this.active = active;
         this.email = email;
         this.authenticationCode = authenticationCode;
     }
