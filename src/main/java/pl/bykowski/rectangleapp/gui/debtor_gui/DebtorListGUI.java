@@ -25,7 +25,6 @@ public class DebtorListGUI extends VerticalLayout {
 
         Grid<Debtor> grid = new Grid<>(Debtor.class);
         grid.setItems(debtorRepo.findByUserName(debtorService.findUserName()));
-
         add(grid);
     }
 }
