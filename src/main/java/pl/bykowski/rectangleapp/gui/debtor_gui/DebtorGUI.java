@@ -49,7 +49,6 @@ public class DebtorGUI extends VerticalLayout {
 
     private TextArea areaInfo;
 
-    // initialization whole Repository and all of variables
     public DebtorGUI(DebtorService debtorService) {
 
         this.debtorService = debtorService;

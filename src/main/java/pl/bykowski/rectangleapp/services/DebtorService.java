@@ -30,8 +30,8 @@ public class DebtorService {
         this.debtorRepo = debtorRepo;
     }
 
-    private boolean isThisNameFree(String debtorName) {
-        List<Debtor> debtorList = debtorRepo.findAll();
+    private boolean isThisNameFree(String debtorName, String userName) {
+        List<Debtor> debtorList = debtorRepo.findByUserName(userName);
 
         for (Debtor debtor : debtorList) {
             if (debtor.getName().equalsIgnoreCase(debtorName)) {
@@ -50,7 +50,7 @@ public class DebtorService {
 
     public String addNewDebt(String debtorName, float debtValue, String reasonForTheDebt, String userName) {
         String areaInfoValue = "";
-        if (isThisNameFree(debtorName)) {
+        if (isThisNameFree(debtorName, findUserName())) {
             addNewDebtor(debtorName, debtValue, reasonForTheDebt, userName);
             areaInfoValue = (debtorName + " is added! \n Debt value -> " + debtValue);
         }
@@ -94,7 +94,7 @@ public class DebtorService {
     public String addNewDebtor(String debtorName, float debtValue, String reasonForTheDebt, String userName) {
         String areaInfoValue = "";
 
-        if (isThisNameFree(debtorName)) {
+        if (isThisNameFree(debtorName, findUserName())) {
             Debtor debtor = new Debtor();
             debtor.setName(debtorName);
             debtor.setTotalDebt((debtValue + debtor.getTotalDebt()));
