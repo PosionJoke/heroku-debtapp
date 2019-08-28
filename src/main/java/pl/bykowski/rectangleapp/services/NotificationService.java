@@ -21,8 +21,8 @@ public class NotificationService {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(email);
         mail.setFrom("rostkowskiadrian00@gmail.com");
-        mail.setSubject("Rarity is best Pony!");
-        mail.setText("Yep, Rararara is best pony\nAuthenticationCode = " + code);
+        mail.setSubject("Welcome to my app :D");
+        mail.setText("AuthenticationCode = " + code);
 
         javaMailSender.send(mail);
     }
