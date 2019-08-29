@@ -9,13 +9,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserPrincipalDetailsService userPrincipalDetailsService;
+    public static final String ADMIN = "ADMIN";
+    public static final String MANAGER = "MANAGER";
 
     public SecurityConfig(UserPrincipalDetailsService userPrincipalDetailsService) {
         this.userPrincipalDetailsService = userPrincipalDetailsService;
@@ -31,13 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/test1").permitAll()
                 .antMatchers("/makeUsers").permitAll()
-                .antMatchers("/debtordetailslistgui").hasAnyRole("MANAGER","ADMIN")
-                .antMatchers("/debtorgui").authenticated()
-                .antMatchers("/debtorlistgui").hasRole("ADMIN")
-                .antMatchers("/debtorhistrylistgui").hasAnyRole("ADMIN", "MANAGER")
-                .antMatchers("/test2").hasAuthority("ACCESS_TEST2")
+                .antMatchers("/debtordetailslistgui").hasAnyRole(MANAGER, ADMIN)
+                .antMatchers("/" + pl.bykowski.rectangleapp.gui.debtor_gui.DebtorGUI.VIEW_NAME).authenticated()
+                .antMatchers("/" + pl.bykowski.rectangleapp.gui.debtor_gui.DebtorListGUI.VIEW_NAME).hasRole(ADMIN)
+                .antMatchers("/" + pl.bykowski.rectangleapp.gui.debtor_gui.DebtorHistoryListGUI.VIEW_NAME).hasAnyRole(ADMIN, MANAGER)
                 .and()
                 .formLogin().permitAll()
                 .and()

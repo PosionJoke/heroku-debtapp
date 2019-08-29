@@ -150,19 +150,23 @@ public class DebtorService {
     @Transactional
     public void deleteDebtByID(String debtorName, Long debtorID, String userName) {
         DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(debtorName, debtorID);
-        DebtorHistory debtorHistoryNew = new DebtorHistory();
-        debtorHistoryNew.setDebt(debtorDetailsCopy.getDebt());
-        debtorHistoryNew.setName(debtorDetailsCopy.getName());
-        debtorHistoryNew.setReasonForTheDebt(debtorDetailsCopy.getReasonForTheDebt());
-        debtorDetailsCopy.setUserName(userName);
 
-        long daysBetween = DAYS.between(debtorDetailsCopy.getDate(), LocalDate.now());
-
-        debtorHistoryNew.setTimeOfDebt(daysBetween);
-
-        debtorHistoryRepo.save(debtorHistoryNew);
+        saveEntityDebtorHistory(debtorDetailsCopy);
 
         debtorDetailsRepo.delete(debtorDetailsRepo.findByNameAndId(debtorName, debtorID));
+    }
+
+    public void saveEntityDebtorHistory(DebtorDetails debtorDetails) {
+        DebtorHistory debtorHistory = new DebtorHistory();
+        debtorHistory.setDebt(debtorDetails.getDebt());
+        debtorHistory.setName(debtorDetails.getName());
+        debtorHistory.setReasonForTheDebt(debtorDetails.getReasonForTheDebt());
+        debtorHistory.setUserName(debtorDetails.getUserName());
+
+        long daysBetween = DAYS.between(debtorDetails.getDate(), LocalDate.now());
+        debtorHistory.setTimeOfDebt(daysBetween);
+
+        debtorHistoryRepo.save(debtorHistory);
     }
 
     public void deleteDebtByID(Long debtorID, String userName) {
@@ -170,18 +174,7 @@ public class DebtorService {
 
         DebtorDetails debtorDetailsCopy = debtorDetailsCopyOptional.get();
 
-        DebtorHistory debtorHistoryNew = new DebtorHistory();
-
-        debtorHistoryNew.setDebt(debtorDetailsCopy.getDebt());
-        debtorHistoryNew.setName(debtorDetailsCopy.getName());
-        debtorHistoryNew.setReasonForTheDebt(debtorDetailsCopy.getReasonForTheDebt());
-        debtorHistoryNew.setUserName(userName);
-
-        long daysBetween = DAYS.between(debtorDetailsCopy.getDate(), LocalDate.now());
-
-        debtorHistoryNew.setTimeOfDebt(daysBetween);
-
-        debtorHistoryRepo.save(debtorHistoryNew);
+        saveEntityDebtorHistory(debtorDetailsCopy);
 
         debtorDetailsRepo.deleteById(debtorID);
     }
