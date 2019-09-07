@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Getting Started Service Web Content</title>
+</head>
+<body>
+<table style="border:1px solid green">
+    <tr>
+        <td>name</td>
+        <td>debt</td>
+        <td>totalDebt</td>
+        <td>date</td>
+        <td>dateNow</td>
+        <td>userName</td>
+    </tr>
+    <tr th:each="oneDebtor : ${debtors}">
+        <td th:text="${oneDebtor.name}"></td>
+        <td th:text="${oneDebtor.debt}"></td>
+        <td th:text="${oneDebtor.totalDebt}"></td>
+        <td th:text="${oneDebtor.date}"></td>
+        <td th:text="${oneDebtor.dateNow}"></td>
+        <td th:text="${oneDebtor.userName}"></td>
+    </tr>
+</table>
+</body>
+</html>

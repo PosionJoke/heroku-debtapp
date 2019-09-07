@@ -1,7 +1,7 @@
-package pl.bykowski.rectangleapp.repositories.repo_interfaces;
+package pl.bykowski.rectangleapp.repositories;
 
 import org.springframework.data.repository.CrudRepository;
-import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorUser;
+import pl.bykowski.rectangleapp.model.DebtorUser;
 
 import java.util.List;
 

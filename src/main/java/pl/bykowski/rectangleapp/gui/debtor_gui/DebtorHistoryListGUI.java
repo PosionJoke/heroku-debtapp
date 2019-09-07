@@ -12,8 +12,8 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.converter.StringToLongConverter;
 import com.vaadin.flow.router.Route;
 import pl.bykowski.rectangleapp.form.DebtorHistoryListGUIForm;
-import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
-import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorHistory;
+import pl.bykowski.rectangleapp.repositories.DebtorHistoryRepo;
+import pl.bykowski.rectangleapp.model.DebtorHistory;
 import pl.bykowski.rectangleapp.services.DebtorService;
 
 @StyleSheet("/css/style.css")

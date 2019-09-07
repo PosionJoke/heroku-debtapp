@@ -7,8 +7,8 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorUserRepo;
-import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorUser;
+import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
+import pl.bykowski.rectangleapp.model.DebtorUser;
 import pl.bykowski.rectangleapp.services.NotificationService;
 
 @Route(value = "create-user")

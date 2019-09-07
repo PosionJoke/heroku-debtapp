@@ -4,7 +4,7 @@ package pl.bykowski.rectangleapp.config;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorUser;
+import pl.bykowski.rectangleapp.model.DebtorUser;
 
 import java.util.ArrayList;
 import java.util.Collection;

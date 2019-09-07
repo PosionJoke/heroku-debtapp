@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Getting Started Service Web Content</title>
+</head>
+<body>
+<!--<span th:text="${customer.getFirstName()}"></span>-->
+    <h1>HELLO <span th:text="${user.name}"> IN THE MAIN VIEW </span></h1>
+
+    <form th:action="@{/debtor-details-list}" method="GET">
+        <input type="submit" value="Show Debtor details list"/>
+    </form>
+    <form th:action="@{/debtor-history-list}" method="GET">
+        <input type="submit" value="Show Debtor history list"/>
+    </form>
+    <form th:action="@{/debtor-list}" method="GET">
+        <input type="submit" value="Show Debtor list"/>
+    </form>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp.repositories.repo_struct;
+package pl.bykowski.rectangleapp.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,13 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
 
-@Data
 //Use annotation @Entity to mark that class as database
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class
-Debtor {
+public class DebtorDetails {
+    //Annotation @Id makes spring shure that variable is the id of class
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,14 +24,8 @@ Debtor {
     private float debt;
     private float totalDebt;
     private LocalDate date;
-    private String dateNow;
+    private String reasonForTheDebt;
     private String userName;
-
-    @Override
-    public String toString() {
-        return "Name -------> " + name + "\n" +
-                "Total Debt -> " + totalDebt;
-    }
 
     public Long getId() {
         return id;
@@ -74,11 +67,19 @@ Debtor {
         this.date = date;
     }
 
-    public String getDateNow() {
-        return dateNow;
+    public String getReasonForTheDebt() {
+        return reasonForTheDebt;
     }
 
-    public void setDateNow(String dateNow) {
-        this.dateNow = dateNow;
+    public void setReasonForTheDebt(String reasonForTheDebt) {
+        this.reasonForTheDebt = reasonForTheDebt;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

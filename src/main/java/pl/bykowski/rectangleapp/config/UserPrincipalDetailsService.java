@@ -4,8 +4,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorUserRepo;
-import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorUser;
+import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
+import pl.bykowski.rectangleapp.model.DebtorUser;
 
 @Service
 public class UserPrincipalDetailsService implements UserDetailsService {

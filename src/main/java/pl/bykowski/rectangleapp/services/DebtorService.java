@@ -4,12 +4,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorDetailsRepo;
-import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorHistoryRepo;
-import pl.bykowski.rectangleapp.repositories.repo_interfaces.DebtorRepo;
-import pl.bykowski.rectangleapp.repositories.repo_struct.Debtor;
-import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorDetails;
-import pl.bykowski.rectangleapp.repositories.repo_struct.DebtorHistory;
+import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
+import pl.bykowski.rectangleapp.repositories.DebtorHistoryRepo;
+import pl.bykowski.rectangleapp.repositories.DebtorRepo;
+import pl.bykowski.rectangleapp.model.Debtor;
+import pl.bykowski.rectangleapp.model.DebtorDetails;
+import pl.bykowski.rectangleapp.model.DebtorHistory;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/" + pl.bykowski.rectangleapp.gui.debtor_gui.DebtorGUI.VIEW_NAME).authenticated()
                 .antMatchers("/" + pl.bykowski.rectangleapp.gui.debtor_gui.DebtorListGUI.VIEW_NAME).hasRole(ADMIN)
                 .antMatchers("/" + pl.bykowski.rectangleapp.gui.debtor_gui.DebtorHistoryListGUI.VIEW_NAME).hasAnyRole(ADMIN, MANAGER)
+                .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll()
                 .and()
