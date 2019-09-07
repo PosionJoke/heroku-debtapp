@@ -152,7 +152,7 @@ public class DebtorGUI extends VerticalLayout {
         float debtValue = debtorGUIForm.getTextFieldDebt();
         String reason = debtorGUIForm.getTextFieldReasonForTheDebt();
         String userName = findUserName();
-        debtorGUIForm.setAreaInfo(debtorService.addNewDebt(name, debtValue, reason, userName));
+        debtorGUIForm.setAreaInfo(debtorService.makeNewDebtorOrDebtorDetailsByNewDebt(name, debtValue, reason, userName));
         debtorGUIFormBinder.readBean(debtorGUIForm);
     }
 

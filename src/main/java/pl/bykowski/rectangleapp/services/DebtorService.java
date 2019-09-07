@@ -48,14 +48,14 @@ public class DebtorService {
         return currentPrincipalName;
     }
 
-    public String addNewDebt(String debtorName, float debtValue, String reasonForTheDebt, String userName) {
+    public String makeNewDebtorOrDebtorDetailsByNewDebt(String debtorName, float debtValue, String reasonForTheDebt, String userName) {
         String areaInfoValue = "";
         if (isThisNameFree(debtorName, findUserName())) {
             addNewDebtor(debtorName, debtValue, reasonForTheDebt, userName);
             areaInfoValue = (debtorName + " is added! \n Debt value -> " + debtValue);
         }
         else {
-            areaInfoValue = addExtraDebt(debtorName, debtValue, userName);
+            areaInfoValue = updateTotalDebt(debtorName, debtValue, userName);
             addNewDebtorDetails(debtorName, debtValue, reasonForTheDebt, userName);
 //            updateDebtorTotalDebt(debtorName, debtValue);
         }
@@ -69,7 +69,7 @@ public class DebtorService {
         debtorRepo.save(debtor);
     }
 
-    public String addExtraDebt(String debtorName, float debtValue, String userName) {
+    public String updateTotalDebt(String debtorName, float debtValue, String userName) {
         Debtor changedDebtor = debtorRepo.findByName(debtorName);
         float newDebt = debtValue + changedDebtor.getTotalDebt();
         changedDebtor.setTotalDebt(newDebt);
@@ -144,7 +144,7 @@ public class DebtorService {
         debtorDetailsRepo.save(debtorDetails1);
 
         String debtorName = debtorDetailsRepo.findById(debtID).get().getName();
-        addExtraDebt(debtorName, debtValue, findUserName());
+        updateTotalDebt(debtorName, debtValue, findUserName());
     }
 
     @Transactional
