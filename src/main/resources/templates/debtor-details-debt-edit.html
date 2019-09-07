@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Getting Started Service Web Content</title>
 </head>
 <body>
-$END$
+<form action="#" th:action="@{'/debtor-details-save?id=' + ${id}}" th:object="${debtor}" method="post">
+    <table border="5">
+        <tr>
+            <td>Add new debt value <span th:text="${debtor.name}">|</span><span th:text="${debtor.totalDebt}"></span>|<span th:text="${debtor.id}">|</span>|<span th:text="${debtor.userName}">|</span></td>
+            <td><input type="text" th:field="${debtor.debt}" /></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>

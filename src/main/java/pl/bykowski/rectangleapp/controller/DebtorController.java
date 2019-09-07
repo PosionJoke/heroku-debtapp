@@ -33,7 +33,7 @@ public class DebtorController {
     @GetMapping("/debtor-create")
     public ModelAndView createDebtor(Principal principal){
         return new ModelAndView("debtor-create")
-                .addObject("debtor", new Debtor());
+                .addObject("debtor", new DebtorDetails());
     }
 
     @GetMapping("/debtor-debt-edit")
@@ -41,22 +41,30 @@ public class DebtorController {
 //        debtorService.updateDebtByNewDebt(id, debt);
 //        debtorRepo.findById(id).isPresent();
 //        Debtor debtor1 = debtorRepo.findByName(name);
-        DebtorDetails debtorDetails = debtorDetailsRepo.findByNameAndId(name, id);
+        Debtor debtor = debtorRepo.findByName(name);
         return new ModelAndView("debtor-debt-edit")
                 .addObject("name", name)
                 .addObject("id", id)
-                .addObject("debtor", debtorDetails);
+                .addObject("debtor", debtor);
     }
 
     @PostMapping("/debtor-save")
     public ModelAndView saveDebtor(@ModelAttribute DebtorDetails debtor, Principal principal,
-                                   @RequestParam Long id){
+                                   @RequestParam String name){
         DebtorDetails debtorNew = debtor;
 //        debtorRepo.save(debtor);
 //        float newDebt = debtor.getDebt();
-        debtorService.updateDebtByNewDebt(id,debtor.getDebt());
+
+        debtorService.updateDebtorTotalDebt(name,debtor.getTotalDebt());
         return new ModelAndView("debtor-list")
                 .addObject("debtors", debtorRepo.findByUserName(principal.getName()));
     }
 
+    @PostMapping("/make-new-debtor")
+    public ModelAndView makeNewDebtor(@ModelAttribute DebtorDetails debtorDetails, Principal principal,
+                                      @RequestParam String name){
+        debtorService.addNewDebtor(debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getReasonForTheDebt(), principal.getName());
+        return new ModelAndView("debtor-list")
+                .addObject("debtors", debtorRepo.findByUserName(principal.getName()));
+    }
 }

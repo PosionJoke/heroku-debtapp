@@ -26,7 +26,7 @@
         <td th:text="${oneDebtor.reasonForTheDebt}"></td>
         <td th:text="${oneDebtor.userName}"></td>
         <td>
-            <a th:href="@{'/debtor-debt-edit?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">Edit</a>
+            <a th:href="@{'/debtor-details-debt-edit?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">Edit</a>
         </td>
         <td>
             <a th:href="@{'/debtor-delete?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">Delete</a>
@@ -35,8 +35,8 @@
 
     </tr>
 </table>
-<form th:action="@{/debtor-create}" method="GET">
-    <input type="submit" value="Create Debtor"/>
+<form th:action="@{/main-view}" method="GET">
+    <input type="submit" value="Go back to main view"/>
 </form>
 </body>
 </html>

@@ -5,7 +5,7 @@
     <title>Getting Started Service Web Content</title>
 </head>
 <body>
-<form action="#" th:action="@{debtor-save}" th:object="${debtor}" method="post">
+<form action="#" th:action="@{make-new-debtor}" th:object="${debtor}" method="post">
     <table border="1">
         <tr>
             <td>Campaign Name</td>
@@ -14,6 +14,10 @@
         <tr>
             <td>Description</td>
             <td><input type="text" th:field="${debtor.debt}" /></td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td><input type="text" th:field="${debtor.reasonForTheDebt}" /></td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit" /></td>
