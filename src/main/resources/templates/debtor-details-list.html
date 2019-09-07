@@ -13,6 +13,8 @@
         <td>date</td>
         <td>reasonForTheDebt</td>
         <td>User</td>
+        <td>Edit</td>
+        <td>Delete</td>
     </tr>
     <tr th:each="oneDebtor : ${debtorLIST}">
         <td th:text="${oneDebtor.name}"></td>
@@ -21,7 +23,18 @@
         <td th:text="${oneDebtor.date}"></td>
         <td th:text="${oneDebtor.reasonForTheDebt}"></td>
         <td th:text="${oneDebtor.userName}"></td>
+        <td>
+            <a th:href="@{'/debtor-debt-edit?id=' + ${oneDebtor.id}}">Edit</a>
+        </td>
+        <td>
+            <a href="/debtor-history-list"> delete </a>
+        </td>
+
+
     </tr>
 </table>
+<form th:action="@{/debtor-create}" method="GET">
+    <input type="submit" value="Create Debtor"/>
+</form>
 </body>
 </html>
