@@ -5,14 +5,10 @@
     <title>Getting Started Service Web Content</title>
 </head>
 <body>
-<form action="#" th:action="@{debtor-save}" th:object="${debtor}" method="post">
-    <table border="1">
+<form action="#" th:action="@{'/debtor-save?id=' + ${id}}" th:object="${debtor}" method="post">
+    <table border="5">
         <tr>
-            <td>Campaign Name</td>
-            <td><input type="text" th:field="${debtor.name}" /></td>
-        </tr>
-        <tr>
-            <td>Add new debt value</td>
+            <td>Add new debt value <span th:text="${debtor.name}">|</span><span th:text="${debtor.totalDebt}"></span>|<span th:text="${debtor.id}">|</span>|<span th:text="${debtor.userName}">|</span></td>
             <td><input type="text" th:field="${debtor.debt}" /></td>
         </tr>
         <tr>

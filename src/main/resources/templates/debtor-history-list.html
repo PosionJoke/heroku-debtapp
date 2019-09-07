@@ -8,6 +8,7 @@
 <table style="border:1px solid green">
     <tr>
         <td>name</td>
+        <td>id</td>
         <td>debt</td>
         <td>timeOfDebt</td>
         <td>reasonForTheDebt</td>
@@ -15,6 +16,7 @@
     </tr>
     <tr th:each="oneDebtor : ${debtors}">
         <td th:text="${oneDebtor.name}"></td>
+        <td th:text="${oneDebtor.id}"></td>
         <td th:text="${oneDebtor.debt}"></td>
         <td th:text="${oneDebtor.timeOfDebt}"></td>
         <td th:text="${oneDebtor.reasonForTheDebt}"></td>

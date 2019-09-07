@@ -6,7 +6,7 @@
 </head>
 <body>
 <!--<span th:text="${customer.getFirstName()}"></span>-->
-    <h1>HELLO <span th:text="${user.name}"> IN THE MAIN VIEW </span></h1>
+    <h1>HELLO <span th:text="${user.name}"></span></h1>
 
     <form th:action="@{/debtor-details-list}" method="GET">
         <input type="submit" value="Show Debtor details list"/>
