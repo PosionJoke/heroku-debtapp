@@ -49,13 +49,13 @@ public class DebtorController {
     }
 
     @PostMapping("/debtor-save")
-    public ModelAndView saveDebtor(@ModelAttribute DebtorDetails debtor, Principal principal,
+    public ModelAndView saveDebtor(@ModelAttribute Debtor debtor, Principal principal,
                                    @RequestParam String name){
-        DebtorDetails debtorNew = debtor;
+        Debtor debtorNew = debtor;
 //        debtorRepo.save(debtor);
 //        float newDebt = debtor.getDebt();
-
-        debtorService.updateDebtorTotalDebt(name,debtor.getTotalDebt());
+        Debtor debtor1 = debtorRepo.findByName(name);
+        debtorService.checkTotalDebtIsUnderZero(debtor1,debtor.getTotalDebt());
         return new ModelAndView("debtor-list")
                 .addObject("debtors", debtorRepo.findByUserName(principal.getName()));
     }

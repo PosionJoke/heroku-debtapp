@@ -8,21 +8,24 @@
 <form action="#" th:action="@{make-new-debtor}" th:object="${debtor}" method="post">
     <table border="1">
         <tr>
-            <td>Campaign Name</td>
+            <td>Debtor name</td>
             <td><input type="text" th:field="${debtor.name}" /></td>
         </tr>
         <tr>
-            <td>Description</td>
+            <td>Debt value</td>
             <td><input type="text" th:field="${debtor.debt}" /></td>
         </tr>
         <tr>
-            <td>Description</td>
+            <td>Reason for the debt</td>
             <td><input type="text" th:field="${debtor.reasonForTheDebt}" /></td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit" /></td>
         </tr>
     </table>
+</form>
+<form th:action="@{/main-view}" method="GET">
+    <input type="submit" value="Go back to main view"/>
 </form>
 </body>
 </html>

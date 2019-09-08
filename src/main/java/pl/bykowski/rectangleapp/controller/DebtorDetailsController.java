@@ -27,11 +27,12 @@ public class DebtorDetailsController {
     }
 
     @GetMapping("/debtor-details-debt-edit")
-    public ModelAndView debtorDebtEdit(@RequestParam Long id, @RequestParam String name){
-//        debtorService.updateDebtByNewDebt(id, debt);
-//        debtorRepo.findById(id).isPresent();
-//        Debtor debtor1 = debtorRepo.findByName(name);
+    public ModelAndView debtorDebtEdit(@RequestParam Long id, @RequestParam String name,
+                                       @ModelAttribute DebtorDetails debtorDetailsForm){
+
         DebtorDetails debtorDetails = debtorDetailsRepo.findByNameAndId(name, id);
+//        DebtorDetails debtorDetails = debtorDetailsForm;n-view
+
         return new ModelAndView("debtor-details-debt-edit")
                 .addObject("name", name)
                 .addObject("id", id)

@@ -6,15 +6,23 @@
 </head>
 <body>
 <form action="#" th:action="@{'/debtor-save?name=' + ${name}}" th:object="${debtor}" method="post">
+    <p>
+        Add new total debt value to <span th:text="${debtor.userName}"></span>
+    </p>
+    <p>
+        Actual total debt <span th:text="${debtor.debt}"></span>
+    </p>
     <table border="5">
         <tr>
-            <td>Add new debt value <span th:text="${debtor.name}">|</span><span th:text="${debtor.totalDebt}"></span>|<span th:text="${debtor.id}">|</span>|<span th:text="${debtor.userName}">|</span></td>
             <td><input type="text" th:field="${debtor.totalDebt}" /></td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit" /></td>
         </tr>
     </table>
+</form>
+<form th:action="@{/main-view}" method="GET">
+    <input type="submit" value="Go back to main view"/>
 </form>
 </body>
 </html>

@@ -12,6 +12,7 @@ import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.DebtorHistory;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,6 +71,13 @@ public class DebtorService {
     }
 
     public String updateTotalDebt(String debtorName, float debtValue, String userName) {
+        List<Debtor> listDebtors = debtorRepo.findAll();
+        String name = "Rober R";
+        String nameM = "Magda P.";
+        String nameG = "ggg g.";
+        Debtor debtor = debtorRepo.findByName(name);
+        Debtor debtor1 = debtorRepo.findByName("Magda P.");
+        Debtor debtor2 = debtorRepo.findByName("ggg g.");
         Debtor changedDebtor = debtorRepo.findByName(debtorName);
         float newDebt = debtValue + changedDebtor.getTotalDebt();
         changedDebtor.setTotalDebt(newDebt);
@@ -138,17 +146,60 @@ public class DebtorService {
         Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(debtID);
         DebtorDetails debtorDetails1 = debtorDetails.get();
 
-        float newDebt = debtorDetails1.getDebt() + debtValue;
+        setNewDebtDeleteIfDebtValueIsUnderZero(debtorDetails1, debtValue);
+//        float newDebt = debtorDetails1.getDebt() + debtValue;
 
-        debtorDetails1.setDebt(newDebt);
-        debtorDetailsRepo.save(debtorDetails1);
+//        debtorDetails1.setDebt(newDebt);
+//        debtorDetailsRepo.save(debtorDetails1);
 
-        String debtorName = debtorDetailsRepo.findById(debtID).get().getName();
+        String debtorName = debtorDetails1.getName();
         updateTotalDebt(debtorName, debtValue, findUserName());
     }
 
+    private void setNewTotalDebt(String debtorName, float debtValue){
+        Debtor debtor = debtorRepo.findByName(debtorName);
+        float newTotalDebt = debtor.getTotalDebt() + debtValue;
+        debtor.setTotalDebt(newTotalDebt);
+    }
+
+    private void setNewDebtDeleteIfDebtValueIsUnderZero(DebtorDetails debtorDetails, float debtValue){
+        checkDebtIsUnderZero(debtorDetails, debtValue);
+    }
+
+    private void checkDebtIsUnderZero(DebtorDetails debtorDetails, float debtValue){
+        float newDebt = debtorDetails.getDebt() + debtValue;
+        if(newDebt <= 0){
+            debtorDetails.setDebt(0);
+            deleteDebtByID(debtorDetails.getName(), debtorDetails.getId());
+        }else {
+            debtorDetails.setDebt(newDebt);
+            debtorDetailsRepo.save(debtorDetails);
+        }
+    }
+
+//TODO Please Adrian, learn to use LOGERS XD
     @Transactional
-    public void deleteDebtByID(String debtorName, Long debtorID, String userName) {
+    public void deleteDebtor(Debtor debtor){
+        if(debtor.getTotalDebt() == 0){
+            debtorRepo.delete(debtor);
+        }else System.out.println("Debtor " + debtor.getName() + " doesn't have total debt equals to 0");
+    }
+
+    @Transactional
+    public void checkTotalDebtIsUnderZero(Debtor debtor, float debtValue){
+        float newDebt = debtor.getTotalDebt() + debtValue;
+        if(newDebt <= 0){
+            debtor.setDebt(0);
+            debtorRepo.save(debtor);
+//            deleteDebtByID(debtor.getName(), debtor.getId());
+        }else {
+            debtor.setDebt(newDebt);
+            debtorRepo.save(debtor);
+        }
+    }
+
+    @Transactional
+    public void deleteDebtByID(String debtorName, Long debtorID) {
         DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(debtorName, debtorID);
 
         saveEntityDebtorHistory(debtorDetailsCopy);
