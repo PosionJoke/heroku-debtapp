@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Getting Started Service Web Content</title>
+</head>
+<body>
+<form action="#" th:action="@{create-new-user}" th:object="${user}" method="post">
+    <table border="1">
+        <tr>
+            <td>Login</td>
+            <td><input type="text" th:field="${user.name}" /></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="text" th:field="${user.email}" /></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="text" th:field="${user.password1}" /></td>
+        </tr>
+        <tr>
+            <td>Repeat Password</td>
+            <td><input type="text" th:field="${user.password2}" /></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

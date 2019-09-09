@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/makeUsers", "/figureDB").permitAll()
+                .antMatchers("/makeUsers", "/figureDB", "/create-user", "/create-new-user", "/hellow2", "/hellow3").permitAll()
                 .antMatchers("/debtordetailslistgui").hasAnyRole(MANAGER, ADMIN)
                 .antMatchers("/" + pl.bykowski.rectangleapp.gui.debtor_gui.DebtorGUI.VIEW_NAME).authenticated()
                 .antMatchers("/" + pl.bykowski.rectangleapp.gui.debtor_gui.DebtorListGUI.VIEW_NAME).hasRole(ADMIN)
