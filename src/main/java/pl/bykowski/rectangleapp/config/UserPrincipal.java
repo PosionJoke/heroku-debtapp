@@ -27,12 +27,11 @@ public class UserPrincipal implements UserDetails {
             GrantedAuthority authority = new SimpleGrantedAuthority(p);
             authorities.add(authority);
         });
-        //Exctract list of roles (ROLE_name)
+        //Extract list of roles (ROLE_name)
         this.debtorUser.getRoleList().forEach(r -> {
             GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r);
             authorities.add(authority);
         });
-
         return authorities;
     }
 

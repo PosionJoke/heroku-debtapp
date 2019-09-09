@@ -24,4 +24,14 @@ public class HelloWorldController {
                 .addObject(debtorService.findUserName());
     }
 
+    @GetMapping("/hellow2")
+    public ModelAndView hello2(){
+        return new ModelAndView("hello");
+    }
+
+    @GetMapping("/hellow3")
+    public ModelAndView hello3(){
+        return new ModelAndView("create-new-user");
+    }
+
 }
