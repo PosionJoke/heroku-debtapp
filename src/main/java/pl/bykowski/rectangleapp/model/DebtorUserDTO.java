@@ -1,6 +1,6 @@
 package pl.bykowski.rectangleapp.model;
 
-public class DebtorUserDOT {
+public class DebtorUserDTO {
     private String name;
     private String email;
     private String password1;

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import pl.bykowski.rectangleapp.model.DebtorUser;
-import pl.bykowski.rectangleapp.model.DebtorUserDOT;
+import pl.bykowski.rectangleapp.model.DebtorUserDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
 
 @RestController
@@ -23,14 +23,14 @@ public class UserController {
     }
 
     @PostMapping("/create-new-user")
-    public RedirectView createNewUser(@ModelAttribute DebtorUserDOT debtorUserDOT){
+    public RedirectView createNewUser(@ModelAttribute DebtorUserDTO debtorUserDTO){
 
         DebtorUser newDebtorUser = new DebtorUser(
-                debtorUserDOT.getName(),
-                passwordEncoder.encode(debtorUserDOT.getPassword2()),
+                debtorUserDTO.getName(),
+                passwordEncoder.encode(debtorUserDTO.getPassword2()),
                 "USER",
                 "",
-                debtorUserDOT.getEmail(),
+                debtorUserDTO.getEmail(),
                 1,
                 "authenticationCode");
 
@@ -41,7 +41,7 @@ public class UserController {
     @GetMapping("/create-new-user")
     public ModelAndView returnLoginForm(){
         return new ModelAndView("create-new-user")
-                .addObject("user", new DebtorUserDOT());
+                .addObject("user", new DebtorUserDTO());
     }
 
 }

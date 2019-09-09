@@ -16,8 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserPrincipalDetailsService userPrincipalDetailsService;
-    public static final String ADMIN = "ADMIN";
-    public static final String MANAGER = "MANAGER";
+    private static final String ADMIN = "ADMIN";
+    private static final String MANAGER = "MANAGER";
 
     public SecurityConfig(UserPrincipalDetailsService userPrincipalDetailsService) {
         this.userPrincipalDetailsService = userPrincipalDetailsService;

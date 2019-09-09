@@ -14,7 +14,7 @@ public class UserPrincipal implements UserDetails {
 
     private DebtorUser debtorUser;
 
-    public UserPrincipal(DebtorUser debtorUser) {
+     UserPrincipal(DebtorUser debtorUser) {
         this.debtorUser = debtorUser;
     }
 
@@ -44,10 +44,6 @@ public class UserPrincipal implements UserDetails {
     @Override
     public String getUsername() {
         return debtorUser.getName();
-    }
-
-    public String getEmail() {
-        return debtorUser.getEmail();
     }
 
     @Override
