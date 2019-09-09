@@ -31,19 +31,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .headers().frameOptions().disable()
+                    .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/makeUsers", "/figureDB", "/create-user", "/create-new-user", "/hellow2", "/hellow3").permitAll()
-                .antMatchers("/main-view").hasAnyRole("ADMIN")
-                .antMatchers("/debtor-details-list").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/debtordetailslistgui").hasAnyRole(MANAGER, ADMIN)
+                .antMatchers("/makeUsers", "/create-user", "/create-new-user", "/hellow2", "/hellow3").permitAll()
                 .antMatchers("/" + pl.bykowski.rectangleapp.gui.debtor_gui.DebtorGUI.VIEW_NAME).authenticated()
                 .antMatchers("/" + pl.bykowski.rectangleapp.gui.debtor_gui.DebtorListGUI.VIEW_NAME).hasRole(ADMIN)
                 .antMatchers("/" + pl.bykowski.rectangleapp.gui.debtor_gui.DebtorHistoryListGUI.VIEW_NAME).hasAnyRole(ADMIN, MANAGER)
                 .anyRequest().authenticated()
-                .and()
+                    .and()
                 .formLogin().permitAll()
-                .and()
+                    .and()
                 .logout().permitAll();
     }
 
