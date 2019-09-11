@@ -38,9 +38,6 @@ public class DebtorController {
 
     @GetMapping("/debtor-debt-edit")
     public ModelAndView debtorDebtEdit(@RequestParam Long id, @RequestParam String name){
-//        debtorService.updateDebtByNewDebt(id, debt);
-//        debtorRepo.findById(id).isPresent();
-//        Debtor debtor1 = debtorRepo.findByName(name);
         Debtor debtor = debtorRepo.findByName(name);
         return new ModelAndView("debtor-debt-edit")
                 .addObject("name", name)
@@ -52,8 +49,6 @@ public class DebtorController {
     public ModelAndView saveDebtor(@ModelAttribute Debtor debtor, Principal principal,
                                    @RequestParam String name){
         Debtor debtorNew = debtor;
-//        debtorRepo.save(debtor);
-//        float newDebt = debtor.getDebt();
         Debtor debtor1 = debtorRepo.findByName(name);
         debtorService.checkTotalDebtIsUnderZero(debtor1,debtor.getTotalDebt());
         return new ModelAndView("debtor-list")

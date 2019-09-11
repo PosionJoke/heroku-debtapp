@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DebtorDetails {
-    //Annotation @Id makes spring shure that variable is the id of class
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

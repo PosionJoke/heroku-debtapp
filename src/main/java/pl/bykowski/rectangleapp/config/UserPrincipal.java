@@ -22,12 +22,11 @@ public class UserPrincipal implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        //Extract list of permissions (name)
         this.debtorUser.getPermissionList().forEach(p -> {
             GrantedAuthority authority = new SimpleGrantedAuthority(p);
             authorities.add(authority);
         });
-        //Extract list of roles (ROLE_name)
+
         this.debtorUser.getRoleList().forEach(r -> {
             GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r);
             authorities.add(authority);

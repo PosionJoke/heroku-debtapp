@@ -14,5 +14,4 @@ public class MainViewController {
         return new ModelAndView("main-view")
                 .addObject("user", principal);
     }
-
 }

@@ -31,8 +31,6 @@ public class DebtorDetailsController {
                                        @ModelAttribute DebtorDetails debtorDetailsForm){
 
         DebtorDetails debtorDetails = debtorDetailsRepo.findByNameAndId(name, id);
-//        DebtorDetails debtorDetails = debtorDetailsForm;n-view
-
         return new ModelAndView("debtor-details-debt-edit")
                 .addObject("name", name)
                 .addObject("id", id)
@@ -43,8 +41,6 @@ public class DebtorDetailsController {
     public ModelAndView saveDebtor(@ModelAttribute DebtorDetails debtor, Principal principal,
                                    @RequestParam Long id){
         DebtorDetails debtorNew = debtor;
-//        debtorRepo.save(debtor);
-//        float newDebt = debtor.getDebt();
         debtorService.updateDebtByNewDebt(id,debtor.getDebt());
         return new ModelAndView("debtor-details-list")
                 .addObject("debtorLIST", debtorDetailsRepo.findByUserName(principal.getName()));

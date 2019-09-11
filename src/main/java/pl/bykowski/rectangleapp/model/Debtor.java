@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 
 @Data
-//Use annotation @Entity to mark that class as database
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor

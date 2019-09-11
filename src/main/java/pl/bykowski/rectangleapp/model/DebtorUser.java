@@ -21,7 +21,6 @@ public class DebtorUser implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private float debt;
     private long timeOfDebt;
