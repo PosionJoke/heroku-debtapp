@@ -39,7 +39,7 @@ public class DebtorDetailsController {
     @PostMapping("/debtor-details-save")
     public ModelAndView saveDebtorDetails(@ModelAttribute DebtorDetails debtor, Principal principal,
                                           @RequestParam Long id){
-        debtorService.updateDebtByNewDebt(id,debtor.getDebt());
+        debtorService.updateDebtorDetailsDebt(id,debtor.getDebt());
         return new ModelAndView("debtor-details-list")
                 .addObject("debtorLIST", debtorDetailsRepo.findByUserName(principal.getName()));
     }

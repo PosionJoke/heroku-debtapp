@@ -46,42 +46,12 @@ public class DebtorService {
         return authentication.getName();
     }
 
-    public String makeNewDebtorOrDebtorDetailsByNewDebt(String debtorName, float debtValue, String reasonForTheDebt, String userName) {
-        String areaInfoValue;
-        if (isThisNameFree(debtorName, findUserName())) {
-            addNewDebtor(debtorName, debtValue, reasonForTheDebt, userName);
-             areaInfoValue = (debtorName + " is added! \n Debt value -> " + debtValue);
-        }
-        else {
-            areaInfoValue = updateTotalDebt(debtorName, debtValue, userName);
-            addNewDebtorDetails(debtorName, debtValue, reasonForTheDebt, userName);
-//            updateDebtorTotalDebt(debtorName, debtValue);
-        }
-        return areaInfoValue;
-    }
-
-//    public void updateDebtorTotalDebt(String debtorName, float debtValue) {
-//        Debtor debtor = debtorRepo.findByName(debtorName);
-//        float newDebt = debtor.getTotalDebt() + debtValue;
-//        debtor.setTotalDebt(newDebt);
-//        debtorRepo.save(debtor);
-//    }
-
-    private String updateTotalDebt(String debtorName, float debtValue, String userName) {
-//        List<Debtor> listDebtors = debtorRepo.findAll();
-//        String name = "Rober R";
-//        String nameM = "Magda P.";
-//        String nameG = "ggg g.";
-//        Debtor debtor = debtorRepo.findByName(name);
-//        Debtor debtor1 = debtorRepo.findByName("Magda P.");
-//        Debtor debtor2 = debtorRepo.findByName("ggg g.");
+    private void updateTotalDebt(String debtorName, float debtValue, String userName) {
         Debtor changedDebtor = debtorRepo.findByName(debtorName);
         float newDebt = debtValue + changedDebtor.getTotalDebt();
         changedDebtor.setTotalDebt(newDebt);
         changedDebtor.setUserName(userName);
         debtorRepo.save(changedDebtor);
-
-        return ("New debt of " + changedDebtor.getName() + " \nis equals to " + changedDebtor.getTotalDebt());
     }
 
     private void addNewDebtorDetails(String debtorName, float debtValue, String reasonForTheDebt, String userName) {
@@ -96,7 +66,6 @@ public class DebtorService {
     }
 
     public void addNewDebtor(String debtorName, float debtValue, String reasonForTheDebt, String userName) {
-        String areaInfoValue;
         if (isThisNameFree(debtorName, findUserName())) {
             Debtor debtor = new Debtor();
             debtor.setName(debtorName);
@@ -110,57 +79,18 @@ public class DebtorService {
         //TODO HERE SHOULD BE A LOGGER -> ELSE LOGGER
     }
 
-    public String showInfo(String debtorName) {
-
-        String areaInfoValue;
-
-        String dataAndDebt = "================" + "\n" +
-                "   Debt list" + "\n" +
-                "================";
-
-        DebtorDetails debtorDetails = debtorDetailsRepo.findByName(debtorName);
-
-        dataAndDebt += "\n" +
-                " ID of Debt ---->  " + debtorDetails.getId() + "\n" +
-                " Date ---> " + debtorDetails.getDate() + "\n" +
-                " Debt ---> " + debtorDetails.getDebt() + "\n" +
-                " Reason ---> " + debtorDetails.getReasonForTheDebt() +
-                "\n-----------------------------";
-
-        areaInfoValue = ("Name ---> " + debtorRepo.findByName(debtorName).getName() + "\n" +
-                "Total debt ---> " + debtorRepo.findByName(debtorName).getTotalDebt() + "\n" +
-                dataAndDebt);
-        return areaInfoValue;
-    }
-
     @Transactional
-    public void updateDebtByNewDebt(Long debtID, float debtValue) {
+    public void updateDebtorDetailsDebt(Long debtID, float debtValue) {
         Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(debtID);
         if(debtorDetails.isPresent()){
             DebtorDetails debtorDetails1 = debtorDetails.get();
-            setNewDebtDeleteIfDebtValueIsUnderZero(debtorDetails1, debtValue);
+            isThisDebtUnderZero(debtorDetails1, debtValue);
             String debtorName = debtorDetails1.getName();
             updateTotalDebt(debtorName, debtValue, findUserName());
         }
-
-//        float newDebt = debtorDetails1.getDebt() + debtValue;
-
-//        debtorDetails1.setDebt(newDebt);
-//        debtorDetailsRepo.save(debtorDetails1);
-
     }
 
-//    private void setNewTotalDebt(String debtorName, float debtValue){
-//        Debtor debtor = debtorRepo.findByName(debtorName);
-//        float newTotalDebt = debtor.getTotalDebt() + debtValue;
-//        debtor.setTotalDebt(newTotalDebt);
-//    }
-
-    private void setNewDebtDeleteIfDebtValueIsUnderZero(DebtorDetails debtorDetails, float debtValue){
-        checkDebtIsUnderZero(debtorDetails, debtValue);
-    }
-
-    private void checkDebtIsUnderZero(DebtorDetails debtorDetails, float debtValue){
+    private void isThisDebtUnderZero(DebtorDetails debtorDetails, float debtValue){
         float newDebt = debtorDetails.getDebt() + debtValue;
         if(newDebt <= 0){
             debtorDetails.setDebt(0);
@@ -171,15 +101,7 @@ public class DebtorService {
         }
     }
 
-//TODO Please Adrian, learn to use LOGERS XD
-
-//    @Transactional
-//    public void deleteDebtor(Debtor debtor){
-//        if(debtor.getTotalDebt() == 0){
-//            debtorRepo.delete(debtor);
-//        }else System.out.println("Debtor " + debtor.getName() + " doesn't have total debt equals to 0");
-//    }
-
+//TODO Please Adrian, learn to use LOGGERS XD
     @Transactional
     public void updateTotalDebt(Debtor debtor, float debtValue){
         float newDebt = debtor.getTotalDebt() + debtValue;
@@ -212,17 +134,5 @@ public class DebtorService {
         debtorHistory.setTimeOfDebt(daysBetween);
 
         debtorHistoryRepo.save(debtorHistory);
-    }
-
-//    public void deleteDebtByID(Long debtorID) {
-//        Optional<DebtorDetails> debtorDetailsCopyOptional = debtorDetailsRepo.findById(debtorID);
-//        if(debtorDetailsCopyOptional.isPresent()){
-//            DebtorDetails debtorDetailsCopy = debtorDetailsCopyOptional.get();
-//            saveEntityDebtorHistory(debtorDetailsCopy);
-//            debtorDetailsRepo.deleteById(debtorID);
-//        }
-//    }
-    public void deleteFromDebtorHistoryById(Long debtorID) {
-        debtorHistoryRepo.deleteById(debtorID);
     }
 }

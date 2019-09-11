@@ -40,7 +40,6 @@ public class DebtorController {
                 .addObject("id", id)
                 .addObject("debtor", debtor);
     }
-
     
     @PostMapping("/debtor-save")
     public ModelAndView saveDebtor(@ModelAttribute Debtor debtor, Principal principal,
