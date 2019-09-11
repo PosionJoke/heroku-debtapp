@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserPrincipalDetailsService userPrincipalDetailsService;
+    //soon in use
     private static final String ADMIN = "ADMIN";
     private static final String MANAGER = "MANAGER";
 
@@ -35,10 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/makeUsers", "/create-new-user").permitAll()
-                .antMatchers("/" + pl.bykowski.rectangleapp.gui.debtor_gui.DebtorGUI.VIEW_NAME).authenticated()
-                .antMatchers("/" + pl.bykowski.rectangleapp.gui.debtor_gui.DebtorListGUI.VIEW_NAME).hasRole(ADMIN)
-                .antMatchers("/" + pl.bykowski.rectangleapp.gui.debtor_gui.DebtorHistoryListGUI.VIEW_NAME).hasAnyRole(ADMIN, MANAGER)
+                .antMatchers("/makeUsers", "/create-new-user", "/figureDB").permitAll()
                 .anyRequest().authenticated()
                     .and()
                 .formLogin().permitAll()

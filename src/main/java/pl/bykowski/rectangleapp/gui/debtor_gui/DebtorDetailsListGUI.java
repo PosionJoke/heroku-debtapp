@@ -16,95 +16,95 @@ import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.services.DebtorService;
 
-@StyleSheet("/css/style.css")
-@Route(value = DebtorDetailsListGUI.VIEW_NAME)
+//@StyleSheet("/css/style.css")
+//@Route(value = DebtorDetailsListGUI.VIEW_NAME)
 public class DebtorDetailsListGUI extends VerticalLayout {
-
-    public static final String VIEW_NAME = "debtordetailslistgui";
-
-    private static final StringToFloatConverter DEBT_TO_FLOAT_CONVERTER = new StringToFloatConverter("Invalid debt format");
-    private static final StringToLongConverter DEBT_TO_LONG_CONVERTER = new StringToLongConverter("Invalid debt format");
-    private Binder<DebtorListGUIForm> debtorsLIstGUIFormBinder;
-
-    private transient DebtorService debtorService;
-
-    private Button deleteDebtByIdButton;
-    private Button backToMainViewButton;
-    private Button editDebtByIdAndValueButton;
-
-    private TextField idToDeleteTextField;
-    private TextField newValueTextField;
-
-    private transient DebtorDetailsRepo debtorDetailsRepo;
-
-    private Notification notification;
-
-    private Grid<DebtorDetails> grid = new Grid<>(DebtorDetails.class);
-
-    public DebtorDetailsListGUI(DebtorDetailsRepo debtorDetailsRepo, DebtorService debtorService) {
-        grid.setItems(debtorDetailsRepo.findByUserName(debtorService.findUserName()));
-
-        this.debtorService = debtorService;
-
-        this.idToDeleteTextField = new TextField("Delete by ID");
-        this.newValueTextField = new TextField("Add value");
-
-        this.deleteDebtByIdButton = new Button("Delete debt by ID");
-        this.backToMainViewButton = new Button("Back to main view");
-        this.editDebtByIdAndValueButton = new Button("Edit debt value by ID");
-
-        this.debtorDetailsRepo = debtorDetailsRepo;
-
-        this.notification = new Notification("", 3000);
-
-        debtorsLIstGUIFormBinder = new Binder<>();
-        debtorsLIstGUIFormBinder.forField(newValueTextField).withConverter(DEBT_TO_FLOAT_CONVERTER).bind(DebtorListGUIForm::getNewValueField, DebtorListGUIForm::setNewValueField);
-        debtorsLIstGUIFormBinder.forField(idToDeleteTextField).withConverter(DEBT_TO_LONG_CONVERTER).bind(DebtorListGUIForm::getIdToDeleteTextField, DebtorListGUIForm::setIdToDeleteTextField);
-        debtorsLIstGUIFormBinder.setBean(new DebtorListGUIForm());
-
-        backToMainViewButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate(DebtorGUI.VIEW_NAME)));
-
-        deleteDebtByIdButton.addClickListener(buttonClickEvent -> onDeleteDebtByIdButtonClick());
-
-        editDebtByIdAndValueButton.addClickListener(buttonClickEvent -> onEditDebtByIdAndValueButtonClick());
-
-        add(deleteDebtByIdButton);
-        add(grid);
-
-        HorizontalLayout buttonsLayout = new HorizontalLayout();
-        buttonsLayout.add(idToDeleteTextField);
-        buttonsLayout.add(newValueTextField);
-
-        add(buttonsLayout);
-
-        add(deleteDebtByIdButton);
-        add(editDebtByIdAndValueButton);
-
-        add(backToMainViewButton);
-        setDefaultHorizontalComponentAlignment(Alignment.CENTER);
-    }
-
-    private void onEditDebtByIdAndValueButtonClick() {
-        DebtorListGUIForm debtorListGUIForm = debtorsLIstGUIFormBinder.getBean();
-
-        float value = debtorListGUIForm.getNewValueField();
-        Long id = debtorListGUIForm.getIdToDeleteTextField();
-        debtorService.updateDebtByNewDebt(id, value);
-
-
-        grid.setItems(debtorDetailsRepo.findByUserName(debtorService.findUserName()));
-        notification.setText("Debt updated");
-        notification.open();
-    }
-
-    private void onDeleteDebtByIdButtonClick() {
-        Long id = debtorsLIstGUIFormBinder.getBean().getIdToDeleteTextField();
-        String userName = debtorService.findUserName();
-        debtorService.deleteDebtByID(id, userName);
-
-        grid.setItems(debtorDetailsRepo.findByUserName(debtorService.findUserName()));
-        notification.setText("Debt deleted");
-        notification.open();
-    }
+//
+//    public static final String VIEW_NAME = "debtordetailslistgui";
+//
+//    private static final StringToFloatConverter DEBT_TO_FLOAT_CONVERTER = new StringToFloatConverter("Invalid debt format");
+//    private static final StringToLongConverter DEBT_TO_LONG_CONVERTER = new StringToLongConverter("Invalid debt format");
+//    private Binder<DebtorListGUIForm> debtorsLIstGUIFormBinder;
+//
+//    private transient DebtorService debtorService;
+//
+//    private Button deleteDebtByIdButton;
+//    private Button backToMainViewButton;
+//    private Button editDebtByIdAndValueButton;
+//
+//    private TextField idToDeleteTextField;
+//    private TextField newValueTextField;
+//
+//    private transient DebtorDetailsRepo debtorDetailsRepo;
+//
+//    private Notification notification;
+//
+//    private Grid<DebtorDetails> grid = new Grid<>(DebtorDetails.class);
+//
+//    public DebtorDetailsListGUI(DebtorDetailsRepo debtorDetailsRepo, DebtorService debtorService) {
+//        grid.setItems(debtorDetailsRepo.findByUserName(debtorService.findUserName()));
+//
+//        this.debtorService = debtorService;
+//
+//        this.idToDeleteTextField = new TextField("Delete by ID");
+//        this.newValueTextField = new TextField("Add value");
+//
+//        this.deleteDebtByIdButton = new Button("Delete debt by ID");
+//        this.backToMainViewButton = new Button("Back to main view");
+//        this.editDebtByIdAndValueButton = new Button("Edit debt value by ID");
+//
+//        this.debtorDetailsRepo = debtorDetailsRepo;
+//
+//        this.notification = new Notification("", 3000);
+//
+//        debtorsLIstGUIFormBinder = new Binder<>();
+//        debtorsLIstGUIFormBinder.forField(newValueTextField).withConverter(DEBT_TO_FLOAT_CONVERTER).bind(DebtorListGUIForm::getNewValueField, DebtorListGUIForm::setNewValueField);
+//        debtorsLIstGUIFormBinder.forField(idToDeleteTextField).withConverter(DEBT_TO_LONG_CONVERTER).bind(DebtorListGUIForm::getIdToDeleteTextField, DebtorListGUIForm::setIdToDeleteTextField);
+//        debtorsLIstGUIFormBinder.setBean(new DebtorListGUIForm());
+//
+//        backToMainViewButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate(DebtorGUI.VIEW_NAME)));
+//
+//        deleteDebtByIdButton.addClickListener(buttonClickEvent -> onDeleteDebtByIdButtonClick());
+//
+//        editDebtByIdAndValueButton.addClickListener(buttonClickEvent -> onEditDebtByIdAndValueButtonClick());
+//
+//        add(deleteDebtByIdButton);
+//        add(grid);
+//
+//        HorizontalLayout buttonsLayout = new HorizontalLayout();
+//        buttonsLayout.add(idToDeleteTextField);
+//        buttonsLayout.add(newValueTextField);
+//
+//        add(buttonsLayout);
+//
+//        add(deleteDebtByIdButton);
+//        add(editDebtByIdAndValueButton);
+//
+//        add(backToMainViewButton);
+//        setDefaultHorizontalComponentAlignment(Alignment.CENTER);
+//    }
+//
+//    private void onEditDebtByIdAndValueButtonClick() {
+//        DebtorListGUIForm debtorListGUIForm = debtorsLIstGUIFormBinder.getBean();
+//
+//        float value = debtorListGUIForm.getNewValueField();
+//        Long id = debtorListGUIForm.getIdToDeleteTextField();
+//        debtorService.updateDebtByNewDebt(id, value);
+//
+//
+//        grid.setItems(debtorDetailsRepo.findByUserName(debtorService.findUserName()));
+//        notification.setText("Debt updated");
+//        notification.open();
+//    }
+//
+//    private void onDeleteDebtByIdButtonClick() {
+//        Long id = debtorsLIstGUIFormBinder.getBean().getIdToDeleteTextField();
+//        String userName = debtorService.findUserName();
+//        debtorService.deleteDebtByID(userName, id);
+//
+//        grid.setItems(debtorDetailsRepo.findByUserName(debtorService.findUserName()));
+//        notification.setText("Debt deleted");
+//        notification.open();
+//    }
 
 }

@@ -10,7 +10,7 @@ import java.security.Principal;
 public class MainViewController {
 
     @GetMapping("/main-view")
-    public ModelAndView mainView(Principal principal){
+    public ModelAndView showMainView(Principal principal){
         return new ModelAndView("main-view")
                 .addObject("user", principal);
     }

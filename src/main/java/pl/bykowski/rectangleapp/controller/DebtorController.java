@@ -4,24 +4,20 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
-import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.services.DebtorService;
 
 import java.security.Principal;
-import java.util.List;
 
 @RestController
 public class DebtorController {
 
     private DebtorRepo debtorRepo;
     private DebtorService debtorService;
-    private DebtorDetailsRepo debtorDetailsRepo;
 
-    public DebtorController(DebtorRepo debtorRepo, DebtorService debtorService, DebtorDetailsRepo debtorDetailsRepo) {
+    public DebtorController(DebtorRepo debtorRepo, DebtorService debtorService) {
         this.debtorRepo = debtorRepo;
         this.debtorService = debtorService;
-        this.debtorDetailsRepo = debtorDetailsRepo;
     }
 
     @GetMapping("/debtor-list")
@@ -31,7 +27,7 @@ public class DebtorController {
     }
 
     @GetMapping("/debtor-create")
-    public ModelAndView createDebtor(Principal principal){
+    public ModelAndView createDebtor(){
         return new ModelAndView("debtor-create")
                 .addObject("debtor", new DebtorDetails());
     }
@@ -45,19 +41,19 @@ public class DebtorController {
                 .addObject("debtor", debtor);
     }
 
+    
     @PostMapping("/debtor-save")
     public ModelAndView saveDebtor(@ModelAttribute Debtor debtor, Principal principal,
                                    @RequestParam String name){
-        Debtor debtorNew = debtor;
-        Debtor debtor1 = debtorRepo.findByName(name);
-        debtorService.checkTotalDebtIsUnderZero(debtor1,debtor.getTotalDebt());
+        Debtor debtorToUpdate = debtorRepo.findByName(name);
+        float actualTotalDebt = debtorToUpdate.getTotalDebt();
+        debtorService.updateTotalDebt(debtorToUpdate, actualTotalDebt);
         return new ModelAndView("debtor-list")
                 .addObject("debtors", debtorRepo.findByUserName(principal.getName()));
     }
 
     @PostMapping("/make-new-debtor")
-    public ModelAndView makeNewDebtor(@ModelAttribute DebtorDetails debtorDetails, Principal principal,
-                                      @RequestParam String name){
+    public ModelAndView makeNewDebtor(@ModelAttribute DebtorDetails debtorDetails, Principal principal){
         debtorService.addNewDebtor(debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getReasonForTheDebt(), principal.getName());
         return new ModelAndView("debtor-list")
                 .addObject("debtors", debtorRepo.findByUserName(principal.getName()));
