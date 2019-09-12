@@ -13,14 +13,10 @@ import java.util.Optional;
 public class DebtorDetailsService {
 
     private DebtorDetailsRepo debtorDetailsRepo;
-    private UserService userService;
-//    private DebtorService debtorService;
     private DebtorHistoryService debtorHistoryService;
 
-    public DebtorDetailsService(DebtorDetailsRepo debtorDetailsRepo, UserService userService, DebtorHistoryService debtorHistoryService) {
+    public DebtorDetailsService(DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryService debtorHistoryService) {
         this.debtorDetailsRepo = debtorDetailsRepo;
-        this.userService = userService;
-//        this.debtorService = debtorService;
         this.debtorHistoryService = debtorHistoryService;
     }
 
@@ -36,8 +32,6 @@ public class DebtorDetailsService {
         debtorDetails.setReasonForTheDebt(reasonForTheDebt);
         debtorDetails.setUserName(userName);
         debtorDetails.setDebtor(debtor);
-//        debtor.addToList(debtorDetails);
-//        debtorDetails.setMapped_Debtor(debtor);
 
         saveDebtorDetails(debtorDetails);
     }
@@ -48,9 +42,6 @@ public class DebtorDetailsService {
         if(debtorDetails.isPresent()){
             DebtorDetails debtorDetails1 = debtorDetails.get();
             isThisDebtUnderZero(debtorDetails1, debtValue);
-            String debtorName = debtorDetails1.getName();
-            String actualUserName = userService.findUserName();
-//            debtorService.updateTotalDebt(debtorName, debtValue, actualUserName);
         }
     }
 
