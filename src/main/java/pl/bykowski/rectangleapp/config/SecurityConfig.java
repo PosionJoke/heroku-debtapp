@@ -36,12 +36,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/makeUsers", "/create-new-user", "/figureDB").permitAll()
+                .antMatchers("/create-new-user", "/figureDB", "/default-view").permitAll()
                 .anyRequest().authenticated()
                     .and()
                 .formLogin().permitAll()
                     .and()
-                .logout().permitAll();
+                .logout().permitAll()
+                    .logoutSuccessUrl("/default-view");
     }
 
     @Bean
