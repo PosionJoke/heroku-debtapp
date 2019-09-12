@@ -7,15 +7,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
+<div class="container">
 <table class="table table-striped">
     <tr>
         <td>name</td>
-<!--        <td>id</td>-->
         <td>totalDebt</td>
     </tr>
     <tr th:each="oneDebtor : ${debtors}">
         <td th:text="${oneDebtor.name}"></td>
-<!--        <td th:text="${oneDebtor.id}"></td>-->
         <td th:text="${oneDebtor.totalDebt}"></td>
         <td>
             <a th:href="@{'/debtor-debt-edit?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">Edit</a>
@@ -26,8 +25,9 @@
     </tr>
 </table>
 <form th:action="@{/debtor-create}" method="GET">
-    <input type="submit" class="btn btn-primary btn-block" value="Create Debtor"/>
+    <input type="submit" class="btn btn-primary btn-block" style="margin-bottom: 10px" value="Create Debtor"/>
 </form>
+</div>
 <form th:action="@{/main-view}" method="GET">
     <input type="submit" class="btn btn-primary btn-block" value="Go back to main view"/>
 </form>

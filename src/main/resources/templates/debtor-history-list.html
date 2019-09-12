@@ -7,13 +7,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
+<div class="container">
 <table class="table table-striped">
+    <thead>
     <tr>
-        <td>name</td>
-        <td>debt</td>
-        <td>timeOfDebt</td>
-        <td>reasonForTheDebt</td>
+        <th>name</th>
+        <th>debt</th>
+        <th>timeOfDebt</th>
+        <th>reasonForTheDebt</th>
     </tr>
+    </thead>
     <tr th:each="oneDebtor : ${debtors}">
         <td th:text="${oneDebtor.name}"></td>
         <td th:text="${oneDebtor.debt}"></td>
@@ -21,6 +24,7 @@
         <td th:text="${oneDebtor.reasonForTheDebt}"></td>
     </tr>
 </table>
+</div>
 <form th:action="@{/main-view}" method="GET">
     <input type="submit" class="btn btn-primary btn-block" value="Go back to main view"/>
 </form>

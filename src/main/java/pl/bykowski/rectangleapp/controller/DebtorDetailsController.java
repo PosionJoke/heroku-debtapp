@@ -6,9 +6,9 @@ import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.services.DebtorDetailsService;
+import pl.bykowski.rectangleapp.services.tdo.DebtorDetailsDTOService;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,22 +16,20 @@ public class DebtorDetailsController {
 
     private DebtorDetailsRepo debtorDetailsRepo;
     private DebtorDetailsService debtorDetailsService;
+    private DebtorDetailsDTOService debtorDetailsDTOService;
 
-    public DebtorDetailsController(DebtorDetailsRepo debtorDetailsRepo, DebtorDetailsService debtorDetailsService) {
+    public DebtorDetailsController(DebtorDetailsRepo debtorDetailsRepo, DebtorDetailsService debtorDetailsService, DebtorDetailsDTOService debtorDetailsDTOService) {
+        this.debtorDetailsDTOService = debtorDetailsDTOService;
         this.debtorDetailsService = debtorDetailsService;
         this.debtorDetailsRepo = debtorDetailsRepo;
     }
 
     @GetMapping("/debtor-details-list")
     public ModelAndView showDebtorDetailsList(Principal principal){
-
-        List<DebtorDetailsDTO> debtorDetailsDTOList = new ArrayList<>();
-        List<DebtorDetails> debtorList = debtorDetailsRepo.findByUserName(principal.getName());
-        for (DebtorDetails debtor : debtorList) {
-            debtorDetailsDTOList.add(new DebtorDetailsDTO(debtor.getId(), debtor.getName(), debtor.getDebt(), debtor.getDate(), debtor.getReasonForTheDebt()));
-        }
+        List<DebtorDetails> debtorDetailsList = debtorDetailsRepo.findByUserName(principal.getName());
+        List<DebtorDetailsDTO> debtorDetailsDTOList1 = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
         return new ModelAndView("debtor-details-list")
-                .addObject("debtorLIST", debtorDetailsDTOList);
+                .addObject("debtorLIST", debtorDetailsDTOList1);
     }
 
     @GetMapping("/debtor-details-debt-edit")

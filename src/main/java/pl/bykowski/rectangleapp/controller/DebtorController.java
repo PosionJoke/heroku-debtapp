@@ -7,9 +7,8 @@ import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.services.DebtorService;
-
+import pl.bykowski.rectangleapp.services.tdo.DebtorDTOService;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,8 +16,10 @@ public class DebtorController {
 
     private DebtorRepo debtorRepo;
     private DebtorService debtorService;
+    private DebtorDTOService debtorDTOService;
 
-    public DebtorController(DebtorRepo debtorRepo, DebtorService debtorService) {
+    public DebtorController(DebtorRepo debtorRepo, DebtorService debtorService, DebtorDTOService debtorDTOService) {
+        this.debtorDTOService = debtorDTOService;
         this.debtorRepo = debtorRepo;
         this.debtorService = debtorService;
     }
@@ -52,25 +53,19 @@ public class DebtorController {
         String actualUserName = principal.getName();
         debtorService.updateTotalDebt(name, actualTotalDebt, actualUserName);
 
-        List<DebtorDTO> debtorDTOList = new ArrayList<>();
-        for (Debtor debtor1 : debtorRepo.findByUserName(principal.getName())){
-            debtorDTOList.add(new DebtorDTO(debtor1.getId(), debtor1.getName(), debtor1.getTotalDebt()));
-        }
-
+        List<Debtor> debtorList = debtorRepo.findByUserName(principal.getName());
+        List<DebtorDTO> debtorDTOList1 = debtorDTOService.returnDebtorDTOList(debtorList);
         return new ModelAndView("debtor-list")
-                .addObject("debtors", debtorDTOList);
+                .addObject("debtors", debtorDTOList1);
     }
 
     @PostMapping("/make-new-debtor")
     public ModelAndView makeNewDebtor(@ModelAttribute DebtorDetails debtorDetails, Principal principal){
         debtorService.addNewDebtor(debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getReasonForTheDebt(), principal.getName());
 
-        List<DebtorDTO> debtorDTOList = new ArrayList<>();
-        for (Debtor debtor : debtorRepo.findByUserName(principal.getName())){
-            debtorDTOList.add(new DebtorDTO(debtor.getId(), debtor.getName(), debtor.getTotalDebt()));
-        }
-
+        List<Debtor> debtorList = debtorRepo.findByUserName(principal.getName());
+        List<DebtorDTO> debtorDTOList1 = debtorDTOService.returnDebtorDTOList(debtorList);
         return new ModelAndView("debtor-list")
-                .addObject("debtors", debtorDTOList);
+                .addObject("debtors", debtorDTOList1);
     }
 }

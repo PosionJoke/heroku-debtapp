@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DebtorDetailsDTO {
-
     private Long id;
     private String name;
     private float debt;
