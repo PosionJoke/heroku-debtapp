@@ -3,26 +3,20 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Getting Started Service Web Content</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
-<table style="border:1px solid green">
+<table class="table table-striped">
     <tr>
         <td>name</td>
-        <td>id</td>
-        <td>debt</td>
+<!--        <td>id</td>-->
         <td>totalDebt</td>
-        <td>date</td>
-        <td>dateNow</td>
-        <td>userName</td>
     </tr>
     <tr th:each="oneDebtor : ${debtors}">
         <td th:text="${oneDebtor.name}"></td>
-        <td th:text="${oneDebtor.id}"></td>
-        <td th:text="${oneDebtor.debt}"></td>
+<!--        <td th:text="${oneDebtor.id}"></td>-->
         <td th:text="${oneDebtor.totalDebt}"></td>
-        <td th:text="${oneDebtor.date}"></td>
-        <td th:text="${oneDebtor.dateNow}"></td>
-        <td th:text="${oneDebtor.userName}"></td>
         <td>
             <a th:href="@{'/debtor-debt-edit?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">Edit</a>
         </td>
@@ -32,10 +26,10 @@
     </tr>
 </table>
 <form th:action="@{/debtor-create}" method="GET">
-    <input type="submit" value="Create Debtor"/>
+    <input type="submit" class="btn btn-primary btn-block" value="Create Debtor"/>
 </form>
 <form th:action="@{/main-view}" method="GET">
-    <input type="submit" value="Go back to main view"/>
+    <input type="submit" class="btn btn-primary btn-block" value="Go back to main view"/>
 </form>
 </body>
 </html>

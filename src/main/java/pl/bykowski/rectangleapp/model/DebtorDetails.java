@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
@@ -25,4 +22,7 @@ public class DebtorDetails {
     private LocalDate date;
     private String reasonForTheDebt;
     private String userName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "debtorDetails_Test")
+    private Debtor debtor;
 }

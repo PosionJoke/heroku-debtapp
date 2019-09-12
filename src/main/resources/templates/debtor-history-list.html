@@ -3,28 +3,26 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Getting Started Service Web Content</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
-<table style="border:1px solid green">
+<table class="table table-striped">
     <tr>
         <td>name</td>
-        <td>id</td>
         <td>debt</td>
         <td>timeOfDebt</td>
         <td>reasonForTheDebt</td>
-        <td>userName</td>
     </tr>
     <tr th:each="oneDebtor : ${debtors}">
         <td th:text="${oneDebtor.name}"></td>
-        <td th:text="${oneDebtor.id}"></td>
         <td th:text="${oneDebtor.debt}"></td>
         <td th:text="${oneDebtor.timeOfDebt}"></td>
         <td th:text="${oneDebtor.reasonForTheDebt}"></td>
-        <td th:text="${oneDebtor.userName}"></td>
     </tr>
 </table>
 <form th:action="@{/main-view}" method="GET">
-    <input type="submit" value="Go back to main view"/>
+    <input type="submit" class="btn btn-primary btn-block" value="Go back to main view"/>
 </form>
 </body>
 </html>
