@@ -3,30 +3,33 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Getting Started Service Web Content</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
+<div class="container">
 <form action="#" th:action="@{create-new-user}" th:object="${user}" method="post">
-    <table border="1">
-        <tr>
-            <td>Login</td>
-            <td><input type="text" th:field="${user.name}" /></td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td><input type="text" th:field="${user.email}" /></td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><input type="text" th:field="${user.password1}" /></td>
-        </tr>
-        <tr>
-            <td>Repeat Password</td>
-            <td><input type="text" th:field="${user.password2}" /></td>
-        </tr>
-        <tr>
-            <td><input type="submit" class="btn btn-primary btn-block" value="Submit" /></td>
-        </tr>
-    </table>
+    <div class="form-group">
+        <label for="UserName">User name :</label>
+        <td><input type="text" class="form-control" id="UserName" th:field="${user.name}" /></td>
+    </div>
+    <div class="form-group">
+        <label for="Email">Email :</label>
+        <td><input type="text" class="form-control" id="Email" th:field="${user.email}" /></td>
+    </div>
+    <div class="form-group">
+        <label for="Password1">Password :</label>
+        <td><input type="text" class="form-control" id="Password1" th:field="${user.password1}" /></td>
+    </div>
+    <div class="form-group">
+        <label for="Password2">Repeat Password :</label>
+        <td><input type="text" class="form-control" id="Password2" th:field="${user.password2}" /></td>
+    </div>
+    <div class="checkbox">
+        <label><input type="checkbox"> Remember me</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Account</button>
 </form>
+</div>
 </body>
 </html>
