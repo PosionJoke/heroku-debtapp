@@ -17,15 +17,19 @@
         <td th:text="${oneDebtor.name}"></td>
         <td th:text="${oneDebtor.totalDebt}"></td>
         <td>
-            <a th:href="@{'/debtor-debt-edit?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">Edit</a>
+            <a class="btn btn-info btn-lg" th:href="@{'/debtor-debt-edit?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">
+                <span class="glyphicon glyphicon-pencil"></span>Edit
+            </a>
         </td>
         <td>
-            <a th:href="@{'/debtor-delete?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">Delete</a>
+            <a class="btn btn-danger btn-lg" th:href="@{'/debtor-delete?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">
+                <span class="glyphicon glyphicon-remove"></span>Delete
+            </a>
         </td>
     </tr>
 </table>
 <form th:action="@{/debtor-create}" method="GET">
-    <input type="submit" class="btn btn-primary btn-block" style="margin-bottom: 10px" value="Create Debtor"/>
+    <input type="submit" class="btn btn-success btn-block" style="margin-bottom: 10px" value="Create Debtor"/>
 </form>
 </div>
 <form th:action="@{/main-view}" method="GET">

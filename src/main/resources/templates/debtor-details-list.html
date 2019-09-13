@@ -4,9 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Getting Started Service Web Content</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -14,7 +14,7 @@
     <thead>
     <tr>
         <th>name</th>
-        <th>debt</th>>
+        <th>debt</th>
         <th>date</th>
         <th>reasonForTheDebt</th>
         <th>Edit</th>
@@ -27,15 +27,19 @@
         <td th:text="${oneDebtor.date}"></td>
         <td th:text="${oneDebtor.reasonForTheDebt}"></td>
         <td>
-            <a th:href="@{'/debtor-details-debt-edit?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">Edit</a>
+            <a class="btn btn-info btn-lg" th:href="@{'/debtor-details-debt-edit?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">
+                <span class="glyphicon glyphicon-pencil"></span> Edit
+            </a>
         </td>
         <td>
-            <a th:href="@{'/debtor-details-delete?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">Delete</a>
+            <a class="btn btn-danger btn-lg" th:href="@{'/debtor-details-delete?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">
+                <span class="glyphicon glyphicon-remove"></span>Delete
+            </a>
         </td>
     </tr>
 </table>
     <form th:action="@{/make-new-debtor-details}" method="GET">
-        <input type="submit" class="btn btn-primary btn-block" style="margin-bottom: 10px" value="Add new debtorDetails"/>
+        <input type="submit" class="btn btn-success btn-block" style="margin-bottom: 10px" value="Add new debtorDetails"/>
     </form>
 </div>
 <form th:action="@{/main-view}" method="GET">
