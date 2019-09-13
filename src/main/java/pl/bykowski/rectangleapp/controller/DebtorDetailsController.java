@@ -48,14 +48,15 @@ public class DebtorDetailsController {
     }
 
     @GetMapping("/make-new-debtor-details")
-    public ModelAndView makeNewDebtorDetails(){
+    public ModelAndView makeNewDebtorDetails(@RequestParam String name){
         return new ModelAndView("make-new-debtor-details")
-                .addObject("debtorDetails", new DebtorDetailsDTO());
+                .addObject("debtorDetails", new DebtorDetailsDTO())
+                .addObject("name", name);
     }
 
     @PostMapping("/make-new-debtor-details")
-    public ModelAndView saveNewDebtorDetails(@ModelAttribute DebtorDetailsDTO debtorDetails, Principal principal){
-        Debtor debtor = debtorService.findDebtorByName(debtorDetails.getName());
+    public ModelAndView saveNewDebtorDetails(@ModelAttribute DebtorDetailsDTO debtorDetails, Principal principal, @RequestParam String name){
+        Debtor debtor = debtorService.findDebtorByName(name);
         debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());
         return new ModelAndView("debtor-details-list")
                 .addObject("debtorLIST", debtorDetailsRepo.findByUserName(principal.getName()));

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-
     String findUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();

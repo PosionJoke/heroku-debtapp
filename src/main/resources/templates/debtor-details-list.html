@@ -17,6 +17,7 @@
         <th>debt</th>
         <th>date</th>
         <th>reasonForTheDebt</th>
+        <th>Add</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
@@ -26,6 +27,11 @@
         <td th:text="${oneDebtor.debt}"></td>
         <td th:text="${oneDebtor.date}"></td>
         <td th:text="${oneDebtor.reasonForTheDebt}"></td>
+        <td>
+            <a class="btn btn-success btn-lg" th:href="@{'/make-new-debtor-details?name=' + ${oneDebtor.name}}">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </a>
+        </td>
         <td>
             <a class="btn btn-info btn-lg" th:href="@{'/debtor-details-debt-edit?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">
                 <span class="glyphicon glyphicon-pencil"></span> Edit
