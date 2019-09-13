@@ -11,5 +11,11 @@ public class DebtorDTO {
     private Long id;
     private String name;
     private float totalDebt;
-    private int countOfDebts;
+    private Long countOfDebts;
+
+    public DebtorDTO(Long id, String name, float totalDebt) {
+        this.id = id;
+        this.name = name;
+        this.totalDebt = totalDebt;
+    }
 }

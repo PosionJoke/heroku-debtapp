@@ -1,9 +1,7 @@
 package pl.bykowski.rectangleapp.services;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.model.Debtor;
@@ -11,7 +9,6 @@ import pl.bykowski.rectangleapp.model.Debtor;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class DebtorService {
@@ -29,6 +26,10 @@ public class DebtorService {
 
     private void saveDebtor(Debtor debtor){
         debtorRepo.save(debtor);
+    }
+
+    public Debtor findById(Long id){
+        return debtorRepo.findById(id).get();
     }
 
     private boolean isThisNameFree(String debtorName, String userName) {
@@ -75,33 +76,6 @@ public class DebtorService {
                 max(Comparator.comparing(Debtor::getTotalDebt));
         System.out.println(debtorWithBiggestDebt.get().getTotalDebt());
         return debtorWithBiggestDebt.get();
-    }
-
-    public Debtor returnDebtorWithHighestCountOfDebts(Principal principal){
-        ArrayList<Debtor> debtorArrayList = (ArrayList<Debtor>) debtorRepo.findByUserName(principal.getName());
-
-        ArrayList<Long> arrayListLong = new ArrayList<>();
-
-
-
-        for(Debtor debtor : debtorArrayList){
-            arrayListLong.add(debtor.getId());
-        }
-
-//        for(Long singleId : longArrayList){
-//            arrayListLong.add(singleId);
-//        }
-
-        Long occurrences =
-                arrayListLong.stream()
-                        .collect(Collectors.groupingBy(w -> w, Collectors.counting()))
-                        .entrySet()
-                        .stream()
-                        .max(Comparator.comparing(Map.Entry::getValue))
-                        .get()
-                        .getKey();
-        Debtor debtor = debtorRepo.findById(occurrences).get();
-        return debtor;
     }
 
     public Debtor findDebtorByName(String name) {

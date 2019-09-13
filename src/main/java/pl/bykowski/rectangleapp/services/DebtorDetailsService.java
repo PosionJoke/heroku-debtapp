@@ -7,6 +7,7 @@ import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -63,5 +64,9 @@ public class DebtorDetailsService {
         debtorHistoryService.saveEntityDebtorHistory(debtorDetailsCopy);
 
         debtorDetailsRepo.delete(debtorDetailsRepo.findByNameAndId(debtorName, debtorID));
+    }
+
+    public List<DebtorDetails> findByUserName(String name) {
+          return debtorDetailsRepo.findByUserName(name);
     }
 }

@@ -21,14 +21,22 @@ public class MainViewController {
         this.debtorDTOService = debtorDTOService;
     }
 
-    @GetMapping("/main-view")
-    public ModelAndView showMainView(Principal principal){
-
-
+    @GetMapping("/")
+    public ModelAndView showMainViewTemporaryMethod(Principal principal){
         Debtor debtorWithBiggestDebt = debtorService.returnDebtorWithBiggestDebt(principal);
         DebtorDTO debtorWithBiggestDebtDTO = debtorDTOService.returnDebtorDTO(debtorWithBiggestDebt);
-        Debtor debtorWithHighestCountOfDebts = debtorService.returnDebtorWithHighestCountOfDebts(principal);
-        DebtorDTO debtorWithHighestCountOfDebtsDTO = debtorDTOService.returnDebtorDTO(debtorWithHighestCountOfDebts);
+        DebtorDTO debtorWithHighestCountOfDebtsDTO = debtorDTOService.returnDebtorDTOWithHighestCountOfDebts(principal);
+        return new ModelAndView("main-view")
+                .addObject("user", principal)
+                .addObject("debtorWithBiggestDebt", debtorWithBiggestDebtDTO)
+                .addObject("debtorWithHighestCountOfDebts", debtorWithHighestCountOfDebtsDTO);
+    }
+
+    @GetMapping("/main-view")
+    public ModelAndView showMainView(Principal principal){
+        Debtor debtorWithBiggestDebt = debtorService.returnDebtorWithBiggestDebt(principal);
+        DebtorDTO debtorWithBiggestDebtDTO = debtorDTOService.returnDebtorDTO(debtorWithBiggestDebt);
+        DebtorDTO debtorWithHighestCountOfDebtsDTO = debtorDTOService.returnDebtorDTOWithHighestCountOfDebts(principal);
         return new ModelAndView("main-view")
                 .addObject("user", principal)
                 .addObject("debtorWithBiggestDebt", debtorWithBiggestDebtDTO)
