@@ -11,4 +11,5 @@ public class DebtorDTO {
     private Long id;
     private String name;
     private float totalDebt;
+    private int countOfDebts;
 }

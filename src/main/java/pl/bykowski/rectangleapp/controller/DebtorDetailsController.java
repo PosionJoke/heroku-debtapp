@@ -2,10 +2,12 @@ package pl.bykowski.rectangleapp.controller;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.services.DebtorDetailsService;
+import pl.bykowski.rectangleapp.services.DebtorService;
 import pl.bykowski.rectangleapp.services.tdo.DebtorDetailsDTOService;
 
 import java.security.Principal;
@@ -17,11 +19,13 @@ public class DebtorDetailsController {
     private DebtorDetailsRepo debtorDetailsRepo;
     private DebtorDetailsService debtorDetailsService;
     private DebtorDetailsDTOService debtorDetailsDTOService;
+    private DebtorService debtorService;
 
-    public DebtorDetailsController(DebtorDetailsRepo debtorDetailsRepo, DebtorDetailsService debtorDetailsService, DebtorDetailsDTOService debtorDetailsDTOService) {
+    public DebtorDetailsController(DebtorDetailsRepo debtorDetailsRepo, DebtorDetailsService debtorDetailsService, DebtorDetailsDTOService debtorDetailsDTOService, DebtorService debtorService) {
         this.debtorDetailsDTOService = debtorDetailsDTOService;
         this.debtorDetailsService = debtorDetailsService;
         this.debtorDetailsRepo = debtorDetailsRepo;
+        this.debtorService = debtorService;
     }
 
     @GetMapping("/debtor-details-list")
@@ -41,6 +45,20 @@ public class DebtorDetailsController {
                 .addObject("name", name)
                 .addObject("id", id)
                 .addObject("debtor", debtorDetails);
+    }
+
+    @GetMapping("/make-new-debtor-details")
+    public ModelAndView makeNewDebtorDetails(){
+        return new ModelAndView("make-new-debtor-details")
+                .addObject("debtorDetails", new DebtorDetailsDTO());
+    }
+
+    @PostMapping("/make-new-debtor-details")
+    public ModelAndView saveNewDebtorDetails(@ModelAttribute DebtorDetailsDTO debtorDetails, Principal principal){
+        Debtor debtor = debtorService.findDebtorByName(debtorDetails.getName());
+        debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());
+        return new ModelAndView("debtor-details-list")
+                .addObject("debtorLIST", debtorDetailsRepo.findByUserName(principal.getName()));
     }
 
     @PostMapping("/debtor-details-save")

@@ -12,8 +12,12 @@ public class DebtorDTOService {
     public List<DebtorDTO> returnDebtorDTOList(List<Debtor> debtorList){
         List<DebtorDTO> debtorDTOList = new ArrayList<>();
         for(Debtor debtor : debtorList){
-            debtorDTOList.add(new DebtorDTO(debtor.getId(), debtor.getName(), debtor.getTotalDebt()));
+            debtorDTOList.add(new DebtorDTO(debtor.getId(), debtor.getName(), debtor.getTotalDebt(), debtor.getDebtorDetailsList().size()));
         }
         return debtorDTOList;
+    }
+
+    public DebtorDTO returnDebtorDTO(Debtor debtor){
+        return new DebtorDTO(debtor.getId(), debtor.getName(), debtor.getTotalDebt(), debtor.getDebtorDetailsList().size());
     }
 }

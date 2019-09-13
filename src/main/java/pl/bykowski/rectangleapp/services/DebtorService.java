@@ -1,10 +1,17 @@
 package pl.bykowski.rectangleapp.services;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import pl.bykowski.rectangleapp.model.DebtorDetails;
+import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.model.Debtor;
+
+import java.security.Principal;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class DebtorService {
@@ -35,6 +42,12 @@ public class DebtorService {
         return true;
     }
 
+    @Transactional
+    public void updateTotalDebtAndMakeNewDebtorDetails(DebtorDetailsDTO debtorDetails, Debtor debtor, String userName){
+        debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getReasonForTheDebt(), userName, debtor);
+        updateTotalDebt(debtor.getName(), debtorDetails.getDebt(), userName);
+    }
+
     public void updateTotalDebt(String debtorName, float debtValue, String userName) {
         Debtor changedDebtor = debtorRepo.findByName(debtorName);
         float newDebt = debtValue + changedDebtor.getTotalDebt();
@@ -55,5 +68,43 @@ public class DebtorService {
 
             debtorDetailsService.addNewDebtorDetails(debtorName, debtValue, reasonForTheDebt, userName, debtor);
         }
+    }
+
+    public Debtor returnDebtorWithBiggestDebt(Principal principal) {
+        Optional<Debtor> debtorWithBiggestDebt = debtorRepo.findByUserName(principal.getName()).stream().
+                max(Comparator.comparing(Debtor::getTotalDebt));
+        System.out.println(debtorWithBiggestDebt.get().getTotalDebt());
+        return debtorWithBiggestDebt.get();
+    }
+
+    public Debtor returnDebtorWithHighestCountOfDebts(Principal principal){
+        ArrayList<Debtor> debtorArrayList = (ArrayList<Debtor>) debtorRepo.findByUserName(principal.getName());
+
+        ArrayList<Long> arrayListLong = new ArrayList<>();
+
+
+
+        for(Debtor debtor : debtorArrayList){
+            arrayListLong.add(debtor.getId());
+        }
+
+//        for(Long singleId : longArrayList){
+//            arrayListLong.add(singleId);
+//        }
+
+        Long occurrences =
+                arrayListLong.stream()
+                        .collect(Collectors.groupingBy(w -> w, Collectors.counting()))
+                        .entrySet()
+                        .stream()
+                        .max(Comparator.comparing(Map.Entry::getValue))
+                        .get()
+                        .getKey();
+        Debtor debtor = debtorRepo.findById(occurrences).get();
+        return debtor;
+    }
+
+    public Debtor findDebtorByName(String name) {
+        return debtorRepo.findByName(name);
     }
 }
