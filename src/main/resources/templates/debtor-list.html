@@ -10,12 +10,20 @@
 <div class="container">
 <table class="table table-striped">
     <tr>
-        <td>name</td>
-        <td>totalDebt</td>
+        <td>Name</td>
+        <td>Total Debt</td>
+        <td>Add New Debt</td>
+        <td>Edit</td>
+        <td>Delete</td>
     </tr>
     <tr th:each="oneDebtor : ${debtors}">
         <td th:text="${oneDebtor.name}"></td>
         <td th:text="${oneDebtor.totalDebt}"></td>
+        <td>
+            <a class="btn btn-success btn-lg" th:href="@{'/make-new-debtor-details?name=' + ${oneDebtor.name}}">
+                <span class="glyphicon glyphicon-plus"></span> Add Debt
+            </a>
+        </td>
         <td>
             <a class="btn btn-info btn-lg" th:href="@{'/debtor-debt-edit?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">
                 <span class="glyphicon glyphicon-pencil"></span>Edit
