@@ -46,11 +46,19 @@ public class DebtorDetailsService {
         }
     }
 
+    public DebtorDetails findById(Long id){
+        return debtorDetailsRepo.findById(id).get();
+    }
+
+    public void deleteById(Long id){
+        debtorDetailsRepo.deleteById(id);
+    }
+
     private void isThisDebtUnderZero(DebtorDetails debtorDetails, float debtValue){
         float newDebt = debtorDetails.getDebt() + debtValue;
         if(newDebt <= 0){
             debtorDetails.setDebt(0);
-            deleteDebtByID(debtorDetails.getName(), debtorDetails.getId());
+            deleteDebtByIdAndName(debtorDetails.getName(), debtorDetails.getId());
         }else {
             debtorDetails.setDebt(newDebt);
             debtorDetailsRepo.save(debtorDetails);
@@ -58,12 +66,12 @@ public class DebtorDetailsService {
     }
 
     @Transactional
-    public void deleteDebtByID(String debtorName, Long debtorID) {
+    public void deleteDebtByIdAndName(String debtorName, Long debtorID) {
         DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(debtorName, debtorID);
 
         debtorHistoryService.saveEntityDebtorHistory(debtorDetailsCopy);
 
-        debtorDetailsRepo.delete(debtorDetailsRepo.findByNameAndId(debtorName, debtorID));
+        debtorDetailsRepo.delete(debtorDetailsCopy);
     }
 
     public List<DebtorDetails> findByUserName(String name) {

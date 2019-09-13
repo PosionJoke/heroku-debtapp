@@ -18,7 +18,7 @@ public class DebtorHistoryService {
         this.debtorHistoryRepo = debtorHistoryRepo;
     }
 
-     void saveEntityDebtorHistory(DebtorDetails debtorDetails) {
+     public void saveEntityDebtorHistory(DebtorDetails debtorDetails) {
         DebtorHistory debtorHistory = new DebtorHistory();
         debtorHistory.setDebt(debtorDetails.getDebt());
         debtorHistory.setName(debtorDetails.getName());

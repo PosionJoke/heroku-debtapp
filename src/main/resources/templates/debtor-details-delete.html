@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Getting Started Service Web Content</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<td>
+    <a class="btn btn-success btn-lg" th:href="@{debtor-details-list}">
+        <span class="glyphicon glyphicon-plus"></span> Go Back
+    </a>
+</td>
+<td>
+    <a class="btn btn-danger btn-lg" method="post" th:href="@{'/debtor-details-delete-by-id?id=' + ${id}}">
+        <span class="glyphicon glyphicon-remove"></span>Delete
+    </a>
+</td>
+</body>
+</html>

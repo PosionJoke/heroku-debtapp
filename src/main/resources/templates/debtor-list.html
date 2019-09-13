@@ -14,7 +14,7 @@
         <td>Total Debt</td>
         <td>Add New Debt</td>
         <td>Edit</td>
-        <td>Delete</td>
+<!--        <td>Delete</td>-->
     </tr>
     <tr th:each="oneDebtor : ${debtors}">
         <td th:text="${oneDebtor.name}"></td>
@@ -29,11 +29,11 @@
                 <span class="glyphicon glyphicon-pencil"></span>Edit
             </a>
         </td>
-        <td>
-            <a class="btn btn-danger btn-lg" th:href="@{'/debtor-delete?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">
-                <span class="glyphicon glyphicon-remove"></span>Delete
-            </a>
-        </td>
+<!--        <td>-->
+<!--            <a class="btn btn-danger btn-lg" th:href="@{'/debtor-delete?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">-->
+<!--                <span class="glyphicon glyphicon-remove"></span>Delete-->
+<!--            </a>-->
+<!--        </td>-->
     </tr>
 </table>
 <form th:action="@{/debtor-create}" method="GET">

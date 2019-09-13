@@ -2,6 +2,7 @@ package pl.bykowski.rectangleapp.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.model.Debtor;
@@ -16,12 +17,14 @@ public class DebtorService {
     private DebtorRepo debtorRepo;
     private UserService userService;
     private DebtorDetailsService debtorDetailsService;
+    private DebtorHistoryService debtorHistoryService;
 
     public DebtorService(DebtorRepo debtorRepo, UserService userService,
-                        DebtorDetailsService debtorDetailsService) {
+                        DebtorDetailsService debtorDetailsService, DebtorHistoryService debtorHistoryService) {
         this.debtorRepo = debtorRepo;
         this.userService = userService;
         this.debtorDetailsService = debtorDetailsService;
+        this.debtorHistoryService = debtorHistoryService;
     }
 
     private void saveDebtor(Debtor debtor){
@@ -55,6 +58,13 @@ public class DebtorService {
         changedDebtor.setTotalDebt(newDebt);
         changedDebtor.setUserName(userName);
         saveDebtor(changedDebtor);
+    }
+
+    public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id, Principal principal){
+        DebtorDetails debtorDetails = debtorDetailsService.findById(id);
+        updateTotalDebt(debtorDetails.getName(), debtorDetails.getDebt() * -1, principal.getName());
+        debtorHistoryService.saveEntityDebtorHistory(debtorDetails);
+        debtorDetailsService.deleteById(id);
     }
 
     public void addNewDebtor(String debtorName, float debtValue, String reasonForTheDebt, String userName) {
