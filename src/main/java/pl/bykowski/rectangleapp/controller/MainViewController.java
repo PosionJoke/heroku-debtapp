@@ -40,6 +40,9 @@ public class MainViewController {
 
     private ModelAndView returnMainView(Principal principal){
         if(isThisUserHaveAnyDebtorDetails(principal)){
+            return new ModelAndView("main-view-new-user")
+                    .addObject("user", principal);
+        }else {
             Optional<Debtor> debtorWithBiggestDebt = debtorService.returnDebtorWithBiggestDebt(principal);
 
             DebtorDTO debtorWithBiggestDebtDTO =  debtorWithBiggestDebt.map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
@@ -49,9 +52,6 @@ public class MainViewController {
                     .addObject("user", principal)
                     .addObject("debtorWithBiggestDebt", debtorWithBiggestDebtDTO)
                     .addObject("debtorWithHighestCountOfDebts", debtorWithHighestCountOfDebtsDTO);
-        }else {
-            return new ModelAndView("main-view-new-user")
-                    .addObject("user", principal);
         }
     }
     private boolean isThisUserHaveAnyDebtorDetails(Principal principal){

@@ -11,9 +11,13 @@ import java.util.List;
 public class DebtorHistoryDTOService {
     public List<DebtorHistoryDTO> returnDebtorHistoryDTOList(List<DebtorHistory> debtorHistoryList){
         List<DebtorHistoryDTO> debtorHistoryDTOList = new ArrayList<>();
-        for(DebtorHistory debtorHistory : debtorHistoryList){
-            debtorHistoryDTOList.add(new DebtorHistoryDTO(debtorHistory.getName(), debtorHistory.getDebt(), debtorHistory.getTimeOfDebt(), debtorHistory.getReasonForTheDebt()));
-        }
+
+        debtorHistoryList.stream()
+                .forEach(debtorHistory -> debtorHistoryDTOList.add(
+                        new DebtorHistoryDTO(debtorHistory.getName(),
+                                debtorHistory.getDebt(),
+                                debtorHistory.getTimeOfDebt(),
+                                debtorHistory.getReasonForTheDebt())));
         return debtorHistoryDTOList;
     }
 }

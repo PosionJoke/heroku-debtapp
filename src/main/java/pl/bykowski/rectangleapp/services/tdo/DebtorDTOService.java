@@ -37,11 +37,16 @@ public class DebtorDTOService {
     public DebtorDTO returnDebtorDTOWithHighestCountOfDebts(Principal principal){
         ArrayList<DebtorDetails> debtorDetailsArrayList = (ArrayList<DebtorDetails>) debtorDetailsService.findByUserName(principal.getName());
         List<Long> debtorDetailsIdArrayList = new ArrayList<>();
-        for(DebtorDetails debtor : debtorDetailsArrayList) {
-            if (debtor.getDebtor().getId() != null) {
-                debtorDetailsIdArrayList.add(debtor.getDebtor().getId());
-            }
-        }
+
+        debtorDetailsArrayList.stream()
+                .filter(debtor -> debtor.getId() != null)
+                .forEach(debtor -> debtorDetailsIdArrayList.add(debtor.getDebtor().getId()));
+
+//        for(DebtorDetails debtor : debtorDetailsArrayList) {
+//            if (debtor.getDebtor().getId() != null) {
+//                debtorDetailsIdArrayList.add(debtor.getDebtor().getId());
+//            }
+//        }
         Map.Entry<Long, Long> idAndCountOfDebtsMap =
                 debtorDetailsIdArrayList.stream()
                         .collect(Collectors.groupingBy(w -> w, Collectors.counting()))

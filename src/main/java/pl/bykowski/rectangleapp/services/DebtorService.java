@@ -42,7 +42,7 @@ public class DebtorService {
                 .filter(n -> n.getName().equalsIgnoreCase(debtorName))
                 .count();
 
-        return (countOfNames > 0) ? false : true;
+        return countOfNames <= 0;
     }
 
     @Transactional
