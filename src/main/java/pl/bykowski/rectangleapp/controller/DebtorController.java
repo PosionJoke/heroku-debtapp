@@ -5,6 +5,7 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
+import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.services.DebtorService;
 import pl.bykowski.rectangleapp.services.tdo.DebtorDTOService;
@@ -33,7 +34,7 @@ public class DebtorController {
     @GetMapping("/debtor-create")
     public ModelAndView createDebtor(){
         return new ModelAndView("debtor-create")
-                .addObject("debtor", new DebtorDetails());
+                .addObject("debtor", new DebtorDetailsDTO());
     }
 
     @GetMapping("/debtor-debt-edit")
@@ -59,10 +60,9 @@ public class DebtorController {
                 .addObject("debtors", debtorDTOList1);
     }
 
-    //TODO REPLACE THAT DEBTORDETAILS WITH DTO OBJECT
     @PostMapping("/make-new-debtor")
-    public ModelAndView makeNewDebtor(@ModelAttribute DebtorDetails debtorDetails, Principal principal){
-        debtorService.addNewDebtor(debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getReasonForTheDebt(), principal.getName());
+    public ModelAndView makeNewDebtor(@ModelAttribute DebtorDetailsDTO debtorDetailsDTO, Principal principal){
+        debtorService.addNewDebtor(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(), debtorDetailsDTO.getReasonForTheDebt(), principal.getName());
 
         List<Debtor> debtorList = debtorRepo.findByUserName(principal.getName());
         List<DebtorDTO> debtorDTOList1 = debtorDTOService.returnDebtorDTOList(debtorList);
