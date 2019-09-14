@@ -54,6 +54,14 @@ public class DebtorDetailsService {
         debtorDetailsRepo.deleteById(id);
     }
 
+    public boolean isThisNameExist(String name){
+        boolean isThisNameExist = false;
+        if(debtorDetailsRepo.findByName(name) != null){
+            isThisNameExist = true;
+        }
+        return isThisNameExist;
+    }
+
     private void isThisDebtUnderZero(DebtorDetails debtorDetails, float debtValue){
         float newDebt = debtorDetails.getDebt() + debtValue;
         if(newDebt <= 0){

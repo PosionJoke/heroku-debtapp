@@ -8,4 +8,5 @@ import java.util.List;
 public interface DebtorDetailsRepo extends CrudRepository<DebtorDetails, Long> {
     DebtorDetails findByNameAndId(String name, Long ID);
     List<DebtorDetails> findByUserName(String userName);
+    DebtorDetails findByName(String name);
 }
