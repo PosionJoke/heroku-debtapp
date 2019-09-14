@@ -40,8 +40,8 @@ public class DebtorDetailsService {
     @Transactional
     public void updateDebtorDetailsDebt(Long debtID, float debtValue) {
         Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(debtID);
-//        userRoleOp.ifPresent(userRole -> user.setRoles(new HashSet<>(Arrays.asList(userRole))));
         debtorDetails.ifPresent(debtorD -> isThisDebtUnderZero(debtorD, debtValue));
+        //TODO use optional map there!
         if(debtorDetails.isPresent()){
             DebtorDetails debtorDetails1 = debtorDetails.get();
             isThisDebtUnderZero(debtorDetails1, debtValue);
@@ -49,21 +49,12 @@ public class DebtorDetailsService {
     }
 
     public Optional<DebtorDetails> findById(Long id){
-//        Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(id);
         return debtorDetailsRepo.findById(id);
 
     }
 
     public void deleteById(Long id){
         debtorDetailsRepo.deleteById(id);
-    }
-
-    public boolean isThisNameExist(String name){
-        boolean isThisNameExist = false;
-        if(debtorDetailsRepo.findByName(name) != null){
-            isThisNameExist = true;
-        }
-        return isThisNameExist;
     }
 
     private void isThisDebtUnderZero(DebtorDetails debtorDetails, float debtValue){

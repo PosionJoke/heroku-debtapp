@@ -38,12 +38,11 @@ public class DebtorService {
     private boolean isThisNameFree(String debtorName, String userName) {
         List<Debtor> debtorList = debtorRepo.findByUserName(userName);
 
-        for (Debtor debtor : debtorList) {
-            if (debtor.getName().equalsIgnoreCase(debtorName)) {
-                return false;
-            }
-        }
-        return true;
+        Long countOfNames = debtorList.stream()
+                .filter(n -> n.getName().equalsIgnoreCase(debtorName))
+                .count();
+
+        return (countOfNames > 0) ? false : true;
     }
 
     @Transactional
