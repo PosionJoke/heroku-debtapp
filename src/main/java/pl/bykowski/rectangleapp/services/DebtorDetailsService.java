@@ -41,11 +41,6 @@ public class DebtorDetailsService {
     public void updateDebtorDetailsDebt(Long debtID, float debtValue) {
         Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(debtID);
         debtorDetails.ifPresent(debtorD -> isThisDebtUnderZero(debtorD, debtValue));
-        //TODO use optional map there!
-        if(debtorDetails.isPresent()){
-            DebtorDetails debtorDetails1 = debtorDetails.get();
-            isThisDebtUnderZero(debtorDetails1, debtValue);
-        }
     }
 
     public Optional<DebtorDetails> findById(Long id){
