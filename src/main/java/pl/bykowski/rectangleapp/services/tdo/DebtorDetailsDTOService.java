@@ -15,4 +15,9 @@ public class DebtorDetailsDTOService {
         }
         return debtorDetailsDTOList;
     }
+
+    public DebtorDetailsDTO returnDebtorDetailsDTO(DebtorDetails debtorDetails){
+        return new DebtorDetailsDTO(debtorDetails.getId(),debtorDetails.getName(),
+                debtorDetails.getDebt(), debtorDetails.getDate(), debtorDetails.getReasonForTheDebt());
+    }
 }

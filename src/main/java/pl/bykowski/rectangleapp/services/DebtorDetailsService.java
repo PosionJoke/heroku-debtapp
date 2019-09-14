@@ -40,6 +40,8 @@ public class DebtorDetailsService {
     @Transactional
     public void updateDebtorDetailsDebt(Long debtID, float debtValue) {
         Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(debtID);
+//        userRoleOp.ifPresent(userRole -> user.setRoles(new HashSet<>(Arrays.asList(userRole))));
+        debtorDetails.ifPresent(debtorD -> isThisDebtUnderZero(debtorD, debtValue));
         if(debtorDetails.isPresent()){
             DebtorDetails debtorDetails1 = debtorDetails.get();
             isThisDebtUnderZero(debtorDetails1, debtValue);
@@ -47,7 +49,9 @@ public class DebtorDetailsService {
     }
 
     public DebtorDetails findById(Long id){
+        Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(id);
         return debtorDetailsRepo.findById(id).get();
+
     }
 
     public void deleteById(Long id){

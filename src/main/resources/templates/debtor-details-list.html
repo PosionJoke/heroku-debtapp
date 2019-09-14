@@ -5,11 +5,10 @@
     <title>Getting Started Service Web Content</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
+    <h1> DEBTOR DETAILS LIST </h1>
 <table class="table table-striped">
     <thead>
     <tr>
@@ -44,9 +43,6 @@
         </td>
     </tr>
 </table>
-<!--    <form th:action="@{/make-new-debtor-details}" method="GET">-->
-<!--        <input type="submit" class="btn btn-success btn-block" style="margin-bottom: 10px" value="Add new debtorDetails"/>-->
-<!--    </form>-->
 </div>
 <form th:action="@{/main-view}" method="GET">
     <input type="submit" class="btn btn-primary btn-block" style="margin-bottom: 10px" value="Go back to main view"/>

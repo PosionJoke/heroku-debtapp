@@ -40,10 +40,11 @@ public class DebtorDetailsController {
     public ModelAndView editDebtorDetails(@RequestParam Long id, @RequestParam String name){
 
         DebtorDetails debtorDetails = debtorDetailsRepo.findByNameAndId(name, id);
+        DebtorDetailsDTO debtorDetailsDTO = debtorDetailsDTOService.returnDebtorDetailsDTO(debtorDetails);
         return new ModelAndView("debtor-details-debt-edit")
                 .addObject("name", name)
                 .addObject("id", id)
-                .addObject("debtor", debtorDetails);
+                .addObject("debtor", debtorDetailsDTO);
     }
 
     @GetMapping("/make-new-debtor-details")
@@ -77,11 +78,11 @@ public class DebtorDetailsController {
         return new ModelAndView("debtor-details-list")
                 .addObject("debtorLIST", debtorDetailsRepo.findByUserName(principal.getName()));
     }
-//TODO DTO OBJECTS!
+
     @PostMapping("/debtor-details-save")
-    public ModelAndView saveDebtorDetails(@ModelAttribute DebtorDetails debtor, Principal principal,
+    public ModelAndView saveDebtorDetails(@ModelAttribute DebtorDetailsDTO debtorDetailsDTO, Principal principal,
                                           @RequestParam Long id){
-        debtorDetailsService.updateDebtorDetailsDebt(id,debtor.getDebt());
+        debtorDetailsService.updateDebtorDetailsDebt(id,debtorDetailsDTO.getDebt());
         return new ModelAndView("debtor-details-list")
                 .addObject("debtorLIST", debtorDetailsRepo.findByUserName(principal.getName()));
     }
