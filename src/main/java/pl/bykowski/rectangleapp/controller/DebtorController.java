@@ -3,7 +3,6 @@ package pl.bykowski.rectangleapp.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.Debtor;
-import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
@@ -14,7 +13,6 @@ import java.util.List;
 
 @RestController
 public class DebtorController {
-
     private DebtorRepo debtorRepo;
     private DebtorService debtorService;
     private DebtorDTOService debtorDTOService;
@@ -40,14 +38,15 @@ public class DebtorController {
     @GetMapping("/debtor-debt-edit")
     public ModelAndView debtorDebtEdit(@RequestParam Long id, @RequestParam String name){
         Debtor debtor = debtorRepo.findByName(name);
+        DebtorDTO debtorDTO = debtorDTOService.returnDebtorDTO(debtor);
         return new ModelAndView("debtor-debt-edit")
                 .addObject("name", name)
                 .addObject("id", id)
-                .addObject("debtor", debtor);
+                .addObject("debtor", debtorDTO);
     }
-    
+
     @PostMapping("/debtor-save")
-    public ModelAndView saveDebtor(@ModelAttribute Debtor debtor, Principal principal,
+    public ModelAndView saveDebtor(@ModelAttribute DebtorDTO debtorDTO, Principal principal,
                                    @RequestParam String name){
         Debtor debtorToUpdate = debtorRepo.findByName(name);
         float actualTotalDebt = debtorToUpdate.getTotalDebt();
