@@ -59,6 +59,7 @@ public class DebtorController {
                 .addObject("debtors", debtorDTOList1);
     }
 
+    //TODO REPLACE THAT DEBTORDETAILS WITH DTO OBJECT
     @PostMapping("/make-new-debtor")
     public ModelAndView makeNewDebtor(@ModelAttribute DebtorDetails debtorDetails, Principal principal){
         debtorService.addNewDebtor(debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getReasonForTheDebt(), principal.getName());

@@ -4,17 +4,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
-import pl.bykowski.rectangleapp.model.DebtorHistory;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.services.DebtorDetailsService;
-import pl.bykowski.rectangleapp.services.DebtorHistoryService;
 import pl.bykowski.rectangleapp.services.DebtorService;
 import pl.bykowski.rectangleapp.services.tdo.DebtorDetailsDTOService;
-
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class DebtorDetailsController {
@@ -23,15 +19,13 @@ public class DebtorDetailsController {
     private DebtorDetailsService debtorDetailsService;
     private DebtorDetailsDTOService debtorDetailsDTOService;
     private DebtorService debtorService;
-    private DebtorHistoryService debtorHistoryService;
 
     public DebtorDetailsController(DebtorDetailsRepo debtorDetailsRepo, DebtorDetailsService debtorDetailsService,
-                                   DebtorDetailsDTOService debtorDetailsDTOService, DebtorService debtorService, DebtorHistoryService debtorHistoryService) {
+                                   DebtorDetailsDTOService debtorDetailsDTOService, DebtorService debtorService) {
         this.debtorDetailsDTOService = debtorDetailsDTOService;
         this.debtorDetailsService = debtorDetailsService;
         this.debtorDetailsRepo = debtorDetailsRepo;
         this.debtorService = debtorService;
-        this.debtorHistoryService = debtorHistoryService;
     }
 
     @GetMapping("/debtor-details-list")
@@ -43,8 +37,7 @@ public class DebtorDetailsController {
     }
 
     @GetMapping("/debtor-details-debt-edit")
-    public ModelAndView editDebtorDetails(@RequestParam Long id, @RequestParam String name,
-                                          @ModelAttribute DebtorDetails debtorDetailsForm){
+    public ModelAndView editDebtorDetails(@RequestParam Long id, @RequestParam String name){
 
         DebtorDetails debtorDetails = debtorDetailsRepo.findByNameAndId(name, id);
         return new ModelAndView("debtor-details-debt-edit")
@@ -65,7 +58,7 @@ public class DebtorDetailsController {
         return new ModelAndView("debtor-details-delete")
                 .addObject("id", id);
     }
-    //TODO MAKE A OPTION TO DELETE DEBTOR DETAILS BY ID
+
     @GetMapping("/debtor-details-delete-by-id")
     public ModelAndView deleteDebtorDetailsById(@RequestParam Long id, Principal principal){
 
@@ -84,7 +77,7 @@ public class DebtorDetailsController {
         return new ModelAndView("debtor-details-list")
                 .addObject("debtorLIST", debtorDetailsRepo.findByUserName(principal.getName()));
     }
-
+//TODO DTO OBJECTS!
     @PostMapping("/debtor-details-save")
     public ModelAndView saveDebtorDetails(@ModelAttribute DebtorDetails debtor, Principal principal,
                                           @RequestParam Long id){
