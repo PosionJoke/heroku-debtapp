@@ -8,10 +8,7 @@ import pl.bykowski.rectangleapp.services.DebtorDetailsService;
 import pl.bykowski.rectangleapp.services.DebtorService;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,7 +36,7 @@ public class DebtorDTOService {
 
     public DebtorDTO returnDebtorDTOWithHighestCountOfDebts(Principal principal){
         ArrayList<DebtorDetails> debtorDetailsArrayList = (ArrayList<DebtorDetails>) debtorDetailsService.findByUserName(principal.getName());
-        ArrayList<Long> debtorDetailsIdArrayList = new ArrayList<>();
+        List<Long> debtorDetailsIdArrayList = new ArrayList<>();
         for(DebtorDetails debtor : debtorDetailsArrayList) {
             if (debtor.getDebtor().getId() != null) {
                 debtorDetailsIdArrayList.add(debtor.getDebtor().getId());
@@ -53,9 +50,10 @@ public class DebtorDTOService {
                         .max(Comparator.comparing(Map.Entry::getValue))
                         .get();
         Long debtorId = idAndCountOfDebtsMap.getKey();
+
         Long countOfDebts = idAndCountOfDebtsMap.getValue();
-        Debtor debtor = debtorService.findById(debtorId);
-        DebtorDTO debtorDTO = returnDebtorDTO(debtor);
+        Optional<Debtor> debtor = debtorService.findById(debtorId);
+        DebtorDTO debtorDTO = debtor.map(this::returnDebtorDTO).orElse(new DebtorDTO());
         debtorDTO.setCountOfDebts(countOfDebts);
         return debtorDTO;
     }

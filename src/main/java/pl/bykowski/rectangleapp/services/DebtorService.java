@@ -31,8 +31,8 @@ public class DebtorService {
         debtorRepo.save(debtor);
     }
 
-    public Debtor findById(Long id){
-        return debtorRepo.findById(id).get();
+    public Optional<Debtor> findById(Long id){
+        return debtorRepo.findById(id);
     }
 
     private boolean isThisNameFree(String debtorName, String userName) {
@@ -61,9 +61,11 @@ public class DebtorService {
     }
 
     public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id, Principal principal){
-        DebtorDetails debtorDetails = debtorDetailsService.findById(id);
-        updateTotalDebt(debtorDetails.getName(), debtorDetails.getDebt() * -1, principal.getName());
-        debtorHistoryService.saveEntityDebtorHistory(debtorDetails);
+        Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(id);
+        debtorDetails.ifPresent(debtorDetails1 -> {
+            updateTotalDebt(debtorDetails1.getName(), debtorDetails1.getDebt() * -1, principal.getName());
+            debtorHistoryService.saveEntityDebtorHistory(debtorDetails1);
+        });
         debtorDetailsService.deleteById(id);
     }
 
@@ -80,12 +82,11 @@ public class DebtorService {
             debtorDetailsService.addNewDebtorDetails(debtorName, debtValue, reasonForTheDebt, userName, debtor);
         }
     }
-
-    public Debtor returnDebtorWithBiggestDebt(Principal principal) {
-        Optional<Debtor> debtorWithBiggestDebt = debtorRepo.findByUserName(principal.getName()).stream().
-                max(Comparator.comparing(Debtor::getTotalDebt));
-        System.out.println(debtorWithBiggestDebt.get().getTotalDebt());
-        return debtorWithBiggestDebt.get();
+//TODO LOGGERS PLS
+    public Optional<Debtor> returnDebtorWithBiggestDebt(Principal principal) {
+        return debtorRepo.findByUserName(principal.getName())
+                .stream()
+                .max(Comparator.comparing(Debtor::getTotalDebt));
     }
 
     public Debtor findDebtorByName(String name) {

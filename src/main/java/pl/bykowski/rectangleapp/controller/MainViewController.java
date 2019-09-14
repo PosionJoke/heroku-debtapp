@@ -13,6 +13,7 @@ import pl.bykowski.rectangleapp.services.tdo.DebtorDTOService;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
 public class MainViewController {
@@ -39,8 +40,10 @@ public class MainViewController {
 
     private ModelAndView returnMainView(Principal principal){
         if(isThisUserHaveAnyDebtorDetails(principal)){
-            Debtor debtorWithBiggestDebt = debtorService.returnDebtorWithBiggestDebt(principal);
-            DebtorDTO debtorWithBiggestDebtDTO = debtorDTOService.returnDebtorDTO(debtorWithBiggestDebt);
+            Optional<Debtor> debtorWithBiggestDebt = debtorService.returnDebtorWithBiggestDebt(principal);
+
+            DebtorDTO debtorWithBiggestDebtDTO =  debtorWithBiggestDebt.map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
+                    .orElse(new DebtorDTO());
             DebtorDTO debtorWithHighestCountOfDebtsDTO = debtorDTOService.returnDebtorDTOWithHighestCountOfDebts(principal);
             return new ModelAndView("main-view")
                     .addObject("user", principal)
@@ -51,12 +54,7 @@ public class MainViewController {
                     .addObject("user", principal);
         }
     }
-
     private boolean isThisUserHaveAnyDebtorDetails(Principal principal){
-        Optional<List<DebtorDetails>> optionalDebtorDetailsList =
-                Optional.ofNullable(debtorDetailsService.findByUserName(principal.getName()));
-        if(optionalDebtorDetailsList.get().size() > 0){
-            return true;
-        }else  return false;
+            return debtorDetailsService.findByUserName(principal.getName()).isEmpty();
     }
 }

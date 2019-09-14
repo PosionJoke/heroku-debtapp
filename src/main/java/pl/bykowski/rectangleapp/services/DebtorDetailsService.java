@@ -48,9 +48,9 @@ public class DebtorDetailsService {
         }
     }
 
-    public DebtorDetails findById(Long id){
-        Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(id);
-        return debtorDetailsRepo.findById(id).get();
+    public Optional<DebtorDetails> findById(Long id){
+//        Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(id);
+        return debtorDetailsRepo.findById(id);
 
     }
 
