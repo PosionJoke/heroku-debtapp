@@ -26,7 +26,7 @@ public class DebtorController {
     @GetMapping("/debtor-list")
     public ModelAndView showDebtorList(Principal principal){
         return new ModelAndView("debtor-list")
-                .addObject("debtors", debtorRepo.findByUserName(principal.getName()));
+                .addObject("debtors", debtorService.findByUserName(principal.getName()));
     }
 
     @GetMapping("/debtor-create")
@@ -53,7 +53,7 @@ public class DebtorController {
         String actualUserName = principal.getName();
         debtorService.updateTotalDebt(name, actualTotalDebt, actualUserName);
 
-        List<Debtor> debtorList = debtorRepo.findByUserName(principal.getName());
+        List<Debtor> debtorList = debtorService.findByUserName(principal.getName());
         List<DebtorDTO> debtorDTOList1 = debtorDTOService.returnDebtorDTOList(debtorList);
         return new ModelAndView("debtor-list")
                 .addObject("debtors", debtorDTOList1);
@@ -63,7 +63,7 @@ public class DebtorController {
     public ModelAndView makeNewDebtor(@ModelAttribute DebtorDetailsDTO debtorDetailsDTO, Principal principal){
         debtorService.addNewDebtor(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(), debtorDetailsDTO.getReasonForTheDebt(), principal.getName());
 
-        List<Debtor> debtorList = debtorRepo.findByUserName(principal.getName());
+        List<Debtor> debtorList = debtorService.findByUserName(principal.getName());
         List<DebtorDTO> debtorDTOList1 = debtorDTOService.returnDebtorDTOList(debtorList);
         return new ModelAndView("debtor-list")
                 .addObject("debtors", debtorDTOList1);

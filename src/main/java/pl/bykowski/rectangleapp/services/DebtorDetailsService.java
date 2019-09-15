@@ -25,7 +25,7 @@ public class DebtorDetailsService {
         debtorDetailsRepo.save(debtorDetails);
     }
 
-     public void addNewDebtorDetails(String debtorName, float debtValue, String reasonForTheDebt, String userName, Debtor debtor) {
+     public DebtorDetails addNewDebtorDetails(String debtorName, float debtValue, String reasonForTheDebt, String userName, Debtor debtor) {
         DebtorDetails debtorDetails = new DebtorDetails();
         debtorDetails.setName(debtorName);
         debtorDetails.setDebt(debtValue);
@@ -35,6 +35,7 @@ public class DebtorDetailsService {
         debtorDetails.setDebtor(debtor);
 
         saveDebtorDetails(debtorDetails);
+        return debtorDetails;
     }
 
     @Transactional

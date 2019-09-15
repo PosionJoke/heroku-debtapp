@@ -35,16 +35,19 @@ public class DebtorService {
         return debtorRepo.findById(id);
     }
 
+    public List<Debtor> findByUserName(String name){
+        return debtorRepo.findByUserName(name);
+    }
+
     private boolean isThisNameFree(String debtorName, String userName) {
         List<Debtor> debtorList = debtorRepo.findByUserName(userName);
 
-        Long countOfNames = debtorList.stream()
-                .filter(n -> n.getName().equalsIgnoreCase(debtorName))
-                .count();
-
-        return countOfNames <= 0;
+        return debtorRepo.findByUserName(userName)
+                .stream()
+                .noneMatch(debtor -> debtor.getName().equalsIgnoreCase(debtorName));
     }
 
+    //todo hard to test method
     @Transactional
     public void updateTotalDebtAndMakeNewDebtorDetails(DebtorDetailsDTO debtorDetails, Debtor debtor, String userName){
         debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getReasonForTheDebt(), userName, debtor);
@@ -59,6 +62,7 @@ public class DebtorService {
         saveDebtor(changedDebtor);
     }
 
+    //todo hard to test method
     public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id, Principal principal){
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(id);
         debtorDetails.ifPresent(debtorDetails1 -> {

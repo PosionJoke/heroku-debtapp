@@ -6,6 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.DebtorHistory;
 import pl.bykowski.rectangleapp.model.dto.DebtorHistoryDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorHistoryRepo;
+import pl.bykowski.rectangleapp.services.DebtorHistoryService;
 import pl.bykowski.rectangleapp.services.tdo.DebtorHistoryDTOService;
 
 import java.security.Principal;
@@ -15,17 +16,21 @@ import java.util.List;
 public class DebtorHistoryController {
 
     private DebtorHistoryRepo debtorHistoryRepo;
+    private DebtorHistoryService debtorHistoryService;
     private DebtorHistoryDTOService debtorHistoryDTOService;
 
-    public DebtorHistoryController(DebtorHistoryRepo debtorHistoryRepo, DebtorHistoryDTOService debtorHistoryDTOService) {
+    public DebtorHistoryController(DebtorHistoryRepo debtorHistoryRepo,
+                                   DebtorHistoryDTOService debtorHistoryDTOService,
+                                   DebtorHistoryService debtorHistoryService) {
         this.debtorHistoryRepo = debtorHistoryRepo;
         this.debtorHistoryDTOService = debtorHistoryDTOService;
+        this.debtorHistoryService = debtorHistoryService;
     }
 
     @GetMapping("/debtor-history-list")
     public ModelAndView showDebtorDetailsList(Principal principal){
 
-        List<DebtorHistory> debtorHistoryList = debtorHistoryRepo.findByUserName(principal.getName());
+        List<DebtorHistory> debtorHistoryList = debtorHistoryService.findByUserName(principal.getName());
         List<DebtorHistoryDTO> debtorHistoryDTOS = debtorHistoryDTOService.returnDebtorHistoryDTOList(debtorHistoryList);
         return new ModelAndView("debtor-history-list")
                 .addObject("debtors", debtorHistoryDTOS);

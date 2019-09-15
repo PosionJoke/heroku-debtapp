@@ -6,6 +6,7 @@ import pl.bykowski.rectangleapp.model.DebtorHistory;
 import pl.bykowski.rectangleapp.repositories.DebtorHistoryRepo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -29,6 +30,10 @@ public class DebtorHistoryService {
         debtorHistory.setTimeOfDebt(daysBetween);
 
         debtorHistoryRepo.save(debtorHistory);
+    }
+
+    public List<DebtorHistory> findByUserName(String name){
+        return debtorHistoryRepo.findByUserName(name);
     }
 
 }

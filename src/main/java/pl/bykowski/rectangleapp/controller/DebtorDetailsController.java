@@ -30,7 +30,7 @@ public class DebtorDetailsController {
 
     @GetMapping("/debtor-details-list")
     public ModelAndView showDebtorDetailsList(Principal principal){
-        List<DebtorDetails> debtorDetailsList = debtorDetailsRepo.findByUserName(principal.getName());
+        List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());
         List<DebtorDetailsDTO> debtorDetailsDTOList1 = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
         return new ModelAndView("debtor-details-list")
                 .addObject("debtorLIST", debtorDetailsDTOList1);
@@ -65,7 +65,7 @@ public class DebtorDetailsController {
 
         debtorService.deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id, principal);
 
-        List<DebtorDetails> debtorDetailsList = debtorDetailsRepo.findByUserName(principal.getName());
+        List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());
         List<DebtorDetailsDTO> debtorDetailsDTOList1 = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
         return new ModelAndView("debtor-details-list")
                 .addObject("debtorLIST", debtorDetailsDTOList1);
@@ -76,7 +76,7 @@ public class DebtorDetailsController {
         Debtor debtor = debtorService.findDebtorByName(name);
         debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());
         return new ModelAndView("debtor-details-list")
-                .addObject("debtorLIST", debtorDetailsRepo.findByUserName(principal.getName()));
+                .addObject("debtorLIST", debtorDetailsService.findByUserName(principal.getName()));
     }
 
     @PostMapping("/debtor-details-save")
@@ -84,6 +84,6 @@ public class DebtorDetailsController {
                                           @RequestParam Long id){
         debtorDetailsService.updateDebtorDetailsDebt(id,debtorDetailsDTO.getDebt());
         return new ModelAndView("debtor-details-list")
-                .addObject("debtorLIST", debtorDetailsRepo.findByUserName(principal.getName()));
+                .addObject("debtorLIST", debtorDetailsService.findByUserName(principal.getName()));
     }
 }
