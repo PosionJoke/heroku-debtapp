@@ -28,10 +28,10 @@ public class MainViewController {
         this.debtorDetailsService = debtorDetailsService;
     }
 
-    @GetMapping("/")
-    public ModelAndView showMainViewTemporaryMethod(Principal principal){
-        return returnMainView(principal);
-    }
+//    @GetMapping("/")
+//    public ModelAndView showMainViewTemporaryMethod(Principal principal){
+//        return returnMainView(principal);
+//    }
 
     @GetMapping("/main-view")
     public ModelAndView showMainView(Principal principal){
