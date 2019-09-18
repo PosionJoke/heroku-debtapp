@@ -151,10 +151,7 @@ public class RectangleappApplicationTests {
 
 	@Test
 	public void updateTotalDebtAndMakeNewDebtorDetails(){
-//		public void updateTotalDebtAndMakeNewDebtorDetails(DebtorDetailsDTO debtorDetails, Debtor debtor, String userName){
-//			debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getReasonForTheDebt(), userName, debtor);
-//			updateTotalDebt(debtor.getName(), debtorDetails.getDebt(), userName);
-//		}
+        //given
 		DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
 		debtorDetailsDTO.setName("Adrian11");
 		debtorDetailsDTO.setDebt(102);
@@ -165,18 +162,28 @@ public class RectangleappApplicationTests {
 		debtorDetails.setDebt(102);
 		debtorDetails.setReasonForTheDebt("Milk");
 		debtorDetails.setUserName("UserName");
+
 		Debtor debtor = new Debtor();
 		debtor.setName(debtorDetails.getName());
 
+		String userName = "UserName";
 
-		Mockito.when(debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(),
-				debtorDetails.getReasonForTheDebt(), debtorDetails.getUserName(), debtor))
-				.thenReturn(debtorDetails);
+        Mockito.when(debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(),
+                debtorDetails.getReasonForTheDebt(), debtorDetails.getUserName(), debtor))
+                .thenReturn(debtorDetails);
 
+        Mockito.when(debtorRepo.findByName(debtor.getName()))
+                .thenReturn(debtor);
+        //when
+		debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetailsDTO, debtor, userName);
+
+		//then
 		verify(debtorDetailsService).addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(),
 				debtorDetails.getReasonForTheDebt(), debtorDetails.getUserName(), debtor);
 
-		verify(debtorService).updateTotalDebt(debtor.getName(), debtorDetails.getDebt(), debtorDetails.getUserName());
+        assertThat(debtorService.updateTotalDebt(debtor.getName(), debtorDetails.getDebt(), debtorDetails.getUserName()))
+                .isEqualTo(204);
+
 
 	}
 

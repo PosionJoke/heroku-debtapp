@@ -54,12 +54,13 @@ public class DebtorService {
         updateTotalDebt(debtor.getName(), debtorDetails.getDebt(), userName);
     }
 
-    public void updateTotalDebt(String debtorName, float debtValue, String userName) {
+    public float updateTotalDebt(String debtorName, float debtValue, String userName) {
         Debtor changedDebtor = debtorRepo.findByName(debtorName);
         float newDebt = debtValue + changedDebtor.getTotalDebt();
         changedDebtor.setTotalDebt(newDebt);
         changedDebtor.setUserName(userName);
         saveDebtor(changedDebtor);
+        return newDebt;
     }
 
     //todo hard to test method
