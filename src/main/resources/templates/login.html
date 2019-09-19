@@ -12,7 +12,6 @@
             <div class="card-block" style="padding: 24px;">
                 <form name="f" th:action="@{/signin}" method="post">
                     <fieldset>
-                        <!-- Thymeleaf + Spring Security error display -->
                         <div th:if="${param.error}" class="alert alert-danger">
                             Invalid username and password.
                         </div>
@@ -21,7 +20,6 @@
                             You have been logged out.
                         </div>
 
-                        <!-- Login Controls -->
                         <div class="form-group">
                             <label for="txtUsername">Username</label>
                             <input type="text" class="form-control" id="txtUsername" name="txtUsername"
@@ -39,7 +37,6 @@
                             <label class="form-check-label" for="checkRememberMe">Remember me?</label>
                         </div>
 
-                        <!-- Login Button -->
                         <div class="form-actions" style="margin-top: 12px;">
                             <button type="submit" class="btn btn-success">Log in</button>
                         </div>

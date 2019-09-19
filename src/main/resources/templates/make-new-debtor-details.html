@@ -9,10 +9,6 @@
 <body>
 <div class="container">
     <form action="#" th:action="@{'/make-new-debtor-details?name=' + ${name}}" th:object="${debtorDetails}" method="post">
-<!--        <div class="form-group">-->
-<!--            <label for="DebtorName">Debtor name :</label>-->
-<!--            <td><input type="text" class="form-control" id="DebtorName" th:field="${debtorDetails.name}" /></td>-->
-<!--        </div>-->
         <div class="form-group">
             <label for="DebtValue">Debt Value :</label>
             <td><input type="text" class="form-control" id="DebtValue" th:field="${debtorDetails.debt}" /></td>
