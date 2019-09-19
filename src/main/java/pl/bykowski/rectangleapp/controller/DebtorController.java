@@ -8,6 +8,7 @@ import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.services.DebtorService;
 import pl.bykowski.rectangleapp.services.tdo.DebtorDTOService;
+
 import java.security.Principal;
 import java.util.List;
 
@@ -24,19 +25,19 @@ public class DebtorController {
     }
 
     @GetMapping("/debtor-list")
-    public ModelAndView showDebtorList(Principal principal){
+    public ModelAndView showDebtorList(Principal principal) {
         return new ModelAndView("debtor-list")
                 .addObject("debtors", debtorService.findByUserName(principal.getName()));
     }
 
     @GetMapping("/debtor-create")
-    public ModelAndView createDebtor(){
+    public ModelAndView createDebtor() {
         return new ModelAndView("debtor-create")
                 .addObject("debtor", new DebtorDetailsDTO());
     }
 
     @GetMapping("/debtor-debt-edit")
-    public ModelAndView debtorDebtEdit(@RequestParam Long id, @RequestParam String name){
+    public ModelAndView debtorDebtEdit(@RequestParam Long id, @RequestParam String name) {
         Debtor debtor = debtorRepo.findByName(name);
         DebtorDTO debtorDTO = debtorDTOService.returnDebtorDTO(debtor);
         return new ModelAndView("debtor-debt-edit")
@@ -47,7 +48,7 @@ public class DebtorController {
 
     @PostMapping("/debtor-save")
     public ModelAndView saveDebtor(@ModelAttribute DebtorDTO debtorDTO, Principal principal,
-                                   @RequestParam String name, @RequestParam Long id){
+                                   @RequestParam String name, @RequestParam Long id) {
         Debtor debtorToUpdate = debtorRepo.findByName(name);
         float actualTotalDebt = debtorToUpdate.getTotalDebt();
         String actualUserName = principal.getName();
@@ -60,7 +61,7 @@ public class DebtorController {
     }
 
     @PostMapping("/make-new-debtor")
-    public ModelAndView makeNewDebtor(@ModelAttribute DebtorDetailsDTO debtorDetailsDTO, Principal principal){
+    public ModelAndView makeNewDebtor(@ModelAttribute DebtorDetailsDTO debtorDetailsDTO, Principal principal) {
         debtorService.addNewDebtor(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(), debtorDetailsDTO.getReasonForTheDebt(), principal.getName());
 
         List<Debtor> debtorList = debtorService.findByUserName(principal.getName());

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Getting Started Service Web Content</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -10,10 +10,12 @@
 <div class="container">
     <h1>HELLO <span th:text="${user.name}"></span></h1>
     <form th:action="@{/debtor-details-list}" method="GET">
-        <input type="submit" class="btn btn-primary btn-block" style="margin-bottom: 10px" value="Show Debtor details list"/>
+        <input type="submit" class="btn btn-primary btn-block" style="margin-bottom: 10px"
+               value="Show Debtor details list"/>
     </form>
     <form th:action="@{/debtor-history-list}" method="GET">
-        <input type="submit" class="btn btn-primary btn-block" style="margin-bottom: 10px" value="Show Debtor history list"/>
+        <input type="submit" class="btn btn-primary btn-block" style="margin-bottom: 10px"
+               value="Show Debtor history list"/>
     </form>
     <form th:action="@{/debtor-list}" method="GET">
         <input type="submit" class="btn btn-info btn-block" style="margin-bottom: 10px" value="Show Debtor list"/>

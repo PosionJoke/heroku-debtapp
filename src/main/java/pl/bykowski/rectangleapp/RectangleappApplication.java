@@ -9,7 +9,4 @@ public class RectangleappApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RectangleappApplication.class, args);
 	}
-
-
-
 }

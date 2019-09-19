@@ -9,6 +9,7 @@ import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.services.DebtorDetailsService;
 import pl.bykowski.rectangleapp.services.DebtorService;
 import pl.bykowski.rectangleapp.services.tdo.DebtorDetailsDTOService;
+
 import java.security.Principal;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class DebtorDetailsController {
     }
 
     @GetMapping("/debtor-details-list")
-    public ModelAndView showDebtorDetailsList(Principal principal){
+    public ModelAndView showDebtorDetailsList(Principal principal) {
         List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());
         List<DebtorDetailsDTO> debtorDetailsDTOList1 = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
         return new ModelAndView("debtor-details-list")
@@ -37,7 +38,7 @@ public class DebtorDetailsController {
     }
 
     @GetMapping("/debtor-details-debt-edit")
-    public ModelAndView editDebtorDetails(@RequestParam Long id, @RequestParam String name){
+    public ModelAndView editDebtorDetails(@RequestParam Long id, @RequestParam String name) {
 
         DebtorDetails debtorDetails = debtorDetailsRepo.findByNameAndId(name, id);
         DebtorDetailsDTO debtorDetailsDTO = debtorDetailsDTOService.returnDebtorDetailsDTO(debtorDetails);
@@ -48,20 +49,20 @@ public class DebtorDetailsController {
     }
 
     @GetMapping("/make-new-debtor-details")
-    public ModelAndView makeNewDebtorDetails(@RequestParam String name){
+    public ModelAndView makeNewDebtorDetails(@RequestParam String name) {
         return new ModelAndView("make-new-debtor-details")
                 .addObject("debtorDetails", new DebtorDetailsDTO())
                 .addObject("name", name);
     }
 
     @GetMapping("/debtor-details-delete")
-    public ModelAndView deleteDebtorDetails(@RequestParam Long id){
+    public ModelAndView deleteDebtorDetails(@RequestParam Long id) {
         return new ModelAndView("debtor-details-delete")
                 .addObject("id", id);
     }
 
     @GetMapping("/debtor-details-delete-by-id")
-    public ModelAndView deleteDebtorDetailsById(@RequestParam Long id, Principal principal){
+    public ModelAndView deleteDebtorDetailsById(@RequestParam Long id, Principal principal) {
 
         debtorService.deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id, principal);
 
@@ -72,7 +73,7 @@ public class DebtorDetailsController {
     }
 
     @PostMapping("/make-new-debtor-details")
-    public ModelAndView saveNewDebtorDetails(@ModelAttribute DebtorDetailsDTO debtorDetails, Principal principal, @RequestParam String name){
+    public ModelAndView saveNewDebtorDetails(@ModelAttribute DebtorDetailsDTO debtorDetails, Principal principal, @RequestParam String name) {
         Debtor debtor = debtorService.findDebtorByName(name);
         debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());
         return new ModelAndView("debtor-details-list")
@@ -81,8 +82,8 @@ public class DebtorDetailsController {
 
     @PostMapping("/debtor-details-save")
     public ModelAndView saveDebtorDetails(@ModelAttribute DebtorDetailsDTO debtorDetailsDTO, Principal principal,
-                                          @RequestParam Long id){
-        debtorDetailsService.updateDebtorDetailsDebt(id,debtorDetailsDTO.getDebt());
+                                          @RequestParam Long id) {
+        debtorDetailsService.updateDebtorDetailsDebt(id, debtorDetailsDTO.getDebt());
         return new ModelAndView("debtor-details-list")
                 .addObject("debtorLIST", debtorDetailsService.findByUserName(principal.getName()));
     }

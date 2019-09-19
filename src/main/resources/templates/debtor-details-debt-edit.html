@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Getting Started Service Web Content</title>
 </head>
 <body>
-<div class ="container">
-<form action="#" th:action="@{'/debtor-details-save?id=' + ${id}}" th:object="${debtor}" method="post">
-    <p>
-        Add new debt value to <span th:text="${debtor.name}"></span>
-    </p>
-    <p>
-        Actual debt <span th:text="${debtor.debt}"></span>
-    </p>
-    <p>
-        Reason for that debt <span th:text="${debtor.reasonForTheDebt}"></span>
-    </p>
-    <table border="5">
+<div class="container">
+    <form action="#" th:action="@{'/debtor-details-save?id=' + ${id}}" th:object="${debtor}" method="post">
+        <p>
+            Add new debt value to <span th:text="${debtor.name}"></span>
+        </p>
+        <p>
+            Actual debt <span th:text="${debtor.debt}"></span>
+        </p>
+        <p>
+            Reason for that debt <span th:text="${debtor.reasonForTheDebt}"></span>
+        </p>
+        <table border="5">
             <td>Enter how much money you want to add</td>
-            <td><input type="text" th:field="${debtor.debt}" /></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Submit" /></td>
-        </tr>
-    </table>
-</form>
+            <td><input type="text" th:field="${debtor.debt}"/></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Submit"/></td>
+            </tr>
+        </table>
+    </form>
 </div>
 <form th:action="@{/main-view}" method="GET">
     <input type="submit" class="btn btn-primary btn-block" value="Go back to main view"/>

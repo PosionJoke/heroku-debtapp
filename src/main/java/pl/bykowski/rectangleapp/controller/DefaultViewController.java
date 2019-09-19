@@ -10,12 +10,12 @@ import java.security.Principal;
 public class DefaultViewController {
 
     @GetMapping("/default-view")
-    public ModelAndView returnDefaultView(){
+    public ModelAndView returnDefaultView() {
         return new ModelAndView("default-view");
     }
 
     @GetMapping("/")
-    public ModelAndView showMainViewTemporaryMethod(Principal principal){
+    public ModelAndView showMainViewTemporaryMethod(Principal principal) {
         return new ModelAndView("default-view");
     }
 }

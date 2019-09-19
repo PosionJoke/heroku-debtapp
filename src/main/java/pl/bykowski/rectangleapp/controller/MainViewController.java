@@ -28,24 +28,20 @@ public class MainViewController {
         this.debtorDetailsService = debtorDetailsService;
     }
 
-//    @GetMapping("/")
-//    public ModelAndView showMainViewTemporaryMethod(Principal principal){
-//        return returnMainView(principal);
-//    }
 
     @GetMapping("/main-view")
-    public ModelAndView showMainView(Principal principal){
+    public ModelAndView showMainView(Principal principal) {
         return returnMainView(principal);
     }
 
-    private ModelAndView returnMainView(Principal principal){
-        if(isThisUserHaveAnyDebtorDetails(principal)){
+    private ModelAndView returnMainView(Principal principal) {
+        if (isThisUserHaveAnyDebtorDetails(principal)) {
             return new ModelAndView("main-view-new-user")
                     .addObject("user", principal);
-        }else {
+        } else {
             Optional<Debtor> debtorWithBiggestDebt = debtorService.returnDebtorWithBiggestDebt(principal);
 
-            DebtorDTO debtorWithBiggestDebtDTO =  debtorWithBiggestDebt.map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
+            DebtorDTO debtorWithBiggestDebtDTO = debtorWithBiggestDebt.map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
                     .orElse(new DebtorDTO());
             DebtorDTO debtorWithHighestCountOfDebtsDTO = debtorDTOService.returnDebtorDTOWithHighestCountOfDebts(principal);
             return new ModelAndView("main-view")
@@ -54,7 +50,8 @@ public class MainViewController {
                     .addObject("debtorWithHighestCountOfDebts", debtorWithHighestCountOfDebtsDTO);
         }
     }
-    private boolean isThisUserHaveAnyDebtorDetails(Principal principal){
-            return debtorDetailsService.findByUserName(principal.getName()).isEmpty();
+
+    private boolean isThisUserHaveAnyDebtorDetails(Principal principal) {
+        return debtorDetailsService.findByUserName(principal.getName()).isEmpty();
     }
 }

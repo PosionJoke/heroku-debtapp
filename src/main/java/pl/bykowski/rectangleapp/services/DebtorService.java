@@ -23,22 +23,22 @@ public class DebtorService {
     private DebtorHistoryService debtorHistoryService;
 
     public DebtorService(DebtorRepo debtorRepo, UserService userService,
-                        DebtorDetailsService debtorDetailsService, DebtorHistoryService debtorHistoryService) {
+                         DebtorDetailsService debtorDetailsService, DebtorHistoryService debtorHistoryService) {
         this.debtorRepo = debtorRepo;
         this.userService = userService;
         this.debtorDetailsService = debtorDetailsService;
         this.debtorHistoryService = debtorHistoryService;
     }
 
-    private void saveDebtor(Debtor debtor){
+    private void saveDebtor(Debtor debtor) {
         debtorRepo.save(debtor);
     }
 
-    public Optional<Debtor> findById(Long id){
+    public Optional<Debtor> findById(Long id) {
         return debtorRepo.findById(id);
     }
 
-    public List<Debtor> findByUserName(String name){
+    public List<Debtor> findByUserName(String name) {
         return debtorRepo.findByUserName(name);
     }
 
@@ -52,11 +52,14 @@ public class DebtorService {
 
     //todo hard to test method
     @Transactional
-    public void updateTotalDebtAndMakeNewDebtorDetails(DebtorDetailsDTO debtorDetails, Debtor debtor, String userName){
+    public void updateTotalDebtAndMakeNewDebtorDetails(DebtorDetailsDTO debtorDetails, Debtor debtor, String userName) {
         debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getReasonForTheDebt(), userName, debtor);
         updateTotalDebt(debtor.getId(), debtorDetails.getDebt(), userName);
+
+
     }
-// TODO fix findById
+
+    // TODO fix findByIdŁ
     public float updateTotalDebt(Long debtorId, float debtValue, String userName) {
         Optional<Debtor> changedDebtor = debtorRepo.findById(debtorId);
         changedDebtor.ifPresent(debtor -> {
@@ -64,7 +67,7 @@ public class DebtorService {
             debtor.setTotalDebt(newDebt);
             debtor.setUserName(userName);
             saveDebtor(debtor);
-            if(newDebt == 0){
+            if (newDebt == 0) {
                 log.error("new debt can't be 0");
             }
         });
@@ -74,7 +77,7 @@ public class DebtorService {
     }
 
     //todo hard to test method
-    public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id, Principal principal){
+    public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id, Principal principal) {
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(id);
         debtorDetails.ifPresent(debtorDetails1 -> {
             updateTotalDebt(debtorDetails1.getId(), debtorDetails1.getDebt() * -1, principal.getName());
@@ -96,7 +99,8 @@ public class DebtorService {
             debtorDetailsService.addNewDebtorDetails(debtorName, debtValue, reasonForTheDebt, userName, debtor);
         }
     }
-//TODO LOGGERS PLS
+
+    //TODO LOGGERS PLS
     public Optional<Debtor> returnDebtorWithBiggestDebt(Principal principal) {
         return debtorRepo.findByUserName(principal.getName())
                 .stream()

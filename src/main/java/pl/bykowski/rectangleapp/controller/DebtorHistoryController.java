@@ -28,7 +28,7 @@ public class DebtorHistoryController {
     }
 
     @GetMapping("/debtor-history-list")
-    public ModelAndView showDebtorDetailsList(Principal principal){
+    public ModelAndView showDebtorDetailsList(Principal principal) {
 
         List<DebtorHistory> debtorHistoryList = debtorHistoryService.findByUserName(principal.getName());
         List<DebtorHistoryDTO> debtorHistoryDTOS = debtorHistoryDTOService.returnDebtorHistoryDTOList(debtorHistoryList);

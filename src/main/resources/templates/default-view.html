@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Hello on DEFAULT VIEW</h1>
-        <form th:action="@{/main-view}" method="GET">
-            <input type="submit" class="btn btn-primary btn-block" style="margin-bottom: 10px" value="Login"/>
-        </form>
-        <form th:action="@{/create-new-user}" method="GET">
-            <input type="submit" class="btn btn-primary btn-block"  value="Create Account"/>
-        </form>
-    </div>
+<div class="container">
+    <h1>Hello on DEFAULT VIEW</h1>
+    <form th:action="@{/main-view}" method="GET">
+        <input type="submit" class="btn btn-primary btn-block" style="margin-bottom: 10px" value="Login"/>
+    </form>
+    <form th:action="@{/create-new-user}" method="GET">
+        <input type="submit" class="btn btn-primary btn-block" value="Create Account"/>
+    </form>
+</div>
 </body>
 </html>

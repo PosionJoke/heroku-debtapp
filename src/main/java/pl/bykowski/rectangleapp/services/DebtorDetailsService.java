@@ -21,11 +21,11 @@ public class DebtorDetailsService {
         this.debtorHistoryService = debtorHistoryService;
     }
 
-    private void saveDebtorDetails(DebtorDetails debtorDetails){
+    private void saveDebtorDetails(DebtorDetails debtorDetails) {
         debtorDetailsRepo.save(debtorDetails);
     }
 
-     public DebtorDetails addNewDebtorDetails(String debtorName, float debtValue, String reasonForTheDebt, String userName, Debtor debtor) {
+    public DebtorDetails addNewDebtorDetails(String debtorName, float debtValue, String reasonForTheDebt, String userName, Debtor debtor) {
         DebtorDetails debtorDetails = new DebtorDetails();
         debtorDetails.setName(debtorName);
         debtorDetails.setDebt(debtValue);
@@ -44,21 +44,20 @@ public class DebtorDetailsService {
         debtorDetails.ifPresent(debtorD -> isThisDebtUnderZero(debtorD, debtValue));
     }
 
-    public Optional<DebtorDetails> findById(Long id){
+    public Optional<DebtorDetails> findById(Long id) {
         return debtorDetailsRepo.findById(id);
-
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         debtorDetailsRepo.deleteById(id);
     }
 
-    private void isThisDebtUnderZero(DebtorDetails debtorDetails, float debtValue){
+    private void isThisDebtUnderZero(DebtorDetails debtorDetails, float debtValue) {
         float newDebt = debtorDetails.getDebt() + debtValue;
-        if(newDebt <= 0){
+        if (newDebt <= 0) {
             debtorDetails.setDebt(0);
             deleteDebtById(debtorDetails.getId());
-        }else {
+        } else {
             debtorDetails.setDebt(newDebt);
             debtorDetailsRepo.save(debtorDetails);
         }
@@ -74,6 +73,6 @@ public class DebtorDetailsService {
     }
 
     public List<DebtorDetails> findByUserName(String name) {
-          return debtorDetailsRepo.findByUserName(name);
+        return debtorDetailsRepo.findByUserName(name);
     }
 }
