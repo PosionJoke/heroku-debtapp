@@ -51,11 +51,11 @@ public class DebtorService {
     @Transactional
     public void updateTotalDebtAndMakeNewDebtorDetails(DebtorDetailsDTO debtorDetails, Debtor debtor, String userName){
         debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getReasonForTheDebt(), userName, debtor);
-        updateTotalDebt(debtor.getName(), debtorDetails.getDebt(), userName);
+        updateTotalDebt(debtor.getId(), debtorDetails.getDebt(), userName);
     }
-
-    public float updateTotalDebt(String debtorName, float debtValue, String userName) {
-        Debtor changedDebtor = debtorRepo.findByName(debtorName);
+// TODO fix findById
+    public float updateTotalDebt(Long debtorId, float debtValue, String userName) {
+        Debtor changedDebtor = debtorRepo.findByName(debtorId);
         float newDebt = debtValue + changedDebtor.getTotalDebt();
         changedDebtor.setTotalDebt(newDebt);
         changedDebtor.setUserName(userName);

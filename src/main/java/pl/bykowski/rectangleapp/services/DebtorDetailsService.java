@@ -57,7 +57,7 @@ public class DebtorDetailsService {
         float newDebt = debtorDetails.getDebt() + debtValue;
         if(newDebt <= 0){
             debtorDetails.setDebt(0);
-            deleteDebtByIdAndName(debtorDetails.getName(), debtorDetails.getId());
+            deleteDebtById(debtorDetails.getId());
         }else {
             debtorDetails.setDebt(newDebt);
             debtorDetailsRepo.save(debtorDetails);
@@ -65,12 +65,14 @@ public class DebtorDetailsService {
     }
 
     @Transactional
-    public void deleteDebtByIdAndName(String debtorName, Long debtorID) {
-        DebtorDetails debtorDetailsCopy = debtorDetailsRepo.findByNameAndId(debtorName, debtorID);
+    public void deleteDebtById(Long debtorID) {
+        Optional<DebtorDetails> debtorDetailsCopyOptional = debtorDetailsRepo.findById(debtorID);
+        debtorDetailsCopyOptional.ifPresent(debtorDetails -> {
+            debtorHistoryService.saveEntityDebtorHistory(debtorDetails);
+            debtorDetailsRepo.delete(debtorDetails);
+        });
 
-        debtorHistoryService.saveEntityDebtorHistory(debtorDetailsCopy);
 
-        debtorDetailsRepo.delete(debtorDetailsCopy);
     }
 
     public List<DebtorDetails> findByUserName(String name) {
