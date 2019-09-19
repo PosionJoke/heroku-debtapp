@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp.services;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
@@ -13,6 +14,8 @@ import java.util.*;
 
 @Service
 public class DebtorService {
+
+    protected final Logger log = Logger.getLogger(getClass()); //org.apache.log4j.Logger;
 
     private DebtorRepo debtorRepo;
     private UserService userService;
@@ -55,19 +58,26 @@ public class DebtorService {
     }
 // TODO fix findById
     public float updateTotalDebt(Long debtorId, float debtValue, String userName) {
-        Debtor changedDebtor = debtorRepo.findByName(debtorId);
-        float newDebt = debtValue + changedDebtor.getTotalDebt();
-        changedDebtor.setTotalDebt(newDebt);
-        changedDebtor.setUserName(userName);
-        saveDebtor(changedDebtor);
-        return newDebt;
+        Optional<Debtor> changedDebtor = debtorRepo.findById(debtorId);
+        changedDebtor.ifPresent(debtor -> {
+            float newDebt = debtValue + debtor.getTotalDebt();
+            debtor.setTotalDebt(newDebt);
+            debtor.setUserName(userName);
+            saveDebtor(debtor);
+            if(newDebt == 0){
+                log.error("new debt can't be 0");
+            }
+        });
+        float newDebtValue = changedDebtor.map(debtor -> debtor.getTotalDebt())
+                .orElse(0f);
+        return newDebtValue;
     }
 
     //todo hard to test method
     public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id, Principal principal){
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(id);
         debtorDetails.ifPresent(debtorDetails1 -> {
-            updateTotalDebt(debtorDetails1.getName(), debtorDetails1.getDebt() * -1, principal.getName());
+            updateTotalDebt(debtorDetails1.getId(), debtorDetails1.getDebt() * -1, principal.getName());
             debtorHistoryService.saveEntityDebtorHistory(debtorDetails1);
         });
         debtorDetailsService.deleteById(id);

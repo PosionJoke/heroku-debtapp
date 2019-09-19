@@ -98,9 +98,10 @@ public class RectangleappApplicationTests {
 	@Test
 	public void whenDebtorNameIsValid_updateTotalDebt(){
 		String debtorName = "Adrian";
+		Long debtorId = 1L;
 		float debt = 100;
 		String userName = "UserName";
-		debtorService.updateTotalDebt(debtorName, debt, userName);
+		debtorService.updateTotalDebt(debtorId, debt, userName);
 
 		assertThat(debtorService.findDebtorByName(debtorName).getTotalDebt())
 				.isEqualTo(100);
@@ -181,7 +182,7 @@ public class RectangleappApplicationTests {
 		verify(debtorDetailsService).addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(),
 				debtorDetails.getReasonForTheDebt(), debtorDetails.getUserName(), debtor);
 
-        assertThat(debtorService.updateTotalDebt(debtor.getName(), debtorDetails.getDebt(), debtorDetails.getUserName()))
+        assertThat(debtorService.updateTotalDebt(debtor.getId(), debtorDetails.getDebt(), debtorDetails.getUserName()))
                 .isEqualTo(204);
 
 

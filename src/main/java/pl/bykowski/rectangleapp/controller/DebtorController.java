@@ -47,11 +47,11 @@ public class DebtorController {
 
     @PostMapping("/debtor-save")
     public ModelAndView saveDebtor(@ModelAttribute DebtorDTO debtorDTO, Principal principal,
-                                   @RequestParam String name){
+                                   @RequestParam String name, @RequestParam Long id){
         Debtor debtorToUpdate = debtorRepo.findByName(name);
         float actualTotalDebt = debtorToUpdate.getTotalDebt();
         String actualUserName = principal.getName();
-        debtorService.updateTotalDebt(name, actualTotalDebt, actualUserName);
+        debtorService.updateTotalDebt(id, actualTotalDebt, actualUserName);
 
         List<Debtor> debtorList = debtorService.findByUserName(principal.getName());
         List<DebtorDTO> debtorDTOList1 = debtorDTOService.returnDebtorDTOList(debtorList);

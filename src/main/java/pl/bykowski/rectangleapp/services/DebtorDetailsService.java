@@ -71,8 +71,6 @@ public class DebtorDetailsService {
             debtorHistoryService.saveEntityDebtorHistory(debtorDetails);
             debtorDetailsRepo.delete(debtorDetails);
         });
-
-
     }
 
     public List<DebtorDetails> findByUserName(String name) {

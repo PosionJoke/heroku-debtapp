@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
-<form action="#" th:action="@{'/debtor-save?name=' + ${name}}" th:object="${debtor}" method="post">
+<form action="#" th:action="@{'/debtor-save?id=' + ${id}}" th:object="${debtor}" method="post">
     <p>
         Add new total debt value to <span th:text="${debtor.name}"></span>
     </p>
