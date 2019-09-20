@@ -9,6 +9,7 @@
 <body>
 <div class="container">
     <form action="#" th:action="@{create-new-user}" th:object="${user}" method="post">
+        <span th:text="${errorMsg}"></span>
         <div class="form-group">
             <label for="UserName">User name :</label>
             <td><input type="text" class="form-control" id="UserName" th:field="${user.name}"/></td>

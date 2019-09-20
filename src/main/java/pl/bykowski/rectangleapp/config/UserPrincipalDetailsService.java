@@ -17,7 +17,7 @@ public class UserPrincipalDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s)  {
-        DebtorUser debtorUser = this.debtorUserRepo.findByName(s).get(0);
+        DebtorUser debtorUser = this.debtorUserRepo.findByName(s);
         return new UserPrincipal(debtorUser);
     }
 }

@@ -9,6 +9,7 @@ import pl.bykowski.rectangleapp.model.DebtorUser;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 public class UserPrincipal implements UserDetails {
 
     private DebtorUser debtorUser;

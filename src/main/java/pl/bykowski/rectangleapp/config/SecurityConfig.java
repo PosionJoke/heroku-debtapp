@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/create-new-user", "/figureDB", "/default-view", "/").permitAll()
+                .antMatchers("/create-new-user", "/figureDB", "/default-view", "/", "/create-new-user-authentication").permitAll()
                 .anyRequest().authenticated()
                     .and()
                 .formLogin().permitAll()

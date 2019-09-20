@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Getting Started Service Web Content</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <form action="#" th:action="@{/create-new-user-authentication}" th:object="${userDTO}" method="post">
+        <div class="form-group">
+            <label for="AuthenticationCode">Authentication Code From Mail :</label>
+            <td><input type="text" class="form-control" id="AuthenticationCode" th:field="${userDTO.authenticationCodeInput}"/></td>
+
+            <td><input type="hidden" class="form-control" th:field="${userDTO.authenticationCode}"/></td>
+            <td><input type="hidden" class="form-control" th:field="${userDTO.name}"/></td>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-bottom: 10px">Submit</button>
+    </form>
+</div>
+</body>
+</html>
