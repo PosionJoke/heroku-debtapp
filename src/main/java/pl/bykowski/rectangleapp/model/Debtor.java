@@ -22,7 +22,7 @@ Debtor {
     private String name;
     private float debt;
     private float totalDebt;
-    private LocalDate date;
+    private LocalDate dateOfJoining;
     private String dateNow;
     private String userName;
     @OneToMany(mappedBy = "debtor")

@@ -92,7 +92,7 @@ public class DebtorService {
             Debtor debtor = new Debtor();
             debtor.setName(debtorName);
             debtor.setTotalDebt((debtValue + debtor.getTotalDebt()));
-            debtor.setDate(LocalDate.now());
+            debtor.setDateOfJoining(LocalDate.now());
             debtor.setUserName(userName);
             debtorRepo.save(debtor);
 

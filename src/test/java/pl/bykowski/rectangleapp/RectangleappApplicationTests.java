@@ -1,21 +1,16 @@
 package pl.bykowski.rectangleapp;
 
-import org.assertj.core.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
-import pl.bykowski.rectangleapp.repositories.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.services.DebtorDetailsService;
 import pl.bykowski.rectangleapp.services.DebtorHistoryService;
@@ -143,7 +138,7 @@ public class RectangleappApplicationTests {
 		newDebtor.setUserName(userName);
 		newDebtor.setName(newDebtorName);
 		newDebtor.setTotalDebt(debt);
-		newDebtor.setDate(LocalDate.now());
+		newDebtor.setDateOfJoining(LocalDate.now());
 
 		debtorService.addNewDebtor(newDebtorName, debt, reasonForTheDebt, userName);
 
