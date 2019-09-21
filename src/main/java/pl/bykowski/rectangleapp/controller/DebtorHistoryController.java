@@ -7,7 +7,7 @@ import pl.bykowski.rectangleapp.model.DebtorHistory;
 import pl.bykowski.rectangleapp.model.dto.DebtorHistoryDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorHistoryRepo;
 import pl.bykowski.rectangleapp.services.DebtorHistoryService;
-import pl.bykowski.rectangleapp.services.tdo.DebtorHistoryDTOService;
+import pl.bykowski.rectangleapp.services.tdo_services.DebtorHistoryDTOService;
 
 import java.security.Principal;
 import java.util.List;

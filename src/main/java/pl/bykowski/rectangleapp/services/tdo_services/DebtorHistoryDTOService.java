@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp.services.tdo;
+package pl.bykowski.rectangleapp.services.tdo_services;
 
 import org.springframework.stereotype.Service;
 import pl.bykowski.rectangleapp.model.DebtorHistory;

@@ -24,6 +24,5 @@ public class DebtorDetails {
     private String reasonForTheDebt;
     private String userName;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "debtorDetails_Test")
     private Debtor debtor;
 }

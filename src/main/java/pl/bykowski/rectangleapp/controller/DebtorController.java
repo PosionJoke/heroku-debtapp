@@ -7,7 +7,7 @@ import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.services.DebtorService;
-import pl.bykowski.rectangleapp.services.tdo.DebtorDTOService;
+import pl.bykowski.rectangleapp.services.tdo_services.DebtorDTOService;
 
 import java.math.BigDecimal;
 import java.security.Principal;

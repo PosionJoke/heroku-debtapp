@@ -8,13 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import pl.bykowski.rectangleapp.model.DebtorUser;
+import pl.bykowski.rectangleapp.model.Role;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
+import pl.bykowski.rectangleapp.repositories.RoleRepository;
 import pl.bykowski.rectangleapp.services.NotificationService;
 import pl.bykowski.rectangleapp.services.UserService;
 
-import java.util.Objects;
+import java.util.*;
 
 @RestController
 public class UserController {
@@ -23,13 +25,15 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final NotificationService notificationService;
+    private final RoleRepository roleRepository;
 
     public UserController(DebtorUserRepo debtorUserRepo, PasswordEncoder passwordEncoder, UserService userService,
-                          NotificationService notificationService) {
+                          NotificationService notificationService, RoleRepository roleRepository) {
         this.debtorUserRepo = Objects.requireNonNull(debtorUserRepo, "debtorUserRepo must be not null");
         this.passwordEncoder = Objects.requireNonNull(passwordEncoder, "passwordEncoder must be not null");
         this.userService = Objects.requireNonNull(userService, "userService must be not null");
         this.notificationService = Objects.requireNonNull(notificationService, "notificationService must be not null");
+        this.roleRepository = Objects.requireNonNull(roleRepository, "roleRepository must be not null");
     }
 
     @PostMapping("/create-new-user")
@@ -44,11 +48,16 @@ public class UserController {
         }
 
         String authenticationCode = userService.generateNewAuthenticationCode();
+        List<String> roles = Arrays.asList("USER");
+        List<String> permissions = Arrays.asList("user");
         //ACTIVE 0 - no active account / 1 - active account
+        Optional<Role> role = roleRepository.findByName("ROLE_USER");
+        Set<Role> set = new HashSet<>();
+        set.add(role.get());
         DebtorUser newDebtorUser = new DebtorUser(
                 debtorUserDTO.getName(),
                 passwordEncoder.encode(debtorUserDTO.getPassword2()),
-                "USER",
+                set,
                 "",
                 debtorUserDTO.getEmail(),
                 0,
