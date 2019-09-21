@@ -14,6 +14,8 @@ import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
 import pl.bykowski.rectangleapp.services.NotificationService;
 import pl.bykowski.rectangleapp.services.UserService;
 
+import java.util.Objects;
+
 @RestController
 public class UserController {
 
@@ -24,10 +26,10 @@ public class UserController {
 
     public UserController(DebtorUserRepo debtorUserRepo, PasswordEncoder passwordEncoder, UserService userService,
                           NotificationService notificationService) {
-        this.debtorUserRepo = debtorUserRepo;
-        this.passwordEncoder = passwordEncoder;
-        this.userService = userService;
-        this.notificationService = notificationService;
+        this.debtorUserRepo = Objects.requireNonNull(debtorUserRepo, "debtorUserRepo must be not null");
+        this.passwordEncoder = Objects.requireNonNull(passwordEncoder, "passwordEncoder must be not null");
+        this.userService = Objects.requireNonNull(userService, "userService must be not null");
+        this.notificationService = Objects.requireNonNull(notificationService, "notificationService must be not null");
     }
 
     @PostMapping("/create-new-user")

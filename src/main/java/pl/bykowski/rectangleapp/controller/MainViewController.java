@@ -12,6 +12,7 @@ import pl.bykowski.rectangleapp.services.tdo.DebtorDTOService;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -23,9 +24,9 @@ public class MainViewController {
     private DebtorDTOService debtorDTOService;
 
     public MainViewController(DebtorService debtorService, DebtorDTOService debtorDTOService, DebtorDetailsService debtorDetailsService) {
-        this.debtorService = debtorService;
-        this.debtorDTOService = debtorDTOService;
-        this.debtorDetailsService = debtorDetailsService;
+        this.debtorService = Objects.requireNonNull(debtorService, "debtorService must be not null");
+        this.debtorDTOService = Objects.requireNonNull(debtorDTOService, "debtorDTOService must be not null");
+        this.debtorDetailsService = Objects.requireNonNull(debtorDetailsService, "debtorDetailsService must be not null");
     }
 
 

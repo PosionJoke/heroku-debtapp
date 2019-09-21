@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Objects;
+
 
 @Configuration
 @EnableWebSecurity
@@ -21,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String MANAGER = "MANAGER";
 
     public SecurityConfig(UserPrincipalDetailsService userPrincipalDetailsService) {
-        this.userPrincipalDetailsService = userPrincipalDetailsService;
+        this.userPrincipalDetailsService = Objects.requireNonNull(userPrincipalDetailsService, "userPrincipalDetailsService must be not null");
     }
 
     @Override

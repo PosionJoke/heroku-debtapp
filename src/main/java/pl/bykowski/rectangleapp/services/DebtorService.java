@@ -24,10 +24,10 @@ public class DebtorService {
 
     public DebtorService(DebtorRepo debtorRepo, UserService userService,
                          DebtorDetailsService debtorDetailsService, DebtorHistoryService debtorHistoryService) {
-        this.debtorRepo = debtorRepo;
-        this.userService = userService;
-        this.debtorDetailsService = debtorDetailsService;
-        this.debtorHistoryService = debtorHistoryService;
+        this.debtorRepo = Objects.requireNonNull(debtorRepo, "debtorRepo must be not null");
+        this.userService = Objects.requireNonNull(userService, "userService must be not null");
+        this.debtorDetailsService = Objects.requireNonNull(debtorDetailsService, "debtorDetailsService must be not null");
+        this.debtorHistoryService = Objects.requireNonNull(debtorHistoryService, "debtorHistoryService must be not null");
     }
 
     private void saveDebtor(Debtor debtor) {

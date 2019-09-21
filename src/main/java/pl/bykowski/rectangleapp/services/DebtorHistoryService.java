@@ -7,6 +7,7 @@ import pl.bykowski.rectangleapp.repositories.DebtorHistoryRepo;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -16,7 +17,7 @@ public class DebtorHistoryService {
     private final DebtorHistoryRepo debtorHistoryRepo;
 
     public DebtorHistoryService(DebtorHistoryRepo debtorHistoryRepo) {
-        this.debtorHistoryRepo = debtorHistoryRepo;
+        this.debtorHistoryRepo = Objects.requireNonNull(debtorHistoryRepo, "debtorHistoryRepo must be not null");
     }
 
     public void saveEntityDebtorHistory(DebtorDetails debtorDetails) {

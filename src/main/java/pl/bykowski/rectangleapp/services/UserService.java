@@ -6,13 +6,15 @@ import org.springframework.stereotype.Service;
 import pl.bykowski.rectangleapp.model.DebtorUser;
 import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
 
+import java.util.Objects;
+
 @Service
 public class UserService {
 
     private final DebtorUserRepo debtorUserRepo;
 
     public UserService(DebtorUserRepo debtorUserRepo) {
-        this.debtorUserRepo = debtorUserRepo;
+        this.debtorUserRepo = Objects.requireNonNull(debtorUserRepo, "debtorUserRepo must be not null");
     }
 
     public String findUserName() {

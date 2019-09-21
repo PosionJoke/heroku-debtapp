@@ -11,6 +11,7 @@ import pl.bykowski.rectangleapp.services.tdo.DebtorDTOService;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class DebtorController {
@@ -19,9 +20,9 @@ public class DebtorController {
     private DebtorDTOService debtorDTOService;
 
     public DebtorController(DebtorRepo debtorRepo, DebtorService debtorService, DebtorDTOService debtorDTOService) {
-        this.debtorDTOService = debtorDTOService;
-        this.debtorRepo = debtorRepo;
-        this.debtorService = debtorService;
+        this.debtorDTOService = Objects.requireNonNull(debtorDTOService, "debtorDTOService must be not null");
+        this.debtorRepo = Objects.requireNonNull(debtorRepo, "debtorRepo must be not null");
+        this.debtorService = Objects.requireNonNull(debtorService, "debtorService must be not null");
     }
 
     @GetMapping("/debtor-list")

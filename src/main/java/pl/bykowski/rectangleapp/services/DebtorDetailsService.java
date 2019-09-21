@@ -8,6 +8,7 @@ import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -17,8 +18,8 @@ public class DebtorDetailsService {
     private final DebtorHistoryService debtorHistoryService;
 
     public DebtorDetailsService(DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryService debtorHistoryService) {
-        this.debtorDetailsRepo = debtorDetailsRepo;
-        this.debtorHistoryService = debtorHistoryService;
+        this.debtorDetailsRepo = Objects.requireNonNull(debtorDetailsRepo, "debtorDetailsRepo must be not null");
+        this.debtorHistoryService = Objects.requireNonNull(debtorHistoryService, "debtorHistoryService must be not null");
     }
 
     private void saveDebtorDetails(DebtorDetails debtorDetails) {

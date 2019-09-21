@@ -6,6 +6,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class NotificationService {
 
@@ -13,7 +15,7 @@ public class NotificationService {
 
     @Autowired
     public NotificationService(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
+        this.javaMailSender = Objects.requireNonNull(javaMailSender, "javaMailSender must be not null");
     }
 
     public void sendNotification(String email, String code) throws MailException {
