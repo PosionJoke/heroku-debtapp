@@ -13,8 +13,8 @@ import java.util.Optional;
 @Service
 public class DebtorDetailsService {
 
-    private DebtorDetailsRepo debtorDetailsRepo;
-    private DebtorHistoryService debtorHistoryService;
+    private final DebtorDetailsRepo debtorDetailsRepo;
+    private final DebtorHistoryService debtorHistoryService;
 
     public DebtorDetailsService(DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryService debtorHistoryService) {
         this.debtorDetailsRepo = debtorDetailsRepo;

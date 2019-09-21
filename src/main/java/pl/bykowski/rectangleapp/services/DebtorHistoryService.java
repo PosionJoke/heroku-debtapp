@@ -13,7 +13,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 @Service
 public class DebtorHistoryService {
 
-    private DebtorHistoryRepo debtorHistoryRepo;
+    private final DebtorHistoryRepo debtorHistoryRepo;
 
     public DebtorHistoryService(DebtorHistoryRepo debtorHistoryRepo) {
         this.debtorHistoryRepo = debtorHistoryRepo;

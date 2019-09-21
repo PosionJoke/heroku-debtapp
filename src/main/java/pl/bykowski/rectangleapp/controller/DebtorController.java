@@ -14,8 +14,8 @@ import java.util.List;
 
 @RestController
 public class DebtorController {
-    private DebtorRepo debtorRepo;
-    private DebtorService debtorService;
+    private final DebtorRepo debtorRepo;
+    private final DebtorService debtorService;
     private DebtorDTOService debtorDTOService;
 
     public DebtorController(DebtorRepo debtorRepo, DebtorService debtorService, DebtorDTOService debtorDTOService) {

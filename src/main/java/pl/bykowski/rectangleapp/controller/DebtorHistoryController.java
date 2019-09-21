@@ -15,8 +15,8 @@ import java.util.List;
 @RestController
 public class DebtorHistoryController {
 
-    private DebtorHistoryRepo debtorHistoryRepo;
-    private DebtorHistoryService debtorHistoryService;
+    private final DebtorHistoryRepo debtorHistoryRepo;
+    private final DebtorHistoryService debtorHistoryService;
     private DebtorHistoryDTOService debtorHistoryDTOService;
 
     public DebtorHistoryController(DebtorHistoryRepo debtorHistoryRepo,

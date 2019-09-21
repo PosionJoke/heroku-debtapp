@@ -16,10 +16,10 @@ import java.util.List;
 @RestController
 public class DebtorDetailsController {
 
-    private DebtorDetailsRepo debtorDetailsRepo;
-    private DebtorDetailsService debtorDetailsService;
+    private final DebtorDetailsRepo debtorDetailsRepo;
+    private final DebtorDetailsService debtorDetailsService;
+    private final DebtorService debtorService;
     private DebtorDetailsDTOService debtorDetailsDTOService;
-    private DebtorService debtorService;
 
     public DebtorDetailsController(DebtorDetailsRepo debtorDetailsRepo, DebtorDetailsService debtorDetailsService,
                                    DebtorDetailsDTOService debtorDetailsDTOService, DebtorService debtorService) {

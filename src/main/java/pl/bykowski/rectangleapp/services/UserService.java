@@ -9,7 +9,7 @@ import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
 @Service
 public class UserService {
 
-    private DebtorUserRepo debtorUserRepo;
+    private final DebtorUserRepo debtorUserRepo;
 
     public UserService(DebtorUserRepo debtorUserRepo) {
         this.debtorUserRepo = debtorUserRepo;

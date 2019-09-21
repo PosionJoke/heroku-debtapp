@@ -17,10 +17,10 @@ import pl.bykowski.rectangleapp.services.UserService;
 @RestController
 public class UserController {
 
-    private DebtorUserRepo debtorUserRepo;
-    private PasswordEncoder passwordEncoder;
-    private UserService userService;
-    private NotificationService notificationService;
+    private final DebtorUserRepo debtorUserRepo;
+    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final NotificationService notificationService;
 
     public UserController(DebtorUserRepo debtorUserRepo, PasswordEncoder passwordEncoder, UserService userService,
                           NotificationService notificationService) {

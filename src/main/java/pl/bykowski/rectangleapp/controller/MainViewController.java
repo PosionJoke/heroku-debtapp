@@ -18,9 +18,9 @@ import java.util.concurrent.atomic.AtomicReference;
 @RestController
 public class MainViewController {
 
-    private DebtorService debtorService;
+    private final DebtorService debtorService;
+    private final DebtorDetailsService debtorDetailsService;
     private DebtorDTOService debtorDTOService;
-    private DebtorDetailsService debtorDetailsService;
 
     public MainViewController(DebtorService debtorService, DebtorDTOService debtorDTOService, DebtorDetailsService debtorDetailsService) {
         this.debtorService = debtorService;

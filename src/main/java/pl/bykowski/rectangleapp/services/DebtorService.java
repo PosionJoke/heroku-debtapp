@@ -17,10 +17,10 @@ public class DebtorService {
 
     protected final Logger log = Logger.getLogger(getClass()); //org.apache.log4j.Logger;
 
-    private DebtorRepo debtorRepo;
-    private UserService userService;
-    private DebtorDetailsService debtorDetailsService;
-    private DebtorHistoryService debtorHistoryService;
+    private final DebtorRepo debtorRepo;
+    private final UserService userService;
+    private final DebtorDetailsService debtorDetailsService;
+    private final DebtorHistoryService debtorHistoryService;
 
     public DebtorService(DebtorRepo debtorRepo, UserService userService,
                          DebtorDetailsService debtorDetailsService, DebtorHistoryService debtorHistoryService) {
@@ -59,7 +59,7 @@ public class DebtorService {
 
     }
 
-    // TODO fix findByIdŁ
+
     public float updateTotalDebt(Long debtorId, float debtValue, String userName) {
         Optional<Debtor> changedDebtor = debtorRepo.findById(debtorId);
         changedDebtor.ifPresent(debtor -> {

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class NotificationService {
 
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     @Autowired
     public NotificationService(JavaMailSender javaMailSender) {
