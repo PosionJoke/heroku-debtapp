@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 @Data
 @Entity
@@ -18,7 +19,7 @@ public class DebtorHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private float debt;
+    private BigDecimal debt = new BigDecimal(0);
     private long timeOfDebt;
     private String reasonForTheDebt;
     private String userName;

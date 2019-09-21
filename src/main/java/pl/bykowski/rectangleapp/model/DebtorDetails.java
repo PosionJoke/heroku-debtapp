@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -17,8 +18,8 @@ public class DebtorDetails {
     private Long id;
 
     private String name;
-    private float debt;
-    private float totalDebt;
+    private BigDecimal debt = new BigDecimal(0);
+    private BigDecimal totalDebt = new BigDecimal(0);
     private LocalDate date;
     private String reasonForTheDebt;
     private String userName;

@@ -9,6 +9,7 @@ import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.services.DebtorService;
 import pl.bykowski.rectangleapp.services.tdo.DebtorDTOService;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
@@ -51,7 +52,7 @@ public class DebtorController {
     public ModelAndView saveDebtor(@ModelAttribute DebtorDTO debtorDTO, Principal principal,
                                    @RequestParam String name, @RequestParam Long id) {
         Debtor debtorToUpdate = debtorRepo.findByName(name);
-        float actualTotalDebt = debtorToUpdate.getTotalDebt();
+        BigDecimal actualTotalDebt = debtorToUpdate.getTotalDebt();
         String actualUserName = principal.getName();
         debtorService.updateTotalDebt(id, actualTotalDebt, actualUserName);
 

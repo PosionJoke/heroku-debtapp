@@ -6,6 +6,7 @@ import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +27,7 @@ public class DebtorDetailsService {
         debtorDetailsRepo.save(debtorDetails);
     }
 
-    public DebtorDetails addNewDebtorDetails(String debtorName, float debtValue, String reasonForTheDebt, String userName, Debtor debtor) {
+    public DebtorDetails addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor) {
         DebtorDetails debtorDetails = new DebtorDetails();
         debtorDetails.setName(debtorName);
         debtorDetails.setDebt(debtValue);
@@ -40,7 +41,7 @@ public class DebtorDetailsService {
     }
 
     @Transactional
-    public void updateDebtorDetailsDebt(Long debtID, float debtValue) {
+    public void updateDebtorDetailsDebt(Long debtID, BigDecimal debtValue) {
         Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(debtID);
         debtorDetails.ifPresent(debtorD -> isThisDebtUnderZero(debtorD, debtValue));
     }
@@ -53,10 +54,11 @@ public class DebtorDetailsService {
         debtorDetailsRepo.deleteById(id);
     }
 
-    private void isThisDebtUnderZero(DebtorDetails debtorDetails, float debtValue) {
-        float newDebt = debtorDetails.getDebt() + debtValue;
-        if (newDebt <= 0) {
-            debtorDetails.setDebt(0);
+    // todo pls use debuger to check is this if works fine
+    private void isThisDebtUnderZero(DebtorDetails debtorDetails, BigDecimal debtValue) {
+        BigDecimal newDebt = debtorDetails.getDebt().add(debtValue);
+        if (newDebt.compareTo(new BigDecimal(0)) <= 0) {
+            debtorDetails.setDebt(new BigDecimal(0));
             deleteDebtById(debtorDetails.getId());
         } else {
             debtorDetails.setDebt(newDebt);

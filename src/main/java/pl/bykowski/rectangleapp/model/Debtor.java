@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,10 +21,9 @@ Debtor {
     private Long id;
 
     private String name;
-    private float debt;
-    private float totalDebt;
+    private BigDecimal debt = new BigDecimal(0);
+    private BigDecimal totalDebt = new BigDecimal(0);
     private LocalDate dateOfJoining;
-    private String dateNow;
     private String userName;
     @OneToMany(mappedBy = "debtor")
     private Set<DebtorDetails> debtorDetailsList = new HashSet<>();

@@ -18,6 +18,7 @@ import pl.bykowski.rectangleapp.services.DebtorService;
 import pl.bykowski.rectangleapp.services.UserService;
 
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -94,7 +95,7 @@ public class RectangleappApplicationTests {
 	public void whenDebtorNameIsValid_updateTotalDebt(){
 		String debtorName = "Adrian";
 		Long debtorId = 1L;
-		float debt = 100;
+		BigDecimal debt = new BigDecimal(100);
 		String userName = "UserName";
 		debtorService.updateTotalDebt(debtorId, debt, userName);
 
@@ -106,7 +107,7 @@ public class RectangleappApplicationTests {
 	public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(){
 		Long id = 1L;
 		DebtorDetails debtorDetails = new DebtorDetails();
-		debtorDetails.setDebt(100);
+		debtorDetails.setDebt(new BigDecimal(100));
 		debtorDetails.setName("AdrianDetails");
 		Debtor debtor = new Debtor();
 		debtor.setName(debtorDetails.getName());
@@ -131,7 +132,7 @@ public class RectangleappApplicationTests {
 				.thenReturn("UserName");
 
 		String newDebtorName = "Adrian10";
-		float debt = 101;
+		BigDecimal debt = new BigDecimal(101);
 		String reasonForTheDebt = "Kawa";
 		String userName = "UserName";
 		Debtor newDebtor = new Debtor();
@@ -150,12 +151,12 @@ public class RectangleappApplicationTests {
         //given
 		DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
 		debtorDetailsDTO.setName("Adrian11");
-		debtorDetailsDTO.setDebt(102);
+		debtorDetailsDTO.setDebt(new BigDecimal(102));
 		debtorDetailsDTO.setReasonForTheDebt("Milk");
 
 		DebtorDetails debtorDetails = new DebtorDetails();
 		debtorDetails.setName("Adrian11");
-		debtorDetails.setDebt(102);
+		debtorDetails.setDebt(new BigDecimal(102));
 		debtorDetails.setReasonForTheDebt("Milk");
 		debtorDetails.setUserName("UserName");
 
