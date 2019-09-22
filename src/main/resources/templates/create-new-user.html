@@ -8,23 +8,27 @@
 </head>
 <body>
 <div class="container">
-    <form action="#" th:action="@{create-new-user}" th:object="${user}" method="post">
+    <form action="#" th:action="@{create-new-user}" th:object="${debtorUserDTO}" method="post">
         <span th:text="${errorMsg}"></span>
         <div class="form-group">
             <label for="UserName">User name :</label>
-            <td><input type="text" class="form-control" id="UserName" th:field="${user.name}"/></td>
+            <td><input type="text" class="form-control" id="UserName" th:field="${debtorUserDTO.name}"/></td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="${debtorUserDTO.name}">name error</td>
         </div>
         <div class="form-group">
             <label for="Email">Email :</label>
-            <td><input type="text" class="form-control" id="Email" th:field="${user.email}"/></td>
+            <td><input type="text" class="form-control" id="Email" th:field="${debtorUserDTO.email}"/></td>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="${debtorUserDTO.email}">email error</td>
         </div>
         <div class="form-group">
             <label for="Password1">Password :</label>
-            <td><input type="text" class="form-control" id="Password1" th:field="${user.password1}"/></td>
+            <td><input type="text" class="form-control" id="Password1" th:field="${debtorUserDTO.password1}"/></td>
+            <td th:if="${#fields.hasErrors('password1')}" th:errors="${debtorUserDTO.password1}">password1 error</td>
         </div>
         <div class="form-group">
             <label for="Password2">Repeat Password :</label>
-            <td><input type="text" class="form-control" id="Password2" th:field="${user.password2}"/></td>
+            <td><input type="text" class="form-control" id="Password2" th:field="${debtorUserDTO.password2}"/></td>
+            <td th:if="${#fields.hasErrors('password2')}" th:errors="${debtorUserDTO.password2}">password2 error</td>
         </div>
         <div class="checkbox">
             <label><input type="checkbox"> Remember me</label>

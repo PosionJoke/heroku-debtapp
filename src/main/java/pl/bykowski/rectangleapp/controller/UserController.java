@@ -1,6 +1,7 @@
 package pl.bykowski.rectangleapp.controller;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import pl.bykowski.rectangleapp.repositories.RoleRepository;
 import pl.bykowski.rectangleapp.services.NotificationService;
 import pl.bykowski.rectangleapp.services.UserService;
 
+import javax.validation.Valid;
 import java.util.*;
 
 @RestController
@@ -37,7 +39,12 @@ public class UserController {
     }
 
     @PostMapping("/create-new-user")
-    public ModelAndView createNewUser(@ModelAttribute DebtorUserDTO debtorUserDTO){
+    public ModelAndView createNewUser(@Valid @ModelAttribute DebtorUserDTO debtorUserDTO,
+                                      BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            return new ModelAndView("create-new-user", bindingResult.getModel());
+        }
 
         //TODO HELLO ADRIAN, there is some code to test. We need to check passwords and return feedback to user about that
         if(userService.checkPassword(debtorUserDTO.getPassword1(), debtorUserDTO.getPassword2()) == false){
@@ -93,7 +100,7 @@ public class UserController {
     @GetMapping("/create-new-user")
     public ModelAndView returnLoginForm(){
         return new ModelAndView("create-new-user")
-                .addObject("user", new DebtorUserDTO());
+                .addObject("debtorUserDTO", new DebtorUserDTO());
     }
 
 
