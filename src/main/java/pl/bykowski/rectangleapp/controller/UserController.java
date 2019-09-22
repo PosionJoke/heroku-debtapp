@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp.controller;
 
+import io.vavr.concurrent.Future;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,12 +43,14 @@ public class UserController {
     public ModelAndView createNewUser(@Valid @ModelAttribute DebtorUserDTO debtorUserDTO,
                                       BindingResult bindingResult){
 
+//        if(bindingResult.has)
         if(bindingResult.hasErrors()){
             return new ModelAndView("create-new-user", bindingResult.getModel());
         }
 
         //TODO HELLO ADRIAN, there is some code to test. We need to check passwords and return feedback to user about that
-        if(userService.checkPassword(debtorUserDTO.getPassword1(), debtorUserDTO.getPassword2()) == false){
+        // --- USE UR OWN ANNOTATION instead OF THIS IF ---
+                if(userService.checkPassword(debtorUserDTO.getPassword1(), debtorUserDTO.getPassword2()) == false){
             String errorMsg = "Passwords isn't equals";
             return new ModelAndView("create-new-user")
                     .addObject("user", new DebtorUserDTO())
@@ -70,7 +73,8 @@ public class UserController {
                 0,
                 authenticationCode);
 
-        notificationService.sendNotification(newDebtorUser.getEmail(), authenticationCode);
+        Future.of(() -> notificationService.sendNotification(newDebtorUser.getEmail(), authenticationCode));
+//        notificationService.sendNotification(newDebtorUser.getEmail(), authenticationCode);
         UserDTO userDTO = new UserDTO();
         userDTO.setAuthenticationCode(authenticationCode);
         userDTO.setName(newDebtorUser.getName());
