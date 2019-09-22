@@ -64,7 +64,7 @@ public class RectangleappApplicationTests {
 		debtorListByUserName.add(debtor2);
 
 		Mockito.when(debtorRepo.findByName(debtor.getName()))
-				.thenReturn(debtor);
+				.thenReturn(java.util.Optional.of(debtor));
 		Mockito.when(debtorRepo.findByUserName("UserName"))
 				.thenReturn(debtorListByUserName);
 	}
@@ -115,7 +115,7 @@ public class RectangleappApplicationTests {
 		Mockito.when(principal.getName())
 				.thenReturn("UserName");
 		Mockito.when(debtorRepo.findByName(debtorDetails.getName()))
-				.thenReturn(debtor);
+				.thenReturn(java.util.Optional.of(debtor));
 		Mockito.when(debtorDetailsService.findById(id))
 				.thenReturn(java.util.Optional.of(debtorDetails));
 
@@ -170,7 +170,7 @@ public class RectangleappApplicationTests {
                 .thenReturn(debtorDetails);
 
         Mockito.when(debtorRepo.findByName(debtor.getName()))
-                .thenReturn(debtor);
+                .thenReturn(java.util.Optional.of(debtor));
         //when
 		debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetailsDTO, debtor, userName);
 

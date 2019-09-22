@@ -35,7 +35,7 @@ public class UserService {
     }
 
     public DebtorUser findByName(String name){
-       return debtorUserRepo.findByName(name);
+       return debtorUserRepo.findByName(name).get();
     }
 
     public void save(DebtorUser debtorUser){

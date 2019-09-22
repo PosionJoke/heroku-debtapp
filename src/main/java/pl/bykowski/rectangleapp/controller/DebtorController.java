@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 public class DebtorController {
@@ -40,8 +41,12 @@ public class DebtorController {
 
     @GetMapping("/debtor-debt-edit")
     public ModelAndView debtorDebtEdit(@RequestParam Long id, @RequestParam String name) {
-        Debtor debtor = debtorRepo.findByName(name);
-        DebtorDTO debtorDTO = debtorDTOService.returnDebtorDTO(debtor);
+        Optional<Debtor> debtorOptional = debtorRepo.findByName(name);
+
+//        DebtorDTO debtorDTO = debtorDTOService.returnDebtorDTO(debtor);
+        DebtorDTO debtorDTO = debtorOptional
+                .map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
+                .orElse(new DebtorDTO());
         return new ModelAndView("debtor-debt-edit")
                 .addObject("name", name)
                 .addObject("id", id)
@@ -51,8 +56,13 @@ public class DebtorController {
     @PostMapping("/debtor-save")
     public ModelAndView saveDebtor(@ModelAttribute DebtorDTO debtorDTO, Principal principal,
                                    @RequestParam String name, @RequestParam Long id) {
-        Debtor debtorToUpdate = debtorRepo.findByName(name);
-        BigDecimal actualTotalDebt = debtorToUpdate.getTotalDebt();
+        Optional<Debtor> debtorToUpdateOptional = debtorRepo.findByName(name);
+
+//        BigDecimal actualTotalDebt = debtorToUpdate.getTotalDebt();
+        BigDecimal actualTotalDebt = debtorToUpdateOptional
+                .map(debtor -> debtor.getTotalDebt())
+                .orElse(new BigDecimal(0));
+
         String actualUserName = principal.getName();
         debtorService.updateTotalDebt(id, actualTotalDebt, actualUserName);
 

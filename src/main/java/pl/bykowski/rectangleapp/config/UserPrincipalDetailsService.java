@@ -7,6 +7,7 @@ import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
 import pl.bykowski.rectangleapp.model.DebtorUser;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class UserPrincipalDetailsService implements UserDetailsService {
@@ -19,7 +20,14 @@ public class UserPrincipalDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName)  {
-        DebtorUser debtorUser = this.debtorUserRepo.findByName(userName);
-        return new UserPrincipal(debtorUser);
+        Optional<DebtorUser> debtorUser = this.debtorUserRepo.findByName(userName);
+//        return new UserPrincipal(debtorUser);
+
+        if(debtorUser.isPresent()){
+            return new UserPrincipal(debtorUser.get());
+        }else{
+            //todo logger slot here
+            return new UserPrincipal(new DebtorUser());
+        }
     }
 }

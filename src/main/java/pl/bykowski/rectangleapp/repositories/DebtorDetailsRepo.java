@@ -5,10 +5,11 @@ import org.springframework.stereotype.Repository;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DebtorDetailsRepo extends CrudRepository<DebtorDetails, Long> {
-    DebtorDetails findByNameAndId(String name, Long ID);
+    Optional<DebtorDetails> findByNameAndId(String name, Long ID);
     List<DebtorDetails> findByUserName(String userName);
-    DebtorDetails findByName(String name);
+    Optional<DebtorDetails> findByName(String name);
 }

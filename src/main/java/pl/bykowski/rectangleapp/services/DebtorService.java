@@ -108,6 +108,6 @@ public class DebtorService {
     }
 
     public Debtor findDebtorByName(String name) {
-        return debtorRepo.findByName(name);
+        return debtorRepo.findByName(name).get();
     }
 }

@@ -13,6 +13,7 @@ import pl.bykowski.rectangleapp.services.tdo_services.DebtorDetailsDTOService;
 import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 public class DebtorDetailsController {
@@ -41,8 +42,21 @@ public class DebtorDetailsController {
     @GetMapping("/debtor-details-debt-edit")
     public ModelAndView editDebtorDetails(@RequestParam Long id, @RequestParam String name) {
 
-        DebtorDetails debtorDetails = debtorDetailsRepo.findByNameAndId(name, id);
-        DebtorDetailsDTO debtorDetailsDTO = debtorDetailsDTOService.returnDebtorDetailsDTO(debtorDetails);
+        Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findByNameAndId(name, id);
+//        BigDecimal newDebtValue = changedDebtor.map(debtor -> debtor.getTotalDebt())
+//                .orElse(new BigDecimal(0));
+//        DebtorDetailsDTO debtorDetailsDTO = debtorDetailsDTOService.returnDebtorDetailsDTO(debtorDetails);
+
+//        DebtorDTO debtorWithBiggestDebtDTO = debtorWithBiggestDebt.map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
+//                .orElse(new DebtorDTO());
+
+//        DebtorDetails debtorDetails1;
+
+//        DebtorDetailsDTO debtorDetailsDTO = debtorDetailsDTOService.returnDebtorDetailsDTO(debtorDetails);
+        DebtorDetailsDTO debtorDetailsDTO = debtorDetails
+                .map(debtorDetails2 -> debtorDetailsDTOService.returnDebtorDetailsDTO(debtorDetails2))
+                .orElse(new DebtorDetailsDTO());
+
         return new ModelAndView("debtor-details-debt-edit")
                 .addObject("name", name)
                 .addObject("id", id)
