@@ -1,5 +1,7 @@
 package pl.bykowski.rectangleapp.services;
 
+import ch.qos.logback.classic.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -10,13 +12,18 @@ import java.util.Objects;
 
 @Service
 public class NotificationService {
+    private final static Logger logger = Logger.getLogger(NotificationService.class);
+
+    static final String APP_MAIL = "rostkowskiadrian00@gmail.com";
 
     private final JavaMailSender javaMailSender;
+
 
     @Autowired
     public NotificationService(JavaMailSender javaMailSender) {
         this.javaMailSender = Objects.requireNonNull(javaMailSender, "javaMailSender must be not null");
     }
+<<<<<<< Updated upstream
 
     public boolean sendNotification(String email, String code) throws MailException {
         //send email
@@ -32,5 +39,20 @@ public class NotificationService {
             mEx.printStackTrace();
             return false;
         }
+=======
+    public void sendNotification(String email, String code) throws MailException {
+
+        //send email
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(email);
+        mail.setFrom(APP_MAIL);
+        mail.setSubject("Welcome to my app :D");
+        mail.setText("AuthenticationCode = " + code);
+
+        javaMailSender.send(mail);
+        logger.debug("Mail has been sent" +
+                "\nfrom : " + APP_MAIL +
+                "\nto : " + email);
+>>>>>>> Stashed changes
     }
 }
