@@ -21,3 +21,19 @@ to : aaadik0013@gmail.com
 from : rostkowskiadrian00@gmail.com
 to : aaadik0013@gmail.com
 >>>>>>> stash_branch
+2019-09-25 14:32:31 DEBUG UserService:30 - Authentication code : 945827
+2019-09-25 14:32:35 DEBUG NotificationService:33 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : aaadik0013@gmail.com
+2019-09-25 14:33:08 DEBUG UserService:47 - Save User
+id : 507
+name : kojot15
+email : aaadik0013@gmail.com
+2019-09-25 15:31:35 DEBUG UserService:77 - Authentication code : 728481
+2019-09-25 15:31:38 DEBUG NotificationService:33 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : aaadik0013@gmail.com
+2019-09-25 15:31:49 DEBUG UserService:94 - Save User
+id : 508
+name : kojot55
+email : aaadik0013@gmail.com

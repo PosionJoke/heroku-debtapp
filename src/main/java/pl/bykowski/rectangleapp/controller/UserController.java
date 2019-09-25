@@ -1,85 +1,37 @@
 package pl.bykowski.rectangleapp.controller;
 
-import io.vavr.concurrent.Future;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import pl.bykowski.rectangleapp.model.DebtorUser;
-import pl.bykowski.rectangleapp.model.Role;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
-import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
-import pl.bykowski.rectangleapp.repositories.RoleRepository;
-import pl.bykowski.rectangleapp.services.NotificationService;
 import pl.bykowski.rectangleapp.services.UserService;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.Objects;
 
 @RestController
 public class UserController {
 
-    private final DebtorUserRepo debtorUserRepo;
-    private final PasswordEncoder passwordEncoder;
     private final UserService userService;
-    private final NotificationService notificationService;
-    private final RoleRepository roleRepository;
 
-    public UserController(DebtorUserRepo debtorUserRepo, PasswordEncoder passwordEncoder, UserService userService,
-                          NotificationService notificationService, RoleRepository roleRepository) {
-        this.debtorUserRepo = Objects.requireNonNull(debtorUserRepo, "debtorUserRepo must be not null");
-        this.passwordEncoder = Objects.requireNonNull(passwordEncoder, "passwordEncoder must be not null");
+    public UserController(UserService userService) {
         this.userService = Objects.requireNonNull(userService, "userService must be not null");
-        this.notificationService = Objects.requireNonNull(notificationService, "notificationService must be not null");
-        this.roleRepository = Objects.requireNonNull(roleRepository, "roleRepository must be not null");
     }
 
     @PostMapping("/create-new-user")
     public ModelAndView createNewUser(@Valid @ModelAttribute DebtorUserDTO debtorUserDTO,
                                       BindingResult bindingResult){
 
-//        if(bindingResult.has)
         if(bindingResult.hasErrors()){
             return new ModelAndView("create-new-user", bindingResult.getModel());
         }
+        UserDTO userDTO = userService.makeNewUser(debtorUserDTO);
 
-        //TODO HELLO ADRIAN, there is some code to test. We need to check passwords and return feedback to user about that
-        // --- USE UR OWN ANNOTATION instead OF THIS IF ---
-                if(userService.checkPassword(debtorUserDTO.getPassword1(), debtorUserDTO.getPassword2()) == false){
-            String errorMsg = "Passwords isn't equals";
-            return new ModelAndView("create-new-user")
-                    .addObject("user", new DebtorUserDTO())
-                    .addObject("errorMsg", errorMsg);
-        }
-
-        String authenticationCode = userService.generateNewAuthenticationCode();
-        List<String> roles = Arrays.asList("USER");
-        List<String> permissions = Arrays.asList("user");
-        //ACTIVE 0 - no active account / 1 - active account
-        Optional<Role> role = roleRepository.findByName("ROLE_USER");
-        Set<Role> set = new HashSet<>();
-        set.add(role.get());
-        DebtorUser newDebtorUser = new DebtorUser(
-                debtorUserDTO.getName(),
-                passwordEncoder.encode(debtorUserDTO.getPassword2()),
-                set,
-                "",
-                debtorUserDTO.getEmail(),
-                0,
-                authenticationCode);
-
-        Future.of(() -> notificationService.sendNotification(newDebtorUser.getEmail(), authenticationCode));
-//        notificationService.sendNotification(newDebtorUser.getEmail(), authenticationCode);
-        UserDTO userDTO = new UserDTO();
-        userDTO.setAuthenticationCode(authenticationCode);
-        userDTO.setName(newDebtorUser.getName());
-
-        debtorUserRepo.save(newDebtorUser);
         return new ModelAndView("create-new-user-authentication")
                 .addObject("userDTO", userDTO);
     }
@@ -95,10 +47,9 @@ public class UserController {
 
             return new  ModelAndView("default-view");
         }
-//        String errorMsg = ""
+
         return new ModelAndView("create-new-user-authentication")
                 .addObject("userDTO", userDTO);
-//                .addObject("errorMsg", )
     }
 
     @GetMapping("/create-new-user")

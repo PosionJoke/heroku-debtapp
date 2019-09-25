@@ -17,9 +17,8 @@ import java.util.Objects;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //todo lets check is this field below should be static?
     private UserPrincipalDetailsService userPrincipalDetailsService;
-    //soon in use
+    //TODO MAKE A PAGE FOR ADMIN WHERE HE CAN FIND ALL USERS
     private static final String ADMIN = "ADMIN";
     private static final String MANAGER = "MANAGER";
 

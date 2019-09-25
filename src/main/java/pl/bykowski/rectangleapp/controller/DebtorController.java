@@ -60,7 +60,7 @@ public class DebtorController {
 
 //        BigDecimal actualTotalDebt = debtorToUpdate.getTotalDebt();
         BigDecimal actualTotalDebt = debtorToUpdateOptional
-                .map(debtor -> debtor.getTotalDebt())
+                .map(Debtor::getTotalDebt)
                 .orElse(new BigDecimal(0));
 
         String actualUserName = principal.getName();

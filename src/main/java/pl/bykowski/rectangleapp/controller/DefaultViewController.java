@@ -4,8 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Principal;
-
 @Controller
 public class DefaultViewController {
 
@@ -15,7 +13,7 @@ public class DefaultViewController {
     }
 
     @GetMapping("/")
-    public ModelAndView showMainViewTemporaryMethod(Principal principal) {
+    public ModelAndView showMainViewTemporaryMethod() {
         return new ModelAndView("default-view");
     }
 }
