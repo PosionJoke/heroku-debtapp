@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp.services;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.bykowski.rectangleapp.model.Debtor;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Service
 public class DebtorDetailsService {
 
+    private static final Logger logger = Logger.getLogger(DebtorDetailsService.class);
     private final DebtorDetailsRepo debtorDetailsRepo;
     private final DebtorHistoryService debtorHistoryService;
 
@@ -24,6 +26,7 @@ public class DebtorDetailsService {
     }
 
     private void saveDebtorDetails(DebtorDetails debtorDetails) {
+        logger.debug("Save to debtorDetailsRepo\nid : " + debtorDetails.getId() + "\n" + "name : " + debtorDetails.getName());
         debtorDetailsRepo.save(debtorDetails);
     }
 
@@ -54,13 +57,17 @@ public class DebtorDetailsService {
         debtorDetailsRepo.deleteById(id);
     }
 
-    // todo pls use debuger to check is this if works fine
     private void isThisDebtUnderZero(DebtorDetails debtorDetails, BigDecimal debtValue) {
         BigDecimal newDebt = debtorDetails.getDebt().add(debtValue);
         if (newDebt.compareTo(new BigDecimal(0)) <= 0) {
             debtorDetails.setDebt(new BigDecimal(0));
+            logger.debug("Delete DebtorDetails\nid : " + debtorDetails.getId() + "\nDebt should be equals 0 : " + debtorDetails.getDebt());
             deleteDebtById(debtorDetails.getId());
         } else {
+            logger.debug("Update totalDebt\nid : " + debtorDetails.getId() +
+                    "\nactual debt : " + debtorDetails.getDebt() +
+                    "\nadded value : " + debtValue +
+                    "\nnew debt" + newDebt);
             debtorDetails.setDebt(newDebt);
             debtorDetailsRepo.save(debtorDetails);
         }
@@ -71,6 +78,7 @@ public class DebtorDetailsService {
         Optional<DebtorDetails> debtorDetailsCopyOptional = debtorDetailsRepo.findById(debtorID);
         debtorDetailsCopyOptional.ifPresent(debtorDetails -> {
             debtorHistoryService.saveEntityDebtorHistory(debtorDetails);
+            logger.debug("Delete DebtorDetails\nid : " + debtorDetails.getId());
             debtorDetailsRepo.delete(debtorDetails);
         });
     }

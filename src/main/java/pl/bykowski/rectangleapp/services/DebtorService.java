@@ -3,20 +3,23 @@ package pl.bykowski.rectangleapp.services;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
-import pl.bykowski.rectangleapp.model.Debtor;
 
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class DebtorService {
 
-    protected final Logger log = Logger.getLogger(getClass()); //org.apache.log4j.Logger;
+    private static final Logger logger = Logger.getLogger(DebtorService.class);
 
     private final DebtorRepo debtorRepo;
     private final UserService userService;
@@ -32,6 +35,7 @@ public class DebtorService {
     }
 
     private void saveDebtor(Debtor debtor) {
+        logger.debug("Save Debtor\nid : " + debtor.getId() + "\nname : " + debtor.getName());
         debtorRepo.save(debtor);
     }
 
@@ -54,7 +58,6 @@ public class DebtorService {
     //todo hard to test method
     @Transactional
     public void updateTotalDebtAndMakeNewDebtorDetails(DebtorDetailsDTO debtorDetails, Debtor debtor, String userName) {
-//        (String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor)
         debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getReasonForTheDebt(), userName, debtor);
         updateTotalDebt(debtor.getId(), debtorDetails.getDebt(), userName);
     }
@@ -65,11 +68,9 @@ public class DebtorService {
         changedDebtor.ifPresent(debtor -> {
             BigDecimal newDebt = debtValue.add(debtor.getTotalDebt());
             debtor.setTotalDebt(newDebt);
+            //todo check is this setUsername is necessary
             debtor.setUserName(userName);
             saveDebtor(debtor);
-            if (newDebt.equals(0)) {
-                log.error("new debt can't be 0");
-            }
         });
         BigDecimal newDebtValue = changedDebtor.map(debtor -> debtor.getTotalDebt())
                 .orElse(new BigDecimal(0));
@@ -83,6 +84,7 @@ public class DebtorService {
             updateTotalDebt(debtorDetails1.getId(), debtorDetails1.getDebt().multiply(new BigDecimal(-1)), principal.getName());
             debtorHistoryService.saveEntityDebtorHistory(debtorDetails1);
         });
+        logger.debug("Delete DebtorDetails\nid : " + id);
         debtorDetailsService.deleteById(id);
     }
 
@@ -94,7 +96,7 @@ public class DebtorService {
             debtor.setTotalDebt(new BigDecimal(0));
             debtor.setDateOfJoining(LocalDate.now());
             debtor.setUserName(userName);
-            debtorRepo.save(debtor);
+            saveDebtor(debtor);
 
             debtorDetailsService.addNewDebtorDetails(debtorName, debtValue, reasonForTheDebt, userName, debtor);
         }
@@ -102,9 +104,18 @@ public class DebtorService {
 
     //TODO LOGGERS PLS
     public Optional<Debtor> returnDebtorWithBiggestDebt(Principal principal) {
-        return debtorRepo.findByUserName(principal.getName())
+        Optional<Debtor> debtorFind = debtorRepo.findByUserName(principal.getName())
                 .stream()
                 .max(Comparator.comparing(Debtor::getTotalDebt));
+        logger.debug("Debtor with the biggest debt\nid : " + debtorFind.get().getId());
+
+        //TODO looks weird, try to make it better
+        debtorFind.ifPresentOrElse(debtor -> {
+            logger.debug("Debtor with the biggest debt\nid : " + debtor.getId() +
+                    "\n Debt Value : " + debtor.getTotalDebt());
+        }, () -> logger.debug(""));
+
+        return debtorFind;
     }
 
     public Debtor findDebtorByName(String name) {
