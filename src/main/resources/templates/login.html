@@ -1,6 +1,10 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:insert="fragments.html :: headerfiles">
-    <title>Log in</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Getting Started Service Web Content</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
@@ -10,25 +14,17 @@
                 <i class="fa fa-user"></i> Please Login
             </div>
             <div class="card-block" style="padding: 24px;">
-                <form name="f" th:action="@{/signin}" method="post">
+                <form name="f" th:action="@{/login}" method="post">
                     <fieldset>
-                        <div th:if="${param.error}" class="alert alert-danger">
-                            Invalid username and password.
-                        </div>
-
-                        <div th:if="${param.logout}" class="alert alert-success">
-                            You have been logged out.
-                        </div>
-
                         <div class="form-group">
                             <label for="txtUsername">Username</label>
-                            <input type="text" class="form-control" id="txtUsername" name="txtUsername"
+                            <input type="text" class="form-control" id="txtUsername" name="username"
                                    placeholder="Username">
                         </div>
 
                         <div class="form-group">
                             <label for="txtPassword">Password</label>
-                            <input type="password" class="form-control" id="txtPassword" name="txtPassword"
+                            <input type="password" class="form-control" id="txtPassword" name="password"
                                    placeholder="Password">
                         </div>
 
@@ -41,6 +37,9 @@
                             <button type="submit" class="btn btn-success">Log in</button>
                         </div>
                     </fieldset>
+                </form>
+                <form th:action="@{/default-view}" method="GET">
+                    <input type="submit" class="btn warning btn-block" style="margin-bottom: 10px" value="Go to default view"/>
                 </form>
             </div>
         </div>

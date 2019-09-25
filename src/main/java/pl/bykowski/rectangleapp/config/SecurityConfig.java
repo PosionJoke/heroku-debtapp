@@ -40,9 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/create-new-user", "/figureDB", "/default-view", "/", "/create-new-user-authentication").permitAll()
                 .antMatchers("/testUser").hasAnyRole("USER")
+                .antMatchers("/user").hasRole("USER")
                 .anyRequest().authenticated()
                     .and()
-                .formLogin().permitAll()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
                     .and()
                 .logout().permitAll()
                     .logoutSuccessUrl("/default-view");
