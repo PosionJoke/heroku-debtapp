@@ -21,14 +21,6 @@
 
     <div th:replace="nav.html :: body"></div>
 
-    <div sec:authorize="isAuthenticated()">
-        Text visible only to authenticated users.
-    </div>
-    Authenticated username:
-    <div sec:authentication="name"></div>
-    Authenticated user roles:
-    <div sec:authentication="principal.authorities"></div>
-
     <form th:action="@{/debtor-details-list}" method="GET">
         <input type="submit" class="btn btn-primary btn-block" style="margin-bottom: 10px"
                value="Show Debtor details list"/>
