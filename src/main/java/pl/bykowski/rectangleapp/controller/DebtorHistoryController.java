@@ -1,7 +1,7 @@
 package pl.bykowski.rectangleapp.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.DebtorHistory;
 import pl.bykowski.rectangleapp.model.dto.DebtorHistoryDTO;
@@ -12,7 +12,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 
-@RestController
+@Controller
 public class DebtorHistoryController {
 
     private final DebtorHistoryService debtorHistoryService;

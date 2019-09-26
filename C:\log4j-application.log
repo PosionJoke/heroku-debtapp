@@ -842,3 +842,232 @@ id : 48
  Debt Value : 10101.0
 2019-09-25 20:46:11 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
 Count of debts : 16
+2019-09-26 14:58:32 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 14:58:32 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 14:58:32 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 14:58:37 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 18
+Size of input List : 18
+2019-09-26 14:59:08 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 18
+Size of input List : 18
+2019-09-26 14:59:14 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 18
+Size of input List : 18
+2019-09-26 15:07:26 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:07:26 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:07:26 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:19:39 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:19:39 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:19:39 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:19:40 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:19:40 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:19:40 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:20:05 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:20:05 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:20:05 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:21:20 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:21:20 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:21:20 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:21:46 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:21:46 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:21:46 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:31:16 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:31:16 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:31:16 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:38:33 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:38:33 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:38:33 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:38:51 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 18
+Size of input List : 18
+2019-09-26 15:38:54 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:38:54 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:38:54 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:42:27 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:42:27 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:42:27 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:44:35 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 18
+Size of input List : 18
+2019-09-26 15:48:09 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:48:09 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:48:09 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:48:21 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:48:21 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:48:21 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:48:23 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 18
+Size of input List : 18
+2019-09-26 15:48:24 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:48:24 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:48:24 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:48:26 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:48:26 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:48:26 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:48:28 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:48:28 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:48:28 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:49:25 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:49:25 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:49:25 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:49:29 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 18
+Size of input List : 18
+2019-09-26 15:49:52 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:49:52 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:49:52 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:50:43 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:50:43 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:50:43 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:51:14 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:51:14 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:51:14 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:51:18 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:51:18 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:51:18 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:52:21 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:52:21 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:52:21 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:52:23 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 18
+Size of input List : 18
+2019-09-26 15:52:25 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:52:25 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:52:25 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:52:26 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:52:26 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:52:26 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:52:28 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:52:28 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:52:28 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:52:31 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:52:31 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:52:31 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 16
+2019-09-26 15:52:32 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 18
+Size of input List : 18
+2019-09-26 15:52:40 DEBUG DebtorHistoryService:35 - Save DebtorHistory
+id : null
+ based on DebtorDetails id : 113
+2019-09-26 15:52:40 DEBUG DebtorService:87 - Delete DebtorDetails
+id : 113
+2019-09-26 15:52:40 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 17
+Size of input List : 17
+2019-09-26 15:52:54 DEBUG DebtorService:110 - Debtor with the biggest debt
+id : 48
+2019-09-26 15:52:54 DEBUG DebtorService:114 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10101.0
+2019-09-26 15:52:54 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 15
+2019-09-26 15:52:57 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 17
+Size of input List : 17
+2019-09-26 15:53:19 DEBUG DebtorDetailsService:29 - Save to debtorDetailsRepo
+id : null
+name : Arek Smiec
+2019-09-26 15:53:19 DEBUG DebtorService:38 - Save Debtor
+id : 48
+name : Arek Smiec
+2019-09-26 16:24:08 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : 48
+2019-09-26 16:24:08 DEBUG DebtorService:113 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10113.0
+2019-09-26 16:24:08 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 15

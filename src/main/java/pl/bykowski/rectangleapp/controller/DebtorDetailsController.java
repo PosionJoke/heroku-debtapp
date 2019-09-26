@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.Debtor;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@RestController
+@Controller
 public class DebtorDetailsController {
 
     private final DebtorDetailsRepo debtorDetailsRepo;

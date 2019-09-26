@@ -11,11 +11,11 @@
 </head>
 <body>
 <div class="container">
-    <h1>HELLO <span th:text="${user.name}"></span></h1>
-    <h2>Person with biggest debt : <span th:text="${debtorWithBiggestDebt.getName()}"></span> owes you <span
+    <h1 align="center">Hi <span th:text="${user.name}"></span></h1>
+    <h2 align="center">Person with biggest debt : <span th:text="${debtorWithBiggestDebt.getName()}"></span> owes you <span
             th:text="${debtorWithBiggestDebt.getTotalDebt()}"></span>
     </h2>
-    <h2>Person with the most debts : <span th:text="${debtorWithHighestCountOfDebts.getName()}"></span> has <span
+    <h2 align="center">Person with the most debts : <span th:text="${debtorWithHighestCountOfDebts.getName()}"></span> has <span
             th:text="${debtorWithHighestCountOfDebts.getCountOfDebts()}"></span> debts
     </h2>
 
@@ -23,17 +23,19 @@
 
     <form th:action="@{/debtor-details-list}" method="GET">
         <input type="submit" class="btn btn-primary btn-block" style="margin-bottom: 10px"
-               value="Show Debtor details list"/>
+               value="Show Debts"/>
     </form>
     <form th:action="@{/debtor-history-list}" method="GET">
         <input type="submit" class="btn btn-primary btn-block" style="margin-bottom: 10px"
-               value="Show Debtor history list"/>
+               value="Show History"/>
     </form>
     <form th:action="@{/debtor-list}" method="GET">
-        <input type="submit" class="btn btn-info btn-block" style="margin-bottom: 10px" value="Show Debtor list"/>
+        <input type="submit" class="btn btn-info btn-block" style="margin-bottom: 10px"
+               value="Show Debtors"/>
     </form>
     <form th:action="@{/logout}" method="GET">
-        <input type="submit" class="btn warning btn-block" style="margin-bottom: 10px" value="Logout"/>
+        <input type="submit" class="btn warning btn-block" style="margin-bottom: 10px"
+               value="Logout"/>
     </form>
 </div>
 </body>

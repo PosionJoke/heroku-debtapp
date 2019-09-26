@@ -1,8 +1,8 @@
 package pl.bykowski.rectangleapp.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
@@ -14,7 +14,7 @@ import java.security.Principal;
 import java.util.Objects;
 import java.util.Optional;
 
-@RestController
+@Controller
 public class MainViewController {
 
     private final DebtorService debtorService;
@@ -50,27 +50,27 @@ public class MainViewController {
         }
     }
 
-    @PostMapping("/main-view")
-    public ModelAndView showMainViewPost(Principal principal) {
-        return returnMainView(principal);
-    }
-
-    private ModelAndView returnMainViewPost(Principal principal) {
-        if (isThisUserHaveAnyDebtorDetails(principal)) {
-            return new ModelAndView("main-view-new-user")
-                    .addObject("user", principal);
-        } else {
-            Optional<Debtor> debtorWithBiggestDebt = debtorService.returnDebtorWithBiggestDebt(principal);
-
-            DebtorDTO debtorWithBiggestDebtDTO = debtorWithBiggestDebt.map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
-                    .orElse(new DebtorDTO());
-            DebtorDTO debtorWithHighestCountOfDebtsDTO = debtorDTOService.returnDebtorDTOWithHighestCountOfDebts(principal);
-            return new ModelAndView("main-view")
-                    .addObject("user", principal)
-                    .addObject("debtorWithBiggestDebt", debtorWithBiggestDebtDTO)
-                    .addObject("debtorWithHighestCountOfDebts", debtorWithHighestCountOfDebtsDTO);
-        }
-    }
+//    @PostMapping("/main-view")
+//    public ModelAndView showMainViewPost(Principal principal) {
+//        return returnMainView(principal);
+//    }
+//
+//    private ModelAndView returnMainViewPost(Principal principal) {
+//        if (isThisUserHaveAnyDebtorDetails(principal)) {
+//            return new ModelAndView("main-view-new-user")
+//                    .addObject("user", principal);
+//        } else {
+//            Optional<Debtor> debtorWithBiggestDebt = debtorService.returnDebtorWithBiggestDebt(principal);
+//
+//            DebtorDTO debtorWithBiggestDebtDTO = debtorWithBiggestDebt.map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
+//                    .orElse(new DebtorDTO());
+//            DebtorDTO debtorWithHighestCountOfDebtsDTO = debtorDTOService.returnDebtorDTOWithHighestCountOfDebts(principal);
+//            return new ModelAndView("main-view")
+//                    .addObject("user", principal)
+//                    .addObject("debtorWithBiggestDebt", debtorWithBiggestDebtDTO)
+//                    .addObject("debtorWithHighestCountOfDebts", debtorWithHighestCountOfDebtsDTO);
+//        }
+//    }
 
     private boolean isThisUserHaveAnyDebtorDetails(Principal principal) {
         return debtorDetailsService.findByUserName(principal.getName()).isEmpty();

@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.Debtor;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@RestController
+@Controller
 public class DebtorController {
     private final DebtorRepo debtorRepo;
     private final DebtorService debtorService;
@@ -58,7 +59,6 @@ public class DebtorController {
                                    @RequestParam String name, @RequestParam Long id) {
         Optional<Debtor> debtorToUpdateOptional = debtorRepo.findByName(name);
 
-//        BigDecimal actualTotalDebt = debtorToUpdate.getTotalDebt();
         BigDecimal actualTotalDebt = debtorToUpdateOptional
                 .map(Debtor::getTotalDebt)
                 .orElse(new BigDecimal(0));
@@ -68,6 +68,7 @@ public class DebtorController {
 
         List<Debtor> debtorList = debtorService.findByUserName(principal.getName());
         List<DebtorDTO> debtorDTOList1 = debtorDTOService.returnDebtorDTOList(debtorList);
+
         return new ModelAndView("debtor-list")
                 .addObject("debtors", debtorDTOList1);
     }

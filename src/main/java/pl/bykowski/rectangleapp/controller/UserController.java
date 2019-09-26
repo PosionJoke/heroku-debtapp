@@ -1,10 +1,10 @@
 package pl.bykowski.rectangleapp.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.DebtorUser;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
@@ -14,7 +14,7 @@ import pl.bykowski.rectangleapp.services.UserService;
 import javax.validation.Valid;
 import java.util.Objects;
 
-@RestController
+@Controller
 public class UserController {
 
     private final UserService userService;

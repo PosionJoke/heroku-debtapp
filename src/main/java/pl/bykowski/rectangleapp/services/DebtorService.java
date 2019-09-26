@@ -102,7 +102,6 @@ public class DebtorService {
         }
     }
 
-    //TODO LOGGERS PLS
     public Optional<Debtor> returnDebtorWithBiggestDebt(Principal principal) {
         Optional<Debtor> debtorFind = debtorRepo.findByUserName(principal.getName())
                 .stream()
