@@ -39,10 +39,6 @@ public class DebtorService {
         debtorRepo.save(debtor);
     }
 
-    public String testReturnA(){
-        return "A";
-    }
-
     public Optional<Debtor> findById(Long id) {
         return debtorRepo.findById(id);
     }
@@ -52,23 +48,21 @@ public class DebtorService {
     }
 
     private boolean isThisNameFree(String debtorName, String userName) {
-        List<Debtor> debtorList = debtorRepo.findByUserName(userName);
+        List<Debtor> debtorList = findByUserName(userName);
 
-        return debtorRepo.findByUserName(userName)
+        return findByUserName(userName)
                 .stream()
                 .noneMatch(debtor -> debtor.getName().equalsIgnoreCase(debtorName));
     }
 
-    //todo hard to test method
     @Transactional
     public void updateTotalDebtAndMakeNewDebtorDetails(DebtorDetailsDTO debtorDetails, Debtor debtor, String userName) {
         debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getReasonForTheDebt(), userName, debtor);
         updateTotalDebt(debtor.getId(), debtorDetails.getDebt(), userName);
     }
 
-
     public BigDecimal updateTotalDebt(Long debtorId, BigDecimal debtValue, String userName) {
-        Optional<Debtor> changedDebtor = debtorRepo.findById(debtorId);
+        Optional<Debtor> changedDebtor = findById(debtorId);
         changedDebtor.ifPresent(debtor -> {
             BigDecimal newDebt = debtValue.add(debtor.getTotalDebt());
             debtor.setTotalDebt(newDebt);
@@ -81,7 +75,6 @@ public class DebtorService {
         return newDebtValue;
     }
 
-    //todo hard to test method
     public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id, Principal principal) {
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(id);
         debtorDetails.ifPresent(debtorDetails1 -> {
@@ -91,7 +84,6 @@ public class DebtorService {
         logger.debug("Delete DebtorDetails\nid : " + id);
         debtorDetailsService.deleteById(id);
     }
-
     public void addNewDebtor(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName) {
         String actualUserName = userService.findUserName();
         if (isThisNameFree(debtorName, actualUserName)) {
@@ -107,7 +99,7 @@ public class DebtorService {
     }
 
     public Optional<Debtor> returnDebtorWithBiggestDebt(Principal principal) {
-        Optional<Debtor> debtorFind = debtorRepo.findByUserName(principal.getName())
+        Optional<Debtor> debtorFind = findByUserName(principal.getName())
                 .stream()
                 .max(Comparator.comparing(Debtor::getTotalDebt));
         logger.debug("Debtor with the biggest debt\nid : " + debtorFind.get().getId());

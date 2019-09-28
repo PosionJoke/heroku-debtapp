@@ -7,6 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.bykowski.rectangleapp.model.Debtor;
+import pl.bykowski.rectangleapp.model.DebtorDetails;
+import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.services.DebtorDetailsService;
 import pl.bykowski.rectangleapp.services.DebtorHistoryService;
@@ -38,13 +40,6 @@ public class DebtorServiceTest {
 
     @InjectMocks
     DebtorService debtorService;
-
-
-
-    @Test
-    public void should_return_a(){
-        assertThat(debtorService.testReturnA()).isEqualTo("A");
-    }
 
     @Test
     public void name_to_change(){
@@ -137,5 +132,50 @@ public class DebtorServiceTest {
         BigDecimal actualDebt = debtorService.updateTotalDebt(id, additionalDebt, userName);
         //then
         assertThat(actualDebt).isEqualTo(new BigDecimal(20));
+    }
+
+    @Test
+    public void should_update_total_debt_and_make_new_debtor_details() {
+        //given
+        String userName = "Adrian";
+        String debtorDetailsName = "Ada";
+        BigDecimal debtValue = new BigDecimal(10);
+        String reasonForDebt = "ReasonForDebt";
+
+        DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
+        debtorDetailsDTO.setName(debtorDetailsName);
+        debtorDetailsDTO.setDebt(debtValue);
+        debtorDetailsDTO.setReasonForTheDebt(reasonForDebt);
+
+        Long debtorId = 1L;
+        Debtor debtor = new Debtor();
+        debtor.setId(debtorId);
+        //when
+        debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetailsDTO, debtor, userName);
+        //then
+        verify(debtorDetailsService).addNewDebtorDetails(debtorDetailsDTO.getName(),
+                debtorDetailsDTO.getDebt(),
+                debtorDetailsDTO.getReasonForTheDebt(),
+                userName,
+                debtor);
+    }
+
+    @Test
+    public void delete_debtorDetails_update_total_debt_make_new_debtor_history() {
+        //given
+        Long id = 1L;
+        Principal principal = new Principal() {
+            @Override
+            public String getName() {
+                return "Adrian";
+            }
+        };
+        DebtorDetails debtorDetails = new DebtorDetails();
+        given(debtorDetailsService.findById(id)).willReturn(Optional.of(debtorDetails));
+        //when
+        debtorService.deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id, principal);
+        //then
+        verify(debtorHistoryService).saveEntityDebtorHistory(debtorDetails);
+        verify(debtorDetailsService).deleteById(id);
     }
 }

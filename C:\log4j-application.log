@@ -1122,3 +1122,190 @@ name : Ada
 2019-09-28 17:02:27 DEBUG DebtorService:38 - Save Debtor
 id : null
 name : Ada
+2019-09-28 17:05:21 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+2019-09-28 17:05:21 DEBUG DebtorService:113 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:05:21 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:05:21 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:08:05 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+2019-09-28 17:08:05 DEBUG DebtorService:113 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:08:05 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:08:05 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:08:26 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+2019-09-28 17:08:26 DEBUG DebtorService:113 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:08:26 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:08:26 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:08:43 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+2019-09-28 17:08:43 DEBUG DebtorService:113 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:08:43 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:08:43 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:08:50 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+2019-09-28 17:08:50 DEBUG DebtorService:113 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:08:50 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:08:50 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:11:46 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+2019-09-28 17:11:46 DEBUG DebtorService:113 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:11:46 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:11:46 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:12:05 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+2019-09-28 17:12:05 DEBUG DebtorService:113 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:12:05 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:12:05 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:12:19 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+2019-09-28 17:12:19 DEBUG DebtorService:113 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:12:19 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:12:19 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:12:50 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+2019-09-28 17:12:50 DEBUG DebtorService:113 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:12:50 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:13:00 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:13:06 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:13:19 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+2019-09-28 17:13:19 DEBUG DebtorService:113 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:13:19 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:13:19 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:13:50 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+2019-09-28 17:13:50 DEBUG DebtorService:113 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:13:50 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:13:50 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:15:26 DEBUG DebtorService:107 - Debtor with the biggest debt
+id : null
+2019-09-28 17:15:26 DEBUG DebtorService:111 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:15:26 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:15:26 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:33:03 DEBUG DebtorService:105 - Debtor with the biggest debt
+id : null
+2019-09-28 17:33:03 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:33:03 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:33:03 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:33:03 DEBUG DebtorService:84 - Delete DebtorDetails
+id : 1
+2019-09-28 17:33:07 DEBUG DebtorService:105 - Debtor with the biggest debt
+id : null
+2019-09-28 17:33:07 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:33:07 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:33:07 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:33:07 DEBUG DebtorService:84 - Delete DebtorDetails
+id : 1
+2019-09-28 17:33:19 DEBUG DebtorService:105 - Debtor with the biggest debt
+id : null
+2019-09-28 17:33:19 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:33:19 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:33:19 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:33:19 DEBUG DebtorService:84 - Delete DebtorDetails
+id : 1
+2019-09-28 17:33:31 DEBUG DebtorService:105 - Debtor with the biggest debt
+id : null
+2019-09-28 17:33:31 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 17:33:31 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 17:33:31 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 17:33:31 DEBUG DebtorService:84 - Delete DebtorDetails
+id : 1
