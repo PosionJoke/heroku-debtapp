@@ -1,176 +1,44 @@
 package pl.bykowski.rectangleapp;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ContextConfiguration;
+import org.mockito.Mockito;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import pl.bykowski.rectangleapp.model.Debtor;
+import pl.bykowski.rectangleapp.repositories.DebtorRepo;
+import pl.bykowski.rectangleapp.services.DebtorService;
 
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
 public class RectangleappApplicationTests {
 
+    @MockBean
+    private DebtorService debtorService;
 
+    @MockBean
+    private DebtorRepo debtorRepo;
 
-	@Test
-	public void test(){
-		assertThat(1).isEqualTo(1);
-	}
+    // write test cases here
+    @Before
+    public void setUp() {
+        Debtor debtor = new Debtor();
+        debtor.setName("alex");
 
-	//
-//	@Autowired
-//	private DebtorService debtorService;
-//
-//	@MockBean
-//	private DebtorRepo debtorRepo;
-//	@MockBean
-//	private DebtorHistoryService debtorHistoryService;
-//	@MockBean
-//	private DebtorDetailsService debtorDetailsService;
-//	@MockBean
-//	private UserService userService;
-//	@MockBean
-//	private Principal principal;
-//
-//	@Before
-//	public void setUp(){
-//		Debtor debtor = new Debtor();
-//		debtor.setName("Adrian");
-//		debtor.setUserName("UserName");
-//
-//		Debtor debtor2 = new Debtor();
-//		debtor2.setName("Adrian2");
-//		debtor2.setUserName("UserName");
-//
-//		Debtor debtor3 = new Debtor();
-//		debtor3.setName("Adrian3");
-//		debtor3.setUserName("UserName3");
-//
-//		List<Debtor> debtorListByUserName = new ArrayList<>();
-//		debtorListByUserName.add(debtor);
-//		debtorListByUserName.add(debtor2);
-//
-//		Mockito.when(debtorRepo.findByName(debtor.getName()))
-//				.thenReturn(java.util.Optional.of(debtor));
-//		Mockito.when(debtorRepo.findByUserName("UserName"))
-//				.thenReturn(debtorListByUserName);
-//	}
+        Mockito.when(debtorRepo.findByName(debtor.getName()))
+                .thenReturn(java.util.Optional.of(debtor));
+    }
 
-//	@Test
-//	public void whenValidName_thenDebtorShouldBeFound() {
-//		String name = "Adrian";
-//		Debtor found = debtorService.findDebtorByName(name);
-//
-//		assertThat(found.getName())
-//				.isEqualTo(name);
-//	}
-//
-//	@Test
-//	public void whenValidUserName_ThenDebtorShouldBeFound(){
-//		String userName = "UserName";
-//		List<Debtor> debtorListFound = debtorService
-//				.findByUserName(userName);
-//
-//		assertThat(debtorListFound.size())
-//				.isEqualTo(2);
-//
-//		assertThat(debtorListFound.get(1).getName())
-//				.isEqualTo("Adrian2");
-//	}
-//
-//	@Test
-//	public void whenDebtorNameIsValid_updateTotalDebt(){
-//		String debtorName = "Adrian";
-//		Long debtorId = 1L;
-//		BigDecimal debt = new BigDecimal(100);
-//		String userName = "UserName";
-//		debtorService.updateTotalDebt(debtorId, debt, userName);
-//
-//		assertThat(debtorService.findDebtorByName(debtorName).getTotalDebt())
-//				.isEqualTo(100);
-//	}
-//
-//	@Test
-//	public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(){
-//		Long id = 1L;
-//		DebtorDetails debtorDetails = new DebtorDetails();
-//		debtorDetails.setDebt(new BigDecimal(100));
-//		debtorDetails.setName("AdrianDetails");
-//		Debtor debtor = new Debtor();
-//		debtor.setName(debtorDetails.getName());
-//
-//		Mockito.when(principal.getName())
-//				.thenReturn("UserName");
-//		Mockito.when(debtorRepo.findByName(debtorDetails.getName()))
-//				.thenReturn(java.util.Optional.of(debtor));
-//		Mockito.when(debtorDetailsService.findById(id))
-//				.thenReturn(java.util.Optional.of(debtorDetails));
-//
-//		debtorService.deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id, principal);
-//
-//		verify(debtorDetailsService).findById(id);
-//		verify(debtorDetailsService).deleteById(id);
-//		verify(debtorHistoryService).saveEntityDebtorHistory(debtorDetails);
-//	}
-//
-//	@Test
-//	public void addNewDebtor(){
-//		Mockito.when(userService.findUserName())
-//				.thenReturn("UserName");
-//
-//		String newDebtorName = "Adrian10";
-//		BigDecimal debt = new BigDecimal(101);
-//		String reasonForTheDebt = "Kawa";
-//		String userName = "UserName";
-//		Debtor newDebtor = new Debtor();
-//		newDebtor.setUserName(userName);
-//		newDebtor.setName(newDebtorName);
-//		newDebtor.setTotalDebt(debt);
-//		newDebtor.setDateOfJoining(LocalDate.now());
-//
-//		debtorService.addNewDebtor(newDebtorName, debt, reasonForTheDebt, userName);
-//
-//		verify(debtorRepo).save(newDebtor);
-//	}
-//
-//	@Test
-//	public void updateTotalDebtAndMakeNewDebtorDetails(){
-//        //given
-//		DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
-//		debtorDetailsDTO.setName("Adrian11");
-//		debtorDetailsDTO.setDebt(new BigDecimal(102));
-//		debtorDetailsDTO.setReasonForTheDebt("Milk");
-//
-//		DebtorDetails debtorDetails = new DebtorDetails();
-//		debtorDetails.setName("Adrian11");
-//		debtorDetails.setDebt(new BigDecimal(102));
-//		debtorDetails.setReasonForTheDebt("Milk");
-//		debtorDetails.setUserName("UserName");
-//
-//		Debtor debtor = new Debtor();
-//		debtor.setName(debtorDetails.getName());
-//
-//		String userName = "UserName";
-//
-//        Mockito.when(debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(),
-//                debtorDetails.getReasonForTheDebt(), debtorDetails.getUserName(), debtor))
-//                .thenReturn(debtorDetails);
-//
-//        Mockito.when(debtorRepo.findByName(debtor.getName()))
-//                .thenReturn(java.util.Optional.of(debtor));
-//        //when
-//		debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetailsDTO, debtor, userName);
-//
-//		//then
-//		verify(debtorDetailsService).addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(),
-//				debtorDetails.getReasonForTheDebt(), debtorDetails.getUserName(), debtor);
-//
-//        assertThat(debtorService.updateTotalDebt(debtor.getId(), debtorDetails.getDebt(), debtorDetails.getUserName()))
-//                .isEqualTo(204);
-//
-//
-//	}
+    @Test
+    public void whenValidName_thenEmployeeShouldBeFound() {
+        String name = "alex";
+        Optional<Debtor> found = debtorRepo.findByName(name);
 
+        assertThat(found.get().getName())
+                .isEqualTo(name);
+    }
 }

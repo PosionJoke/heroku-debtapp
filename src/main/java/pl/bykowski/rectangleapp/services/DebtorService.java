@@ -39,6 +39,10 @@ public class DebtorService {
         debtorRepo.save(debtor);
     }
 
+    public String testReturnA(){
+        return "A";
+    }
+
     public Optional<Debtor> findById(Long id) {
         return debtorRepo.findById(id);
     }
@@ -112,7 +116,7 @@ public class DebtorService {
         debtorFind.ifPresentOrElse(debtor -> {
             logger.debug("Debtor with the biggest debt\nid : " + debtor.getId() +
                     "\n Debt Value : " + debtor.getTotalDebt());
-        }, () -> logger.debug(""));
+        }, () -> logger.debug("Can't find debtor"));
 
         return debtorFind;
     }
