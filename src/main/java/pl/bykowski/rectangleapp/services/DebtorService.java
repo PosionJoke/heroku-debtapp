@@ -89,7 +89,7 @@ public class DebtorService {
         if (isThisNameFree(debtorName, actualUserName)) {
             Debtor debtor = new Debtor();
             debtor.setName(debtorName);
-            debtor.setTotalDebt(new BigDecimal(0));
+            debtor.setTotalDebt(debtValue);
             debtor.setDateOfJoining(LocalDate.now());
             debtor.setUserName(userName);
             saveDebtor(debtor);

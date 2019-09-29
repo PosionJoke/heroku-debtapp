@@ -82,12 +82,8 @@ public class UserService {
         return authCode.equals(authCodeInput);
     }
 
-    public boolean checkPassword(String password1, String password2){
-        return password1.equals(password2);
-    }
-
-    public DebtorUser findByName(String name){
-       return debtorUserRepo.findByName(name).get();
+    public Optional<DebtorUser> findByName(String name) {
+        return debtorUserRepo.findByName(name);
     }
 
     public void save(DebtorUser debtorUser){

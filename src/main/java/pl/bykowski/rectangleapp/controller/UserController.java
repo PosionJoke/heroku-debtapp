@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +14,12 @@ import pl.bykowski.rectangleapp.services.UserService;
 
 import javax.validation.Valid;
 import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 public class UserController {
 
+    private static final Logger logger = Logger.getLogger(UserController.class);
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -41,9 +44,12 @@ public class UserController {
 
 
         if(userService.checkAuthenticationCode(userDTO.getAuthenticationCode(), userDTO.getAuthenticationCodeInput())){
-            DebtorUser debtorUser = userService.findByName(userDTO.getName());
-            debtorUser.setActive(1);
-            userService.save(debtorUser);
+            Optional<DebtorUser> debtorUser = userService.findByName(userDTO.getName());
+            debtorUser.ifPresentOrElse(debtorUser1 -> {
+                        debtorUser1.setActive(1);
+                        userService.save(debtorUser1);
+                    },
+                    () -> logger.debug("debtorUser must be present"));
 
             return new  ModelAndView("default-view");
         }

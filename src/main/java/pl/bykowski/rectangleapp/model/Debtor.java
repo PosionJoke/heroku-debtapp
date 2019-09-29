@@ -25,6 +25,6 @@ Debtor {
     private BigDecimal totalDebt = new BigDecimal(0);
     private LocalDate dateOfJoining;
     private String userName;
-    @OneToMany(mappedBy = "debtor")
+    @OneToMany(mappedBy = "debtor", fetch = FetchType.LAZY)
     private Set<DebtorDetails> debtorDetailsList = new HashSet<>();
 }

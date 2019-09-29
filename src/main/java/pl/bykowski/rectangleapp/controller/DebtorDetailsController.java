@@ -1,7 +1,11 @@
 package pl.bykowski.rectangleapp.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
@@ -18,6 +22,8 @@ import java.util.Optional;
 
 @Controller
 public class DebtorDetailsController {
+
+    private static final Logger logger = Logger.getLogger(DebtorDetailsController.class);
 
     private final DebtorDetailsRepo debtorDetailsRepo;
     private final DebtorDetailsService debtorDetailsService;
@@ -91,6 +97,14 @@ public class DebtorDetailsController {
     public ModelAndView saveDebtorDetails(@ModelAttribute DebtorDetailsDTO debtorDetailsDTO, Principal principal,
                                           @RequestParam Long id) {
         debtorDetailsService.updateDebtorDetailsDebt(id, debtorDetailsDTO.getDebt());
+
+        Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(id);
+        debtorDetails.ifPresentOrElse(debtorDetails1 -> {
+                    debtorService.updateTotalDebt(debtorDetails1.getDebtor().getId(), debtorDetailsDTO.getDebt(), debtorDetails1.getUserName());
+                },
+                () -> logger.debug("@PostMapping /debtor-details-save \ndebtorDetails must be present")
+        );
+
         return new ModelAndView("debtor-details-list")
                 .addObject("debtorLIST", debtorDetailsService.findByUserName(principal.getName()));
     }
