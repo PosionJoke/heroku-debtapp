@@ -58,10 +58,17 @@ public class DebtorDetailsServiceTest {
     @Test
     public void should_save_new_DebtorDetails() {
         //given
+        DebtorDetails debtorDetailsTest = new DebtorDetails();
+        debtorDetailsTest.setUserName(userName);
+        debtorDetailsTest.setName(debtorName);
+        debtorDetailsTest.setDebt(debtValue);
+        debtorDetailsTest.setReasonForTheDebt(reasonForDebt);
+        debtorDetailsTest.setDebtor(debtor);
+        debtorDetailsTest.setDate(LocalDate.now());
         //when
         DebtorDetails created = debtorDetailsService.addNewDebtorDetails(debtorName, debtValue, reasonForDebt, userName, debtor);
         //then
-        assertThat(created).isEqualTo(debtorDetails);
+        assertThat(created).isEqualTo(debtorDetailsTest);
     }
 
     @Test
