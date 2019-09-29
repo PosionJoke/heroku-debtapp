@@ -12,7 +12,7 @@ public class DebtorHistoryDTOService {
     public List<DebtorHistoryDTO> returnDebtorHistoryDTOList(List<DebtorHistory> debtorHistoryList){
         List<DebtorHistoryDTO> debtorHistoryDTOList = new ArrayList<>();
 
-        debtorHistoryList.stream()
+        debtorHistoryList
                 .forEach(debtorHistory -> debtorHistoryDTOList.add(
                         new DebtorHistoryDTO(debtorHistory.getName(),
                                 debtorHistory.getDebt(),

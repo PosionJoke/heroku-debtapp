@@ -5,8 +5,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
+import pl.bykowski.rectangleapp.model.DebtorUser;
 import pl.bykowski.rectangleapp.model.Role;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
@@ -15,6 +18,7 @@ import pl.bykowski.rectangleapp.repositories.RoleRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 @RunWith(SpringRunner.class)
 public class UserServiceTest {
@@ -29,6 +33,10 @@ public class UserServiceTest {
     private PasswordEncoder passwordEncoder;
     @Mock
     private NotificationService notificationService;
+    @Mock
+    private Authentication authentication;
+    @Mock
+    private SecurityContextHolder securityContextHolder;
 
     private DebtorUserDTO debtorUserDTO = new DebtorUserDTO();
     private String debtorName;
@@ -85,6 +93,16 @@ public class UserServiceTest {
         boolean shouldBeTrue = userService.checkAuthenticationCode(authCode1, authCode2);
         //then
         assertThat(shouldBeTrue).isEqualTo(false);
+    }
+
+    @Test
+    public void should_save_debtorUser() {
+        //given
+        DebtorUser debtorUser = new DebtorUser();
+        //when
+        userService.save(debtorUser);
+        //then
+        verify(debtorUserRepo).save(debtorUser);
     }
 
 }

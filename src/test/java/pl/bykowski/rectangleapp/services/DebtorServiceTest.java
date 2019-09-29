@@ -174,4 +174,23 @@ public class DebtorServiceTest {
         verify(debtorHistoryService).saveEntityDebtorHistory(debtorDetails);
         verify(debtorDetailsService).deleteById(id);
     }
+
+    @Test
+    public void should_update_debt_ind_debtorDetails_and_in_debtor() {
+        //given
+        Long debtorDetailsId = 1L;
+        String debtorDetailsUserName = "Adrian";
+        BigDecimal debtorDetailsDTODebt = new BigDecimal(10);
+
+        DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
+        debtorDetailsDTO.setDebt(debtorDetailsDTODebt);
+
+        DebtorDetails debtorDetails = new DebtorDetails();
+        debtorDetails.setId(debtorDetailsId);
+        debtorDetails.setUserName(debtorDetailsUserName);
+        //when
+        debtorService.updateTotalDebtAndUpdateDebtorDetailsDebt(debtorDetailsDTO, debtorDetailsId);
+        //then
+        verify(debtorDetailsService).updateDebtorDetailsDebt(debtorDetailsId, debtorDetailsDTO.getDebt());
+    }
 }
