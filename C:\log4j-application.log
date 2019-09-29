@@ -1785,3 +1785,160 @@ new debt7.0
 2019-09-29 22:11:00 DEBUG DebtorService:38 - Save Debtor
 id : 50
 name : Michał Korzeniowski
+2019-09-29 22:12:42 DEBUG DebtorDetailsService:31 - Save to debtorDetailsRepo
+id : null
+name : Michał Korzeniowski
+2019-09-29 22:12:42 DEBUG DebtorService:38 - Save Debtor
+id : 50
+name : Michał Korzeniowski
+2019-09-29 22:12:45 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 27
+Size of input List : 27
+2019-09-29 22:12:48 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 27
+Size of input List : 27
+2019-09-29 22:12:54 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 27
+Size of input List : 27
+2019-09-29 22:13:00 DEBUG DebtorDetailsService:69 - Update totalDebt
+id : 137
+actual debt : 7.0
+added value : 1
+new debt8.0
+2019-09-29 22:13:00 DEBUG DebtorService:38 - Save Debtor
+id : 50
+name : Michał Korzeniowski
+2019-09-29 22:13:04 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 27
+Size of input List : 27
+2019-09-29 22:13:07 DEBUG DebtorDetailsService:69 - Update totalDebt
+id : 137
+actual debt : 8.0
+added value : 8.0
+new debt16.0
+2019-09-29 22:13:07 DEBUG DebtorService:38 - Save Debtor
+id : 50
+name : Michał Korzeniowski
+2019-09-29 22:13:11 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 27
+Size of input List : 27
+2019-09-29 22:13:18 DEBUG DebtorDetailsService:69 - Update totalDebt
+id : 137
+actual debt : 16.0
+added value : 16.0
+new debt32.0
+2019-09-29 22:13:18 DEBUG DebtorService:38 - Save Debtor
+id : 50
+name : Michał Korzeniowski
+2019-09-29 22:13:43 DEBUG DebtorDetailsService:31 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-09-29 22:13:43 DEBUG DebtorDetailsService:86 - Delete DebtorDetails
+id : null
+2019-09-29 22:13:43 DEBUG DebtorDetailsService:69 - Update totalDebt
+id : 3
+actual debt : 10
+added value : 10
+new debt20
+2019-09-29 22:13:43 DEBUG DebtorDetailsService:66 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-09-29 22:13:43 DEBUG DebtorDetailsService:86 - Delete DebtorDetails
+id : 3
+2019-09-29 22:14:39 DEBUG DebtorDetailsService:31 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-09-29 22:17:07 DEBUG DebtorDetailsService:31 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-09-29 22:17:34 DEBUG DebtorDetailsService:31 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-09-29 22:17:40 DEBUG DebtorDetailsService:31 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-09-29 22:17:48 DEBUG DebtorDetailsService:31 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-09-29 22:17:48 DEBUG DebtorDetailsService:86 - Delete DebtorDetails
+id : null
+2019-09-29 22:17:48 DEBUG DebtorDetailsService:69 - Update totalDebt
+id : 3
+actual debt : 10
+added value : 10
+new debt20
+2019-09-29 22:17:48 DEBUG DebtorDetailsService:66 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-09-29 22:17:48 DEBUG DebtorDetailsService:86 - Delete DebtorDetails
+id : 3
+2019-09-29 22:18:00 DEBUG DebtorHistoryService:35 - Save DebtorHistory
+id : null
+ based on DebtorDetails id : null
+2019-09-29 22:18:08 DEBUG DebtorService:105 - Debtor with the biggest debt
+id : null
+2019-09-29 22:18:08 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-29 22:18:08 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-29 22:18:08 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-29 22:18:08 DEBUG DebtorService:84 - Delete DebtorDetails
+id : 1
+2019-09-29 22:19:58 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-29 22:20:06 DEBUG NotificationService:33 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : 1111
+2019-09-29 22:20:06 DEBUG NotificationService:33 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : example@email.com
+2019-09-29 22:20:13 DEBUG UserService:77 - Authentication code : 304496
+2019-09-29 22:20:21 DEBUG UserService:77 - Authentication code : 694319
+2019-09-29 22:23:34 DEBUG DebtorService:105 - Debtor with the biggest debt
+id : 48
+2019-09-29 22:23:34 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10113.0
+2019-09-29 22:23:34 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 15
+2019-09-29 22:23:36 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 27
+Size of input List : 27
+2019-09-29 22:23:48 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Jan Nowak
+2019-09-29 22:23:49 DEBUG DebtorDetailsService:31 - Save to debtorDetailsRepo
+id : null
+name : Jan Nowak
+2019-09-29 22:23:57 DEBUG DebtorDetailsService:31 - Save to debtorDetailsRepo
+id : null
+name : Jan Nowak
+2019-09-29 22:23:57 DEBUG DebtorService:38 - Save Debtor
+id : 51
+name : Jan Nowak
+2019-09-29 22:24:04 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 29
+Size of input List : 29
+2019-09-29 22:24:10 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 29
+Size of input List : 29
+2019-09-29 22:24:29 DEBUG DebtorHistoryService:35 - Save DebtorHistory
+id : null
+ based on DebtorDetails id : 140
+2019-09-29 22:24:29 DEBUG DebtorService:84 - Delete DebtorDetails
+id : 140
+2019-09-29 22:24:29 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 28
+Size of input List : 28
+2019-09-29 22:24:37 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 28
+Size of input List : 28
+2019-09-29 22:24:44 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 28
+Size of input List : 28
+2019-09-29 22:24:50 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 28
+Size of input List : 28
+2019-09-29 22:39:56 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 28
+Size of input List : 28
+2019-09-29 22:40:04 DEBUG DebtorDetailsService:69 - Update totalDebt
+id : 139
+actual debt : 10.0
+added value : 10.0
+new debt20.0
+2019-09-29 22:40:04 DEBUG DebtorService:38 - Save Debtor
+id : 51
+name : Jan Nowak

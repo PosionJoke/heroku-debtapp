@@ -96,14 +96,8 @@ public class DebtorDetailsController {
     @PostMapping("/debtor-details-save")
     public ModelAndView saveDebtorDetails(@ModelAttribute DebtorDetailsDTO debtorDetailsDTO, Principal principal,
                                           @RequestParam Long id) {
-        debtorDetailsService.updateDebtorDetailsDebt(id, debtorDetailsDTO.getDebt());
 
-        Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(id);
-        debtorDetails.ifPresentOrElse(debtorDetails1 -> {
-                    debtorService.updateTotalDebt(debtorDetails1.getDebtor().getId(), debtorDetailsDTO.getDebt(), debtorDetails1.getUserName());
-                },
-                () -> logger.debug("@PostMapping /debtor-details-save \ndebtorDetails must be present")
-        );
+        debtorService.updateTotalDebtAndUpdateDebtorDetailsDebt(debtorDetailsDTO, id);
 
         return new ModelAndView("debtor-details-list")
                 .addObject("debtorLIST", debtorDetailsService.findByUserName(principal.getName()));

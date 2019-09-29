@@ -75,6 +75,17 @@ public class DebtorService {
         return newDebtValue;
     }
 
+    @Transactional
+    public void updateTotalDebtAndUpdateDebtorDetailsDebt(DebtorDetailsDTO debtorDetailsDTO, Long debtorDetailsId) {
+        debtorDetailsService.updateDebtorDetailsDebt(debtorDetailsId, debtorDetailsDTO.getDebt());
+        Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(debtorDetailsId);
+        debtorDetails.ifPresentOrElse(debtorDetails1 -> {
+                    updateTotalDebt(debtorDetails1.getDebtor().getId(), debtorDetailsDTO.getDebt(), debtorDetails1.getUserName());
+                },
+                () -> logger.debug("@PostMapping /debtor-details-save \ndebtorDetails must be present")
+        );
+    }
+
     public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id, Principal principal) {
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(id);
         debtorDetails.ifPresent(debtorDetails1 -> {
