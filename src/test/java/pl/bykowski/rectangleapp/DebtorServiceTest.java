@@ -29,17 +29,17 @@ import static org.mockito.Mockito.verify;
 @RunWith(SpringRunner.class)
 public class DebtorServiceTest {
 
-    @Mock
-    DebtorRepo debtorRepo;
-    @Mock
-    UserService userService;
-    @Mock
-    DebtorDetailsService debtorDetailsService;
-    @Mock
-    DebtorHistoryService debtorHistoryService;
-
     @InjectMocks
-    DebtorService debtorService;
+    private DebtorService debtorService;
+    @Mock
+    private DebtorRepo debtorRepo;
+    @Mock
+    private UserService userService;
+    @Mock
+    private DebtorDetailsService debtorDetailsService;
+    @Mock
+    private DebtorHistoryService debtorHistoryService;
+
 
     @Test
     public void name_to_change(){

@@ -1309,3 +1309,16 @@ id : null
 name : Ada
 2019-09-28 17:33:31 DEBUG DebtorService:84 - Delete DebtorDetails
 id : 1
+2019-09-28 18:28:39 DEBUG DebtorService:105 - Debtor with the biggest debt
+id : null
+2019-09-28 18:28:39 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-09-28 18:28:39 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-09-28 18:28:39 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-09-28 18:28:39 DEBUG DebtorService:84 - Delete DebtorDetails
+id : 1
