@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp;
+package pl.bykowski.rectangleapp.services;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +8,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.DebtorHistory;
 import pl.bykowski.rectangleapp.repositories.DebtorHistoryRepo;
-import pl.bykowski.rectangleapp.services.DebtorHistoryService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

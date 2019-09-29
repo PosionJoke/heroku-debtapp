@@ -1347,3 +1347,82 @@ id : null
 2019-09-29 13:36:54 DEBUG DebtorHistoryService:35 - Save DebtorHistory
 id : null
  based on DebtorDetails id : null
+2019-09-29 13:47:26 DEBUG DebtorHistoryService:35 - Save DebtorHistory
+id : null
+ based on DebtorDetails id : null
+2019-09-29 13:47:52 DEBUG DebtorService:105 - Debtor with the biggest debt
+id : 48
+2019-09-29 13:47:52 DEBUG DebtorService:109 - Debtor with the biggest debt
+id : 48
+ Debt Value : 10113.0
+2019-09-29 13:47:52 DEBUG DebtorDTOService:61 - Id debtor with highest count of debts : 47
+Count of debts : 15
+2019-09-29 13:47:54 DEBUG DebtorDetailsDTOService:20 - Size of DebtorDetailsDTOList : 18
+Size of input List : 18
+2019-09-29 14:12:30 DEBUG DebtorDetailsService:29 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-09-29 14:14:27 DEBUG DebtorDetailsService:29 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-09-29 14:16:09 DEBUG DebtorDetailsService:29 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-09-29 14:16:13 DEBUG DebtorDetailsService:29 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-09-29 14:16:30 DEBUG DebtorDetailsService:29 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-09-29 14:44:16 DEBUG DebtorDetailsService:81 - Delete DebtorDetails
+id : null
+2019-09-29 14:44:20 DEBUG DebtorDetailsService:81 - Delete DebtorDetails
+id : null
+2019-09-29 14:51:09 DEBUG DebtorDetailsService:67 - Update totalDebt
+id : null
+actual debt : 10
+added value : 10
+new debt20
+2019-09-29 14:51:28 DEBUG DebtorDetailsService:67 - Update totalDebt
+id : null
+actual debt : 10
+added value : 10
+new debt20
+2019-09-29 14:51:35 DEBUG DebtorDetailsService:67 - Update totalDebt
+id : null
+actual debt : 10
+added value : 10
+new debt20
+2019-09-29 14:55:17 DEBUG DebtorDetailsService:64 - Delete DebtorDetails
+id : null
+Debt should be equals 0 : 0
+2019-09-29 14:55:58 DEBUG DebtorDetailsService:64 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-09-29 14:55:58 DEBUG DebtorDetailsService:81 - Delete DebtorDetails
+id : 3
+2019-09-29 14:56:54 DEBUG DebtorDetailsService:64 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-09-29 14:56:54 DEBUG DebtorDetailsService:81 - Delete DebtorDetails
+id : 3
+2019-09-29 14:57:26 DEBUG DebtorDetailsService:64 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-09-29 14:57:26 DEBUG DebtorDetailsService:81 - Delete DebtorDetails
+id : 3
+2019-09-29 14:58:59 DEBUG DebtorDetailsService:64 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-09-29 14:59:39 DEBUG DebtorDetailsService:81 - Delete DebtorDetails
+id : 3
+2019-09-29 15:01:42 DEBUG DebtorDetailsService:64 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-09-29 15:01:42 DEBUG DebtorDetailsService:81 - Delete DebtorDetails
+id : 3
+2019-09-29 15:01:45 DEBUG DebtorDetailsService:64 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-09-29 15:01:45 DEBUG DebtorDetailsService:81 - Delete DebtorDetails
+id : 3

@@ -30,7 +30,7 @@ public class DebtorDetailsService {
         debtorDetailsRepo.save(debtorDetails);
     }
 
-    public DebtorDetails addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor) {
+    DebtorDetails addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor) {
         DebtorDetails debtorDetails = new DebtorDetails();
         debtorDetails.setName(debtorName);
         debtorDetails.setDebt(debtValue);
@@ -49,11 +49,11 @@ public class DebtorDetailsService {
         debtorDetails.ifPresent(debtorD -> isThisDebtUnderZero(debtorD, debtValue));
     }
 
-    public Optional<DebtorDetails> findById(Long id) {
+    Optional<DebtorDetails> findById(Long id) {
         return debtorDetailsRepo.findById(id);
     }
 
-    public void deleteById(Long id) {
+    void deleteById(Long id) {
         debtorDetailsRepo.deleteById(id);
     }
 

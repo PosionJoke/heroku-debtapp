@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp;
+package pl.bykowski.rectangleapp.services;
 
 
 import org.junit.Test;
@@ -10,10 +10,6 @@ import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
-import pl.bykowski.rectangleapp.services.DebtorDetailsService;
-import pl.bykowski.rectangleapp.services.DebtorHistoryService;
-import pl.bykowski.rectangleapp.services.DebtorService;
-import pl.bykowski.rectangleapp.services.UserService;
 
 import java.math.BigDecimal;
 import java.security.Principal;
