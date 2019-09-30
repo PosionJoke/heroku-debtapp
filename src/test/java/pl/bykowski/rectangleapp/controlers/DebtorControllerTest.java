@@ -4,44 +4,30 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import pl.bykowski.rectangleapp.config.UserPrincipalDetailsService;
-import pl.bykowski.rectangleapp.controller.DebtorController;
-import pl.bykowski.rectangleapp.controller.todelete.EmployeeService;
-import pl.bykowski.rectangleapp.repositories.DebtorRepo;
+import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.services.DebtorService;
-import pl.bykowski.rectangleapp.services.GreetingService;
-import pl.bykowski.rectangleapp.services.tdo_services.DebtorDTOService;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.format.support.DefaultFormattingConversionService;
-import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(SpringRunner.class)
-//@WebMvcTest(DebtorController.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DebtorControllerTest {
 
-//    @Autowired
     private MockMvc mvc;
 
     @Autowired
@@ -50,18 +36,6 @@ public class DebtorControllerTest {
     @MockBean
     private DebtorService debtorService;
 
-    @MockBean
-    private UserPrincipalDetailsService userPrincipalDetailsService;
-    @MockBean
-    private DebtorRepo debtorRepo;
-    @MockBean
-    private DebtorDTOService debtorDTOService;
-
-    @MockBean
-    private EmployeeService employeeService;
-
-    @MockBean
-    private GreetingService greetingService;
 
     @Before
     public void init(){
@@ -73,12 +47,27 @@ public class DebtorControllerTest {
 
     @WithMockUser("spring")
     @Test
-    public void should_be_status_server_ok() throws Exception {
-        given(greetingService.greet()).willReturn("Hello World");
+    public void should_be_status_server_ok_get_debtorList() throws Exception {
+        //given
+        String userName = "spring";
+        List<Debtor> debtorList = Arrays.asList();
+        given(debtorService.findByUserName(userName)).willReturn(debtorList);
 
-        mvc.perform(get("/private/hello").contentType(MediaType.APPLICATION_JSON))
+        //when
+        mvc.perform(get("/debtor-list"))
+                .andExpect(model().size(1))
+                .andExpect(model().attribute("debtors", debtorList))
                 .andExpect(status().isOk());
+        //then
+        verify(debtorService).findByUserName(userName);
     }
+
+    @WithMockUser("spring")
+    @Test
+    public void should_be_status_server_ok_get_debtorDebtEdit() throws Exception {
+        //given
+        //when
+        //then
+    }
+
 }
-
-
