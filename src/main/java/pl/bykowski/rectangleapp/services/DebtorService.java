@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp.services;
 
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +17,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Log4j
 @Service
 public class DebtorService {
-
-    private static final Logger logger = Logger.getLogger(DebtorService.class);
 
     private final DebtorRepo debtorRepo;
     private final UserService userService;
@@ -35,7 +35,7 @@ public class DebtorService {
     }
 
     private void saveDebtor(Debtor debtor) {
-        logger.debug("Save Debtor\nid : " + debtor.getId() + "\nname : " + debtor.getName());
+        log.debug("Save Debtor\nid : " + debtor.getId() + "\nname : " + debtor.getName());
         debtorRepo.save(debtor);
     }
 
@@ -82,7 +82,7 @@ public class DebtorService {
         debtorDetails.ifPresentOrElse(debtorDetails1 ->
                         updateTotalDebt(debtorDetails1.getDebtor().getId(), debtorDetailsDTO.getDebt(), debtorDetails1.getUserName())
                 ,
-                () -> logger.debug("@PostMapping /debtor-details-save \ndebtorDetails must be present")
+                () -> log.debug("@PostMapping /debtor-details-save \ndebtorDetails must be present")
         );
     }
 
@@ -92,7 +92,7 @@ public class DebtorService {
             updateTotalDebt(debtorDetails1.getId(), debtorDetails1.getDebt().multiply(new BigDecimal(-1)), principal.getName());
             debtorHistoryService.saveEntityDebtorHistory(debtorDetails1);
         });
-        logger.debug("Delete DebtorDetails\nid : " + id);
+        log.debug("Delete DebtorDetails\nid : " + id);
         debtorDetailsService.deleteById(id);
     }
     public void addNewDebtor(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName) {
@@ -113,13 +113,13 @@ public class DebtorService {
         Optional<Debtor> debtorFind = findByUserName(principal.getName())
                 .stream()
                 .max(Comparator.comparing(Debtor::getTotalDebt));
-        logger.debug("Debtor with the biggest debt\nid : " + debtorFind.get().getId());
+        log.debug("Debtor with the biggest debt\nid : " + debtorFind.get().getId());
 
         //TODO looks weird, try to make it better
         debtorFind.ifPresentOrElse(debtor -> {
-            logger.debug("Debtor with the biggest debt\nid : " + debtor.getId() +
+            log.debug("Debtor with the biggest debt\nid : " + debtor.getId() +
                     "\n Debt Value : " + debtor.getTotalDebt());
-        }, () -> logger.debug("Can't find debtor"));
+        }, () -> log.debug("Can't find debtor"));
 
         return debtorFind;
     }

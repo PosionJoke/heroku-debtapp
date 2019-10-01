@@ -1,6 +1,7 @@
 package pl.bykowski.rectangleapp.services;
 
 import io.vavr.concurrent.Future;
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,10 +19,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+@Log4j
 @Service
 public class UserService {
-
-    private static final Logger logger = Logger.getLogger(UserService.class);
 
     private final DebtorUserRepo debtorUserRepo;
     private final RoleRepository roleRepository;
@@ -74,7 +74,7 @@ public class UserService {
 
     public String generateNewAuthenticationCode(){
         String authenticationCode = String.valueOf((int) (Math.random() * 1000000));
-        logger.debug("Authentication code : " + authenticationCode);
+        log.debug("Authentication code : " + authenticationCode);
         return authenticationCode;
     }
 
@@ -87,7 +87,7 @@ public class UserService {
     }
 
     public void save(DebtorUser debtorUser){
-        logger.debug("Save User\nid : " + debtorUser.getId() +
+        log.debug("Save User\nid : " + debtorUser.getId() +
                 "\nname : " + debtorUser.getName() +
                 "\nemail : " + debtorUser.getEmail());
         debtorUserRepo.save(debtorUser);

@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp.services;
 
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -9,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+@Log4j
 @Service
 public class NotificationService {
-    private static final Logger logger = Logger.getLogger(NotificationService.class);
     private static final String APP_MAIL = "rostkowskiadrian00@gmail.com";
 
     private final JavaMailSender javaMailSender;
@@ -30,7 +31,7 @@ public class NotificationService {
             mail.setSubject("Welcome to my app :D");
             mail.setText("AuthenticationCode = " + code);
             javaMailSender.send(mail);
-            logger.debug("Mail has been sent" +
+            log.debug("Mail has been sent" +
                     "\nfrom : " + APP_MAIL +
                     "\nto : " + email);
 

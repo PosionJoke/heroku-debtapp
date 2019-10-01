@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp.services.tdo_services;
 
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import pl.bykowski.rectangleapp.model.Debtor;
@@ -12,10 +13,10 @@ import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Log4j
 @Service
 public class DebtorDTOService {
 
-    private static final Logger logger = Logger.getLogger(DebtorDTOService.class);
     private DebtorDetailsService debtorDetailsService;
     private DebtorService debtorService;
 
@@ -58,7 +59,7 @@ public class DebtorDTOService {
         DebtorDTO debtorDTO = debtor.map(this::returnDebtorDTO).orElse(new DebtorDTO());
         debtorDTO.setCountOfDebts(countOfDebts);
 
-        logger.debug("Id debtor with highest count of debts : " + debtorId + "\n" +
+        log.debug("Id debtor with highest count of debts : " + debtorId + "\n" +
                 "Count of debts : " + countOfDebts);
         return debtorDTO;
     }

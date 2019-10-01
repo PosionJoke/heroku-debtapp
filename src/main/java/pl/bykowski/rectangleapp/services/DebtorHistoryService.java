@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp.services;
 
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
@@ -12,9 +13,9 @@ import java.util.Objects;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+@Log4j
 @Service
 public class DebtorHistoryService {
-    private static final Logger logger = Logger.getLogger(DebtorHistoryService.class);
 
     private final DebtorHistoryRepo debtorHistoryRepo;
 
@@ -32,7 +33,7 @@ public class DebtorHistoryService {
         long daysBetween = DAYS.between(debtorDetails.getDate(), LocalDate.now());
         debtorHistory.setTimeOfDebt(daysBetween);
 
-        logger.debug("Save DebtorHistory\nid : " + debtorHistory.getId() +
+        log.debug("Save DebtorHistory\nid : " + debtorHistory.getId() +
                 "\n based on DebtorDetails id : " + debtorDetails.getId());
         debtorHistoryRepo.save(debtorHistory);
     }
