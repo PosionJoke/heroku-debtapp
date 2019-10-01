@@ -13,7 +13,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 import pl.bykowski.rectangleapp.model.Debtor;
+import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
+import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.services.DebtorService;
+import pl.bykowski.rectangleapp.services.tdo_services.DebtorDTOService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +29,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 @RunWith(SpringRunner.class)
@@ -39,6 +43,10 @@ public class DebtorControllerTest {
 
     @MockBean
     private DebtorService debtorService;
+    @MockBean
+    private DebtorDTOService debtorDTOService;
+    @MockBean
+    private DebtorRepo debtorRepo;
 
 
     @Before
@@ -88,17 +96,25 @@ public class DebtorControllerTest {
     @Test
     public void should_be_status_server_ok_get_debtorDebtEdit() throws Exception {
         //given
+        String debtorName = "Adam";
         LinkedMultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
         requestParams.add("id", "1");
-        requestParams.add("name", "Adam");
+        requestParams.add("name", debtorName);
+
+        Debtor debtor = new Debtor();
+        debtor.setName(debtorName);
+        given(debtorRepo.findByName(debtorName)).willReturn(java.util.Optional.of(debtor));
         //when
         mvc.perform(get("/debtor-debt-edit")
                 .params(requestParams))
-                    .andExpect(status().isOk())
-                    .andExpect(model().attribute("id", 1L))
-                    .andExpect(model().attribute("name", "Adam"))
-                    .andExpect(model().size(3));
+                .andExpect(status().isOk())
+                .andExpect(model().size(3))
+                .andExpect(view().name("debtor-debt-edit"))
+                .andExpect(model().attribute("id", 1L))
+                .andExpect(model().attribute("debtor", new DebtorDTO()))
+                .andExpect(model().attribute("name", "Adam"));
         //then
+        verify(debtorDTOService).returnDebtorDTO(debtor);
     }
 
 }
