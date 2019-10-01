@@ -44,7 +44,6 @@ public class DebtorController {
     public ModelAndView debtorDebtEdit(@RequestParam Long id, @RequestParam String name) {
         Optional<Debtor> debtorOptional = debtorRepo.findByName(name);
 
-//        DebtorDTO debtorDTO = debtorDTOService.returnDebtorDTO(debtor);
         DebtorDTO debtorDTO = debtorOptional
                 .map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
                 .orElse(new DebtorDTO());
@@ -56,8 +55,8 @@ public class DebtorController {
 
     @PostMapping("/debtor-save")
     public ModelAndView saveDebtor(@ModelAttribute DebtorDTO debtorDTO, Principal principal,
-                                   @RequestParam String name, @RequestParam Long id) {
-        Optional<Debtor> debtorToUpdateOptional = debtorRepo.findByName(name);
+                                   @RequestParam Long id) {
+        Optional<Debtor> debtorToUpdateOptional = debtorRepo.findById(id);
 
         BigDecimal actualTotalDebt = debtorToUpdateOptional
                 .map(Debtor::getTotalDebt)

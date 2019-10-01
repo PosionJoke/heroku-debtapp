@@ -17,8 +17,10 @@ import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
 import pl.bykowski.rectangleapp.repositories.RoleRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+
 
 @RunWith(SpringRunner.class)
 public class UserServiceTest {
@@ -61,6 +63,7 @@ public class UserServiceTest {
         role.setName(roleName);
         role.setId(roleId);
     }
+
 
     @Test
     public void should_return_UserDTO_based_on_DebtorUserDTO() {
