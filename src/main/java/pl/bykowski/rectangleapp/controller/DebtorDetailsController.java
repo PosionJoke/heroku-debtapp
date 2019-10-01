@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp.controller;
 
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +21,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Log4j
 @Controller
 public class DebtorDetailsController {
-
-    private static final Logger logger = Logger.getLogger(DebtorDetailsController.class);
 
     private final DebtorDetailsRepo debtorDetailsRepo;
     private final DebtorDetailsService debtorDetailsService;
