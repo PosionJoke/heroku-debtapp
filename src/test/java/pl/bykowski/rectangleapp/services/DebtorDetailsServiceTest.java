@@ -4,14 +4,9 @@ import junitparams.JUnitParamsRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.test.context.junit4.SpringRunner;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
-import pl.bykowski.rectangleapp.repositories.DebtorHistoryRepo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,19 +15,15 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-//@RunWith(SpringRunner.class)
 @RunWith(JUnitParamsRunner.class)
 public class DebtorDetailsServiceTest {
 
-    @InjectMocks
     private DebtorDetailsService debtorDetailsService;
-    @Mock
     private DebtorDetailsRepo debtorDetailsRepo;
-//    @InjectMocks
-    private DebtorHistoryService debtorHistoryService = Mockito.mock(DebtorHistoryService.class);
-    private DebtorHistoryRepo debtorHistoryRepo;
+    private DebtorHistoryService debtorHistoryService = mock(DebtorHistoryService.class);
 
     private String debtorName;
     private Long debtorId;
@@ -45,11 +36,7 @@ public class DebtorDetailsServiceTest {
 
     @Before
     public void init() {
-
-        debtorDetailsRepo = Mockito.mock(DebtorDetailsRepo.class);
-        debtorHistoryRepo = Mockito.mock(DebtorHistoryRepo.class);
-
-//        debtorHistoryService = new DebtorHistoryService(debtorHistoryRepo);
+        debtorDetailsRepo = mock(DebtorDetailsRepo.class);
 
         debtorDetailsService = new DebtorDetailsService(debtorDetailsRepo, debtorHistoryService);
 

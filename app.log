@@ -262,3 +262,408 @@ Size of input List : 2
 Count of debts : 2
 2019-10-03 18:51:05 DEBUG DebtorDTOService:62 - Id debtor with highest count of debts : 1
 Count of debts : 2
+2019-10-03 20:24:26 DEBUG DebtorService:116 - Debtor with the biggest debt
+id : null
+2019-10-03 20:24:26 DEBUG DebtorService:120 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-10-03 20:24:26 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-10-03 20:24:26 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-10-03 20:24:26 DEBUG DebtorService:95 - Delete DebtorDetails
+id : 1
+2019-10-03 20:24:26 DEBUG DebtorService:85 - @PostMapping /debtor-details-save 
+debtorDetails must be present
+2019-10-03 20:27:00 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : 1111
+2019-10-03 20:27:00 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : example@email.com
+2019-10-03 20:27:19 DEBUG UserService:90 - Save User
+id : null
+name : null
+email : null
+2019-10-03 20:27:19 DEBUG UserService:77 - Authentication code : 610780
+2019-10-03 20:31:06 DEBUG UserService:90 - Save User
+id : null
+name : null
+email : null
+2019-10-03 20:31:06 DEBUG UserService:77 - Authentication code : 124547
+2019-10-03 20:31:16 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
+Size of input List : 2
+2019-10-03 20:31:17 DEBUG DebtorDetailsService:33 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-10-03 20:31:17 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 1
+2019-10-03 20:31:17 DEBUG DebtorDetailsService:71 - Update totalDebt
+id : 3
+actual debt : 10
+added value : 10
+new debt20
+2019-10-03 20:31:17 DEBUG DebtorDetailsService:68 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-10-03 20:31:17 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 3
+2019-10-03 20:31:17 DEBUG DebtorDTOService:62 - Id debtor with highest count of debts : 1
+Count of debts : 2
+2019-10-03 20:31:17 DEBUG DebtorHistoryService:36 - Save DebtorHistory
+id : null
+ based on DebtorDetails id : null
+2019-10-03 20:31:17 DEBUG DebtorService:116 - Debtor with the biggest debt
+id : null
+2019-10-03 20:31:17 DEBUG DebtorService:120 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-10-03 20:31:17 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-10-03 20:31:17 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-10-03 20:31:17 DEBUG DebtorService:95 - Delete DebtorDetails
+id : 1
+2019-10-03 20:31:17 DEBUG DebtorService:85 - @PostMapping /debtor-details-save 
+debtorDetails must be present
+2019-10-03 20:31:17 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : 1111
+2019-10-03 20:31:17 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : example@email.com
+2019-10-03 20:31:18 DEBUG UserService:90 - Save User
+id : null
+name : null
+email : null
+2019-10-03 20:31:18 DEBUG UserService:77 - Authentication code : 702524
+2019-10-03 20:37:41 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
+Size of input List : 2
+2019-10-03 20:37:42 DEBUG DebtorDetailsService:33 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-10-03 20:37:42 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 1
+2019-10-03 20:37:42 DEBUG DebtorDetailsService:71 - Update totalDebt
+id : 3
+actual debt : 10
+added value : 10
+new debt20
+2019-10-03 20:37:42 DEBUG DebtorDetailsService:68 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-10-03 20:37:42 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 3
+2019-10-03 20:37:42 DEBUG DebtorDTOService:62 - Id debtor with highest count of debts : 1
+Count of debts : 2
+2019-10-03 20:37:42 DEBUG DebtorHistoryService:36 - Save DebtorHistory
+id : null
+ based on DebtorDetails id : null
+2019-10-03 20:37:42 DEBUG DebtorService:116 - Debtor with the biggest debt
+id : null
+2019-10-03 20:37:42 DEBUG DebtorService:120 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-10-03 20:37:42 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-10-03 20:37:42 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-10-03 20:37:42 DEBUG DebtorService:95 - Delete DebtorDetails
+id : 1
+2019-10-03 20:37:42 DEBUG DebtorService:85 - @PostMapping /debtor-details-save 
+debtorDetails must be present
+2019-10-03 20:37:42 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : 1111
+2019-10-03 20:37:42 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : example@email.com
+2019-10-03 20:37:43 DEBUG UserService:90 - Save User
+id : null
+name : null
+email : null
+2019-10-03 20:37:43 DEBUG UserService:77 - Authentication code : 50403
+2019-10-03 20:38:03 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
+Size of input List : 2
+2019-10-03 20:38:04 DEBUG DebtorDetailsService:33 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-10-03 20:38:04 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 1
+2019-10-03 20:38:04 DEBUG DebtorDetailsService:71 - Update totalDebt
+id : 3
+actual debt : 10
+added value : 10
+new debt20
+2019-10-03 20:38:04 DEBUG DebtorDetailsService:68 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-10-03 20:38:04 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 3
+2019-10-03 20:38:04 DEBUG DebtorDTOService:62 - Id debtor with highest count of debts : 1
+Count of debts : 2
+2019-10-03 20:38:04 DEBUG DebtorHistoryService:36 - Save DebtorHistory
+id : null
+ based on DebtorDetails id : null
+2019-10-03 20:38:04 DEBUG DebtorService:116 - Debtor with the biggest debt
+id : null
+2019-10-03 20:38:04 DEBUG DebtorService:120 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-10-03 20:38:04 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-10-03 20:38:04 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-10-03 20:38:04 DEBUG DebtorService:95 - Delete DebtorDetails
+id : 1
+2019-10-03 20:38:04 DEBUG DebtorService:85 - @PostMapping /debtor-details-save 
+debtorDetails must be present
+2019-10-03 20:38:04 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : 1111
+2019-10-03 20:38:04 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : example@email.com
+2019-10-03 20:38:04 DEBUG UserService:90 - Save User
+id : null
+name : null
+email : null
+2019-10-03 20:38:04 DEBUG UserService:77 - Authentication code : 663377
+2019-10-03 20:38:24 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
+Size of input List : 2
+2019-10-03 20:38:25 DEBUG DebtorDetailsService:33 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-10-03 20:38:25 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 1
+2019-10-03 20:38:25 DEBUG DebtorDetailsService:71 - Update totalDebt
+id : 3
+actual debt : 10
+added value : 10
+new debt20
+2019-10-03 20:38:25 DEBUG DebtorDetailsService:68 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-10-03 20:38:25 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 3
+2019-10-03 20:38:25 DEBUG DebtorDTOService:62 - Id debtor with highest count of debts : 1
+Count of debts : 2
+2019-10-03 20:38:25 DEBUG DebtorHistoryService:36 - Save DebtorHistory
+id : null
+ based on DebtorDetails id : null
+2019-10-03 20:38:25 DEBUG DebtorService:116 - Debtor with the biggest debt
+id : null
+2019-10-03 20:38:25 DEBUG DebtorService:120 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-10-03 20:38:25 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-10-03 20:38:25 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-10-03 20:38:25 DEBUG DebtorService:95 - Delete DebtorDetails
+id : 1
+2019-10-03 20:38:25 DEBUG DebtorService:85 - @PostMapping /debtor-details-save 
+debtorDetails must be present
+2019-10-03 20:38:25 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : 1111
+2019-10-03 20:38:25 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : example@email.com
+2019-10-03 20:38:25 DEBUG UserService:90 - Save User
+id : null
+name : null
+email : null
+2019-10-03 20:38:25 DEBUG UserService:77 - Authentication code : 259912
+2019-10-03 20:39:58 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
+Size of input List : 2
+2019-10-03 20:39:59 DEBUG DebtorDetailsService:33 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-10-03 20:39:59 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 1
+2019-10-03 20:39:59 DEBUG DebtorDetailsService:71 - Update totalDebt
+id : 3
+actual debt : 10
+added value : 10
+new debt20
+2019-10-03 20:39:59 DEBUG DebtorDetailsService:68 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-10-03 20:39:59 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 3
+2019-10-03 20:39:59 DEBUG DebtorDTOService:62 - Id debtor with highest count of debts : 1
+Count of debts : 2
+2019-10-03 20:39:59 DEBUG DebtorHistoryService:36 - Save DebtorHistory
+id : null
+ based on DebtorDetails id : null
+2019-10-03 20:39:59 DEBUG DebtorService:116 - Debtor with the biggest debt
+id : null
+2019-10-03 20:39:59 DEBUG DebtorService:120 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-10-03 20:39:59 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-10-03 20:39:59 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-10-03 20:39:59 DEBUG DebtorService:95 - Delete DebtorDetails
+id : 1
+2019-10-03 20:39:59 DEBUG DebtorService:85 - @PostMapping /debtor-details-save 
+debtorDetails must be present
+2019-10-03 20:39:59 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : 1111
+2019-10-03 20:39:59 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : example@email.com
+2019-10-03 20:39:59 DEBUG UserService:90 - Save User
+id : null
+name : null
+email : null
+2019-10-03 20:39:59 DEBUG UserService:77 - Authentication code : 179329
+2019-10-03 20:41:17 DEBUG UserService:90 - Save User
+id : null
+name : null
+email : null
+2019-10-03 20:41:17 DEBUG UserService:77 - Authentication code : 754102
+2019-10-03 20:42:47 DEBUG DebtorService:116 - Debtor with the biggest debt
+id : null
+2019-10-03 20:42:47 DEBUG DebtorService:120 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-10-03 20:42:47 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-10-03 20:42:47 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-10-03 20:42:47 DEBUG DebtorService:95 - Delete DebtorDetails
+id : 1
+2019-10-03 20:42:47 DEBUG DebtorService:85 - @PostMapping /debtor-details-save 
+debtorDetails must be present
+2019-10-03 20:43:42 DEBUG DebtorDTOService:62 - Id debtor with highest count of debts : 1
+Count of debts : 2
+2019-10-03 20:43:57 DEBUG DebtorDTOService:62 - Id debtor with highest count of debts : 1
+Count of debts : 2
+2019-10-03 20:44:47 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
+Size of input List : 2
+2019-10-03 20:44:48 DEBUG DebtorDetailsService:33 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-10-03 20:44:48 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 1
+2019-10-03 20:44:48 DEBUG DebtorDetailsService:71 - Update totalDebt
+id : 3
+actual debt : 10
+added value : 10
+new debt20
+2019-10-03 20:44:48 DEBUG DebtorDetailsService:68 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-10-03 20:44:48 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 3
+2019-10-03 20:44:48 DEBUG DebtorDTOService:62 - Id debtor with highest count of debts : 1
+Count of debts : 2
+2019-10-03 20:44:48 DEBUG DebtorHistoryService:36 - Save DebtorHistory
+id : null
+ based on DebtorDetails id : null
+2019-10-03 20:44:48 DEBUG DebtorService:116 - Debtor with the biggest debt
+id : null
+2019-10-03 20:44:48 DEBUG DebtorService:120 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-10-03 20:44:48 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-10-03 20:44:48 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-10-03 20:44:48 DEBUG DebtorService:95 - Delete DebtorDetails
+id : 1
+2019-10-03 20:44:48 DEBUG DebtorService:85 - @PostMapping /debtor-details-save 
+debtorDetails must be present
+2019-10-03 20:44:48 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : 1111
+2019-10-03 20:44:48 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : example@email.com
+2019-10-03 20:44:48 DEBUG UserService:90 - Save User
+id : null
+name : null
+email : null
+2019-10-03 20:44:48 DEBUG UserService:77 - Authentication code : 964996
+2019-10-03 20:45:34 DEBUG DebtorDetailsService:33 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-10-03 20:45:34 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 1
+2019-10-03 20:45:34 DEBUG DebtorDetailsService:71 - Update totalDebt
+id : 3
+actual debt : 10
+added value : 10
+new debt20
+2019-10-03 20:45:34 DEBUG DebtorDetailsService:68 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-10-03 20:45:34 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 3
+2019-10-03 20:47:49 DEBUG DebtorDetailsService:33 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-10-03 20:47:49 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 1
+2019-10-03 20:47:49 DEBUG DebtorDetailsService:71 - Update totalDebt
+id : 3
+actual debt : 10
+added value : 10
+new debt20
+2019-10-03 20:47:49 DEBUG DebtorDetailsService:68 - Delete DebtorDetails
+id : 3
+Debt should be equals 0 : 0
+2019-10-03 20:47:49 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
+id : 3
+2019-10-03 20:50:44 DEBUG DebtorService:116 - Debtor with the biggest debt
+id : null
+2019-10-03 20:50:44 DEBUG DebtorService:120 - Debtor with the biggest debt
+id : null
+ Debt Value : 0
+2019-10-03 20:50:45 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Michal
+2019-10-03 20:50:45 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-10-03 20:50:45 DEBUG DebtorService:95 - Delete DebtorDetails
+id : 1
+2019-10-03 20:50:45 DEBUG DebtorService:85 - @PostMapping /debtor-details-save 
+debtorDetails must be present
+2019-10-03 20:50:53 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : 1111
+2019-10-03 20:50:53 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : example@email.com
+2019-10-03 20:51:17 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : 1111
+2019-10-03 20:51:17 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : example@email.com
+2019-10-03 20:51:53 DEBUG UserService:90 - Save User
+id : null
+name : null
+email : null
+2019-10-03 20:51:53 DEBUG UserService:77 - Authentication code : 616785

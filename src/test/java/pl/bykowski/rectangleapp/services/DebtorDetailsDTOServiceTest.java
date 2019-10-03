@@ -4,9 +4,6 @@ import junitparams.JUnitParamsRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.springframework.test.context.junit4.SpringRunner;
-import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.services.tdo_services.DebtorDetailsDTOService;
@@ -17,11 +14,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-//@RunWith(SpringRunner.class)
 @RunWith(JUnitParamsRunner.class)
 public class DebtorDetailsDTOServiceTest {
 
-//    @InjectMocks
     private DebtorDetailsDTOService debtorDetailsDTOService;
 
     @Before

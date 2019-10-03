@@ -1,23 +1,26 @@
 package pl.bykowski.rectangleapp.services;
 
+import junitparams.JUnitParamsRunner;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
-@RunWith(SpringRunner.class)
+@RunWith(JUnitParamsRunner.class)
 public class NotificationServiceTest {
 
-    @InjectMocks
     private NotificationService notificationService;
-    @Mock
-    private JavaMailSender javaMailSender;
+
+    @Before
+    public void init(){
+        JavaMailSender javaMailSender = mock(JavaMailSender.class);
+        notificationService = new NotificationService(javaMailSender);
+    }
 
     @Test
     public void should_return_true_when_email_was_correct() {

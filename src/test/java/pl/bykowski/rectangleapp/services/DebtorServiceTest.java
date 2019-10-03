@@ -5,9 +5,6 @@ import junitparams.JUnitParamsRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.test.context.junit4.SpringRunner;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
@@ -22,26 +19,29 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-@RunWith(SpringRunner.class)
+@RunWith(JUnitParamsRunner.class)
 public class DebtorServiceTest {
 
-    @InjectMocks
     private DebtorService debtorService;
-    @Mock
     private DebtorRepo debtorRepo;
-    @Mock
     private UserService userService;
-    @Mock
     private DebtorDetailsService debtorDetailsService;
-    @Mock
     private DebtorHistoryService debtorHistoryService;
+    private Principal principal;
 
 
     @Before
     public void init(){
+        principal = mock(Principal.class);
+        debtorRepo = mock(DebtorRepo.class);
+        userService = mock(UserService.class);
+        debtorDetailsService = mock(DebtorDetailsService.class);
+        debtorHistoryService = mock(DebtorHistoryService.class);
 
+        debtorService = new DebtorService(debtorRepo, userService, debtorDetailsService, debtorHistoryService);
     }
 
     @Test
@@ -167,12 +167,12 @@ public class DebtorServiceTest {
     public void delete_debtorDetails_update_total_debt_make_new_debtor_history() {
         //given
         Long id = 1L;
-        Principal principal = new Principal() {
-            @Override
-            public String getName() {
-                return "Adrian";
-            }
-        };
+//        Principal principal = new Principal() {
+//            @Override
+//            public String getName() {
+//                return "Adrian";
+//            }
+//        };
         DebtorDetails debtorDetails = new DebtorDetails();
         given(debtorDetailsService.findById(id)).willReturn(Optional.of(debtorDetails));
         //when

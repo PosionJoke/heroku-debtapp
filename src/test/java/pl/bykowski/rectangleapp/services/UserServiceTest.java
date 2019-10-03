@@ -1,14 +1,12 @@
 package pl.bykowski.rectangleapp.services;
 
+import junitparams.JUnitParamsRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.junit4.SpringRunner;
 import pl.bykowski.rectangleapp.model.DebtorUser;
 import pl.bykowski.rectangleapp.model.Role;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
@@ -17,28 +15,18 @@ import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
 import pl.bykowski.rectangleapp.repositories.RoleRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 
-@RunWith(SpringRunner.class)
+@RunWith(JUnitParamsRunner.class)
 public class UserServiceTest {
 
-    @InjectMocks
     private UserService userService;
-    @Mock
     private DebtorUserRepo debtorUserRepo;
-    @Mock
     private RoleRepository roleRepository;
-    @Mock
     private PasswordEncoder passwordEncoder;
-    @Mock
-    private NotificationService notificationService;
-    @Mock
-    private Authentication authentication;
-    @Mock
-    private SecurityContextHolder securityContextHolder;
 
     private DebtorUserDTO debtorUserDTO = new DebtorUserDTO();
     private String debtorName;
@@ -51,6 +39,14 @@ public class UserServiceTest {
 
     @Before
     public void init() {
+        debtorUserRepo = mock(DebtorUserRepo.class);
+        roleRepository = mock(RoleRepository.class);
+        passwordEncoder = mock(PasswordEncoder.class);
+        NotificationService notificationService = mock(NotificationService.class);
+
+        userService = new UserService(debtorUserRepo, roleRepository, passwordEncoder, notificationService);
+
+
         debtorName = "Ada";
         roleName = "ROLE_USER";
         password2 = "admin1234";
