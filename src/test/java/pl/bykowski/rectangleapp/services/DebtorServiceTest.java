@@ -1,6 +1,8 @@
 package pl.bykowski.rectangleapp.services;
 
 
+import junitparams.JUnitParamsRunner;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -36,6 +38,11 @@ public class DebtorServiceTest {
     @Mock
     private DebtorHistoryService debtorHistoryService;
 
+
+    @Before
+    public void init(){
+
+    }
 
     @Test
     public void name_to_change(){

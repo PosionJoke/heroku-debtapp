@@ -1,13 +1,19 @@
 package pl.bykowski.rectangleapp.services;
 
+import junitparams.JUnitParamsRunner;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
+import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
+import pl.bykowski.rectangleapp.repositories.DebtorHistoryRepo;
+import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.services.tdo_services.DebtorDTOService;
 
 import java.math.BigDecimal;
@@ -19,17 +25,38 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
+@RunWith(JUnitParamsRunner.class)
 public class DebtorDTOServiceTest {
 
-    @InjectMocks
+//    @InjectMocks
     private DebtorDTOService debtorDTOService;
-    @Mock
+//    @Mock
     private DebtorDetailsService debtorDetailsService;
-    @Mock
+//    @Mock
     private DebtorService debtorService;
-    @Mock
+//    @Mock
     private Principal principal;
+//    private final DebtorRepo debtorRepo;
+//    private final UserService userService;
+//    private final DebtorDetailsService debtorDetailsService;
+//    private final DebtorHistoryService debtorHistoryService;
+    @Before
+    public void init(){
+        principal = Mockito.mock(Principal.class);
+
+        DebtorDetailsRepo debtorDetailsRepo = Mockito.mock(DebtorDetailsRepo.class);
+        DebtorHistoryRepo debtorHistoryRepo = Mockito.mock(DebtorHistoryRepo.class);
+        DebtorHistoryService debtorHistoryService = new DebtorHistoryService(debtorHistoryRepo);
+        debtorDetailsService = new DebtorDetailsService(debtorDetailsRepo, debtorHistoryService);
+
+        DebtorRepo debtorRepo = Mockito.mock(DebtorRepo.class);
+        UserService userService = Mockito.mock(UserService.class);
+
+//         debtorService = new DebtorService(debtorRepo, userService, debtorDetailsService, debtorHistoryService);
+         debtorService = Mockito.mock(DebtorService.class);
+        debtorDTOService = new DebtorDTOService(debtorDetailsService, debtorService);
+    }
 
     @Test
     public void should_return_debtorDTOList_based_on_debtorList() {

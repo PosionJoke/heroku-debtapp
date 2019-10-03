@@ -1,14 +1,17 @@
 package pl.bykowski.rectangleapp.services;
 
+import junitparams.JUnitParamsRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
+import pl.bykowski.rectangleapp.repositories.DebtorHistoryRepo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,15 +22,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
+@RunWith(JUnitParamsRunner.class)
 public class DebtorDetailsServiceTest {
 
     @InjectMocks
     private DebtorDetailsService debtorDetailsService;
     @Mock
     private DebtorDetailsRepo debtorDetailsRepo;
-    @Mock
-    private DebtorHistoryService debtorHistoryService;
+//    @InjectMocks
+    private DebtorHistoryService debtorHistoryService = Mockito.mock(DebtorHistoryService.class);
+    private DebtorHistoryRepo debtorHistoryRepo;
 
     private String debtorName;
     private Long debtorId;
@@ -37,8 +42,17 @@ public class DebtorDetailsServiceTest {
     private Debtor debtor;
     private DebtorDetails debtorDetails = new DebtorDetails();
 
+
     @Before
     public void init() {
+
+        debtorDetailsRepo = Mockito.mock(DebtorDetailsRepo.class);
+        debtorHistoryRepo = Mockito.mock(DebtorHistoryRepo.class);
+
+//        debtorHistoryService = new DebtorHistoryService(debtorHistoryRepo);
+
+        debtorDetailsService = new DebtorDetailsService(debtorDetailsRepo, debtorHistoryService);
+
         debtorName = "Ada";
         debtValue = new BigDecimal(10);
         reasonForDebt = "coffee";
@@ -75,6 +89,12 @@ public class DebtorDetailsServiceTest {
     public void should_delete_debt_by_Id() {
         //given
         DebtorDetails debtorDetailsFoundById = new DebtorDetails();
+        debtorDetailsFoundById.setId(1L);
+        debtorDetailsFoundById.setName("Alex");
+        debtorDetailsFoundById.setDate(LocalDate.now());
+        debtorDetailsFoundById.setReasonForTheDebt("Coffee");
+        debtorDetailsFoundById.setUserName("Adrian");
+        debtorDetailsFoundById.setDebtor(new Debtor());
         given(debtorDetailsRepo.findById(debtorId)).willReturn(java.util.Optional.of(debtorDetailsFoundById));
         //when
         debtorDetailsService.deleteDebtById(debtorId);
@@ -101,7 +121,6 @@ public class DebtorDetailsServiceTest {
         //when
         debtorDetailsService.updateDebtorDetailsDebt(debtorId, negativeDebt);
         //then
-        verify(debtorHistoryService).saveEntityDebtorHistory(debtorDetails);
         verify(debtorDetailsRepo).delete(debtorDetails);
     }
 

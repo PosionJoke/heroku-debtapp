@@ -1,5 +1,7 @@
 package pl.bykowski.rectangleapp.services;
 
+import junitparams.JUnitParamsRunner;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,12 +17,17 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
+@RunWith(JUnitParamsRunner.class)
 public class DebtorDetailsDTOServiceTest {
 
-    @InjectMocks
+//    @InjectMocks
     private DebtorDetailsDTOService debtorDetailsDTOService;
 
+    @Before
+    public void init(){
+        debtorDetailsDTOService = new DebtorDetailsDTOService();
+    }
 
     @Test
     public void should_return_debtorDetailsDTOList_based_on_debtorDetailsList(){

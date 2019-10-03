@@ -1,9 +1,12 @@
 package pl.bykowski.rectangleapp.services;
 
+import junitparams.JUnitParamsRunner;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.DebtorHistory;
@@ -14,19 +17,25 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-@RunWith(SpringRunner.class)
+@RunWith(JUnitParamsRunner.class)
 public class DebtorHistoryTest {
 
-    @InjectMocks
     private DebtorHistoryService debtorHistoryService;
-    @Mock
+
     private DebtorHistoryRepo debtorHistoryRepo;
+
+    @Before
+    public void init(){
+         debtorHistoryRepo = Mockito.mock(DebtorHistoryRepo.class);
+        debtorHistoryService = new DebtorHistoryService(debtorHistoryRepo);
+    }
 
     @Test
     public void should_return_debtorHistory_list_by_userName() {
