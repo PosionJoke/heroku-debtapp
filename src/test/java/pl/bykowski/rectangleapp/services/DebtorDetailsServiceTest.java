@@ -1,6 +1,7 @@
 package pl.bykowski.rectangleapp.services;
 
 import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -101,9 +102,10 @@ public class DebtorDetailsServiceTest {
     }
 
     @Test
-    public void should_delete_debt_when_the_debt_value_is_under_zero() {
+    @Parameters({"-11", "-10"})
+    public void should_delete_debt_when_the_debt_value_is_under_zero(Integer value) {
         //given
-        BigDecimal negativeDebt = new BigDecimal(-20);
+        BigDecimal negativeDebt = new BigDecimal(value);
         given(debtorDetailsRepo.findById(debtorId)).willReturn(java.util.Optional.ofNullable(debtorDetails));
         //when
         debtorDetailsService.updateDebtorDetailsDebt(debtorId, negativeDebt);
@@ -112,25 +114,27 @@ public class DebtorDetailsServiceTest {
     }
 
     @Test
-    public void should_return_DebtorDetailsList_by_user_name() {
+    @Parameters({"Adrian", "adrian", "adrian1234", "1234"})
+    public void should_return_DebtorDetailsList_by_user_name(String debtorName) {
         //given
         DebtorDetails debtorDetails1 = new DebtorDetails();
-        debtorDetails1.setUserName(userName);
+        debtorDetails1.setUserName(debtorName);
         DebtorDetails debtorDetails2 = new DebtorDetails();
-        debtorDetails2.setUserName(userName);
+        debtorDetails2.setUserName(debtorName);
         DebtorDetails debtorDetails3 = new DebtorDetails();
-        debtorDetails3.setUserName(userName);
+        debtorDetails3.setUserName(debtorName);
         List<DebtorDetails> debtorDetailsList = Arrays.asList(debtorDetails1, debtorDetails2, debtorDetails3);
-        given(debtorDetailsRepo.findByUserName(userName)).willReturn(debtorDetailsList);
+        given(debtorDetailsRepo.findByUserName(debtorName)).willReturn(debtorDetailsList);
         //when
-        List<DebtorDetails> found = debtorDetailsService.findByUserName(userName);
+        List<DebtorDetails> found = debtorDetailsService.findByUserName(debtorName);
         //then
         assertThat(found).isEqualTo(debtorDetailsList);
     }
 
     //TODO name of method should show what that test check, not show name of testing method
     @Test
-    public void should_return_debtorDetails_by_id() {
+    @Parameters({"1", "0", "-1"})
+    public void should_return_debtorDetails_by_id(Long debtorId) {
         //given
         DebtorDetails debtorDetails = new DebtorDetails();
         debtorDetails.setId(debtorId);
@@ -142,7 +146,8 @@ public class DebtorDetailsServiceTest {
     }
 
     @Test
-    public void should_delete_debtor_by_id() {
+    @Parameters({"1", "0", "-1"})
+    public void should_delete_debtor_by_id(Long debtorId) {
         //given
         //when
         debtorDetailsService.deleteById(debtorId);

@@ -31,7 +31,7 @@ public class Test01 {
     }
     
     @Test
-    @Parameters({"22"})
+    @Parameters({"22", "17"})
     public void personIsAdult(String age) throws Exception {
 
         Debtor debtor = new Debtor();
