@@ -56,6 +56,7 @@ public class DebtorController {
     @PostMapping("/debtor-save")
     public ModelAndView saveDebtor(@ModelAttribute DebtorDTO debtorDTO, Principal principal,
                                    @RequestParam Long id) {
+
         Optional<Debtor> debtorToUpdateOptional = debtorRepo.findById(id);
 
         BigDecimal actualTotalDebt = debtorToUpdateOptional
@@ -74,6 +75,7 @@ public class DebtorController {
 
     @PostMapping("/make-new-debtor")
     public ModelAndView makeNewDebtor(@ModelAttribute DebtorDetailsDTO debtorDetailsDTO, Principal principal) {
+
         debtorService.addNewDebtor(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(), debtorDetailsDTO.getReasonForTheDebt(), principal.getName());
 
         List<Debtor> debtorList = debtorService.findByUserName(principal.getName());

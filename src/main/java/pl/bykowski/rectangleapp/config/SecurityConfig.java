@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth.inMemoryAuthentication()
                 .passwordEncoder(encoder)
-                .withUser("spring")
+                .withUser("testUser")
                 .password(encoder.encode("secret"))
                 .roles("USER");
     }

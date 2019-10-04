@@ -16,6 +16,7 @@ public class NotificationServiceTest {
 
     private NotificationService notificationService;
 
+
     @Before
     public void init(){
         JavaMailSender javaMailSender = mock(JavaMailSender.class);
