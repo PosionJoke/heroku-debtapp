@@ -1,6 +1,7 @@
 package pl.bykowski.rectangleapp.services;
 
 import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,14 +30,15 @@ public class DebtorHistoryTest {
 
     @Before
     public void init(){
-         debtorHistoryRepo = Mockito.mock(DebtorHistoryRepo.class);
+        debtorHistoryRepo = Mockito.mock(DebtorHistoryRepo.class);
         debtorHistoryService = new DebtorHistoryService(debtorHistoryRepo);
     }
 
     @Test
-    public void should_return_debtorHistory_list_by_userName() {
+    @Parameters({"Adrian", "adrian", "1234", "!@#$"})
+    public void should_return_debtorHistory_list_by_userName(String userNameParam) {
         //given
-        String userName = "Adrian";
+        String userName = userNameParam;
         DebtorHistory debtorHistory1 = new DebtorHistory();
         DebtorHistory debtorHistory2 = new DebtorHistory();
         DebtorHistory debtorHistory3 = new DebtorHistory();
