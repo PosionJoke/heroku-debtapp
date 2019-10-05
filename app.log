@@ -1580,3 +1580,63 @@ id : 3
 Debt should be equals 0 : 0
 2019-10-05 21:46:18 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
 id : 3
+2019-10-05 22:04:48 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 1
+Size of input List : 1
+2019-10-05 22:05:13 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 1
+Size of input List : 1
+2019-10-05 22:05:14 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 1
+Size of input List : 1
+2019-10-05 22:06:52 DEBUG UserService:77 - Authentication code : 360798
+2019-10-05 22:06:57 DEBUG NotificationService:34 - Mail has been sent
+from : rostkowskiadrian00@gmail.com
+to : aaadik0013@gmail.com
+2019-10-05 22:07:39 DEBUG UserService:90 - Save User
+id : 12
+name : kojot202
+email : aaadik0013@gmail.com
+2019-10-05 22:07:41 DEBUG DebtorService:116 - Debtor with the biggest debt
+id : 10
+2019-10-05 22:07:41 DEBUG DebtorService:120 - Debtor with the biggest debt
+id : 10
+ Debt Value : 2.0
+2019-10-05 22:07:53 DEBUG DebtorService:116 - Debtor with the biggest debt
+id : 10
+2019-10-05 22:07:53 DEBUG DebtorService:120 - Debtor with the biggest debt
+id : 10
+ Debt Value : 2.0
+2019-10-05 22:14:18 DEBUG DebtorService:38 - Save Debtor
+id : null
+name : Ada
+2019-10-05 22:14:19 DEBUG DebtorDetailsService:33 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-10-05 22:14:31 DEBUG DebtorDetailsService:33 - Save to debtorDetailsRepo
+id : null
+name : Ada
+2019-10-05 22:14:31 DEBUG DebtorService:38 - Save Debtor
+id : 16
+name : Ada
+2019-10-05 22:14:56 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
+Size of input List : 2
+2019-10-05 22:15:16 DEBUG DebtorDetailsService:71 - Update totalDebt
+id : 21
+actual debt : 12.0
+added value : 12.0
+new debt24.0
+2019-10-05 22:15:16 DEBUG DebtorService:38 - Save Debtor
+id : 16
+name : Ada
+2019-10-05 22:15:22 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
+Size of input List : 2
+2019-10-05 22:16:25 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
+Size of input List : 2
+2019-10-05 22:16:30 DEBUG DebtorDetailsService:71 - Update totalDebt
+id : 21
+actual debt : 24.0
+added value : 24.0
+new debt48.0
+2019-10-05 22:16:30 DEBUG DebtorService:38 - Save Debtor
+id : 16
+name : Ada
+2019-10-05 22:16:33 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
+Size of input List : 2

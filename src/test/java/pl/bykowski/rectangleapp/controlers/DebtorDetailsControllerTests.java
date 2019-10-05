@@ -79,7 +79,7 @@ public class DebtorDetailsControllerTests {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void exampleName() throws Exception{
+    public void should_return_debtorDetailsDTOList() throws Exception{
         //given
         given(principal.getName()).willReturn(TEST_USER_NAME);
         given(debtorDetailsService.findByUserName(principal.getName())).willReturn(debtorDetailsList);
@@ -97,4 +97,17 @@ public class DebtorDetailsControllerTests {
         verify(debtorDetailsDTOService).returnDebtorDetailsDTOList(debtorDetailsList);
     }
 
+    @WithMockUser(TEST_USER_NAME)
+    @Test
+    public void text() throws Exception{
+        //given
+
+        //when
+        mvc.perform(get("/debtor-details-debt-edit")
+                .param("id", "1")
+                .param("name", "Adrian")
+        )
+                .andExpect(status().isOk());
+        //then
+    }
 }

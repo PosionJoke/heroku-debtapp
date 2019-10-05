@@ -49,7 +49,7 @@ public class DebtorDetailsController {
     @GetMapping("/debtor-details-debt-edit")
     public ModelAndView editDebtorDetails(@RequestParam Long id, @RequestParam String name) {
 
-        Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findByNameAndId(name, id);
+        Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(id);
 
         DebtorDetailsDTO debtorDetailsDTO = debtorDetails
                 .map(debtorDetails2 -> debtorDetailsDTOService.returnDebtorDetailsDTO(debtorDetails2))

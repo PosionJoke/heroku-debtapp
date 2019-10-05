@@ -33,6 +33,11 @@ public class MainViewController {
         return returnMainView(principal);
     }
 
+    @PostMapping("/main-view")
+    public ModelAndView showMainViewPost(Principal principal) {
+        return returnMainView(principal);
+    }
+
     private ModelAndView returnMainView(Principal principal) {
         if (isThisUserHaveAnyDebtorDetails(principal)) {
             return new ModelAndView("main-view-new-user")
@@ -50,11 +55,6 @@ public class MainViewController {
         }
     }
 
-//    @PostMapping("/main-view")
-//    public ModelAndView showMainViewPost(Principal principal) {
-//        return returnMainView(principal);
-//    }
-//
 //    private ModelAndView returnMainViewPost(Principal principal) {
 //        if (isThisUserHaveAnyDebtorDetails(principal)) {
 //            return new ModelAndView("main-view-new-user")
