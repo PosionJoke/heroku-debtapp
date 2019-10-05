@@ -200,13 +200,14 @@ public class DebtorControllerTest {
         debtorDetailsDTO.setReasonForTheDebt(reasonForTheDebt);
 
         given(principal.getName()).willReturn(TEST_USER_NAME);
+        given(debtorService.findByUserName(principal.getName())).willReturn(debtorList);
         given(debtorDTOService.returnDebtorDTOList(debtorList)).willReturn(debtorDTOList);
         //when
         mvc.perform(post("/make-new-debtor")
                 .flashAttr("debtorDetailsDTO", debtorDetailsDTO)
                 .flashAttr("principal", principal)
         )
-                .andExpect(model().size(2))
+                .andExpect(model().size(3))
                 .andExpect(view().name("debtor-list"))
                 .andExpect(model().attribute("debtors", debtorDTOList))
                 .andExpect(status().isOk());
