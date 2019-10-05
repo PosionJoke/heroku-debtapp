@@ -30,6 +30,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -147,7 +148,7 @@ public class DebtorDetailsControllerTests {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void exampleName() throws Exception{
+    public void should_return_debtorDetailsDTOList_and_deleteAndUpdateDebt() throws Exception{
         //given
         Long id = 1L;
         given(principal.getName()).willReturn(TEST_USER_NAME);
@@ -164,5 +165,22 @@ public class DebtorDetailsControllerTests {
                 .andExpect(status().isOk());
         //then
         verify(debtorService).deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id, principal.getName());
+    }
+
+    @WithMockUser(TEST_USER_NAME)
+    @Test
+    public void example() throws Exception{
+        //given
+        String name = "Adrian";
+        DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
+        debtorDetailsDTO.setName(name);
+        //when
+        mvc.perform(post("/make-new-debtor-details")
+                .flashAttr("debtorDetails", debtorDetailsDTO)
+                .flashAttr("principal", principal)
+                .param("name", name)
+        )
+                .andExpect(status().isOk());
+        //then
     }
 }
