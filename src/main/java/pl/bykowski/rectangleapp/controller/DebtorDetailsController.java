@@ -47,7 +47,7 @@ public class DebtorDetailsController {
     }
 
     @GetMapping("/debtor-details-debt-edit")
-    public ModelAndView editDebtorDetails(@RequestParam Long id, @RequestParam String name) {
+    public ModelAndView editDebtorDetails(@RequestParam Long id) {
 
         Optional<DebtorDetails> debtorDetails = debtorDetailsRepo.findById(id);
 
@@ -56,7 +56,7 @@ public class DebtorDetailsController {
                 .orElse(new DebtorDetailsDTO());
 
         return new ModelAndView("debtor-details-debt-edit")
-                .addObject("name", name)
+//                .addObject("name", name)
                 .addObject("id", id)
                 .addObject("debtor", debtorDetailsDTO);
     }

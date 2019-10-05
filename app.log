@@ -1640,3 +1640,26 @@ id : 16
 name : Ada
 2019-10-05 22:16:33 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
 Size of input List : 2
+2019-10-05 22:27:08 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
+Size of input List : 2
+2019-10-05 22:27:15 DEBUG DebtorService:116 - Debtor with the biggest debt
+id : 16
+2019-10-05 22:27:15 DEBUG DebtorService:120 - Debtor with the biggest debt
+id : 16
+ Debt Value : 58.0
+2019-10-05 22:27:15 DEBUG DebtorDTOService:62 - Id debtor with highest count of debts : 16
+Count of debts : 2
+2019-10-05 22:27:20 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
+Size of input List : 2
+2019-10-05 22:28:04 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
+Size of input List : 2
+2019-10-05 22:28:27 DEBUG DebtorDetailsDTOService:21 - Size of DebtorDetailsDTOList : 2
+Size of input List : 2
+2019-10-05 22:28:31 DEBUG DebtorDetailsService:71 - Update totalDebt
+id : 21
+actual debt : 48.0
+added value : 48.0
+new debt96.0
+2019-10-05 22:28:31 DEBUG DebtorService:38 - Save Debtor
+id : 16
+name : Ada

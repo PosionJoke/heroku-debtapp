@@ -101,7 +101,15 @@ public class DebtorDetailsControllerTests {
     @Test
     public void text() throws Exception{
         //given
+        Long id = 1L;
+        DebtorDetails debtorDetails = new DebtorDetails();
+        debtorDetails.setId(id);
 
+        DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
+        debtorDetailsDTO.setId(debtorDetails.getId());
+
+        given(debtorDetailsDTOService.returnDebtorDetailsDTO(debtorDetails)).willReturn(debtorDetailsDTO);
+        given(debtorDetailsRepo.findById(id)).willReturn(java.util.Optional.of(debtorDetails));
         //when
         mvc.perform(get("/debtor-details-debt-edit")
                 .param("id", "1")
