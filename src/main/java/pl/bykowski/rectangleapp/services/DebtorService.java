@@ -86,10 +86,10 @@ public class DebtorService {
         );
     }
 
-    public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id, Principal principal) {
+    public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id, String userName) {
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(id);
         debtorDetails.ifPresent(debtorDetails1 -> {
-            updateTotalDebt(debtorDetails1.getId(), debtorDetails1.getDebt().multiply(new BigDecimal(-1)), principal.getName());
+            updateTotalDebt(debtorDetails1.getId(), debtorDetails1.getDebt().multiply(new BigDecimal(-1)), userName);
             debtorHistoryService.saveEntityDebtorHistory(debtorDetails1);
         });
         log.debug("Delete DebtorDetails\nid : " + id);

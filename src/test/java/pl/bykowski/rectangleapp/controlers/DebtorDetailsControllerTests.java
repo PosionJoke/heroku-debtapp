@@ -10,6 +10,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
@@ -25,6 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -66,7 +68,10 @@ public class DebtorDetailsControllerTests {
         DebtorDetails debtorDetails2 = new DebtorDetails();
         debtorDetails2.setName("Adrian2");
         debtorDetails2.setDebt(new BigDecimal(2));
-        debtorDetailsList = Arrays.asList(debtorDetails1, debtorDetails2);
+        DebtorDetails debtorDetails3 = new DebtorDetails();
+        debtorDetails2.setName("Adrian3");
+        debtorDetails2.setDebt(new BigDecimal(3));
+        debtorDetailsList = Arrays.asList(debtorDetails1, debtorDetails2, debtorDetails3);
 
         DebtorDetailsDTO debtorDetailsDTO1 = new DebtorDetailsDTO();
         debtorDetailsDTO1.setName("Adrian1");
@@ -74,7 +79,10 @@ public class DebtorDetailsControllerTests {
         DebtorDetailsDTO debtorDetailsDTO2 = new DebtorDetailsDTO();
         debtorDetailsDTO2.setName("Adrian2");
         debtorDetailsDTO2.setDebt(new BigDecimal(2));
-        debtorDetailsDTOList = Arrays.asList(debtorDetailsDTO1, debtorDetailsDTO2);
+        DebtorDetailsDTO debtorDetailsDTO3 = new DebtorDetailsDTO();
+        debtorDetailsDTO2.setName("Adrian3");
+        debtorDetailsDTO2.setDebt(new BigDecimal(3));
+        debtorDetailsDTOList = Arrays.asList(debtorDetailsDTO1, debtorDetailsDTO2, debtorDetailsDTO3);
     }
 
     @WithMockUser(TEST_USER_NAME)
@@ -99,7 +107,7 @@ public class DebtorDetailsControllerTests {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void text() throws Exception{
+    public void should_return_debtorDetailsDTO() throws Exception{
         //given
         Long id = 1L;
         DebtorDetails debtorDetails = new DebtorDetails();
@@ -119,5 +127,42 @@ public class DebtorDetailsControllerTests {
                 .andExpect(status().isOk());
         //then
         verify(debtorDetailsDTOService).returnDebtorDetailsDTO(debtorDetails);
+    }
+
+    @WithMockUser(TEST_USER_NAME)
+    @Test
+    public void should_return_new_debtorDetailsDTO() throws Exception{
+        //given
+        String name = "Ada";
+        //when
+        mvc.perform(get("/make-new-debtor-details")
+                .param("name", name)
+        )
+                .andExpect(view().name("make-new-debtor-details"))
+                .andExpect(model().attribute("debtorDetails", new DebtorDetailsDTO()))
+                .andExpect(model().size(2))
+                .andExpect(status().isOk());
+        //then
+    }
+
+    @WithMockUser(TEST_USER_NAME)
+    @Test
+    public void exampleName() throws Exception{
+        //given
+        Long id = 1L;
+        given(principal.getName()).willReturn(TEST_USER_NAME);
+        given(debtorDetailsService.findByUserName(principal.getName())).willReturn(debtorDetailsList);
+        given(debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList)).willReturn(debtorDetailsDTOList);
+        //when
+        mvc.perform(get("/debtor-details-delete-by-id")
+                .param("id", String.valueOf(id))
+                .flashAttr("principal", principal)
+        )
+                .andExpect(view().name("debtor-details-list"))
+                .andExpect(model().attribute("debtorLIST", debtorDetailsDTOList))
+                .andExpect(model().size(2))
+                .andExpect(status().isOk());
+        //then
+        verify(debtorService).deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id, principal.getName());
     }
 }

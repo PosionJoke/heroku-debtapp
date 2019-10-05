@@ -76,7 +76,7 @@ public class DebtorDetailsController {
     @GetMapping("/debtor-details-delete-by-id")
     public ModelAndView deleteDebtorDetailsById(@RequestParam Long id, Principal principal) {
 
-        debtorService.deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id, principal);
+        debtorService.deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id, principal.getName());
 
         List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());
         List<DebtorDetailsDTO> debtorDetailsDTOList1 = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
@@ -85,7 +85,9 @@ public class DebtorDetailsController {
     }
 
     @PostMapping("/make-new-debtor-details")
-    public ModelAndView saveNewDebtorDetails(@ModelAttribute DebtorDetailsDTO debtorDetails, Principal principal, @RequestParam String name) {
+    public ModelAndView saveNewDebtorDetails(@ModelAttribute DebtorDetailsDTO debtorDetails, Principal principal,
+                                             @RequestParam String name) {
+
         Debtor debtor = debtorService.findDebtorByName(name);
         debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());
         return new ModelAndView("debtor-details-list")
