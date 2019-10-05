@@ -56,7 +56,6 @@ public class DebtorDetailsController {
                 .orElse(new DebtorDetailsDTO());
 
         return new ModelAndView("debtor-details-debt-edit")
-//                .addObject("name", name)
                 .addObject("id", id)
                 .addObject("debtor", debtorDetailsDTO);
     }

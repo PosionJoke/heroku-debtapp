@@ -115,7 +115,9 @@ public class DebtorDetailsControllerTests {
                 .param("id", "1")
                 .param("name", "Adrian")
         )
+                .andExpect(model().size(2))
                 .andExpect(status().isOk());
         //then
+        verify(debtorDetailsDTOService).returnDebtorDetailsDTO(debtorDetails);
     }
 }
