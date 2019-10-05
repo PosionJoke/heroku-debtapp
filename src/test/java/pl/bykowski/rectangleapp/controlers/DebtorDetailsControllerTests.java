@@ -172,15 +172,22 @@ public class DebtorDetailsControllerTests {
     public void example() throws Exception{
         //given
         String name = "Adrian";
-        DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
-        debtorDetailsDTO.setName(name);
+        DebtorDetailsDTO debtorDetails = new DebtorDetailsDTO();
+        debtorDetails.setName(name);
+
+        Debtor debtor = new Debtor();
+        debtor.setName(name);
+        given(debtorService.findDebtorByName(name)).willReturn(debtor);
+        given(principal.getName()).willReturn(TEST_USER_NAME);
         //when
         mvc.perform(post("/make-new-debtor-details")
-                .flashAttr("debtorDetails", debtorDetailsDTO)
+                .flashAttr("debtorDetails", debtorDetails)
                 .flashAttr("principal", principal)
                 .param("name", name)
         )
+                .andExpect(model().size(4))
                 .andExpect(status().isOk());
         //then
+        verify(debtorService).updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());
     }
 }
