@@ -63,6 +63,9 @@ public class DebtorDetailsControllerTests {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
+
+        given(principal.getName()).willReturn(TEST_USER_NAME);
+
         DebtorDetails debtorDetails1 = new DebtorDetails();
         debtorDetails1.setName("Adrian1");
         debtorDetails1.setDebt(new BigDecimal(1));
@@ -90,7 +93,6 @@ public class DebtorDetailsControllerTests {
     @Test
     public void should_return_debtorDetailsDTOList() throws Exception{
         //given
-        given(principal.getName()).willReturn(TEST_USER_NAME);
         given(debtorDetailsService.findByUserName(principal.getName())).willReturn(debtorDetailsList);
         given(debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList)).willReturn(debtorDetailsDTOList);
         //when
@@ -151,7 +153,6 @@ public class DebtorDetailsControllerTests {
     public void should_return_debtorDetailsDTOList_and_deleteAndUpdateDebt() throws Exception{
         //given
         Long id = 1L;
-        given(principal.getName()).willReturn(TEST_USER_NAME);
         given(debtorDetailsService.findByUserName(principal.getName())).willReturn(debtorDetailsList);
         given(debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList)).willReturn(debtorDetailsDTOList);
         //when
@@ -178,7 +179,6 @@ public class DebtorDetailsControllerTests {
         Debtor debtor = new Debtor();
         debtor.setName(name);
         given(debtorService.findDebtorByName(name)).willReturn(debtor);
-        given(principal.getName()).willReturn(TEST_USER_NAME);
         //when
         mvc.perform(post("/make-new-debtor-details")
                 .flashAttr("debtorDetails", debtorDetails)
@@ -189,5 +189,25 @@ public class DebtorDetailsControllerTests {
                 .andExpect(status().isOk());
         //then
         verify(debtorService).updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());
+    }
+
+    @WithMockUser(TEST_USER_NAME)
+    @Test
+    public void should_update_total_debt_by_debtorDetailsDTO_and_id() throws Exception{
+        //given
+        Long id = 1L;
+        DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
+        debtorDetailsDTO.setId(id);
+        //when
+        mvc.perform(post("/debtor-details-save")
+                .flashAttr("debtorDetailsDTO", debtorDetailsDTO)
+                .flashAttr("principal", principal)
+                .param("id", String.valueOf(id))
+        )
+                .andExpect(view().name("debtor-details-list"))
+                .andExpect(model().size(3))
+                .andExpect(status().isOk());
+        //then
+        verify(debtorService).updateTotalDebtAndUpdateDebtorDetailsDebt(debtorDetailsDTO, id);
     }
 }
