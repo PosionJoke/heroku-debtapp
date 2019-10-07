@@ -47,7 +47,7 @@ public class MainViewController {
 
             DebtorDTO debtorWithBiggestDebtDTO = debtorWithBiggestDebt.map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
                     .orElse(new DebtorDTO());
-            DebtorDTO debtorWithHighestCountOfDebtsDTO = debtorDTOService.returnDebtorDTOWithHighestCountOfDebts(principal);
+            DebtorDTO debtorWithHighestCountOfDebtsDTO = debtorDTOService.returnDebtorDTOWithHighestCountOfDebts(principal.getName());
             return new ModelAndView("main-view")
                     .addObject("user", principal)
                     .addObject("debtorWithBiggestDebt", debtorWithBiggestDebtDTO)

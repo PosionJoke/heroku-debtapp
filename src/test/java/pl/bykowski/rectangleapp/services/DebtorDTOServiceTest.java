@@ -101,7 +101,7 @@ public class DebtorDTOServiceTest {
         given(debtorDetailsService.findByUserName(principal.getName())).willReturn(debtorDetailsArrayList);
         given(debtorService.findById(debtor1.getId())).willReturn(java.util.Optional.of(debtor1));
         //when
-        DebtorDTO found = debtorDTOService.returnDebtorDTOWithHighestCountOfDebts(principal);
+        DebtorDTO found = debtorDTOService.returnDebtorDTOWithHighestCountOfDebts(principal.getName());
         //then
         assertThat(found.getId()).isEqualTo(debtor1.getId());
     }

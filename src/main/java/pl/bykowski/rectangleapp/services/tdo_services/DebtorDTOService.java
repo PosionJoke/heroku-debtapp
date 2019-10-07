@@ -37,8 +37,8 @@ public class DebtorDTOService {
         return new DebtorDTO(debtor.getId(), debtor.getName(), debtor.getTotalDebt());
     }
 
-    public DebtorDTO returnDebtorDTOWithHighestCountOfDebts(Principal principal){
-        ArrayList<DebtorDetails> debtorDetailsArrayList = (ArrayList<DebtorDetails>) debtorDetailsService.findByUserName(principal.getName());
+    public DebtorDTO returnDebtorDTOWithHighestCountOfDebts(String userName){
+        ArrayList<DebtorDetails> debtorDetailsArrayList = (ArrayList<DebtorDetails>) debtorDetailsService.findByUserName(userName);
         List<Long> debtorDetailsIdArrayList = new ArrayList<>();
 
         debtorDetailsArrayList.stream()
