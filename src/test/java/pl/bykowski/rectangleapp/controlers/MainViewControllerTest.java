@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MainViewControllerTest {
 
     private MockMvc mvc;
-    private static final String TEST_USER_NAME = "testUserName";
+    private static final String TEST_USER_NAME = "testUser";
 
     @Autowired
     private WebApplicationContext context;
@@ -64,14 +64,15 @@ public class MainViewControllerTest {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void name() throws Exception{
+    public void should_return_model_name_mainView_when_debtsList_is_not_empty() throws Exception{
         //given
+
         DebtorDetails debtorDetails = new DebtorDetails();
-        List<DebtorDetails> emptyList = Arrays.asList(debtorDetails);
-        given(debtorDetailsService.findByUserName(principal.getName())).willReturn(emptyList);
+        List<DebtorDetails> debtsList = Arrays.asList(debtorDetails);
+        given(debtorDetailsService.findByUserName(principal.getName())).willReturn(debtsList);
 
         Debtor debtor = new Debtor();
-        given(debtorService.returnDebtorWithBiggestDebt(principal)).willReturn(java.util.Optional.of(debtor));
+        given(debtorService.returnDebtorWithBiggestDebt(principal.getName())).willReturn(java.util.Optional.of(debtor));
         DebtorDTO debtorWithBiggestDebtDTO = new DebtorDTO();
         debtorWithBiggestDebtDTO.setName("Ada");
         given(debtorDTOService.returnDebtorDTO(debtor)).willReturn(debtorWithBiggestDebtDTO);
@@ -84,9 +85,22 @@ public class MainViewControllerTest {
                 .flashAttr("principal", principal)
         )
                 .andExpect(view().name("main-view"))
-                .andExpect(model().attribute("user", principal))
                 .andExpect(model().attribute("debtorWithBiggestDebt", debtorWithBiggestDebtDTO))
                 .andExpect(model().attribute("debtorWithHighestCountOfDebts", debtorWithBiggestCountOfDebts))
+                .andExpect(status().isOk());
+        //then
+    }
+
+    @WithMockUser(TEST_USER_NAME)
+    @Test
+    public void should_return_model_name_mainViewNewUser_when_debtsList_is_empty() throws Exception{
+        //given
+        List<DebtorDetails> debtsList = Arrays.asList();
+        //when
+        mvc.perform(post("/main-view")
+                .flashAttr("principal", principal)
+        )
+                .andExpect(view().name("main-view-new-user"))
                 .andExpect(status().isOk());
         //then
     }

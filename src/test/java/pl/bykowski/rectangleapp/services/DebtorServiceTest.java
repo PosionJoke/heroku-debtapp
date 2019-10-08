@@ -115,7 +115,7 @@ public class DebtorServiceTest {
 
         given(debtorRepo.findByUserName(principal.getName())).willReturn(debtorList);
         //when
-        Optional<Debtor> found = debtorService.returnDebtorWithBiggestDebt(principal);
+        Optional<Debtor> found = debtorService.returnDebtorWithBiggestDebt(principal.getName());
         //then
         assertThat(debtorWithBiggestDebt.getName()).isEqualTo(found.get().getName());
     }

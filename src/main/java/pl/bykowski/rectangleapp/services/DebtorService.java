@@ -109,8 +109,8 @@ public class DebtorService {
         }
     }
 
-    public Optional<Debtor> returnDebtorWithBiggestDebt(Principal principal) {
-        Optional<Debtor> debtorFind = findByUserName(principal.getName())
+    public Optional<Debtor> returnDebtorWithBiggestDebt(String userName) {
+        Optional<Debtor> debtorFind = findByUserName(userName)
                 .stream()
                 .max(Comparator.comparing(Debtor::getTotalDebt));
         log.debug("Debtor with the biggest debt\nid : " + debtorFind.get().getId());
