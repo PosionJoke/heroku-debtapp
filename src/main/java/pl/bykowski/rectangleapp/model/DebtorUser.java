@@ -48,10 +48,10 @@ public class DebtorUser implements Serializable {
         this.authenticationCode = authenticationCode;
     }
 
-    public List<String> getPermissions() {
-        if (this.permissions.length() > 0) {
-            return Arrays.asList(this.permissions.split(","));
-        }
-        return new ArrayList<>();
-    }
+//    public List<String> getPermissions() {
+//        if (this.permissions.length() > 0) {
+//            return Arrays.asList(this.permissions.split(","));
+//        }
+//        return new ArrayList<>();
+//    }
 }

@@ -221,43 +221,4 @@ public class DebtorControllerTest {
         verify(debtorService).addNewDebtor(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(),
                 debtorDetailsDTO.getReasonForTheDebt(), principal.getName());
     }
-
-    @WithMockUser(TEST_USER_NAME)
-    @Test
-    public void should_add_new_debtor_and_return_debtorDTOList2() throws Exception{
-        //given
-        DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
-        String debtorDTOName = "Ada";
-        BigDecimal debtValue = new BigDecimal(10);
-        String reasonForTheDebt = "Coffee";
-        debtorDetailsDTO.setName(debtorDTOName);
-        debtorDetailsDTO.setDebt(debtValue);
-        debtorDetailsDTO.setReasonForTheDebt(reasonForTheDebt);
-
-        given(principal.getName()).willReturn(TEST_USER_NAME);
-        given(debtorService.findByUserName(principal.getName())).willReturn(debtorList);
-        given(debtorDTOService.returnDebtorDTOList(debtorList)).willReturn(debtorDTOList);
-
-
-        DebtorUserDTO debtorUserDTO = new DebtorUserDTO();
-        debtorUserDTO.setName("Ada");
-        debtorUserDTO.setEmail("xampl@eemail.com");
-        debtorUserDTO.setPassword1("1234");
-        debtorUserDTO.setPassword2("1234");
-        debtorUserDTO.setAuthenticationCode("1231212");
-        debtorUserDTO.setAuthenticationCodeInput("1231212");
-
-        given(userService.checkAuthenticationCode(debtorUserDTO.getAuthenticationCode(), debtorUserDTO.getAuthenticationCodeInput()))
-                .willReturn(true);
-        //when
-        mvc.perform(post("/create-new-user-authentication")
-                .flashAttr("debtorUserDTO", debtorUserDTO)
-        )
-                .andExpect(view().name("default-view"))
-                .andExpect(status().isOk());
-
-        //then
-        verify(debtorService).addNewDebtor(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(),
-                debtorDetailsDTO.getReasonForTheDebt(), principal.getName());
-    }
 }

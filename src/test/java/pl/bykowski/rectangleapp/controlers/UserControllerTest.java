@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.context.WebApplicationContext;
 import pl.bykowski.rectangleapp.model.DebtorUser;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
+import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.services.UserService;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -47,16 +48,6 @@ public class UserControllerTest {
                 .apply(springSecurity())
                 .build();
 
-//        @NotEmpty
-//        @Size(min = 2, message = "Name should have at least 2 characters")
-//        private String name;
-//        @Email
-//        private String email;
-//        @NotEmpty
-//        private String password1;
-//        @NotEmpty
-//        private String password2;
-
         debtorUserDTO.setEmail("email@email.com");
         debtorUserDTO.setName("Ada");
     }
@@ -84,7 +75,10 @@ public class UserControllerTest {
         //given
         debtorUserDTO.setPassword1("1234");
         debtorUserDTO.setPassword2("1234");
+//        debtorUserDTO.setAuthenticationCodeInput("0987654321");
         given(bindingResult.hasErrors()).willReturn(true);
+        UserDTO userDTO = new UserDTO();
+        given(userService.makeNewUser(debtorUserDTO)).willReturn(userDTO);
         //when
         mvc.perform(post("/create-new-user")
                 .flashAttr("debtorUserDTO", debtorUserDTO)
@@ -97,17 +91,14 @@ public class UserControllerTest {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void name() throws Exception{
+    public void should_return_model_name_defaultView_when_authentication_code_is_correct() throws Exception{
         //given
         DebtorUserDTO debtorUserDTO = new DebtorUserDTO();
-//        debtorUserDTO.setName("Ada");
-//        debtorUserDTO.setEmail("xampl@eemail.com");
-//        debtorUserDTO.setPassword1("1234");
-//        debtorUserDTO.setPassword2("1234");
         debtorUserDTO.setAuthenticationCode("1231212");
         debtorUserDTO.setAuthenticationCodeInput("1231212");
 
-        given(userService.checkAuthenticationCode(debtorUserDTO.getAuthenticationCode(), debtorUserDTO.getAuthenticationCodeInput()))
+        given(userService.checkAuthenticationCode(
+                debtorUserDTO.getAuthenticationCode(), debtorUserDTO.getAuthenticationCodeInput()))
                 .willReturn(true);
 
         DebtorUser debtorUser = new DebtorUser();
@@ -121,6 +112,29 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
         //then
         verify(userService).save(debtorUser);
+    }
+
+    @WithMockUser(TEST_USER_NAME)
+    @Test
+    public void should_return_model_name_createNewUserAuthentication_when_authentication_code_is_incorrect() throws Exception{
+        //given
+        DebtorUserDTO debtorUserDTO = new DebtorUserDTO();
+        debtorUserDTO.setAuthenticationCode("1231212");
+        debtorUserDTO.setAuthenticationCodeInput("1231212");
+
+        given(userService.checkAuthenticationCode(
+                debtorUserDTO.getAuthenticationCode(), debtorUserDTO.getAuthenticationCodeInput()))
+                .willReturn(false);
+
+        DebtorUser debtorUser = new DebtorUser();
+        given(userService.findByName(debtorUserDTO.getName())).willReturn(java.util.Optional.of(debtorUser));
+        //when
+        mvc.perform(post("/create-new-user-authentication")
+                .flashAttr("debtorUserDTO", debtorUserDTO)
+        )
+                .andExpect(view().name("create-new-user-authentication"))
+                .andExpect(status().isOk());
+        //then
     }
 
 }
