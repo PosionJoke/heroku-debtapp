@@ -13,13 +13,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 import pl.bykowski.rectangleapp.model.Debtor;
-import pl.bykowski.rectangleapp.model.DebtorUser;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
-import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.services.DebtorService;
-import pl.bykowski.rectangleapp.services.UserService;
 import pl.bykowski.rectangleapp.services.tdo_services.DebtorDTOService;
 
 import java.math.BigDecimal;
@@ -56,11 +53,9 @@ public class DebtorControllerTest {
     private DebtorRepo debtorRepo;
     @MockBean
     private Principal principal;
-    @MockBean
-    private UserService userService;
 
-    List<Debtor> debtorList;
-    List<DebtorDTO> debtorDTOList;
+    private List<Debtor> debtorList;
+    private List<DebtorDTO> debtorDTOList;
 
     @Before
     public void init(){

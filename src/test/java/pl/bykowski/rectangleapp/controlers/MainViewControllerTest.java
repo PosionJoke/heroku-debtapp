@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -12,7 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import pl.bykowski.rectangleapp.controller.MainViewController;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
@@ -24,7 +22,6 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.apache.logging.log4j.ThreadContext.isEmpty;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -48,9 +45,6 @@ public class MainViewControllerTest {
     private DebtorDTOService debtorDTOService;
     @MockBean
     private Principal principal;
-//    @MockBean
-//    private MainViewController mainViewController;
-
 
     @Before
     public void init(){
@@ -104,5 +98,4 @@ public class MainViewControllerTest {
                 .andExpect(status().isOk());
         //then
     }
-
 }

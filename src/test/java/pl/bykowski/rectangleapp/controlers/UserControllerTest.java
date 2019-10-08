@@ -17,7 +17,6 @@ import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.services.UserService;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -75,7 +74,6 @@ public class UserControllerTest {
         //given
         debtorUserDTO.setPassword1("1234");
         debtorUserDTO.setPassword2("1234");
-//        debtorUserDTO.setAuthenticationCodeInput("0987654321");
         given(bindingResult.hasErrors()).willReturn(true);
         UserDTO userDTO = new UserDTO();
         given(userService.makeNewUser(debtorUserDTO)).willReturn(userDTO);

@@ -167,12 +167,6 @@ public class DebtorServiceTest {
     public void delete_debtorDetails_update_total_debt_make_new_debtor_history() {
         //given
         Long id = 1L;
-//        Principal principal = new Principal() {
-//            @Override
-//            public String getName() {
-//                return "Adrian";
-//            }
-//        };
         DebtorDetails debtorDetails = new DebtorDetails();
         given(debtorDetailsService.findById(id)).willReturn(Optional.of(debtorDetails));
         //when
