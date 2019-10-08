@@ -40,10 +40,10 @@ public class UserController {
     }
 
     @PostMapping("/create-new-user-authentication")
-    public ModelAndView activeAccount(@ModelAttribute DebtorUserDTO userDTO){
+    public ModelAndView activeAccount(@ModelAttribute DebtorUserDTO debtorUserDTO){
 
-        if(userService.checkAuthenticationCode(userDTO.getAuthenticationCode(), userDTO.getAuthenticationCodeInput())){
-            Optional<DebtorUser> debtorUser = userService.findByName(userDTO.getName());
+        if(userService.checkAuthenticationCode(debtorUserDTO.getAuthenticationCode(), debtorUserDTO.getAuthenticationCodeInput())){
+            Optional<DebtorUser> debtorUser = userService.findByName(debtorUserDTO.getName());
             debtorUser.ifPresentOrElse(debtorUser1 -> {
                         debtorUser1.setActive(1);
                         userService.save(debtorUser1);
@@ -54,7 +54,7 @@ public class UserController {
         }
 
         return new ModelAndView("create-new-user-authentication")
-                .addObject("userDTO", userDTO);
+                .addObject("userDTO", debtorUserDTO);
     }
 
     @GetMapping("/create-new-user")

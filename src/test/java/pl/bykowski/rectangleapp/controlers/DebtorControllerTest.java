@@ -13,10 +13,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 import pl.bykowski.rectangleapp.model.Debtor;
+import pl.bykowski.rectangleapp.model.DebtorUser;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
+import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.services.DebtorService;
+import pl.bykowski.rectangleapp.services.UserService;
 import pl.bykowski.rectangleapp.services.tdo_services.DebtorDTOService;
 
 import java.math.BigDecimal;
@@ -53,6 +56,8 @@ public class DebtorControllerTest {
     private DebtorRepo debtorRepo;
     @MockBean
     private Principal principal;
+    @MockBean
+    private UserService userService;
 
     List<Debtor> debtorList;
     List<DebtorDTO> debtorDTOList;
@@ -210,6 +215,45 @@ public class DebtorControllerTest {
                 .andExpect(model().size(3))
                 .andExpect(view().name("debtor-list"))
                 .andExpect(model().attribute("debtors", debtorDTOList))
+                .andExpect(status().isOk());
+
+        //then
+        verify(debtorService).addNewDebtor(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(),
+                debtorDetailsDTO.getReasonForTheDebt(), principal.getName());
+    }
+
+    @WithMockUser(TEST_USER_NAME)
+    @Test
+    public void should_add_new_debtor_and_return_debtorDTOList2() throws Exception{
+        //given
+        DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
+        String debtorDTOName = "Ada";
+        BigDecimal debtValue = new BigDecimal(10);
+        String reasonForTheDebt = "Coffee";
+        debtorDetailsDTO.setName(debtorDTOName);
+        debtorDetailsDTO.setDebt(debtValue);
+        debtorDetailsDTO.setReasonForTheDebt(reasonForTheDebt);
+
+        given(principal.getName()).willReturn(TEST_USER_NAME);
+        given(debtorService.findByUserName(principal.getName())).willReturn(debtorList);
+        given(debtorDTOService.returnDebtorDTOList(debtorList)).willReturn(debtorDTOList);
+
+
+        DebtorUserDTO debtorUserDTO = new DebtorUserDTO();
+        debtorUserDTO.setName("Ada");
+        debtorUserDTO.setEmail("xampl@eemail.com");
+        debtorUserDTO.setPassword1("1234");
+        debtorUserDTO.setPassword2("1234");
+        debtorUserDTO.setAuthenticationCode("1231212");
+        debtorUserDTO.setAuthenticationCodeInput("1231212");
+
+        given(userService.checkAuthenticationCode(debtorUserDTO.getAuthenticationCode(), debtorUserDTO.getAuthenticationCodeInput()))
+                .willReturn(true);
+        //when
+        mvc.perform(post("/create-new-user-authentication")
+                .flashAttr("debtorUserDTO", debtorUserDTO)
+        )
+                .andExpect(view().name("default-view"))
                 .andExpect(status().isOk());
 
         //then

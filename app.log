@@ -2478,3 +2478,8 @@ Debt should be equals 0 : 0
 2019-10-08 09:37:14 DEBUG DebtorDetailsService:88 - Delete DebtorDetails
 id : 3
 2019-10-08 09:37:30 DEBUG UserService:77 - Authentication code : 310926
+2019-10-08 12:25:16 DEBUG UserController:51 - debtorUser must be present
+2019-10-08 12:31:52 DEBUG UserController:51 - debtorUser must be present
+2019-10-08 12:35:27 DEBUG UserController:51 - debtorUser must be present
+2019-10-08 12:37:02 DEBUG UserController:51 - debtorUser must be present
+2019-10-08 12:57:09 DEBUG UserController:51 - debtorUser must be present
