@@ -42,7 +42,6 @@ public class UserController {
     @PostMapping("/create-new-user-authentication")
     public ModelAndView activeAccount(@ModelAttribute DebtorUserDTO userDTO){
 
-
         if(userService.checkAuthenticationCode(userDTO.getAuthenticationCode(), userDTO.getAuthenticationCodeInput())){
             Optional<DebtorUser> debtorUser = userService.findByName(userDTO.getName());
             debtorUser.ifPresentOrElse(debtorUser1 -> {
