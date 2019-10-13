@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -83,7 +84,7 @@ public class DebtorDetailsServiceTest {
         debtorDetailsFoundById.setReasonForTheDebt("Coffee");
         debtorDetailsFoundById.setUserName("Adrian");
         debtorDetailsFoundById.setDebtor(new Debtor());
-        given(debtorDetailsRepo.findById(debtorId)).willReturn(java.util.Optional.of(debtorDetailsFoundById));
+        given(debtorDetailsRepo.findById(debtorId)).willReturn(Optional.of(debtorDetailsFoundById));
         //when
         debtorDetailsService.deleteDebtById(debtorId);
         //then

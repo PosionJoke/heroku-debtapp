@@ -28,7 +28,7 @@ public class UserServiceTest {
 
     private DebtorUserDTO debtorUserDTO = new DebtorUserDTO();
     private String debtorName;
-    private String roleName;
+    private static final String roleName = "ROLE_USER";
     private Long roleId;
     private String password2;
     private String email;
@@ -46,7 +46,6 @@ public class UserServiceTest {
 
 
         debtorName = "Ada";
-        roleName = "ROLE_USER";
         password2 = "admin1234";
         email = "example@email.com";
         roleId = 2L;
