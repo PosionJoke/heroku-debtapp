@@ -12,6 +12,7 @@ HELP.md
 .sts4-cache
 db.mv.db
 db.trace.db
+app.log
 
 ### IntelliJ IDEA ###
 .idea
