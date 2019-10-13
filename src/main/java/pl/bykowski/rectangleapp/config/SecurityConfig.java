@@ -19,9 +19,6 @@ import java.util.Objects;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserPrincipalDetailsService userPrincipalDetailsService;
-    //TODO MAKE A PAGE FOR ADMIN WHERE HE CAN FIND ALL USERS
-    private static final String ADMIN = "ADMIN";
-    private static final String MANAGER = "MANAGER";
 
     public SecurityConfig(UserPrincipalDetailsService userPrincipalDetailsService) {
         this.userPrincipalDetailsService = Objects.requireNonNull(userPrincipalDetailsService, "userPrincipalDetailsService must be not null");
