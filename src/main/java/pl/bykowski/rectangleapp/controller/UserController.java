@@ -42,13 +42,16 @@ public class UserController {
     @PostMapping("/create-new-user-authentication")
     public ModelAndView activeAccount(@ModelAttribute DebtorUserDTO debtorUserDTO){
 
-        if(userService.checkAuthenticationCode(debtorUserDTO.getAuthenticationCode(), debtorUserDTO.getAuthenticationCodeInput())){
+        if(userService.checkAuthenticationCode(
+                debtorUserDTO.getAuthenticationCode(), debtorUserDTO.getAuthenticationCodeInput())){
             Optional<DebtorUser> debtorUser = userService.findByName(debtorUserDTO.getName());
             debtorUser.ifPresentOrElse(debtorUser1 -> {
                         debtorUser1.setActive(1);
                         userService.save(debtorUser1);
                     },
-                    () -> logger.debug("debtorUser must be present"));
+                    () -> logger.error("debtor User must be present, if we dont have any user with name " +
+                            debtorUserDTO.getName() + " its means our data base got damage or this DTO " +
+                            "object doesn't return correct user name"));
 
             return new  ModelAndView("default-view");
         }
