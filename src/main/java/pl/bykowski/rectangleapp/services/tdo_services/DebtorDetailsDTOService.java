@@ -1,7 +1,6 @@
 package pl.bykowski.rectangleapp.services.tdo_services;
 
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;

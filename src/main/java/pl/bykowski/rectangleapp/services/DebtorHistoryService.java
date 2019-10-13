@@ -1,7 +1,6 @@
 package pl.bykowski.rectangleapp.services;
 
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.DebtorHistory;
@@ -23,7 +22,7 @@ public class DebtorHistoryService {
         this.debtorHistoryRepo = Objects.requireNonNull(debtorHistoryRepo, "debtorHistoryRepo must be not null");
     }
 
-    public void saveEntityDebtorHistory(DebtorDetails debtorDetails) {
+    void saveEntityDebtorHistory(DebtorDetails debtorDetails) {
         DebtorHistory debtorHistory = new DebtorHistory();
         debtorHistory.setDebt(debtorDetails.getDebt());
         debtorHistory.setName(debtorDetails.getName());

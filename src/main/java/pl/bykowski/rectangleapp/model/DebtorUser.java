@@ -6,9 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -24,7 +21,6 @@ public class DebtorUser implements Serializable {
     private long timeOfDebt;
     private String password;
     private Integer active;
-//    private List<String> roles;
     private String permissions;
     private String email;
     private String authenticationCode = "";
@@ -40,18 +36,10 @@ public class DebtorUser implements Serializable {
     public DebtorUser(String name, String password, Set<Role> roles, String permissions, String email, Integer active, String authenticationCode) {
         this.name = name;
         this.password = password;
-//        this.roles = roles;
         this.roles = roles;
         this.permissions = permissions;
         this.active = active;
         this.email = email;
         this.authenticationCode = authenticationCode;
     }
-
-//    public List<String> getPermissions() {
-//        if (this.permissions.length() > 0) {
-//            return Arrays.asList(this.permissions.split(","));
-//        }
-//        return new ArrayList<>();
-//    }
 }

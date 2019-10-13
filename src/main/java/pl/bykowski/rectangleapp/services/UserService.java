@@ -2,7 +2,6 @@ package pl.bykowski.rectangleapp.services;
 
 import io.vavr.concurrent.Future;
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,14 +35,12 @@ public class UserService {
     }
 
     public UserDTO makeNewUser(DebtorUserDTO debtorUserDTO) {
-        // make authentication code
         String authenticationCode = generateNewAuthenticationCode();
 
-        //find and save role for new user
         Optional<Role> singleRole = roleRepository.findByName("ROLE_USER");
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(singleRole.get());
-        //create new user
+
         DebtorUser newDebtorUser = new DebtorUser(
                 debtorUserDTO.getName(),
                 passwordEncoder.encode(debtorUserDTO.getPassword2()),
@@ -53,13 +50,11 @@ public class UserService {
                 0,
                 authenticationCode);
 
-        //send mail
+
         Future.of(() -> notificationService.sendNotification(newDebtorUser.getEmail(), authenticationCode));
 
-        //save new user
         debtorUserRepo.save(newDebtorUser);
 
-        //make DTO user
         UserDTO userDTO = new UserDTO();
         userDTO.setAuthenticationCode(authenticationCode);
         userDTO.setName(newDebtorUser.getName());
@@ -67,12 +62,12 @@ public class UserService {
         return userDTO;
     }
 
-    public String findUserName() {
+    String findUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();
     }
 
-    public String generateNewAuthenticationCode(){
+    private String generateNewAuthenticationCode(){
         String authenticationCode = String.valueOf((int) (Math.random() * 1000000));
         log.debug("Authentication code : " + authenticationCode);
         return authenticationCode;

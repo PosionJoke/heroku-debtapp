@@ -22,20 +22,12 @@ public class UserPrincipal implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-// todo HELLO ADRIAN THERE IS SOME MESS, CLEAN UP THIS AND TAKE CARE OF LOGIC BELOW
-
-//        this.debtorUser.getPermissions().forEach(p -> {
-//            GrantedAuthority authority = new SimpleGrantedAuthority(p);
-//            authorities.add(authority);
-//        });
 
         this.debtorUser.getRoles().forEach(r -> {
             GrantedAuthority authority = new SimpleGrantedAuthority(r.getName());
             authorities.add(authority);
         });
-//        authorities = this.debtorUser.getRoles().stream()
-//                .map(role -> new SimpleGrantedAuthority(role.getName()))
-//                .collect(Collectors.toList());
+
         return authorities;
     }
 

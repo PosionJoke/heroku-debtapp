@@ -1,7 +1,6 @@
 package pl.bykowski.rectangleapp.services;
 
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.bykowski.rectangleapp.model.Debtor;
@@ -18,15 +17,12 @@ import java.util.Optional;
 @Service
 public class DebtorDetailsService {
 
-//    private static final Logger logger = Logger.getLogger(DebtorDetailsService.class);
     private final DebtorDetailsRepo debtorDetailsRepo;
     private final DebtorHistoryService debtorHistoryService;
-//    private final DebtorService debtorService;
 
     public DebtorDetailsService(DebtorDetailsRepo debtorDetailsRepo, DebtorHistoryService debtorHistoryService) {
         this.debtorDetailsRepo = Objects.requireNonNull(debtorDetailsRepo, "debtorDetailsRepo must be not null");
         this.debtorHistoryService = Objects.requireNonNull(debtorHistoryService, "debtorHistoryService must be not null");
-//        this.debtorService = Objects.requireNonNull(debtorService, "debtorService must be not null");
     }
 
     private void saveDebtorDetails(DebtorDetails debtorDetails) {
@@ -73,8 +69,6 @@ public class DebtorDetailsService {
                     "\nadded value : " + debtValue +
                     "\nnew debt" + newDebt);
             debtorDetails.setDebt(newDebt);
-
-//            debtorService.updateTotalDebt(debtorDetails.getDebtor().getId(), debtValue, debtorDetails.getUserName());
 
             debtorDetailsRepo.save(debtorDetails);
         }

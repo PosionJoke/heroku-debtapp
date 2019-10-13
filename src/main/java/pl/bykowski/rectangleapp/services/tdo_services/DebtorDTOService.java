@@ -1,7 +1,6 @@
 package pl.bykowski.rectangleapp.services.tdo_services;
 
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
@@ -9,7 +8,6 @@ import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.services.DebtorDetailsService;
 import pl.bykowski.rectangleapp.services.DebtorService;
 
-import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -52,6 +50,7 @@ public class DebtorDTOService {
                         .stream()
                         .max(Comparator.comparing(Map.Entry::getValue))
                         .get();
+
         Long debtorId = idAndCountOfDebtsMap.getKey();
 
         Long countOfDebts = idAndCountOfDebtsMap.getValue();

@@ -1,7 +1,6 @@
 package pl.bykowski.rectangleapp.services;
 
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -22,7 +21,7 @@ public class NotificationService {
         this.javaMailSender = Objects.requireNonNull(javaMailSender, "javaMailSender must be not null");
     }
 
-    public boolean sendNotification(String email, String code) throws MailException {
+    boolean sendNotification(String email, String code) throws MailException {
         //send email
         try{
             SimpleMailMessage mail = new SimpleMailMessage();

@@ -1,7 +1,6 @@
 package pl.bykowski.rectangleapp.services;
 
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.bykowski.rectangleapp.model.Debtor;
@@ -10,7 +9,6 @@ import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 
 import java.math.BigDecimal;
-import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -48,7 +46,6 @@ public class DebtorService {
     }
 
     private boolean isThisNameFree(String debtorName, String userName) {
-        List<Debtor> debtorList = findByUserName(userName);
 
         return findByUserName(userName)
                 .stream()
@@ -70,9 +67,8 @@ public class DebtorService {
             debtor.setUserName(userName);
             saveDebtor(debtor);
         });
-        BigDecimal newDebtValue = changedDebtor.map(debtor -> debtor.getTotalDebt())
+        return changedDebtor.map(Debtor::getTotalDebt)
                 .orElse(new BigDecimal(0));
-        return newDebtValue;
     }
 
     @Transactional
@@ -113,6 +109,7 @@ public class DebtorService {
         Optional<Debtor> debtorFind = findByUserName(userName)
                 .stream()
                 .max(Comparator.comparing(Debtor::getTotalDebt));
+
         log.debug("Debtor with the biggest debt\nid : " + debtorFind.get().getId());
 
         //TODO looks weird, try to make it better
@@ -127,4 +124,5 @@ public class DebtorService {
     public Debtor findDebtorByName(String name) {
         return debtorRepo.findByName(name).get();
     }
+
 }
