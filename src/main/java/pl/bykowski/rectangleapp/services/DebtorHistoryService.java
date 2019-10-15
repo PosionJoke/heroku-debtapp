@@ -32,8 +32,8 @@ public class DebtorHistoryService {
         long daysBetween = DAYS.between(debtorDetails.getDate(), LocalDate.now());
         debtorHistory.setTimeOfDebt(daysBetween);
 
-        log.debug(String.format("Save DebtorHistory id : [%s], based on DebtorDetails id : [%s]",
-                debtorHistory.getId(), debtorDetails.getId()));
+        log.debug(String.format("Save DebtorHistory : [%s]",
+                debtorHistory.toString()));
 
         debtorHistoryRepo.save(debtorHistory);
     }

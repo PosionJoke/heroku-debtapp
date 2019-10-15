@@ -21,7 +21,7 @@ public class NotificationService {
         this.javaMailSender = Objects.requireNonNull(javaMailSender, "javaMailSender must be not null");
     }
 
-    boolean sendNotification(String email, String code) throws MailException {
+    boolean sendNotification(String email, String code) {
         //send email
         try{
             SimpleMailMessage mail = new SimpleMailMessage();
@@ -35,7 +35,7 @@ public class NotificationService {
 
             return true;
         }catch (MailException mEx){
-            log.debug("Mail not sent, error message : " + mEx.getMessage());
+            log.error("Mail not sent, error message : ", mEx);
             return false;
         }
     }

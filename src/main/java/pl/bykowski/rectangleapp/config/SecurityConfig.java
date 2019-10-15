@@ -11,8 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Objects;
-
 
 @Configuration
 @EnableWebSecurity
@@ -21,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserPrincipalDetailsService userPrincipalDetailsService;
 
     public SecurityConfig(UserPrincipalDetailsService userPrincipalDetailsService) {
-        this.userPrincipalDetailsService = Objects.requireNonNull(userPrincipalDetailsService, "userPrincipalDetailsService must be not null");
+        this.userPrincipalDetailsService = userPrincipalDetailsService;
     }
 
     @Override
@@ -41,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .headers().frameOptions().disable()
-                    .and()
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/create-new-user", "/figureDB", "/default-view", "/", "/create-new-user-authentication").permitAll()
@@ -49,13 +47,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/private/**").authenticated()
                 .antMatchers("/user").hasRole("USER")
                 .anyRequest().authenticated()
-                    .and()
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
-                    .and()
+                .and()
                 .logout().permitAll()
-                    .logoutSuccessUrl("/default-view");
+                .logoutSuccessUrl("/default-view");
     }
 
     @Bean

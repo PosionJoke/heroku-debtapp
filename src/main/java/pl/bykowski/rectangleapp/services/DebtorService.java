@@ -59,10 +59,10 @@ public class DebtorService {
     public void updateTotalDebtAndMakeNewDebtorDetails(DebtorDetailsDTO debtorDetails, Debtor debtor, String userName) {
         debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(),
                 debtorDetails.getReasonForTheDebt(), userName, debtor);
-        updateTotalDebt(debtor.getId(), debtorDetails.getDebt(), userName);
+        updateTotalDebt(debtor.getId(), debtorDetails.getDebt());
     }
 
-    public BigDecimal updateTotalDebt(Long debtorId, BigDecimal debtValue, String userName) {
+    public BigDecimal updateTotalDebt(Long debtorId, BigDecimal debtValue) {
         Optional<Debtor> changedDebtor = findById(debtorId);
         changedDebtor.ifPresent(debtor -> {
             BigDecimal newDebt = debtValue.add(debtor.getTotalDebt());
@@ -78,8 +78,7 @@ public class DebtorService {
         debtorDetailsService.updateDebtorDetailsDebt(debtorDetailsId, debtorDetailsDTO.getDebt());
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(debtorDetailsId);
         debtorDetails.ifPresentOrElse(debtorDetails1 ->
-                        updateTotalDebt(debtorDetails1.getDebtor().getId(), debtorDetailsDTO.getDebt(),
-                                debtorDetails1.getUserName())
+                        updateTotalDebt(debtorDetails1.getDebtor().getId(), debtorDetailsDTO.getDebt())
                 ,
                 () -> log.debug("@PostMapping /debtor-details-save debtorDetails must be present")
         );
@@ -88,7 +87,7 @@ public class DebtorService {
     public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id, String userName) {
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(id);
         debtorDetails.ifPresent(debtorDetails1 -> {
-            updateTotalDebt(debtorDetails1.getId(), debtorDetails1.getDebt().multiply(new BigDecimal(-1)), userName);
+            updateTotalDebt(debtorDetails1.getId(), debtorDetails1.getDebt().multiply(new BigDecimal(-1)));
             debtorHistoryService.saveEntityDebtorHistory(debtorDetails1);
         });
         log.debug(String.format("Delete DebtorDetails id : [%s]", id));
@@ -109,19 +108,17 @@ public class DebtorService {
     }
 
     public Optional<Debtor> returnDebtorWithBiggestDebt(String userName) {
-        Optional<Debtor> debtorFind = findByUserName(userName)
+        Optional<Debtor> debtorFound = findByUserName(userName)
                 .stream()
                 .max(Comparator.comparing(Debtor::getTotalDebt));
 
-        log.debug(String.format("Debtor with the biggest debt id : [%s]", debtorFind.get().getId()));
-
-        debtorFind.ifPresentOrElse(debtor -> {
+        debtorFound.ifPresentOrElse(debtor -> {
             log.debug(String.format("Debtor with the biggest debt id : [%s], Debt Value : [%s]",debtor.getId(),
                     debtor.getTotalDebt()));
 
-        }, () -> log.debug("Can't find debtor"));
+        }, () -> log.error("Can't find debtor"));
 
-        return debtorFind;
+        return debtorFound;
     }
 
     public Debtor findDebtorByName(String name) {

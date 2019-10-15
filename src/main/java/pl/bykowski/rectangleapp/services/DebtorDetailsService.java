@@ -26,7 +26,8 @@ public class DebtorDetailsService {
     }
 
     private void saveDebtorDetails(DebtorDetails debtorDetails) {
-        log.debug("Save to debtorDetailsRepo\nid : " + debtorDetails.getId() + "\n" + "name : " + debtorDetails.getName());
+        log.debug(String.format("Save to debtorDetailsRepo id : [%s], name : [%s]", debtorDetails.getId(),
+                debtorDetails.getName()));
         debtorDetailsRepo.save(debtorDetails);
     }
 

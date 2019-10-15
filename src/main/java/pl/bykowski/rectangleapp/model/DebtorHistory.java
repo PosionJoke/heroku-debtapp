@@ -23,4 +23,16 @@ public class DebtorHistory {
     private long timeOfDebt;
     private String reasonForTheDebt;
     private String userName;
+
+    @Override
+    public String toString() {
+        return "DebtorHistory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", debt=" + debt +
+                ", timeOfDebt=" + timeOfDebt +
+                ", reasonForTheDebt='" + reasonForTheDebt + '\'' +
+                ", userName='" + userName + '\'' +
+                '}';
+    }
 }
