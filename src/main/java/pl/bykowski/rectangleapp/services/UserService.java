@@ -82,9 +82,10 @@ public class UserService {
     }
 
     public void save(DebtorUser debtorUser){
-        log.debug("Save User\nid : " + debtorUser.getId() +
-                "\nname : " + debtorUser.getName() +
-                "\nemail : " + debtorUser.getEmail());
+
+        log.debug(String.format("Save User id : [%s], name : [%s], email : [%s]",debtorUser.getId(),
+                debtorUser.getName(), debtorUser.getEmail()));
+
         debtorUserRepo.save(debtorUser);
     }
 }

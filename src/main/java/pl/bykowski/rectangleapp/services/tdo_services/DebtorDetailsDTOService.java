@@ -17,8 +17,9 @@ public class DebtorDetailsDTOService {
         for(DebtorDetails debtorDetails : debtorList){
             debtorDetailsDTOList.add(new DebtorDetailsDTO(debtorDetails.getId(), debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getDate(), debtorDetails.getReasonForTheDebt()));
         }
-        log.debug("Size of DebtorDetailsDTOList : " + debtorDetailsDTOList.size() + "\n" +
-                "Size of input List : " + debtorList.size());
+        log.debug(String.format("Size of DebtorDetailsDTOList : [%s], size of input List : [%s]",
+                debtorDetailsDTOList.size(), debtorList.size()));
+
         return debtorDetailsDTOList;
     }
 

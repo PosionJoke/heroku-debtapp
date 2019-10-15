@@ -1,6 +1,6 @@
 package pl.bykowski.rectangleapp.controller;
 
-import org.apache.log4j.Logger;
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +16,10 @@ import javax.validation.Valid;
 import java.util.Objects;
 import java.util.Optional;
 
+@Log4j
 @Controller
 public class UserController {
 
-    private static final Logger logger = Logger.getLogger(UserController.class);
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -49,9 +49,7 @@ public class UserController {
                         debtorUser1.setActive(1);
                         userService.save(debtorUser1);
                     },
-                    () -> logger.error("debtor User must be present, if we dont have any user with name " +
-                            debtorUserDTO.getName() + " its means our data base got damage or this DTO " +
-                            "object doesn't return correct user name"));
+                    () -> log.error(String.format("User [%s] does not exist", debtorUserDTO.getName())));
 
             return new  ModelAndView("default-view");
         }
@@ -65,7 +63,4 @@ public class UserController {
         return new ModelAndView("create-new-user")
                 .addObject("debtorUserDTO", new DebtorUserDTO());
     }
-
-
-
 }

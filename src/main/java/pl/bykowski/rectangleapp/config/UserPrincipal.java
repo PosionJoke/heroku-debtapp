@@ -9,14 +9,13 @@ import pl.bykowski.rectangleapp.model.DebtorUser;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 public class UserPrincipal implements UserDetails {
 
     private DebtorUser debtorUser;
 
-     UserPrincipal(DebtorUser debtorUser) {
-        this.debtorUser = Objects.requireNonNull(debtorUser, "debtorUser must be not null");
+    UserPrincipal(DebtorUser debtorUser) {
+        this.debtorUser = debtorUser;
     }
 
     @Override

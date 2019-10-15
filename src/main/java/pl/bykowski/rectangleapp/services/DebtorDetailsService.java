@@ -61,13 +61,14 @@ public class DebtorDetailsService {
         BigDecimal newDebt = debtorDetails.getDebt().add(debtValue);
         if (newDebt.compareTo(new BigDecimal(0)) <= 0) {
             debtorDetails.setDebt(new BigDecimal(0));
-            log.debug("Delete DebtorDetails\nid : " + debtorDetails.getId() + "\nDebt should be equals 0 : " + debtorDetails.getDebt());
+            log.debug(String.format("Delete DebtorDetails, id : [%s], Debt should be equals 0 : [%s]",
+                    debtorDetails.getId(), debtorDetails.getDebt()));
             deleteDebtById(debtorDetails.getId());
         } else {
-            log.debug("Update totalDebt\nid : " + debtorDetails.getId() +
-                    "\nactual debt : " + debtorDetails.getDebt() +
-                    "\nadded value : " + debtValue +
-                    "\nnew debt" + newDebt);
+            log.debug(String.format("Update totalDebt id : [%s], " +
+                    "actual debt : [%s], added value : [%s], new debt = [%s]",
+                    debtorDetails.getId(), debtorDetails.getDebt(), debtValue, newDebt));
+
             debtorDetails.setDebt(newDebt);
 
             debtorDetailsRepo.save(debtorDetails);
@@ -79,7 +80,8 @@ public class DebtorDetailsService {
         Optional<DebtorDetails> debtorDetailsCopyOptional = debtorDetailsRepo.findById(debtorID);
         debtorDetailsCopyOptional.ifPresent(debtorDetails -> {
             debtorHistoryService.saveEntityDebtorHistory(debtorDetails);
-            log.debug("Delete DebtorDetails\nid : " + debtorDetails.getId());
+            log.debug(String.format("Delete DebtorDetails id : [%s]", debtorDetails.getId()));
+
             debtorDetailsRepo.delete(debtorDetails);
         });
     }

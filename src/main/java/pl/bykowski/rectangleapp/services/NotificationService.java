@@ -30,13 +30,12 @@ public class NotificationService {
             mail.setSubject("Welcome to my app :D");
             mail.setText("AuthenticationCode = " + code);
             javaMailSender.send(mail);
-            log.debug("Mail has been sent" +
-                    "\nfrom : " + APP_MAIL +
-                    "\nto : " + email);
+
+            log.debug(String.format("Mail has been sent, from : [%s], to : [%s]", APP_MAIL, email));
 
             return true;
         }catch (MailException mEx){
-            mEx.printStackTrace();
+            log.debug("Mail not sent, error message : " + mEx.getMessage());
             return false;
         }
     }

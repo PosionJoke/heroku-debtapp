@@ -58,8 +58,9 @@ public class DebtorDTOService {
         DebtorDTO debtorDTO = debtor.map(this::returnDebtorDTO).orElse(new DebtorDTO());
         debtorDTO.setCountOfDebts(countOfDebts);
 
-        log.debug("Id debtor with highest count of debts : " + debtorId + "\n" +
-                "Count of debts : " + countOfDebts);
+        log.debug(String.format("Id debtor with highest count of debts : [%s], count of debts : [%s]",
+                debtorId, countOfDebts));
+
         return debtorDTO;
     }
 }

@@ -28,12 +28,15 @@ public class DebtorService {
                          DebtorDetailsService debtorDetailsService, DebtorHistoryService debtorHistoryService) {
         this.debtorRepo = Objects.requireNonNull(debtorRepo, "debtorRepo must be not null");
         this.userService = Objects.requireNonNull(userService, "userService must be not null");
-        this.debtorDetailsService = Objects.requireNonNull(debtorDetailsService, "debtorDetailsService must be not null");
-        this.debtorHistoryService = Objects.requireNonNull(debtorHistoryService, "debtorHistoryService must be not null");
+        this.debtorDetailsService = Objects.requireNonNull(debtorDetailsService,
+                "debtorDetailsService must be not null");
+        this.debtorHistoryService = Objects.requireNonNull(debtorHistoryService,
+                "debtorHistoryService must be not null");
     }
 
     private void saveDebtor(Debtor debtor) {
-        log.debug("Save Debtor\nid : " + debtor.getId() + "\nname : " + debtor.getName());
+        log.debug(String.format("Save Debtor id : [%s], name : [%s]", debtor.getId(), debtor.getName()));
+
         debtorRepo.save(debtor);
     }
 
@@ -54,7 +57,8 @@ public class DebtorService {
 
     @Transactional
     public void updateTotalDebtAndMakeNewDebtorDetails(DebtorDetailsDTO debtorDetails, Debtor debtor, String userName) {
-        debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getReasonForTheDebt(), userName, debtor);
+        debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(),
+                debtorDetails.getReasonForTheDebt(), userName, debtor);
         updateTotalDebt(debtor.getId(), debtorDetails.getDebt(), userName);
     }
 
@@ -63,8 +67,6 @@ public class DebtorService {
         changedDebtor.ifPresent(debtor -> {
             BigDecimal newDebt = debtValue.add(debtor.getTotalDebt());
             debtor.setTotalDebt(newDebt);
-            //todo check is this setUsername is necessary
-            debtor.setUserName(userName);
             saveDebtor(debtor);
         });
         return changedDebtor.map(Debtor::getTotalDebt)
@@ -76,9 +78,10 @@ public class DebtorService {
         debtorDetailsService.updateDebtorDetailsDebt(debtorDetailsId, debtorDetailsDTO.getDebt());
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(debtorDetailsId);
         debtorDetails.ifPresentOrElse(debtorDetails1 ->
-                        updateTotalDebt(debtorDetails1.getDebtor().getId(), debtorDetailsDTO.getDebt(), debtorDetails1.getUserName())
+                        updateTotalDebt(debtorDetails1.getDebtor().getId(), debtorDetailsDTO.getDebt(),
+                                debtorDetails1.getUserName())
                 ,
-                () -> log.debug("@PostMapping /debtor-details-save \ndebtorDetails must be present")
+                () -> log.debug("@PostMapping /debtor-details-save debtorDetails must be present")
         );
     }
 
@@ -88,7 +91,7 @@ public class DebtorService {
             updateTotalDebt(debtorDetails1.getId(), debtorDetails1.getDebt().multiply(new BigDecimal(-1)), userName);
             debtorHistoryService.saveEntityDebtorHistory(debtorDetails1);
         });
-        log.debug("Delete DebtorDetails\nid : " + id);
+        log.debug(String.format("Delete DebtorDetails id : [%s]", id));
         debtorDetailsService.deleteById(id);
     }
     public void addNewDebtor(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName) {
@@ -110,12 +113,12 @@ public class DebtorService {
                 .stream()
                 .max(Comparator.comparing(Debtor::getTotalDebt));
 
-        log.debug("Debtor with the biggest debt\nid : " + debtorFind.get().getId());
+        log.debug(String.format("Debtor with the biggest debt id : [%s]", debtorFind.get().getId()));
 
-        //TODO looks weird, try to make it better
         debtorFind.ifPresentOrElse(debtor -> {
-            log.debug("Debtor with the biggest debt\nid : " + debtor.getId() +
-                    "\n Debt Value : " + debtor.getTotalDebt());
+            log.debug(String.format("Debtor with the biggest debt id : [%s], Debt Value : [%s]",debtor.getId(),
+                    debtor.getTotalDebt()));
+
         }, () -> log.debug("Can't find debtor"));
 
         return debtorFind;
