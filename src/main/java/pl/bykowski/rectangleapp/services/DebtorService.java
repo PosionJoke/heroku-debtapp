@@ -80,7 +80,7 @@ public class DebtorService {
         debtorDetails.ifPresentOrElse(debtorDetails1 ->
                         updateTotalDebt(debtorDetails1.getDebtor().getId(), debtorDetailsDTO.getDebt())
                 ,
-                () -> log.debug("@PostMapping /debtor-details-save debtorDetails must be present")
+                () -> log.debug("debtorDetails must be present")
         );
     }
 

@@ -33,7 +33,7 @@ public class DebtorHistoryService {
         debtorHistory.setTimeOfDebt(daysBetween);
 
         log.debug(String.format("Save DebtorHistory : [%s]",
-                debtorHistory.toString()));
+                debtorHistory));
 
         debtorHistoryRepo.save(debtorHistory);
     }
