@@ -184,7 +184,7 @@ public class DebtorControllerTest {
                 .andExpect(model().attribute("debtors", debtorDTOList))
                 .andExpect(status().isOk());
         //then
-        verify(debtorService).updateTotalDebt(id, debtorReturn.getTotalDebt(), principal.getName());
+        verify(debtorService).updateTotalDebt(id, debtorReturn.getTotalDebt());
     }
 
     @WithMockUser(TEST_USER_NAME)

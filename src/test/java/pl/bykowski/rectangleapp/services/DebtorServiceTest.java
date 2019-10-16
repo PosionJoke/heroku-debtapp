@@ -132,7 +132,7 @@ public class DebtorServiceTest {
         debtor.setUserName(userName);
         given(debtorRepo.findById(id)).willReturn(Optional.of(debtor));
         //when
-        BigDecimal actualDebt = debtorService.updateTotalDebt(id, additionalDebt, userName);
+        BigDecimal actualDebt = debtorService.updateTotalDebt(id, additionalDebt);
         //then
         assertThat(actualDebt).isEqualTo(new BigDecimal(20));
     }

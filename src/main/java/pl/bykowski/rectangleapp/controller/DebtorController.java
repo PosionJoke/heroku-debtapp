@@ -65,7 +65,7 @@ public class DebtorController {
                 .orElse(new BigDecimal(0));
 
         String actualUserName = principal.getName();
-        debtorService.updateTotalDebt(id, actualTotalDebt, actualUserName);
+        debtorService.updateTotalDebt(id, actualTotalDebt);
 
         List<Debtor> debtorList = debtorService.findByUserName(principal.getName());
         List<DebtorDTO> debtorDTOList1 = debtorDTOService.returnDebtorDTOList(debtorList);
