@@ -1,6 +1,6 @@
+package pl.bykowski.rectangleapp.model;
 
-package com.example;
-
+import pl.bykowski.rectangleapp.model.Rates;
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "time_last_updated",
     "rates"
 })
-public class Example {
+public class Currency {
 
     @JsonProperty("base")
     private String base;

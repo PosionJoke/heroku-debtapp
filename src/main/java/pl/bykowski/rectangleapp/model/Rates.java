@@ -1,5 +1,4 @@
-
-package com.example;
+package pl.bykowski.rectangleapp.model;
 
 import java.util.HashMap;
 import java.util.Map;
