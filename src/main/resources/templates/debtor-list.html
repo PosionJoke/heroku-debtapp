@@ -8,6 +8,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!--<style>-->
+        <!--/* Style the input field */-->
+        <!--#myInput {-->
+            <!--padding: 20px;-->
+            <!--margin-top: -6px;-->
+            <!--border: 0;-->
+            <!--border-radius: 0;-->
+            <!--background: #f1f1f1;-->
+        <!--}-->
+    <!--</style>-->
+
 </head>
 <body>
 <div class="container">
@@ -18,6 +30,19 @@
     <form th:action="@{/debtor-create}" method="GET">
         <input type="submit" class="btn btn-success btn-block" style="margin-bottom: 10px" value="Create Debtor"/>
     </form>
+
+    <div class="dropdown">
+        <div class="btn-group dropleft">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Currency
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                <a th:each="currencyType : ${currencyTypes}">
+                    <li><a class="dropdown-item" th:href="@{'/debtor-list?currency=' + ${currencyType.toString()}}" th:text="${currencyType.toString()}"></p></a></li>
+                </a>
+            </ul>
+        </div>
+    </div>
 
     <table class="table table-striped">
         <tr>
@@ -43,5 +68,18 @@
         </tr>
     </table>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".dropdown-menu li").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+
 </body>
 </html>

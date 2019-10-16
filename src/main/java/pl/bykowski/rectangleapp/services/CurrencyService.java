@@ -3,6 +3,11 @@ package pl.bykowski.rectangleapp.services;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import pl.bykowski.rectangleapp.model.Debtor;
+import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class CurrencyService {
@@ -14,9 +19,23 @@ public class CurrencyService {
     }
 
     public String calculateCurrencyRates(String currencyOne, String currencyTwo){
+
+        if(currencyOne == null){
+            currencyOne = "PLN";
+        }
+
         JsonNode jsonNode = restTemplate.getForObject("https://api.exchangerate-api.com/v4/latest/" + currencyOne.toUpperCase(), JsonNode.class).get("rates")
                 .get(currencyTwo.toUpperCase());
 
         return  jsonNode.asText();
+    }
+
+    public List<Debtor> setCurrencyRate(List<Debtor> debtors, String currencyRate) {
+
+         debtors.stream()
+                .forEach(n -> {
+                    n.setTotalDebt(n.getTotalDebt().multiply(new BigDecimal(currencyRate)));
+                });
+         return debtors;
     }
 }

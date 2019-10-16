@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp.controller;
 
+import pl.bykowski.rectangleapp.model.dto.CurencyTypes;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -7,6 +8,7 @@ import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
+import pl.bykowski.rectangleapp.services.CurrencyService;
 import pl.bykowski.rectangleapp.services.DebtorService;
 import pl.bykowski.rectangleapp.services.tdo_services.DebtorDTOService;
 
@@ -20,18 +22,27 @@ import java.util.Optional;
 public class DebtorController {
     private final DebtorRepo debtorRepo;
     private final DebtorService debtorService;
+    private final CurrencyService currencyService;
     private DebtorDTOService debtorDTOService;
 
-    public DebtorController(DebtorRepo debtorRepo, DebtorService debtorService, DebtorDTOService debtorDTOService) {
+    public DebtorController(DebtorRepo debtorRepo, DebtorService debtorService, CurrencyService currencyService, DebtorDTOService debtorDTOService) {
+        this.currencyService = Objects.requireNonNull(currencyService, "currencyService must be not null");
         this.debtorDTOService = Objects.requireNonNull(debtorDTOService, "debtorDTOService must be not null");
         this.debtorRepo = Objects.requireNonNull(debtorRepo, "debtorRepo must be not null");
         this.debtorService = Objects.requireNonNull(debtorService, "debtorService must be not null");
     }
 
     @GetMapping("/debtor-list")
-    public ModelAndView showDebtorList(Principal principal) {
+    public ModelAndView showDebtorList(Principal principal, @RequestParam(required = false) String currency) {
+
+        String currencyRate = currencyService.calculateCurrencyRates(currency, "PLN");
+
+        List<Debtor> debtors = debtorService.findByUserName(principal.getName());
+        List<Debtor> debtorsWithCurrencyRate = currencyService.setCurrencyRate(debtors, currencyRate);
+
         return new ModelAndView("debtor-list")
-                .addObject("debtors", debtorService.findByUserName(principal.getName()));
+                .addObject("debtors", debtorsWithCurrencyRate)
+                .addObject("currencyTypes", CurencyTypes.values());
     }
 
     @GetMapping("/debtor-create")
