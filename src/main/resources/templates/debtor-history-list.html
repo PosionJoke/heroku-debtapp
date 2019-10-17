@@ -5,6 +5,8 @@
     <title>Getting Started Service Web Content</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="/js/currency_script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -15,11 +17,25 @@
 
     <div th:replace="nav.html :: body"></div>
 
+    <div class="dropdown">
+        <div class="btn-group dropleft">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Currency
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                <a th:each="currencyType : ${currencyTypes}">
+                    <li><a class="dropdown-item" th:href="@{'/debtor-history-list?currency=' + ${currencyType.toString()}}" th:text="${currencyType.toString()}"></p></a></li>
+                </a>
+            </ul>
+        </div>
+    </div>
+
     <table class="table table-striped">
         <thead>
         <tr>
             <th>name</th>
             <th>debt</th>
+            <th>currency</th>
             <th>timeOfDebt</th>
             <th>reasonForTheDebt</th>
         </tr>
@@ -27,10 +43,18 @@
         <tr th:each="oneDebtor : ${debtors}">
             <td th:text="${oneDebtor.name}"></td>
             <td th:text="${oneDebtor.debt}"></td>
+            <td th:text="${currency}"></td>
             <td th:text="${oneDebtor.timeOfDebt}"></td>
             <td th:text="${oneDebtor.reasonForTheDebt}"></td>
         </tr>
     </table>
 </div>
+
+<script>
+    $(document).ready(function(){
+        filtrCurrency();
+    });
+</script>
+
 </body>
 </html>

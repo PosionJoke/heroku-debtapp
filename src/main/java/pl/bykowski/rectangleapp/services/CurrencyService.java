@@ -6,6 +6,7 @@ import org.springframework.web.client.RestTemplate;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
+import pl.bykowski.rectangleapp.model.dto.DebtorHistoryDTO;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -46,5 +47,13 @@ public class CurrencyService {
                     n.setDebt(n.getDebt().multiply(new BigDecimal(currencyRate)));
                 });
         return debtorDetailsDTOList1;
+    }
+
+    public List<DebtorHistoryDTO> setCurrencyRateForDebtorHistoryDTO(List<DebtorHistoryDTO> debtorHistoryDTOS, String currencyRate) {
+        debtorHistoryDTOS.stream()
+                .forEach(n -> {
+                    n.setDebt(n.getDebt().multiply(new BigDecimal(currencyRate)));
+                });
+        return debtorHistoryDTOS;
     }
 }
