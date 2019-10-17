@@ -76,12 +76,7 @@ public class DebtorService {
     //TODO this method is too big, change that
     @Transactional
     public void updateTotalDebtAndUpdateDebtorDetailsDebt(DebtorDetailsDTO debtorDetailsDTO, Long debtorDetailsId) {
-        Optional<BigDecimal> newDebt = debtorDetailsService.findById(debtorDetailsDTO.getId()).map(DebtorDetails::getDebt);
-        newDebt.ifPresent(newDebt1 -> {
-            if((newDebt1.min(debtorDetailsDTO.getDebt())).floatValue() <= 0){
-                deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(debtorDetailsDTO.getId());
-            }
-        });
+        deleteDebtIfIsUnderZero(debtorDetailsDTO);
 
         debtorDetailsService.updateDebtorDetailsDebt(debtorDetailsId, debtorDetailsDTO.getDebt());
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(debtorDetailsId);
@@ -91,7 +86,17 @@ public class DebtorService {
                 () -> log.debug("debtorDetails must be present")
         );
     }
-//TODO this user name is unused
+
+    private void deleteDebtIfIsUnderZero(DebtorDetailsDTO debtorDetailsDTO){
+        BigDecimal debtAfterUpdate = debtorDetailsDTO.getDebt();
+        Optional<BigDecimal> debtBeforeUpdate = debtorDetailsService.findById(debtorDetailsDTO.getId()).map(DebtorDetails::getDebt);
+
+        debtBeforeUpdate.ifPresentOrElse(debtBefore -> {
+            if(debtBefore.min(debtAfterUpdate).floatValue() <= 0){
+                deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(debtorDetailsDTO.getId());
+            }}, () -> log.error(String.format("cant find debtor details with id : [%s]", debtorDetailsDTO.getId())));
+    }
+
     public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id) {
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(id);
         debtorDetails.ifPresent(debtorDetails1 -> {
@@ -101,6 +106,7 @@ public class DebtorService {
         log.debug(String.format("Delete DebtorDetails id : [%s]", id));
         debtorDetailsService.deleteById(id);
     }
+
     public void addNewDebtor(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName) {
         String actualUserName = userService.findUserName();
         if (isThisNameFree(debtorName, actualUserName)) {

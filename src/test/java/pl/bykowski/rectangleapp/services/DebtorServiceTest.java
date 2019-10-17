@@ -168,6 +168,9 @@ public class DebtorServiceTest {
         //given
         Long id = 1L;
         DebtorDetails debtorDetails = new DebtorDetails();
+        Debtor debtor = new Debtor();
+        debtor.setId(1L);
+        debtorDetails.setDebtor(debtor);
         given(debtorDetailsService.findById(id)).willReturn(Optional.of(debtorDetails));
         //when
         debtorService.deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id);
