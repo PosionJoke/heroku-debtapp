@@ -15,6 +15,7 @@ import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
+import pl.bykowski.rectangleapp.services.CurrencyService;
 import pl.bykowski.rectangleapp.services.DebtorDetailsService;
 import pl.bykowski.rectangleapp.services.DebtorService;
 import pl.bykowski.rectangleapp.services.tdo_services.DebtorDetailsDTOService;
@@ -36,6 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class DebtorDetailsControllerTests {
 
     private static final String TEST_USER_NAME = "testUser";
+    private static final String currencyRate = "1";
     private MockMvc mvc;
 
     @Autowired
@@ -51,6 +53,8 @@ public class DebtorDetailsControllerTests {
     private DebtorDetailsDTOService debtorDetailsDTOService;
     @MockBean
     private Principal principal;
+    @MockBean
+    private CurrencyService currencyService;
 
     private List<DebtorDetails> debtorDetailsList;
     private List<DebtorDetailsDTO> debtorDetailsDTOList;
@@ -93,12 +97,16 @@ public class DebtorDetailsControllerTests {
         //given
         given(debtorDetailsService.findByUserName(principal.getName())).willReturn(debtorDetailsList);
         given(debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList)).willReturn(debtorDetailsDTOList);
+        given(currencyService.calculateCurrencyRates("PLN", "PLN"))
+                .willReturn(currencyRate);
+        given(currencyService.setCurrencyRateForDebtorDetailsDTO(debtorDetailsDTOList, currencyRate))
+                .willReturn(debtorDetailsDTOList);
         //when
         mvc.perform(get("/debtor-details-list")
                 .flashAttr("principal", principal)
         )
                 .andExpect(model().attribute("debtorLIST", debtorDetailsDTOList))
-                .andExpect(model().size(2))
+                .andExpect(model().size(4))
                 .andExpect(view().name("debtor-details-list"))
                 .andExpect(status().isOk());
         //then
@@ -141,7 +149,7 @@ public class DebtorDetailsControllerTests {
         )
                 .andExpect(view().name("make-new-debtor-details"))
                 .andExpect(model().attribute("debtorDetails", new DebtorDetailsDTO()))
-                .andExpect(model().size(2))
+                .andExpect(model().size(4))
                 .andExpect(status().isOk());
         //then
     }
@@ -183,7 +191,7 @@ public class DebtorDetailsControllerTests {
                 .flashAttr("principal", principal)
                 .param("name", name)
         )
-                .andExpect(model().size(4))
+                .andExpect(model().size(6))
                 .andExpect(status().isOk());
         //then
         verify(debtorService).updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());

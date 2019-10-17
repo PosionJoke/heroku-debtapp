@@ -16,6 +16,7 @@ import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
+import pl.bykowski.rectangleapp.services.CurrencyService;
 import pl.bykowski.rectangleapp.services.DebtorService;
 import pl.bykowski.rectangleapp.services.tdo_services.DebtorDTOService;
 
@@ -39,8 +40,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DebtorControllerTest {
 
-    private MockMvc mvc;
     private static final String TEST_USER_NAME = "testUser";
+    private static final String currencyRate = "1";
+    private MockMvc mvc;
 
     @Autowired
     private WebApplicationContext context;
@@ -53,6 +55,8 @@ public class DebtorControllerTest {
     private DebtorRepo debtorRepo;
     @MockBean
     private Principal principal;
+    @MockBean
+    private CurrencyService currencyService;
 
     private List<Debtor> debtorList;
     private List<DebtorDTO> debtorDTOList;
@@ -111,10 +115,14 @@ public class DebtorControllerTest {
         debtor2.setUserName(userName);
         List<Debtor> debtorList = Arrays.asList(debtor1, debtor2);
         given(debtorService.findByUserName(userName)).willReturn(debtorList);
+        given(currencyService.calculateCurrencyRates("PLN", "PLN"))
+                .willReturn(currencyRate);
+        given(currencyService.setCurrencyRateForDebtors(debtorList, currencyRate))
+                .willReturn(debtorList);
 
         //when
         mvc.perform(get("/debtor-list"))
-                .andExpect(model().size(1))
+                .andExpect(model().size(3))
                 .andExpect(model().attribute("debtors", debtorList))
                 .andExpect(model().attribute("debtors", hasSize(2)))
                 .andExpect(model().attribute("debtors", equalTo(debtorList)))

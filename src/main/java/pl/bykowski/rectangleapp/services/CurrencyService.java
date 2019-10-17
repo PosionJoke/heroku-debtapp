@@ -34,11 +34,18 @@ public class CurrencyService {
 
     public List<Debtor> setCurrencyRateForDebtors(List<Debtor> debtors, String currencyRate) {
 
-         debtors.stream()
-                .forEach(n -> {
-                    n.setTotalDebt(n.getTotalDebt().multiply(new BigDecimal(currencyRate)));
-                });
-         return debtors;
+        if(Double.parseDouble(currencyRate) <= 1){
+            debtors.stream()
+                    .forEach(n -> {
+                        n.setTotalDebt(n.getTotalDebt().multiply(new BigDecimal(currencyRate)));
+                    });
+            return debtors;
+        }
+            debtors.stream()
+                    .forEach(n -> {
+                        n.setTotalDebt(n.getTotalDebt().divide(new BigDecimal(currencyRate)));
+                    });
+        return debtors;
     }
 
     public List<DebtorDetailsDTO> setCurrencyRateForDebtorDetailsDTO(List<DebtorDetailsDTO> debtorDetailsDTOList1, String currencyRate) {

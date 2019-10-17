@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pl.bykowski.rectangleapp.model.DebtorHistory;
 import pl.bykowski.rectangleapp.model.dto.DebtorHistoryDTO;
+import pl.bykowski.rectangleapp.services.CurrencyService;
 import pl.bykowski.rectangleapp.services.DebtorHistoryService;
 import pl.bykowski.rectangleapp.services.tdo_services.DebtorHistoryDTOService;
 
@@ -42,6 +43,8 @@ public class DebtorHistoryControllerTest {
     private DebtorHistoryService debtorHistoryService;
     @MockBean
     private DebtorHistoryDTOService debtorHistoryDTOService;
+    @MockBean
+    private CurrencyService currencyService;
 
     @Before
     public void init() {
@@ -51,6 +54,7 @@ public class DebtorHistoryControllerTest {
                 .build();
     }
 
+    //TODO This test is named test, change it
     @WithMockUser(TEST_USER_NAME)
     @Test
     public void test() throws Exception{
@@ -62,6 +66,8 @@ public class DebtorHistoryControllerTest {
         given(principal.getName()).willReturn(TEST_USER_NAME);
         given(debtorHistoryService.findByUserName(principal.getName())).willReturn(debtorHistoryList);
         given(debtorHistoryDTOService.returnDebtorHistoryDTOList(debtorHistoryList)).willReturn(debtorHistoryDTOS);
+        given(currencyService.calculateCurrencyRates("PLN", "PLN"))
+                .willReturn("1");
         //when
         mvc.perform(get("/debtor-history-list")
                 .flashAttr("principal", principal)
