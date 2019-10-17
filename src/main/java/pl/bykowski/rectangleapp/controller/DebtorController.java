@@ -25,7 +25,9 @@ public class DebtorController {
     private final CurrencyService currencyService;
     private DebtorDTOService debtorDTOService;
 
-    public DebtorController(DebtorRepo debtorRepo, DebtorService debtorService, CurrencyService currencyService, DebtorDTOService debtorDTOService) {
+    public DebtorController(DebtorRepo debtorRepo, DebtorService debtorService, CurrencyService currencyService,
+                            DebtorDTOService debtorDTOService) {
+
         this.currencyService = Objects.requireNonNull(currencyService, "currencyService must be not null");
         this.debtorDTOService = Objects.requireNonNull(debtorDTOService, "debtorDTOService must be not null");
         this.debtorRepo = Objects.requireNonNull(debtorRepo, "debtorRepo must be not null");
@@ -33,16 +35,18 @@ public class DebtorController {
     }
 
     @GetMapping("/debtor-list")
-    public ModelAndView showDebtorList(Principal principal, @RequestParam(required = false) String currency) {
+    public ModelAndView showDebtorList(Principal principal,
+                                       @RequestParam(required = false, defaultValue = "PLN") String currency) {
 
         String currencyRate = currencyService.calculateCurrencyRates(currency, "PLN");
 
         List<Debtor> debtors = debtorService.findByUserName(principal.getName());
-        List<Debtor> debtorsWithCurrencyRate = currencyService.setCurrencyRate(debtors, currencyRate);
+        List<Debtor> debtorsWithCurrencyRate = currencyService.setCurrencyRateForDebtors(debtors, currencyRate);
 
         return new ModelAndView("debtor-list")
                 .addObject("debtors", debtorsWithCurrencyRate)
-                .addObject("currencyTypes", CurencyTypes.values());
+                .addObject("currencyTypes", CurencyTypes.values())
+                .addObject("currency", currency);
     }
 
     @GetMapping("/debtor-create")

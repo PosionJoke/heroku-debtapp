@@ -5,20 +5,11 @@
     <title>Getting Started Service Web Content</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="/js/currency_script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    <!--<style>-->
-        <!--/* Style the input field */-->
-        <!--#myInput {-->
-            <!--padding: 20px;-->
-            <!--margin-top: -6px;-->
-            <!--border: 0;-->
-            <!--border-radius: 0;-->
-            <!--background: #f1f1f1;-->
-        <!--}-->
-    <!--</style>-->
 
 </head>
 <body>
@@ -44,16 +35,20 @@
         </div>
     </div>
 
+    <p id="testJS"></p>
+
     <table class="table table-striped">
         <tr>
             <td>Name</td>
             <td>Total Debt</td>
+            <td>Currency</td>
             <td>Add New Debt</td>
             <td>Edit</td>
         </tr>
         <tr th:each="oneDebtor : ${debtors}">
             <td th:text="${oneDebtor.name}"></td>
             <td th:text="${oneDebtor.totalDebt}"></td>
+            <td th:text="${currency}"></td>
             <td>
                 <a class="btn btn-success btn-lg" th:href="@{'/make-new-debtor-details?name=' + ${oneDebtor.name}}">
                     <span class="glyphicon glyphicon-plus"></span> Add Debt
@@ -71,15 +66,9 @@
 
 <script>
     $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $(".dropdown-menu li").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
+        filtrCurrency();
     });
 </script>
-
 
 </body>
 </html>

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
+import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -30,12 +31,20 @@ public class CurrencyService {
         return  jsonNode.asText();
     }
 
-    public List<Debtor> setCurrencyRate(List<Debtor> debtors, String currencyRate) {
+    public List<Debtor> setCurrencyRateForDebtors(List<Debtor> debtors, String currencyRate) {
 
          debtors.stream()
                 .forEach(n -> {
                     n.setTotalDebt(n.getTotalDebt().multiply(new BigDecimal(currencyRate)));
                 });
          return debtors;
+    }
+
+    public List<DebtorDetailsDTO> setCurrencyRateForDebtorDetailsDTO(List<DebtorDetailsDTO> debtorDetailsDTOList1, String currencyRate) {
+        debtorDetailsDTOList1.stream()
+                .forEach(n -> {
+                    n.setDebt(n.getDebt().multiply(new BigDecimal(currencyRate)));
+                });
+        return debtorDetailsDTOList1;
     }
 }
