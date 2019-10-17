@@ -26,21 +26,29 @@ public class CurrencyService {
             currencyOne = "PLN";
         }
 
-        JsonNode jsonNode = restTemplate.getForObject("https://api.exchangerate-api.com/v4/latest/" + currencyOne.toUpperCase(), JsonNode.class).get("rates")
-                .get(currencyTwo.toUpperCase());
+        JsonNode jsonNode;
 
-        return  jsonNode.asText();
+        //TODO this is wrong way, you should use ur own implementation of something like resthandler? (google it) from spring
+        try{
+            jsonNode = restTemplate.getForObject("https://api.exchangerate-api.com/v4/latest/" +
+                    currencyOne.toUpperCase(), JsonNode.class).get("rates")
+                    .get(currencyTwo.toUpperCase());
+            return  jsonNode.asText();
+        }catch (Exception ex){
+            return "1";
+        }
     }
 
+    //TODO looks like there is chances to use generic
     public List<Debtor> setCurrencyRateForDebtors(List<Debtor> debtors, String currencyRate) {
 
-        if(Double.parseDouble(currencyRate) <= 1){
-            debtors.stream()
-                    .forEach(n -> {
-                        n.setTotalDebt(n.getTotalDebt().multiply(new BigDecimal(currencyRate)));
-                    });
-            return debtors;
-        }
+//        if(Double.parseDouble(currencyRate) <= 1){
+//            debtors.stream()
+//                    .forEach(n -> {
+//                        n.setTotalDebt(n.getTotalDebt().multiply(new BigDecimal(currencyRate)));
+//                    });
+//            return debtors;
+//        }
             debtors.stream()
                     .forEach(n -> {
                         n.setTotalDebt(n.getTotalDebt().divide(new BigDecimal(currencyRate)));
