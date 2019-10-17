@@ -61,9 +61,10 @@ public class DebtorDetailsService {
     private void isThisDebtUnderZero(DebtorDetails debtorDetails, BigDecimal debtValue) {
         BigDecimal newDebt = debtorDetails.getDebt().add(debtValue);
         if (newDebt.compareTo(new BigDecimal(0)) <= 0) {
-            debtorDetails.setDebt(new BigDecimal(0));
+//            debtorDetails.setDebt(new BigDecimal(0));
             log.debug(String.format("Delete DebtorDetails, id : [%s], Debt should be equals 0 : [%s]",
                     debtorDetails.getId(), debtorDetails.getDebt()));
+
             deleteDebtById(debtorDetails.getId());
         } else {
             log.debug(String.format("Update totalDebt id : [%s], " +

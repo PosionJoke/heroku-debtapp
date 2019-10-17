@@ -25,7 +25,8 @@
             <ul class="dropdown-menu">
                 <input class="form-control" id="myInput" type="text" placeholder="Search..">
                 <a th:each="currencyType : ${currencyTypes}">
-                    <li><a class="dropdown-item" th:href="@{'/debtor-details-list?currency=' + ${currencyType.toString()}}" th:text="${currencyType.toString()}"></p></a></li>
+                    <li><a class="dropdown-item" th:href="@{'/debtor-details-list?currency=' +
+                    ${currencyType.toString()}}" th:text="${currencyType.toString()}"></p></a></li>
                 </a>
             </ul>
         </div>

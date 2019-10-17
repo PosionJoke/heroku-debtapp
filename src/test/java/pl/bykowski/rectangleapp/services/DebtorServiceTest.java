@@ -170,7 +170,7 @@ public class DebtorServiceTest {
         DebtorDetails debtorDetails = new DebtorDetails();
         given(debtorDetailsService.findById(id)).willReturn(Optional.of(debtorDetails));
         //when
-        debtorService.deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id, principal.getName());
+        debtorService.deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id);
         //then
         verify(debtorHistoryService).saveEntityDebtorHistory(debtorDetails);
         verify(debtorDetailsService).deleteById(id);

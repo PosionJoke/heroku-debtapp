@@ -73,8 +73,16 @@ public class DebtorService {
                 .orElse(new BigDecimal(0));
     }
 
+    //TODO this method is too big, change that
     @Transactional
     public void updateTotalDebtAndUpdateDebtorDetailsDebt(DebtorDetailsDTO debtorDetailsDTO, Long debtorDetailsId) {
+        Optional<BigDecimal> newDebt = debtorDetailsService.findById(debtorDetailsDTO.getId()).map(DebtorDetails::getDebt);
+        newDebt.ifPresent(newDebt1 -> {
+            if((newDebt1.min(debtorDetailsDTO.getDebt())).floatValue() <= 0){
+                deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(debtorDetailsDTO.getId());
+            }
+        });
+
         debtorDetailsService.updateDebtorDetailsDebt(debtorDetailsId, debtorDetailsDTO.getDebt());
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(debtorDetailsId);
         debtorDetails.ifPresentOrElse(debtorDetails1 ->
@@ -83,11 +91,11 @@ public class DebtorService {
                 () -> log.debug("debtorDetails must be present")
         );
     }
-
-    public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id, String userName) {
+//TODO this user name is unused
+    public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id) {
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(id);
         debtorDetails.ifPresent(debtorDetails1 -> {
-            updateTotalDebt(debtorDetails1.getId(), debtorDetails1.getDebt().multiply(new BigDecimal(-1)));
+            updateTotalDebt(debtorDetails1.getDebtor().getId(), debtorDetails1.getDebt().multiply(new BigDecimal(-1)));
             debtorHistoryService.saveEntityDebtorHistory(debtorDetails1);
         });
         log.debug(String.format("Delete DebtorDetails id : [%s]", id));

@@ -89,7 +89,7 @@ public class DebtorDetailsController {
     @GetMapping("/debtor-details-delete-by-id")
     public ModelAndView deleteDebtorDetailsById(@RequestParam Long id, Principal principal) {
 
-        debtorService.deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id, principal.getName());
+        debtorService.deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id);
 
         List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());
         List<DebtorDetailsDTO> debtorDetailsDTOList1 = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);

@@ -171,7 +171,7 @@ public class DebtorDetailsControllerTests {
                 .andExpect(model().size(2))
                 .andExpect(status().isOk());
         //then
-        verify(debtorService).deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id, principal.getName());
+        verify(debtorService).deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id);
     }
 
     @WithMockUser(TEST_USER_NAME)
