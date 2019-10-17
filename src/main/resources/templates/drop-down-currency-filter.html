@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="dropdown">
+    <div class="btn-group dropleft">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Currency
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <input class="form-control" id="myInput" type="text" placeholder="Search..">
+            <a th:each="currencyType : ${currencyTypes}">
+                <li><a class="dropdown-item" th:href="@{'/debtor-list?currency=' + ${currencyType.toString()}}" th:text="${currencyType.toString()}"></p></a></li>
+            </a>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>
