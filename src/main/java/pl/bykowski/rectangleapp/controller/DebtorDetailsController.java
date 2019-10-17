@@ -71,8 +71,11 @@ public class DebtorDetailsController {
     }
 
     @GetMapping("/make-new-debtor-details")
-    public ModelAndView makeNewDebtorDetails(@RequestParam String name) {
+    public ModelAndView makeNewDebtorDetails(@RequestParam String name,
+                                             @RequestParam(required = false, defaultValue = "PLN") String currency) {
         return new ModelAndView("make-new-debtor-details")
+                .addObject("currency", currency)
+                .addObject("currencyTypes", CurencyTypes.values())
                 .addObject("debtorDetails", new DebtorDetailsDTO())
                 .addObject("name", name);
     }
@@ -96,11 +99,14 @@ public class DebtorDetailsController {
 
     @PostMapping("/make-new-debtor-details")
     public ModelAndView saveNewDebtorDetails(@ModelAttribute DebtorDetailsDTO debtorDetails, Principal principal,
-                                             @RequestParam String name) {
+                                             @RequestParam String name,
+                                             @RequestParam(required = false, defaultValue = "PLN") String currency) {
 
         Debtor debtor = debtorService.findDebtorByName(name);
         debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());
         return new ModelAndView("debtor-details-list")
+                .addObject("currency", currency)
+                .addObject("currencyTypes", CurencyTypes.values())
                 .addObject("debtorLIST", debtorDetailsService.findByUserName(principal.getName()));
     }
 
