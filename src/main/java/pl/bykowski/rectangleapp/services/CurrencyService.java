@@ -9,6 +9,7 @@ import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorHistoryDTO;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -39,6 +40,7 @@ public class CurrencyService {
         }
     }
 
+    //TODO THERE is problem with divide bigdecimals, check it
     //TODO looks like there is chances to use generic
     public List<Debtor> setCurrencyRateForDebtors(List<Debtor> debtors, String currencyRate) {
 
@@ -51,7 +53,7 @@ public class CurrencyService {
 //        }
             debtors.stream()
                     .forEach(n -> {
-                        n.setTotalDebt(n.getTotalDebt().divide(new BigDecimal(currencyRate)));
+                        n.setTotalDebt(n.getTotalDebt().divide(new BigDecimal(currencyRate), 3, RoundingMode.CEILING));
                     });
         return debtors;
     }
@@ -59,7 +61,7 @@ public class CurrencyService {
     public List<DebtorDetailsDTO> setCurrencyRateForDebtorDetailsDTO(List<DebtorDetailsDTO> debtorDetailsDTOList1, String currencyRate) {
         debtorDetailsDTOList1.stream()
                 .forEach(n -> {
-                    n.setDebt(n.getDebt().multiply(new BigDecimal(currencyRate)));
+                    n.setDebt(n.getDebt().divide(new BigDecimal(currencyRate), 3, RoundingMode.CEILING));
                 });
         return debtorDetailsDTOList1;
     }
@@ -67,7 +69,7 @@ public class CurrencyService {
     public List<DebtorHistoryDTO> setCurrencyRateForDebtorHistoryDTO(List<DebtorHistoryDTO> debtorHistoryDTOS, String currencyRate) {
         debtorHistoryDTOS.stream()
                 .forEach(n -> {
-                    n.setDebt(n.getDebt().multiply(new BigDecimal(currencyRate)));
+                    n.setDebt(n.getDebt().divide(new BigDecimal(currencyRate), 3, RoundingMode.CEILING));
                 });
         return debtorHistoryDTOS;
     }

@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import pl.bykowski.rectangleapp.model.Debtor;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class CurrencyServiceTest {
         assertThat(found.get(0).getTotalDebt()).isEqualTo(new BigDecimal("5"));
         assertThat(found.get(1).getTotalDebt()).isEqualTo(new BigDecimal("50"));
     }
-//TODO googl why we cant divide as BigDecimal 1 and 3.8
+
     public static void main(String[] args) {
         System.out.println(
 
@@ -61,7 +62,7 @@ public class CurrencyServiceTest {
         System.out.println(new BigDecimal(2).divide(new BigDecimal(4)));
         System.out.println(new BigDecimal(2).divide(new BigDecimal(0.5)));
         System.out.println(new BigDecimal("3.8"));
-        System.out.println(new BigDecimal("1").divide(new BigDecimal("3.8")));
+        System.out.println(new BigDecimal("1").divide(new BigDecimal("3.8"), 3, RoundingMode.CEILING));
 
     }
 }
