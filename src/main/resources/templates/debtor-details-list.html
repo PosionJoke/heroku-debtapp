@@ -19,7 +19,7 @@
     <div th:replace="nav.html :: body"></div>
 
     <div class="dropdown">
-        <div class="btn-group dropleft">
+        <div class="btn-group dropleft btn-block">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Currency
                 <span class="caret"></span></button>
             <ul class="dropdown-menu">
@@ -31,6 +31,9 @@
             </ul>
         </div>
     </div>
+    <br>
+    <input class="form-control" id="tableFilterInput" type="text" placeholder="Search from list">
+    <br>
 
     <table class="table table-striped">
         <thead>
@@ -45,6 +48,7 @@
             <th>Delete</th>
         </tr>
         </thead>
+        <tbody id="tableFilter">
         <tr th:each="oneDebtor : ${debtorLIST}">
             <td th:text="${oneDebtor.name}"></td>
             <td th:text="${oneDebtor.debt}"></td>
@@ -68,12 +72,14 @@
                 </a>
             </td>
         </tr>
+        </tbody>
     </table>
 </div>
 
 <script>
     $(document).ready(function(){
-        filtrCurrency();
+        filterCurrencyDropDown();
+        filterTable();
     });
 </script>
 

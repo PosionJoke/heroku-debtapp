@@ -23,7 +23,7 @@
     </form>
 
     <div class="dropdown">
-        <div class="btn-group dropleft">
+        <div class="btn-group dropleft btn-block">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Currency
                 <span class="caret"></span></button>
             <ul class="dropdown-menu">
@@ -34,8 +34,9 @@
             </ul>
         </div>
     </div>
-
-    <p id="testJS"></p>
+    <br>
+    <input class="form-control" id="tableFilterInput" type="text" placeholder="Search from list">
+    <br>
 
     <table class="table table-striped">
         <tr>
@@ -45,6 +46,7 @@
             <td>Add New Debt</td>
             <td>Edit</td>
         </tr>
+        <tbody id="tableFilter">
         <tr th:each="oneDebtor : ${debtors}">
             <td th:text="${oneDebtor.name}"></td>
             <td th:text="${oneDebtor.totalDebt}"></td>
@@ -61,12 +63,14 @@
                 </a>
             </td>
         </tr>
+        </tbody>
     </table>
 </div>
 
 <script>
     $(document).ready(function(){
-        filtrCurrency();
+        filterCurrencyDropDown();
+        filterTable();
     });
 </script>
 
