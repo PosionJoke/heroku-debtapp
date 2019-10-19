@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import pl.bykowski.rectangleapp.model.Debtor;
+import pl.bykowski.rectangleapp.model.dto.CurrencyRate;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorHistoryDTO;
@@ -43,14 +44,6 @@ public class CurrencyService {
     //TODO THERE is problem with divide bigdecimals, check it
     //TODO looks like there is chances to use generic
     public List<Debtor> setCurrencyRateForDebtors(List<Debtor> debtors, String currencyRate) {
-
-//        if(Double.parseDouble(currencyRate) <= 1){
-//            debtors.stream()
-//                    .forEach(n -> {
-//                        n.setTotalDebt(n.getTotalDebt().multiply(new BigDecimal(currencyRate)));
-//                    });
-//            return debtors;
-//        }
             debtors.stream()
                     .forEach(n -> {
                         n.setTotalDebt(n.getTotalDebt().divide(new BigDecimal(currencyRate), 3, RoundingMode.CEILING));
@@ -72,5 +65,13 @@ public class CurrencyService {
                     n.setDebt(n.getDebt().divide(new BigDecimal(currencyRate), 3, RoundingMode.CEILING));
                 });
         return debtorHistoryDTOS;
+    }
+
+    public <T extends CurrencyRate> List<T> testGeneric (List<T> list, String currencyRate){
+        list.stream()
+                .forEach(listStream -> listStream.setDebt(
+                        listStream.getDebt().divide(new BigDecimal(currencyRate), 3, RoundingMode.CEILING)
+                ));
+        return list;
     }
 }

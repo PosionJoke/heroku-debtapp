@@ -39,7 +39,7 @@ public class DebtorHistoryController {
         String currencyRate = currencyService.calculateCurrencyRates(currency, "PLN");
 
         List<DebtorHistoryDTO> debtorHistoryDTOSWithUpdateCurrencyRates =
-                currencyService.setCurrencyRateForDebtorHistoryDTO(debtorHistoryDTOS, currencyRate);
+                currencyService.testGeneric(debtorHistoryDTOS, currencyRate);
 
         return new ModelAndView("debtor-history-list")
                 .addObject("debtors", debtorHistoryDTOSWithUpdateCurrencyRates)

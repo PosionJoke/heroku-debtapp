@@ -10,10 +10,20 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DebtorDetailsDTO {
+public class DebtorDetailsDTO implements CurrencyRate{
     private Long id;
     private String name;
     private BigDecimal debt = new BigDecimal(0);
     private LocalDate date;
     private String reasonForTheDebt;
+
+    @Override
+    public void setDebt(BigDecimal newDebt) {
+        this.debt = newDebt;
+    }
+
+    @Override
+    public BigDecimal getDebt(){
+        return this.debt;
+    }
 }
