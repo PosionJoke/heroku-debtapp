@@ -10,6 +10,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
@@ -33,14 +36,14 @@
     <input class="form-control" id="tableFilterInput" type="text" placeholder="Search from list">
     <br>
 
-    <table class="table table-striped">
+    <table class="table table-striped" data-toggle="table">
         <thead>
         <tr>
-            <th>name</th>
-            <th>debt</th>
+            <th data-sortable="true">name</th>
+            <th data-sortable="true">debt</th>
             <th>currency</th>
-            <th>timeOfDebt</th>
-            <th>reasonForTheDebt</th>
+            <th data-sortable="true">timeOfDebt</th>
+            <th data-sortable="true">reasonForTheDebt</th>
         </tr>
         </thead>
         <tbody id="tableFilter">
