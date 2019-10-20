@@ -3,27 +3,30 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Getting Started Service Web Content</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
     <form action="#" th:action="@{'/debtor-details-save?id=' + ${id}}" th:object="${debtor}" method="post">
         <p>
-            Add new debt value to <span th:text="${debtor.name}"></span>
+            Add new debt value to : <span th:text="${debtor.name}"></span>
         </p>
         <p>
-            Actual debt <span th:text="${debtor.debt}"></span>
+            Actual debt : <span th:text="${debtor.debt}"></span>
         </p>
         <p>
-            Reason for that debt <span th:text="${debtor.reasonForTheDebt}"></span>
+            Reason for that debt : <span th:text="${debtor.reasonForTheDebt}"></span>
         </p>
-        <table border="5">
-            <td>Enter how much money you want to add</td>
-            <td><input type="text" th:field="${debtor.debt}"/></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Submit"/></td>
-            </tr>
-        </table>
+
+        <div class="form-group">
+            <label for="DebtValue">Enter how much money you want to add :</label>
+            <td><input type="text" class="form-control" id="DebtValue" th:field="${debtor.debt}"/></td>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox"> Remember me</label>
+        </div>
+        <button type="submit" style="margin-bottom: 10px" class="btn btn-primary">Submit</button>
     </form>
 </div>
 <form th:action="@{/main-view}" method="GET">
