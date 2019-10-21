@@ -67,7 +67,7 @@ public class CurrencyService {
         return debtorHistoryDTOS;
     }
 
-    public <T extends CurrencyRate> List<T> testGeneric (List<T> list, String currencyRate){
+    public <T extends CurrencyRate> List<T> setCurrencyRates(List<T> list, String currencyRate){
         list.stream()
                 .forEach(listStream -> listStream.setDebt(
                         listStream.getDebt().divide(new BigDecimal(currencyRate), 3, RoundingMode.CEILING)

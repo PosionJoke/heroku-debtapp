@@ -29,5 +29,57 @@
 <form th:action="@{/main-view}" method="GET">
     <input type="submit" class="btn btn-primary btn-block" value="Go back to main view"/>
 </form>
+
+<div>
+<!--    Registration closes in <span id="timer">05:00<span> minutes!-->
+<!--    Registration closes in <p id="timer">05:00</p> minutes!-->
+</div>
+<div id="r"></div>
+<p>Hi Ho : </p>
+<p id="testJS">3</p>
+<div>Registration closes in <span id="time"></span> minutes!</div>
+
+<script>
+    // $(document).ready(function() {
+
+        // window.onload = function () {
+        //     var start = Date.now(), r = document.getElementById('r');
+        //     (function f() {
+        //         var diff = Date.now() - start, ns = (((3e5 - diff) / 1000) >> 0), m = (ns / 60) >> 0, s = ns - m * 60;
+        //         r.textContent = "Registration closes in " + m + ':' + (('' + s).length > 1 ? '' : '0') + s + ' minutes';
+        //         if (diff > (3e5)) {
+        //             start = Date.now()
+        //         }
+        //         setTimeout(f, 1000);
+        //     })();
+        // }
+
+    function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                timer = duration;
+            }
+        }, 1000);
+    }
+
+    window.onload = function () {
+        var testJs = document.getElementById("testJS").textContent;
+        var fiveMinutes = 60 * testJs,
+            display = document.querySelector('#time');
+        startTimer(fiveMinutes, display);
+    };
+
+    // });
+</script>
+
 </body>
 </html>

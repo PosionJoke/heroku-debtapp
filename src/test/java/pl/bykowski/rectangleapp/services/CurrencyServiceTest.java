@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import pl.bykowski.rectangleapp.model.Debtor;
+import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -33,11 +34,16 @@ public class CurrencyServiceTest {
     public void should_set_new_total_debt_based_on_currencyRates(){
         //given
         String currencyRate = "2";
+        DebtorDTO debtorDTO1 = new DebtorDTO();
+        debtorDTO1.setTotalDebt(new BigDecimal(10));
+        DebtorDTO debtorDTO2 = new DebtorDTO();
+        debtorDTO2.setTotalDebt(new BigDecimal(100));
+        List<DebtorDTO> debtorDTOList = Arrays.asList(debtorDTO1, debtorDTO2);
         //when
-        List<Debtor> found = currencyService.setCurrencyRateForDebtors(debtorList, currencyRate);
+        List<DebtorDTO> found = currencyService.setCurrencyRates(debtorDTOList, currencyRate);
         //then
-        assertThat(found.get(0).getTotalDebt()).isEqualTo(new BigDecimal("5"));
-        assertThat(found.get(1).getTotalDebt()).isEqualTo(new BigDecimal("50"));
+        assertThat(found.get(0).getTotalDebt()).isEqualTo(new BigDecimal("5.000"));
+        assertThat(found.get(1).getTotalDebt()).isEqualTo(new BigDecimal("50.000"));
     }
 
     public static void main(String[] args) {

@@ -42,7 +42,7 @@ public class DebtorController {
 
         List<Debtor> debtors = debtorService.findByUserName(principal.getName());
         List<DebtorDTO> debtorDTOList = debtorDTOService.returnDebtorDTOList(debtors);
-        List<DebtorDTO> debtorsWithCurrencyRate = currencyService.testGeneric(debtorDTOList, currencyRate);
+        List<DebtorDTO> debtorsWithCurrencyRate = currencyService.setCurrencyRates(debtorDTOList, currencyRate);
 
         return new ModelAndView("debtor-list")
                 .addObject("debtors", debtorsWithCurrencyRate)

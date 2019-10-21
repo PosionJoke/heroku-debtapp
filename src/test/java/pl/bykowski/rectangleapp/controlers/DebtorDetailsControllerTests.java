@@ -99,7 +99,7 @@ public class DebtorDetailsControllerTests {
         given(debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList)).willReturn(debtorDetailsDTOList);
         given(currencyService.calculateCurrencyRates("PLN", "PLN"))
                 .willReturn(currencyRate);
-        given(currencyService.setCurrencyRateForDebtorDetailsDTO(debtorDetailsDTOList, currencyRate))
+        given(currencyService.setCurrencyRates(debtorDetailsDTOList, currencyRate))
                 .willReturn(debtorDetailsDTOList);
         //when
         mvc.perform(get("/debtor-details-list")

@@ -114,23 +114,24 @@ public class DebtorControllerTest {
         debtor2.setName(debtorName2);
         debtor2.setUserName(userName);
         List<Debtor> debtorList = Arrays.asList(debtor1, debtor2);
+        DebtorDTO debtorDTO1 = new DebtorDTO();
+        debtorDTO1.setName(debtor1.getName());
+        DebtorDTO debtorDTO2 = new DebtorDTO();
+        debtorDTO2.setName(debtor2.getName());
+        List<DebtorDTO> debtorDTOList = Arrays.asList(debtorDTO1, debtorDTO2);
+
         given(debtorService.findByUserName(userName)).willReturn(debtorList);
+        given(debtorDTOService.returnDebtorDTOList(debtorList)).willReturn(debtorDTOList);
         given(currencyService.calculateCurrencyRates("PLN", "PLN"))
                 .willReturn(currencyRate);
-        given(currencyService.setCurrencyRateForDebtors(debtorList, currencyRate))
-                .willReturn(debtorList);
+        given(currencyService.setCurrencyRates(debtorDTOList, currencyRate))
+                .willReturn(debtorDTOList);
 
         //when
         mvc.perform(get("/debtor-list"))
                 .andExpect(model().size(3))
-                .andExpect(model().attribute("debtors", debtorList))
+                .andExpect(model().attribute("debtors", debtorDTOList))
                 .andExpect(model().attribute("debtors", hasSize(2)))
-                .andExpect(model().attribute("debtors", equalTo(debtorList)))
-                .andExpect(model().attribute("debtors", hasItem(
-                        allOf(
-                                hasProperty("userName", is(userName))
-                        )
-                )))
                 .andExpect(view().name("debtor-list"))
                 .andExpect(status().isOk())
                 .andDo(print());

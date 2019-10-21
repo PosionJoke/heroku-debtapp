@@ -48,7 +48,7 @@ public class DebtorDetailsController {
 
         String currencyRate = currencyService.calculateCurrencyRates(currency, "PLN");
 
-        List<DebtorDetailsDTO> debtorDetailsDTOWithCurrencyRate = currencyService.testGeneric(debtorDetailsDTOList1, currencyRate);
+        List<DebtorDetailsDTO> debtorDetailsDTOWithCurrencyRate = currencyService.setCurrencyRates(debtorDetailsDTOList1, currencyRate);
 
         return new ModelAndView("debtor-details-list")
                 .addObject("debtorLIST", debtorDetailsDTOWithCurrencyRate)
