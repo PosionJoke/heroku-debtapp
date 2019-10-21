@@ -58,7 +58,8 @@ public class DebtorService {
     @Transactional
     public void updateTotalDebtAndMakeNewDebtorDetails(DebtorDetailsDTO debtorDetails, Debtor debtor, String userName) {
         debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(),
-                debtorDetails.getReasonForTheDebt(), userName, debtor);
+                debtorDetails.getReasonForTheDebt(), userName, debtor, debtorDetails.getDebtEndDate());
+
         updateTotalDebt(debtor.getId(), debtorDetails.getDebt());
     }
 

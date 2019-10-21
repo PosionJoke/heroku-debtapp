@@ -15,7 +15,9 @@ public class DebtorDetailsDTOService {
     public List<DebtorDetailsDTO> returnDebtorDetailsDTOList(List<DebtorDetails> debtorList){
         List<DebtorDetailsDTO> debtorDetailsDTOList = new ArrayList<>();
         for(DebtorDetails debtorDetails : debtorList){
-            debtorDetailsDTOList.add(new DebtorDetailsDTO(debtorDetails.getId(), debtorDetails.getName(), debtorDetails.getDebt(), debtorDetails.getDate(), debtorDetails.getReasonForTheDebt()));
+            debtorDetailsDTOList.add(new DebtorDetailsDTO(debtorDetails.getId(), debtorDetails.getName(),
+                    debtorDetails.getDebt(), debtorDetails.getDate(), debtorDetails.getReasonForTheDebt(),
+                    debtorDetails.getDebtEndDate()));
         }
         log.debug(String.format("Size of DebtorDetailsDTOList : [%s], size of input List : [%s]",
                 debtorDetailsDTOList.size(), debtorList.size()));
@@ -25,6 +27,7 @@ public class DebtorDetailsDTOService {
 
     public DebtorDetailsDTO returnDebtorDetailsDTO(DebtorDetails debtorDetails){
         return new DebtorDetailsDTO(debtorDetails.getId(),debtorDetails.getName(),
-                debtorDetails.getDebt(), debtorDetails.getDate(), debtorDetails.getReasonForTheDebt());
+                debtorDetails.getDebt(), debtorDetails.getDate(), debtorDetails.getReasonForTheDebt(),
+                debtorDetails.getDebtEndDate());
     }
 }

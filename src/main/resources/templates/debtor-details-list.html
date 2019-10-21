@@ -44,6 +44,7 @@
             <th data-sortable="true">debt</th>
             <th>currency</th>
             <th data-sortable="true">date</th>
+            <th data-sortable="true">end date</th>
             <th data-sortable="true">reasonForTheDebt</th>
             <th>Add</th>
             <th>Edit</th>
@@ -56,6 +57,7 @@
             <td th:text="${oneDebtor.debt}"></td>
             <td th:text="${currency}"></td>
             <td th:text="${oneDebtor.date}"></td>
+            <td th:text="${oneDebtor.debtEndDate}"></td>
             <td th:text="${oneDebtor.reasonForTheDebt}"></td>
             <td>
                 <a class="btn btn-success btn-lg" th:href="@{'/make-new-debtor-details?name=' + ${oneDebtor.name}}">

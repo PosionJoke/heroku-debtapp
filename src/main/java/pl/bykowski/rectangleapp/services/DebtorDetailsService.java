@@ -31,14 +31,18 @@ public class DebtorDetailsService {
         debtorDetailsRepo.save(debtorDetails);
     }
 
+    DebtorDetails addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor, LocalDate debtEndDate) {
+
+        DebtorDetails debtorDetails = new DebtorDetails(debtorName, debtValue, LocalDate.now(), reasonForTheDebt,
+                        userName, debtEndDate, debtor);
+
+        saveDebtorDetails(debtorDetails);
+        return debtorDetails;
+    }
     DebtorDetails addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor) {
-        DebtorDetails debtorDetails = new DebtorDetails();
-        debtorDetails.setName(debtorName);
-        debtorDetails.setDebt(debtValue);
-        debtorDetails.setDate(LocalDate.now());
-        debtorDetails.setReasonForTheDebt(reasonForTheDebt);
-        debtorDetails.setUserName(userName);
-        debtorDetails.setDebtor(debtor);
+
+        DebtorDetails debtorDetails = new DebtorDetails(debtorName, debtValue, LocalDate.now(), reasonForTheDebt,
+                userName, debtor);
 
         saveDebtorDetails(debtorDetails);
         return debtorDetails;
