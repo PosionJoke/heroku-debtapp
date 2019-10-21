@@ -21,12 +21,12 @@
         </div>
         <div class="form-group">
             <label for="Password1">Password :</label>
-            <td><input type="text" class="form-control" id="Password1" th:field="${debtorUserDTO.password1}"/></td>
+            <td><input type="password" class="form-control" id="Password1" th:field="${debtorUserDTO.password1}"/></td>
             <td th:if="${#fields.hasErrors('password1')}" th:errors="${debtorUserDTO.password1}">password1 error</td>
         </div>
         <div class="form-group">
             <label for="Password2">Repeat Password :</label>
-            <td><input type="text" class="form-control" id="Password2" th:field="${debtorUserDTO.password2}"/></td>
+            <td><input type="password" class="form-control" id="Password2" th:field="${debtorUserDTO.password2}"/></td>
             <td th:if="${#fields.hasErrors('*')}" th:errors="${debtorUserDTO}">password2 error</td>
         </div>
         <div class="checkbox">

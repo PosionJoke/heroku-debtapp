@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -17,8 +18,18 @@ public class DebtorDetailsDTO implements CurrencyRate{
     private BigDecimal debt = new BigDecimal(0);
     private LocalDate date;
     private String reasonForTheDebt;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate debtEndDate;
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    private LocalDateTime debtEndDate;
+    private String debtEndDateString;
+
+    public DebtorDetailsDTO(Long id, String name, BigDecimal debt, LocalDate date, String reasonForTheDebt, LocalDateTime debtEndDate) {
+        this.id = id;
+        this.name = name;
+        this.debt = debt;
+        this.date = date;
+        this.reasonForTheDebt = reasonForTheDebt;
+        this.debtEndDate = debtEndDate;
+    }
 
     @Override
     public void setDebt(BigDecimal newDebt) {

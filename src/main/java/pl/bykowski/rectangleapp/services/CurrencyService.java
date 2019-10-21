@@ -11,7 +11,12 @@ import pl.bykowski.rectangleapp.model.dto.DebtorHistoryDTO;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class CurrencyService {
@@ -41,31 +46,6 @@ public class CurrencyService {
         }
     }
 
-    //TODO THERE is problem with divide bigdecimals, check it
-    //TODO looks like there is chances to use generic
-    public List<Debtor> setCurrencyRateForDebtors(List<Debtor> debtors, String currencyRate) {
-            debtors.stream()
-                    .forEach(n -> {
-                        n.setTotalDebt(n.getTotalDebt().divide(new BigDecimal(currencyRate), 3, RoundingMode.CEILING));
-                    });
-        return debtors;
-    }
-
-    public List<DebtorDetailsDTO> setCurrencyRateForDebtorDetailsDTO(List<DebtorDetailsDTO> debtorDetailsDTOList1, String currencyRate) {
-        debtorDetailsDTOList1.stream()
-                .forEach(n -> {
-                    n.setDebt(n.getDebt().divide(new BigDecimal(currencyRate), 3, RoundingMode.CEILING));
-                });
-        return debtorDetailsDTOList1;
-    }
-
-    public List<DebtorHistoryDTO> setCurrencyRateForDebtorHistoryDTO(List<DebtorHistoryDTO> debtorHistoryDTOS, String currencyRate) {
-        debtorHistoryDTOS.stream()
-                .forEach(n -> {
-                    n.setDebt(n.getDebt().divide(new BigDecimal(currencyRate), 3, RoundingMode.CEILING));
-                });
-        return debtorHistoryDTOS;
-    }
 
     public <T extends CurrencyRate> List<T> setCurrencyRates(List<T> list, String currencyRate){
         list.stream()
@@ -74,4 +54,72 @@ public class CurrencyService {
                 ));
         return list;
     }
+
+    public static void main(String[] args) {
+        Date date = new Date();
+        long time = date.getTime();
+        System.out.println(new Date());
+        System.out.println(time);
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println(localDateTime);
+
+        LocalTime localTime = LocalTime.now();
+        System.out.println(localTime);
+
+        System.out.println("---------------------------");
+
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = localDateTime.format(myFormatObj);
+        System.out.println("Before format -> " + localDateTime);
+        System.out.println("After format -> " + formattedDate);
+
+        LocalTime localTime1 = localDateTime.toLocalTime();
+        System.out.println(localTime1);
+        System.out.println(localDateTime);
+
+        System.out.println("---------------------------");
+
+        String localDateTimeString = localDateTime.toString();
+        System.out.println("Before format ->" + localDateTimeString);
+        String formatLD = localDateTime.format(myFormatObj);
+        System.out.println("After format -> " + formatLD);
+
+        System.out.println(" ");
+
+        LocalDateTime localDateTimeFromString = LocalDateTime.parse("2019-10-22T22:38");
+        System.out.println("LDT from string -> " + localDateTimeFromString);
+
+        System.out.println("--------------FINAL SOLUTION-------------");
+
+        LocalDate customerLocalDate = LocalDate.parse("2019-10-22");
+        LocalTime timeNow = LocalTime.now();
+
+        LocalDateTime customerFutureDate = LocalDateTime.of(customerLocalDate, timeNow);
+
+        System.out.println("LocalDateTime from 2 values -> " + customerFutureDate);
+
+        System.out.println("--------------COMPARE DATE-------------");
+
+        System.out.println(customerFutureDate.compareTo(LocalDateTime.now()));
+
+        Duration duration = Duration.between(LocalDateTime.now(), localDateTimeFromString);
+        System.out.println(duration);
+
+        LocalDateTime aLDT = LocalDateTime.now();
+        LocalDateTime bLDT = localDateTimeFromString;
+
+        long diff = ChronoUnit.SECONDS.between(aLDT, bLDT);
+        System.out.println(diff);
+
+        long s = diff;
+        long numberOfDays = s / 86400;
+        long numberOfHours = (s % 86400 ) / 3600 ;
+        long numberOfMinutes = ((s % 86400 ) % 3600 ) / 60;
+        long numberOfSeconds = ((s % 86400 ) % 3600 ) % 60  ;
+        System.out.println(aLDT + "\n" + bLDT);
+        System.out.println(numberOfDays + ":" + numberOfHours + ":" + numberOfMinutes + ":" + numberOfSeconds);
+
+    }
+
 }

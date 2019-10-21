@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -24,8 +25,8 @@ public class DebtorDetails {
     private LocalDate date;
     private String reasonForTheDebt;
     private String userName;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate debtEndDate;
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    private LocalDateTime debtEndDate;
     @ManyToOne(fetch = FetchType.LAZY)
     private Debtor debtor;
 
@@ -38,7 +39,7 @@ public class DebtorDetails {
         this.debtor = debtor;
     }
 
-    public DebtorDetails(String name, BigDecimal debt, LocalDate date, String reasonForTheDebt, String userName, LocalDate debtEndDate, Debtor debtor) {
+    public DebtorDetails(String name, BigDecimal debt, LocalDate date, String reasonForTheDebt, String userName, LocalDateTime debtEndDate, Debtor debtor) {
         this.name = name;
         this.debt = debt;
         this.date = date;

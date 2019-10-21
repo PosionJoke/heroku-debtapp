@@ -9,6 +9,7 @@ import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -31,7 +32,7 @@ public class DebtorDetailsService {
         debtorDetailsRepo.save(debtorDetails);
     }
 
-    DebtorDetails addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor, LocalDate debtEndDate) {
+    DebtorDetails addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor, LocalDateTime debtEndDate) {
 
         DebtorDetails debtorDetails = new DebtorDetails(debtorName, debtValue, LocalDate.now(), reasonForTheDebt,
                         userName, debtEndDate, debtor);
