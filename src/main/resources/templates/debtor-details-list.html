@@ -45,7 +45,7 @@
             <th>currency</th>
             <th data-sortable="true">date</th>
             <th data-sortable="true">end date</th>
-            <th data-sortable="true">total count of seconds</th>
+            <p th:hidden="true" data-sortable="true">total count of seconds</p>
             <th data-sortable="true">timer</th>
             <th data-sortable="true">reasonForTheDebt</th>
             <th>Add</th>
@@ -60,8 +60,8 @@
             <td th:text="${currency}"></td>
             <td th:text="${oneDebtor.date}"></td>
             <td th:text="${oneDebtor.debtEndDateString}"></td>
-            <td th:text="${oneDebtor.totalCountOfSeconds}"></td>
-            <td th:id="${iter.index}" th:text="${iter.index}"></td>
+            <p th:hidden="true" th:id="${iter.index + 'totalCountOfSeconds'}" th:text="${oneDebtor.totalCountOfSeconds}"></p>
+            <td th:id="${iter.index + 'timerField'}"></td>
             <td th:text="${oneDebtor.reasonForTheDebt}"></td>
             <td>
                 <a class="btn btn-success btn-lg" th:href="@{'/make-new-debtor-details?name=' + ${oneDebtor.name}}">
@@ -85,8 +85,6 @@
     </table>
 </div>
 
-<p id="demo"></p>
-
 <script>
     $(document).ready(function(){
         filterCurrencyDropDown();
@@ -94,27 +92,16 @@
         var timerFields = [];
         var i;
         for (i = 0; i < document.getElementById("countOfRows").textContent; i++) {
-            timerFields.push(i);
+            timerFields.push(i + 'timerField');
         }
-        timmerList(timerFields, 1000);
+
+        var secondsArrays = [];
+        var j;
+        for (j = 0; j < document.getElementById("countOfRows").textContent; j++) {
+            secondsArrays.push(j + 'totalCountOfSeconds');
+        }
+        timerList(timerFields, secondsArrays);
     });
-    // var s = 1000;
-    // var deadline = new Date("Jan 5, 2020 15:37:25").getTime();
-    // var x = setInterval(function() {
-    //
-    //     var numberOfDays = Math.floor(s / 86400);
-    //     var numberOfHours = Math.floor((s % 86400 ) / 3600) ;
-    //     var numberOfMinutes = Math.floor(((s % 86400 ) % 3600 ) / 60);
-    //     var numberOfSeconds = Math.floor(((s % 86400 ) % 3600 ) % 60);
-    //
-    //     document.getElementById("2").innerHTML = numberOfDays + "d "
-    //         + numberOfHours + "h " + numberOfMinutes + "m " + numberOfSeconds + "s ";
-    //     if (s < 0) {
-    //         clearInterval(x);
-    //         document.getElementById("2").innerHTML = "EXPIRED";
-    //     }
-    //     s--;
-    // }, 10);
 </script>
 
 </body>

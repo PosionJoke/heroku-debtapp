@@ -24,20 +24,27 @@ function debtTimer(sec, elementId){
 		var numberOfMinutes = Math.floor(((sec % 86400 ) % 3600 ) / 60);
 		var numberOfSeconds = Math.floor(((sec % 86400 ) % 3600 ) % 60);
 
+		console.log(elementId + " " + sec + " " + isNaN(sec));
+
 		document.getElementById(elementId).innerHTML = numberOfDays + "d "
 			+ numberOfHours + "h " + numberOfMinutes + "m " + numberOfSeconds + "s ";
-		if (sec < 0) {
-			clearInterval(x);
+
+		if (sec <= 0 || sec === " ") {
+			if(sec === " "){
+				document.getElementById(elementId).innerHTML = " ";
+				return
+			}
 			document.getElementById(elementId).innerHTML = "EXPIRED";
+			clearInterval(x);
 		}
 		sec--;
 	}, 1000);
 }
 
-function timmerList(fieldsArray, sec) {
-	fieldsArray.forEach(function (elementId) {
-		debtTimer(sec, elementId);
-	})
+function timerList(fieldsArray, secondsArray) {
+	fieldsArray.forEach(function (elementId, index) {
+		debtTimer(document.getElementById(secondsArray[index]).textContent, elementId);
+	});
 }
 
 

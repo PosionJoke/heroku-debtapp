@@ -51,6 +51,9 @@ public class DebtorDetailsService {
     }
 
     private LocalDateTime returnNewLocalDateTime(String debtEndDateString){
+        if(debtEndDateString.equals("")){
+            return null;
+        }
         LocalDate debtEndDate = LocalDate.parse(debtEndDateString);
         LocalDateTime debtEndDateTime = LocalDateTime.of(debtEndDate, LocalTime.now());
         return debtEndDateTime;
@@ -73,7 +76,6 @@ public class DebtorDetailsService {
     private void isThisDebtUnderZero(DebtorDetails debtorDetails, BigDecimal debtValue) {
         BigDecimal newDebt = debtorDetails.getDebt().add(debtValue);
         if (newDebt.compareTo(new BigDecimal(0)) <= 0) {
-//            debtorDetails.setDebt(new BigDecimal(0));
             log.debug(String.format("Delete DebtorDetails, id : [%s], Debt should be equals 0 : [%s]",
                     debtorDetails.getId(), debtorDetails.getDebt()));
 

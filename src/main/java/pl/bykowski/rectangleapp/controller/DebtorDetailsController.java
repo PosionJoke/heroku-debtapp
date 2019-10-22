@@ -119,7 +119,10 @@ public class DebtorDetailsController {
 
         debtorService.updateTotalDebtAndUpdateDebtorDetailsDebt(debtorDetailsDTO, id);
 
+        List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());
+        List<DebtorDetailsDTO> debtorDetailsDTOList = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
+
         return new ModelAndView("debtor-details-list")
-                .addObject("debtorLIST", debtorDetailsService.findByUserName(principal.getName()));
+                .addObject("debtorLIST", debtorDetailsDTOList);
     }
 }

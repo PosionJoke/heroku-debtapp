@@ -80,6 +80,7 @@ public class DebtorService {
         deleteDebtIfIsUnderZero(debtorDetailsDTO);
 
         debtorDetailsService.updateDebtorDetailsDebt(debtorDetailsId, debtorDetailsDTO.getDebt());
+
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(debtorDetailsId);
         debtorDetails.ifPresentOrElse(debtorDetails1 ->
                         updateTotalDebt(debtorDetails1.getDebtor().getId(), debtorDetailsDTO.getDebt())
