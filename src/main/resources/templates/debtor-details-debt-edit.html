@@ -8,20 +8,20 @@
 </head>
 <body>
 <div class="container">
-    <form action="#" th:action="@{'/debtor-details-save?id=' + ${id}}" th:object="${debtor}" method="post">
+    <form action="#" th:action="@{'/debtor-details-save?id=' + ${id}}" th:object="${debtorDetailsDTO}" method="post">
         <p>
-            Add new debt value to : <span th:text="${debtor.name}"></span>
+            Add new debt value to : <span th:text="${debtorDetailsDTO.name}"></span>
         </p>
         <p>
-            Actual debt : <span th:text="${debtor.debt}"></span>
+            Actual debt : <span th:text="${debtorDetailsDTO.debt}"></span>
         </p>
         <p>
-            Reason for that debt : <span th:text="${debtor.reasonForTheDebt}"></span>
+            Reason for that debt : <span th:text="${debtorDetailsDTO.reasonForTheDebt}"></span>
         </p>
 
         <div class="form-group">
             <label for="DebtValue">Enter how much money you want to add :</label>
-            <td><input type="text" class="form-control" id="DebtValue" th:field="${debtor.debt}"/></td>
+            <td><input type="text" class="form-control" id="DebtValue" th:field="${debtorDetailsDTO.debt}"/></td>
         </div>
         <div class="checkbox">
             <label><input type="checkbox"> Remember me</label>

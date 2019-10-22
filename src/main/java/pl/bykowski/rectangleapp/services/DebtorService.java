@@ -128,11 +128,8 @@ public class DebtorService {
                 .stream()
                 .max(Comparator.comparing(Debtor::getTotalDebt));
 
-        debtorFound.ifPresentOrElse(debtor -> {
-            log.debug(String.format("Debtor with the biggest debt id : [%s], Debt Value : [%s]",debtor.getId(),
-                    debtor.getTotalDebt()));
-
-        }, () -> log.error("Can't find debtor"));
+        debtorFound.ifPresentOrElse(debtor -> log.debug(String.format("Debtor with the biggest debt id : [%s], Debt Value : [%s]", debtor.getId(),
+                debtor.getTotalDebt())), () -> log.error("Can't find debtor"));
 
         return debtorFound;
     }

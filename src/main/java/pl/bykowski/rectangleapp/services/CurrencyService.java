@@ -3,20 +3,11 @@ package pl.bykowski.rectangleapp.services;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.dto.CurrencyRate;
-import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
-import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
-import pl.bykowski.rectangleapp.model.dto.DebtorHistoryDTO;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class CurrencyService {
@@ -48,7 +39,7 @@ public class CurrencyService {
 
 
     public <T extends CurrencyRate> List<T> setCurrencyRates(List<T> list, String currencyRate){
-        list.stream()
+        list
                 .forEach(listStream -> listStream.setDebt(
                         listStream.getDebt().divide(new BigDecimal(currencyRate), 2, RoundingMode.CEILING)
                 ));

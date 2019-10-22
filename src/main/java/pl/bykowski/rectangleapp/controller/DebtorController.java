@@ -1,10 +1,13 @@
 package pl.bykowski.rectangleapp.controller;
 
-import pl.bykowski.rectangleapp.model.dto.CurencyTypes;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.Debtor;
+import pl.bykowski.rectangleapp.model.dto.CurencyTypes;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
@@ -80,7 +83,6 @@ public class DebtorController {
                 .map(Debtor::getTotalDebt)
                 .orElse(new BigDecimal(0));
 
-        String actualUserName = principal.getName();
         debtorService.updateTotalDebt(id, actualTotalDebt);
 
         List<Debtor> debtorList = debtorService.findByUserName(principal.getName());

@@ -69,7 +69,7 @@ public class DebtorDetailsController {
 
         return new ModelAndView("debtor-details-debt-edit")
                 .addObject("id", id)
-                .addObject("debtor", debtorDetailsDTO);
+                .addObject("debtorDetailsDTO", debtorDetailsDTO);
     }
 
     @GetMapping("/make-new-debtor-details")
@@ -106,9 +106,8 @@ public class DebtorDetailsController {
 
         Optional<Debtor> debtorOpt = debtorService.findDebtorByName(name);
 
-        debtorOpt.ifPresentOrElse(debtor -> {
-            log.debug(String.format("Debtor with [%s] was found", debtor.getId()));
-        }, () -> log.error(("Cant find Debtor")));
+        debtorOpt.ifPresentOrElse(debtor -> log.debug(String.format("Debtor with [%s] was found", debtor.getId())),
+                () -> log.error(("Cant find Debtor")));
 
         Debtor debtor = debtorOpt.map(debtorService::returnDebtor).orElse(new Debtor());
 

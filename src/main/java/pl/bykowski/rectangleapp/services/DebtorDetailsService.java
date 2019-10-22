@@ -33,13 +33,12 @@ public class DebtorDetailsService {
         debtorDetailsRepo.save(debtorDetails);
     }
 
-    DebtorDetails addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor, String debtEndDateString) {
+    void addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor, String debtEndDateString) {
 
         DebtorDetails debtorDetails = new DebtorDetails(debtorName, debtValue, LocalDate.now(), reasonForTheDebt,
                         userName, returnNewLocalDateTime(debtEndDateString), debtor);
 
         saveDebtorDetails(debtorDetails);
-        return debtorDetails;
     }
     DebtorDetails addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor) {
 
@@ -55,8 +54,7 @@ public class DebtorDetailsService {
             return null;
         }
         LocalDate debtEndDate = LocalDate.parse(debtEndDateString);
-        LocalDateTime debtEndDateTime = LocalDateTime.of(debtEndDate, LocalTime.now());
-        return debtEndDateTime;
+        return LocalDateTime.of(debtEndDate, LocalTime.now());
     }
 
     @Transactional
