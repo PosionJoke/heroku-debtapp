@@ -50,7 +50,7 @@ public class CurrencyService {
     public <T extends CurrencyRate> List<T> setCurrencyRates(List<T> list, String currencyRate){
         list.stream()
                 .forEach(listStream -> listStream.setDebt(
-                        listStream.getDebt().divide(new BigDecimal(currencyRate), 3, RoundingMode.CEILING)
+                        listStream.getDebt().divide(new BigDecimal(currencyRate), 2, RoundingMode.CEILING)
                 ));
         return list;
     }
@@ -116,7 +116,7 @@ public class CurrencyService {
         long numberOfDays = s / 86400;
         long numberOfHours = (s % 86400 ) / 3600 ;
         long numberOfMinutes = ((s % 86400 ) % 3600 ) / 60;
-        long numberOfSeconds = ((s % 86400 ) % 3600 ) % 60  ;
+        long numberOfSeconds = ((s % 86400 ) % 3600 ) % 60;
         System.out.println(aLDT + "\n" + bLDT);
         System.out.println(numberOfDays + ":" + numberOfHours + ":" + numberOfMinutes + ":" + numberOfSeconds);
 
