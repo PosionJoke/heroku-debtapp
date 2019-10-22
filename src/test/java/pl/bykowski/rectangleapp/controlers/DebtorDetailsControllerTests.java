@@ -105,7 +105,7 @@ public class DebtorDetailsControllerTests {
         mvc.perform(get("/debtor-details-list")
                 .flashAttr("principal", principal)
         )
-                .andExpect(model().attribute("debtorLIST", debtorDetailsDTOList))
+                .andExpect(model().attribute("debtorDetailsDTOList", debtorDetailsDTOList))
                 .andExpect(model().size(4))
                 .andExpect(view().name("debtor-details-list"))
                 .andExpect(status().isOk());
@@ -167,7 +167,7 @@ public class DebtorDetailsControllerTests {
                 .flashAttr("principal", principal)
         )
                 .andExpect(view().name("debtor-details-list"))
-                .andExpect(model().attribute("debtorLIST", debtorDetailsDTOList))
+                .andExpect(model().attribute("debtorDetailsDTOList", debtorDetailsDTOList))
                 .andExpect(model().size(2))
                 .andExpect(status().isOk());
         //then
@@ -184,7 +184,7 @@ public class DebtorDetailsControllerTests {
 
         Debtor debtor = new Debtor();
         debtor.setName(name);
-        given(debtorService.findDebtorByName(name)).willReturn(debtor);
+        given(debtorService.findDebtorByName(name)).willReturn(java.util.Optional.of(debtor));
         //when
         mvc.perform(post("/make-new-debtor-details")
                 .flashAttr("debtorDetails", debtorDetails)

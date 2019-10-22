@@ -54,7 +54,7 @@
         </tr>
         </thead>
         <tbody id="tableFilter">
-        <tr th:each="oneDebtor, iter : ${debtorLIST}">
+        <tr th:each="oneDebtor, iter : ${debtorDetailsDTOList}">
             <td th:text="${oneDebtor.name}"></td>
             <td th:text="${oneDebtor.debt}"></td>
             <td th:text="${currency}"></td>
@@ -80,7 +80,7 @@
                 </a>
             </td>
         </tr>
-        <p hidden th:id="countOfRows" th:text="${debtorLIST.size()}"></p>
+        <p hidden th:id="countOfRows" th:text="${debtorDetailsDTOList.size()}"></p>
         </tbody>
     </table>
 </div>

@@ -137,8 +137,12 @@ public class DebtorService {
         return debtorFound;
     }
 
-    public Debtor findDebtorByName(String name) {
-        return debtorRepo.findByName(name).get();
+    public Optional<Debtor> findDebtorByName(String name) {
+        return debtorRepo.findByName(name);
+    }
+
+    public Debtor returnDebtor(Debtor debtor){
+        return debtor;
     }
 
 }

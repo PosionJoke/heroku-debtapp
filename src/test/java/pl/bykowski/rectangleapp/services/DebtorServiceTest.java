@@ -55,9 +55,9 @@ public class DebtorServiceTest {
         given(debtorRepo.findByName(debtorName))
                 .willReturn(java.util.Optional.of(debtor));
         //when
-        Debtor found = debtorService.findDebtorByName(debtorName);
+        Optional<Debtor> found = debtorService.findDebtorByName(debtorName);
         //then
-        assertThat(found.getName()).isEqualTo(debtor.getName());
+        assertThat(found.get().getName()).isEqualTo(debtor.getName());
     }
 
     @Test

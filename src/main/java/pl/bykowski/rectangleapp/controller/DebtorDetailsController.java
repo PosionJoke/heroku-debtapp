@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp.controller;
 
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.CurencyTypes;
-import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.services.CurrencyService;
@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Log4j
 @Controller
 public class DebtorDetailsController {
 
@@ -52,7 +53,7 @@ public class DebtorDetailsController {
         List<DebtorDetailsDTO> debtorDetailsDTOWithCurrencyRate = currencyService.setCurrencyRates(debtorDetailsDTOList1, currencyRate);
 
         return new ModelAndView("debtor-details-list")
-                .addObject("debtorLIST", debtorDetailsDTOWithCurrencyRate)
+                .addObject("debtorDetailsDTOList", debtorDetailsDTOWithCurrencyRate)
                 .addObject("currencyTypes", CurencyTypes.values())
                 .addObject("currency", currency);
     }
@@ -95,7 +96,7 @@ public class DebtorDetailsController {
         List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());
         List<DebtorDetailsDTO> debtorDetailsDTOList1 = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
         return new ModelAndView("debtor-details-list")
-                .addObject("debtorLIST", debtorDetailsDTOList1);
+                .addObject("debtorDetailsDTOList", debtorDetailsDTOList1);
     }
 
     @PostMapping("/make-new-debtor-details")
@@ -103,14 +104,22 @@ public class DebtorDetailsController {
                                              @RequestParam String name,
                                              @RequestParam(required = false, defaultValue = "PLN") String currency) {
 
-        Debtor debtor = debtorService.findDebtorByName(name);
+        Optional<Debtor> debtorOpt = debtorService.findDebtorByName(name);
+
+        debtorOpt.ifPresentOrElse(debtor -> {
+            log.debug(String.format("Debtor with [%s] was found", debtor.getId()));
+        }, () -> log.error(("Cant find Debtor")));
+
+        Debtor debtor = debtorOpt.map(debtorService::returnDebtor).orElse(new Debtor());
+
+
         debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());
         List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());
         List<DebtorDetailsDTO> debtorDetailsDTOList = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
         return new ModelAndView("debtor-details-list")
                 .addObject("currency", currency)
                 .addObject("currencyTypes", CurencyTypes.values())
-                .addObject("debtorLIST", debtorDetailsDTOList);
+                .addObject("debtorDetailsDTOList", debtorDetailsDTOList);
     }
 
     @PostMapping("/debtor-details-save")
@@ -123,6 +132,6 @@ public class DebtorDetailsController {
         List<DebtorDetailsDTO> debtorDetailsDTOList = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
 
         return new ModelAndView("debtor-details-list")
-                .addObject("debtorLIST", debtorDetailsDTOList);
+                .addObject("debtorDetailsDTOList", debtorDetailsDTOList);
     }
 }
