@@ -7,6 +7,7 @@ import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,9 @@ public class DebtorDetailsDTOService {
             debtorDetailsDTOList.add(
                     new DebtorDetailsDTO(debtorDetails.getId(), debtorDetails.getName(),
                     debtorDetails.getDebt(), debtorDetails.getDate(), debtorDetails.getReasonForTheDebt(),
-                    debtorDetails.getDebtEndDate(), dateFormat(debtorDetails.getDebtEndDate())
-            ));
+                    debtorDetails.getDebtEndDate(), dateFormat(debtorDetails.getDebtEndDate()),
+                            calculateTotalCountOfSeconds(debtorDetails.getDebtEndDate()
+                            )));
         }
         log.debug(String.format("Size of DebtorDetailsDTOList : [%s], size of input List : [%s]",
                 debtorDetailsDTOList.size(), debtorList.size()));
@@ -34,8 +36,16 @@ public class DebtorDetailsDTOService {
     public DebtorDetailsDTO returnDebtorDetailsDTO(DebtorDetails debtorDetails){
         return new DebtorDetailsDTO(debtorDetails.getId(),debtorDetails.getName(),
                 debtorDetails.getDebt(), debtorDetails.getDate(), debtorDetails.getReasonForTheDebt(),
-                debtorDetails.getDebtEndDate(), dateFormat(debtorDetails.getDebtEndDate()
-        ));
+                debtorDetails.getDebtEndDate(), dateFormat(debtorDetails.getDebtEndDate()),
+                calculateTotalCountOfSeconds(debtorDetails.getDebtEndDate())
+        );
+    }
+
+    private String calculateTotalCountOfSeconds(LocalDateTime debtEndDate){
+        if(debtEndDate != null){
+            long diff = ChronoUnit.SECONDS.between(LocalDateTime.now(), debtEndDate);
+            return String.valueOf(diff);
+        }else return " ";
     }
 
     private String dateFormat(LocalDateTime myFormatObj){

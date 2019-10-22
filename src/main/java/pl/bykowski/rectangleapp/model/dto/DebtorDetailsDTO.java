@@ -21,6 +21,7 @@ public class DebtorDetailsDTO implements CurrencyRate{
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime debtEndDate;
     private String debtEndDateString;
+    private String totalCountOfSeconds;
 
     @Override
     public void setDebt(BigDecimal newDebt) {

@@ -45,8 +45,8 @@
             <th>currency</th>
             <th data-sortable="true">date</th>
             <th data-sortable="true">end date</th>
+            <th data-sortable="true">total count of seconds</th>
             <th data-sortable="true">timer</th>
-            <th data-sortable="true">TEST</th>
             <th data-sortable="true">reasonForTheDebt</th>
             <th>Add</th>
             <th>Edit</th>
@@ -59,9 +59,9 @@
             <td th:text="${oneDebtor.debt}"></td>
             <td th:text="${currency}"></td>
             <td th:text="${oneDebtor.date}"></td>
-            <td id="101" th:text="${oneDebtor.debtEndDateString}"></td>
+            <td th:text="${oneDebtor.debtEndDateString}"></td>
+            <td th:text="${oneDebtor.totalCountOfSeconds}"></td>
             <td th:id="${iter.index}" th:text="${iter.index}"></td>
-            <td id="100" th:text="${oneDebtor.debtEndDate}"></td>
             <td th:text="${oneDebtor.reasonForTheDebt}"></td>
             <td>
                 <a class="btn btn-success btn-lg" th:href="@{'/make-new-debtor-details?name=' + ${oneDebtor.name}}">
@@ -80,6 +80,7 @@
                 </a>
             </td>
         </tr>
+        <p hidden th:id="countOfRows" th:text="${debtorLIST.size()}"></p>
         </tbody>
     </table>
 </div>
@@ -90,38 +91,30 @@
     $(document).ready(function(){
         filterCurrencyDropDown();
         filterTable();
-    });
-    var s = 1000;
-    var deadline = new Date("Jan 5, 2020 15:37:25").getTime();
-    var x = setInterval(function() {
-        var now = new Date().getTime();
-        var test = Date.parse(document.getElementById("101").textContent);
-        console.log("1 " + test);
-        var test2 = Date.parse(document.getElementById("100").textContent);
-        console.log("2 " + test2);
-
-        var t = deadline - now;
-        console.log(t);
-
-        // var s = 46340;
-        var numberOfDays = Math.floor(s / 86400);
-        var numberOfHours = Math.floor((s % 86400 ) / 3600) ;
-        var numberOfMinutes = Math.floor(((s % 86400 ) % 3600 ) / 60);
-        var numberOfSeconds = Math.floor(((s % 86400 ) % 3600 ) % 60);
-
-        var days = Math.floor(t / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((t%(1000 * 60 * 60 * 24))/(1000 * 60 * 60));
-        var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((t % (1000 * 60)) / 1000);
-
-        document.getElementById("2").innerHTML = numberOfDays + "d "
-            + numberOfHours + "h " + numberOfMinutes + "m " + numberOfSeconds + "s ";
-        if (t < 0) {
-            clearInterval(x);
-            document.getElementById("demo").innerHTML = "EXPIRED";
+        var timerFields = [];
+        var i;
+        for (i = 0; i < document.getElementById("countOfRows").textContent; i++) {
+            timerFields.push(i);
         }
-        s--;
-    }, 10);
+        timmerList(timerFields, 1000);
+    });
+    // var s = 1000;
+    // var deadline = new Date("Jan 5, 2020 15:37:25").getTime();
+    // var x = setInterval(function() {
+    //
+    //     var numberOfDays = Math.floor(s / 86400);
+    //     var numberOfHours = Math.floor((s % 86400 ) / 3600) ;
+    //     var numberOfMinutes = Math.floor(((s % 86400 ) % 3600 ) / 60);
+    //     var numberOfSeconds = Math.floor(((s % 86400 ) % 3600 ) % 60);
+    //
+    //     document.getElementById("2").innerHTML = numberOfDays + "d "
+    //         + numberOfHours + "h " + numberOfMinutes + "m " + numberOfSeconds + "s ";
+    //     if (s < 0) {
+    //         clearInterval(x);
+    //         document.getElementById("2").innerHTML = "EXPIRED";
+    //     }
+    //     s--;
+    // }, 10);
 </script>
 
 </body>
