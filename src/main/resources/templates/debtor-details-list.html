@@ -57,7 +57,7 @@
             <td th:text="${oneDebtor.debt}"></td>
             <td th:text="${currency}"></td>
             <td th:text="${oneDebtor.date}"></td>
-            <td th:text="${oneDebtor.debtEndDate}"></td>
+            <td th:text="${oneDebtor.debtEndDateString}"></td>
             <td th:text="${oneDebtor.reasonForTheDebt}"></td>
             <td>
                 <a class="btn btn-success btn-lg" th:href="@{'/make-new-debtor-details?name=' + ${oneDebtor.name}}">

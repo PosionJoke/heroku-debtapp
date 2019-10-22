@@ -22,14 +22,15 @@ public class DebtorDetailsDTO implements CurrencyRate{
     private LocalDateTime debtEndDate;
     private String debtEndDateString;
 
-    public DebtorDetailsDTO(Long id, String name, BigDecimal debt, LocalDate date, String reasonForTheDebt, LocalDateTime debtEndDate) {
-        this.id = id;
-        this.name = name;
-        this.debt = debt;
-        this.date = date;
-        this.reasonForTheDebt = reasonForTheDebt;
-        this.debtEndDate = debtEndDate;
-    }
+//    public DebtorDetailsDTO(Long id, String name, BigDecimal debt, LocalDate date, String reasonForTheDebt, LocalDateTime debtEndDate, String debtEndDateString) {
+//        this.id = id;
+//        this.name = name;
+//        this.debt = debt;
+//        this.date = date;
+//        this.reasonForTheDebt = reasonForTheDebt;
+//        this.debtEndDate = debtEndDate;
+//        this.debtEndDateString = debtEndDateString;
+//    }
 
     @Override
     public void setDebt(BigDecimal newDebt) {

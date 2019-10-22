@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +14,16 @@ import java.util.List;
 @Service
 public class DebtorDetailsDTOService {
 
+    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
     public List<DebtorDetailsDTO> returnDebtorDetailsDTOList(List<DebtorDetails> debtorList){
         List<DebtorDetailsDTO> debtorDetailsDTOList = new ArrayList<>();
         for(DebtorDetails debtorDetails : debtorList){
-            debtorDetailsDTOList.add(new DebtorDetailsDTO(debtorDetails.getId(), debtorDetails.getName(),
+            debtorDetailsDTOList.add(
+                    new DebtorDetailsDTO(debtorDetails.getId(), debtorDetails.getName(),
                     debtorDetails.getDebt(), debtorDetails.getDate(), debtorDetails.getReasonForTheDebt(),
-                    debtorDetails.getDebtEndDate()));
+                    debtorDetails.getDebtEndDate(), dateFormat(debtorDetails.getDebtEndDate())
+            ));
         }
         log.debug(String.format("Size of DebtorDetailsDTOList : [%s], size of input List : [%s]",
                 debtorDetailsDTOList.size(), debtorList.size()));
@@ -28,6 +34,13 @@ public class DebtorDetailsDTOService {
     public DebtorDetailsDTO returnDebtorDetailsDTO(DebtorDetails debtorDetails){
         return new DebtorDetailsDTO(debtorDetails.getId(),debtorDetails.getName(),
                 debtorDetails.getDebt(), debtorDetails.getDate(), debtorDetails.getReasonForTheDebt(),
-                debtorDetails.getDebtEndDate());
+                debtorDetails.getDebtEndDate(), dateFormat(debtorDetails.getDebtEndDate()
+        ));
+    }
+
+    private String dateFormat(LocalDateTime myFormatObj){
+        if(myFormatObj != null){
+            return myFormatObj.format(dateTimeFormat);
+        }else return " ";
     }
 }

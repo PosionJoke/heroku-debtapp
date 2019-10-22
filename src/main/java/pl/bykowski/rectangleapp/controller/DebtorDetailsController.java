@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.CurencyTypes;
+import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.services.CurrencyService;
@@ -104,10 +105,12 @@ public class DebtorDetailsController {
 
         Debtor debtor = debtorService.findDebtorByName(name);
         debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());
+        List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());
+        List<DebtorDetailsDTO> debtorDetailsDTOList = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
         return new ModelAndView("debtor-details-list")
                 .addObject("currency", currency)
                 .addObject("currencyTypes", CurencyTypes.values())
-                .addObject("debtorLIST", debtorDetailsService.findByUserName(principal.getName()));
+                .addObject("debtorLIST", debtorDetailsDTOList);
     }
 
     @PostMapping("/debtor-details-save")

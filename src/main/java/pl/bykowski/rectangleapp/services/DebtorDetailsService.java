@@ -10,6 +10,7 @@ import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -32,10 +33,10 @@ public class DebtorDetailsService {
         debtorDetailsRepo.save(debtorDetails);
     }
 
-    DebtorDetails addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor, LocalDateTime debtEndDate) {
+    DebtorDetails addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor, String debtEndDateString) {
 
         DebtorDetails debtorDetails = new DebtorDetails(debtorName, debtValue, LocalDate.now(), reasonForTheDebt,
-                        userName, debtEndDate, debtor);
+                        userName, returnNewLocalDateTime(debtEndDateString), debtor);
 
         saveDebtorDetails(debtorDetails);
         return debtorDetails;
@@ -47,6 +48,12 @@ public class DebtorDetailsService {
 
         saveDebtorDetails(debtorDetails);
         return debtorDetails;
+    }
+
+    private LocalDateTime returnNewLocalDateTime(String debtEndDateString){
+        LocalDate debtEndDate = LocalDate.parse(debtEndDateString);
+        LocalDateTime debtEndDateTime = LocalDateTime.of(debtEndDate, LocalTime.now());
+        return debtEndDateTime;
     }
 
     @Transactional
