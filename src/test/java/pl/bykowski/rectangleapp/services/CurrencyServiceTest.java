@@ -41,8 +41,8 @@ public class CurrencyServiceTest {
         //when
         List<DebtorDTO> found = currencyService.setCurrencyRates(debtorDTOList, currencyRate);
         //then
-        assertThat(found.get(0).getTotalDebt()).isEqualTo(new BigDecimal("5.000"));
-        assertThat(found.get(1).getTotalDebt()).isEqualTo(new BigDecimal("50.000"));
+        assertThat(found.get(0).getTotalDebt()).isEqualTo(new BigDecimal("5.00"));
+        assertThat(found.get(1).getTotalDebt()).isEqualTo(new BigDecimal("50.00"));
     }
 
     public static void main(String[] args) {

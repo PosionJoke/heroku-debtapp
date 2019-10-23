@@ -52,8 +52,6 @@ public class DebtorControllerTest {
     @MockBean
     private DebtorDTOService debtorDTOService;
     @MockBean
-    private DebtorRepo debtorRepo;
-    @MockBean
     private Principal principal;
     @MockBean
     private CurrencyService currencyService;
@@ -150,7 +148,7 @@ public class DebtorControllerTest {
 
         Debtor debtor = new Debtor();
         debtor.setName(debtorName);
-        given(debtorRepo.findByName(debtorName)).willReturn(java.util.Optional.of(debtor));
+        given(debtorService.findDebtorByName(debtorName)).willReturn(java.util.Optional.of(debtor));
         //when
         mvc.perform(get("/debtor-debt-edit")
                 .params(requestParams)
@@ -175,7 +173,7 @@ public class DebtorControllerTest {
         debtorReturn.setId(id);
         debtorReturn.setTotalDebt(totalDebt);
 
-        given(debtorRepo.findById(id)).willReturn(java.util.Optional.of(debtorReturn));
+        given(debtorService.findById(id)).willReturn(java.util.Optional.of(debtorReturn));
         given(principal.getName()).willReturn(TEST_USER_NAME);
         given(debtorService.findByUserName(TEST_USER_NAME)).willReturn(debtorList);
         given(debtorDTOService.returnDebtorDTOList(debtorList)).willReturn(debtorDTOList);

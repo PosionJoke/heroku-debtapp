@@ -17,6 +17,8 @@ import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.services.UserService;
 
+import javax.validation.ConstraintDefinitionException;
+
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -70,7 +72,7 @@ public class UserControllerTest {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void should_return_view_name_createNewUserAuthentication_when_passwords_are_equals() throws Exception{
+    public void should_return_view_name_createNewUserAuthentication_when_passwords_are_equals() throws Exception {
         //given
         debtorUserDTO.setPassword1("1234");
         debtorUserDTO.setPassword2("1234");

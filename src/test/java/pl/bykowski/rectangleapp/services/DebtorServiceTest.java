@@ -160,7 +160,8 @@ public class DebtorServiceTest {
                 debtorDetailsDTO.getDebt(),
                 debtorDetailsDTO.getReasonForTheDebt(),
                 userName,
-                debtor);
+                debtor,
+                null);
     }
 
     @Test
