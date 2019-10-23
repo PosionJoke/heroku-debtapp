@@ -23,18 +23,16 @@ import java.util.Optional;
 
 @Controller
 public class DebtorController {
-    //TODO why there is debtorRepo
-    private final DebtorRepo debtorRepo;
+
     private final DebtorService debtorService;
     private final CurrencyService currencyService;
     private DebtorDTOService debtorDTOService;
 
-    public DebtorController(DebtorRepo debtorRepo, DebtorService debtorService, CurrencyService currencyService,
+    public DebtorController(DebtorService debtorService, CurrencyService currencyService,
                             DebtorDTOService debtorDTOService) {
 
         this.currencyService = Objects.requireNonNull(currencyService, "currencyService must be not null");
         this.debtorDTOService = Objects.requireNonNull(debtorDTOService, "debtorDTOService must be not null");
-        this.debtorRepo = Objects.requireNonNull(debtorRepo, "debtorRepo must be not null");
         this.debtorService = Objects.requireNonNull(debtorService, "debtorService must be not null");
     }
 
@@ -77,8 +75,8 @@ public class DebtorController {
     @PostMapping("/debtor-save")
     public ModelAndView saveDebtor(@ModelAttribute DebtorDTO debtorDTO, Principal principal,
                                    @RequestParam Long id) {
-        
-        Optional<Debtor> debtorToUpdateOpt = debtorRepo.findById(id);
+
+        Optional<Debtor> debtorToUpdateOpt = debtorService.findById(id);
 
         BigDecimal actualTotalDebt = debtorToUpdateOpt
                 .map(Debtor::getTotalDebt)

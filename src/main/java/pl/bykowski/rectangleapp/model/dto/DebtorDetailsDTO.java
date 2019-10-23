@@ -18,7 +18,6 @@ public class DebtorDetailsDTO implements CurrencyRate{
     private BigDecimal debt = new BigDecimal(0);
     private LocalDate date;
     private String reasonForTheDebt;
-    //TODO date behind date.now cant be viable
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime debtEndDate;
     private String debtEndDateString;

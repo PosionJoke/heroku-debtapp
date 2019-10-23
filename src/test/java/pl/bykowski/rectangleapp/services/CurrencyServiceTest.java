@@ -4,6 +4,7 @@ import junitparams.JUnitParamsRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 
@@ -18,16 +19,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class CurrencyServiceTest {
 
     private CurrencyService currencyService;
-    private List<Debtor> debtorList;
 
     @Before
     public void init(){
-        this.currencyService = new CurrencyService();
+        this.currencyService = new CurrencyService(new RestTemplateBuilder());
         Debtor debtor1 = new Debtor();
         debtor1.setTotalDebt(new BigDecimal(10));
         Debtor debtor2 = new Debtor();
         debtor2.setTotalDebt(new BigDecimal(100));
-        debtorList = Arrays.asList(debtor1, debtor2);
     }
 
     @Test

@@ -54,10 +54,9 @@ public class DebtorHistoryControllerTest {
                 .build();
     }
 
-    //TODO This test is named test, change it
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void test() throws Exception{
+    public void should_go_to_view_named_debtorHistoryList() throws Exception{
         //given
         DebtorHistory debtorHistory = new DebtorHistory();
         List<DebtorHistory> debtorHistoryList = Arrays.asList(debtorHistory);
@@ -74,6 +73,5 @@ public class DebtorHistoryControllerTest {
         )
                 .andExpect(view().name("debtor-history-list"))
                 .andExpect(status().isOk());
-        //then
     }
 }

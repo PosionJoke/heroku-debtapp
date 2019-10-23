@@ -74,7 +74,6 @@ public class DebtorService {
                 .orElse(new BigDecimal(0));
     }
 
-    //TODO this method is too big, change that
     @Transactional
     public void updateTotalDebtAndUpdateDebtorDetailsDebt(DebtorDetailsDTO debtorDetailsDTO, Long debtorDetailsId) {
         deleteDebtIfIsUnderZero(debtorDetailsDTO);

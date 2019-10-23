@@ -132,7 +132,6 @@ public class DebtorDetailsServiceTest {
         assertThat(found).isEqualTo(debtorDetailsList);
     }
 
-    //TODO name of method should show what that test check, not show name of testing method
     @Test
     @Parameters({"1", "0", "-1"})
     public void should_return_debtorDetails_by_id(Long debtorId) {
