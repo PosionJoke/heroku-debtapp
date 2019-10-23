@@ -138,8 +138,4 @@ public class DebtorService {
         return debtorRepo.findByName(name);
     }
 
-    public Debtor returnDebtor(Debtor debtor){
-        return debtor;
-    }
-
 }

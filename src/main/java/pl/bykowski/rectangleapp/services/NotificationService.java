@@ -22,7 +22,6 @@ public class NotificationService {
     }
 
     boolean sendNotification(String email, String code) {
-        //send email
         try{
             SimpleMailMessage mail = new SimpleMailMessage();
             mail.setTo(email);

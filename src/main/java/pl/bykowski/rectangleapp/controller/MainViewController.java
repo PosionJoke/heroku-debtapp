@@ -39,13 +39,14 @@ public class MainViewController {
     }
 
     private ModelAndView returnMainView(Principal principal) {
+
         if (isThisUserHaveAnyDebtorDetails(principal)) {
             return new ModelAndView("main-view-new-user")
                     .addObject("user", principal);
         } else {
-            Optional<Debtor> debtorWithBiggestDebt = debtorService.returnDebtorWithBiggestDebt(principal.getName());
+            Optional<Debtor> debtorWithBiggestDebtOpt = debtorService.returnDebtorWithBiggestDebt(principal.getName());
 
-            DebtorDTO debtorWithBiggestDebtDTO = debtorWithBiggestDebt.map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
+            DebtorDTO debtorWithBiggestDebtDTO = debtorWithBiggestDebtOpt.map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
                     .orElse(new DebtorDTO());
             DebtorDTO debtorWithHighestCountOfDebtsDTO = debtorDTOService.returnDebtorDTOWithHighestCountOfDebts(principal.getName());
             return new ModelAndView("main-view")

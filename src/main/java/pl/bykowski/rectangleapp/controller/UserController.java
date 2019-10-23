@@ -33,6 +33,7 @@ public class UserController {
         if(bindingResult.hasErrors()){
             return new ModelAndView("create-new-user", bindingResult.getModel());
         }
+
         UserDTO userDTO = userService.makeNewUser(debtorUserDTO);
 
         return new ModelAndView("create-new-user-authentication")
@@ -44,6 +45,7 @@ public class UserController {
 
         if(userService.checkAuthenticationCode(
                 debtorUserDTO.getAuthenticationCode(), debtorUserDTO.getAuthenticationCodeInput())){
+
             Optional<DebtorUser> debtorUser = userService.findByName(debtorUserDTO.getName());
             debtorUser.ifPresentOrElse(debtorUser1 -> {
                         debtorUser1.setActive(1);

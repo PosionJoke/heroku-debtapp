@@ -14,5 +14,4 @@ public class DebtorHistoryDTO implements CurrencyRate{
     private BigDecimal debt = new BigDecimal(0);
     private long timeOfDebt;
     private String reasonForTheDebt;
-
 }

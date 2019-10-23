@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.DebtorHistory;
-import pl.bykowski.rectangleapp.model.dto.CurencyTypes;
+import pl.bykowski.rectangleapp.model.dto.CurrencyTypes;
 import pl.bykowski.rectangleapp.model.dto.DebtorHistoryDTO;
 import pl.bykowski.rectangleapp.services.CurrencyService;
 import pl.bykowski.rectangleapp.services.DebtorHistoryService;
@@ -43,7 +43,7 @@ public class DebtorHistoryController {
 
         return new ModelAndView("debtor-history-list")
                 .addObject("debtors", debtorHistoryDTOSWithUpdateCurrencyRates)
-                .addObject("currencyTypes", CurencyTypes.values())
+                .addObject("currencyTypes", CurrencyTypes.values())
                 .addObject("currency", currency);
     }
 }

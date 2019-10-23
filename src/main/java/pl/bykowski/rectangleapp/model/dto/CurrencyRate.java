@@ -6,5 +6,4 @@ public interface CurrencyRate {
 
     BigDecimal getDebt();
     void setDebt(BigDecimal newDebt);
-
 }

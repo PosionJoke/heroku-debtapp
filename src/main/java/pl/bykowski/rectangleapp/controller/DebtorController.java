@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.Debtor;
-import pl.bykowski.rectangleapp.model.dto.CurencyTypes;
+import pl.bykowski.rectangleapp.model.dto.CurrencyTypes;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
@@ -23,6 +23,7 @@ import java.util.Optional;
 
 @Controller
 public class DebtorController {
+    //TODO why there is debtorRepo
     private final DebtorRepo debtorRepo;
     private final DebtorService debtorService;
     private final CurrencyService currencyService;
@@ -49,7 +50,7 @@ public class DebtorController {
 
         return new ModelAndView("debtor-list")
                 .addObject("debtors", debtorsWithCurrencyRate)
-                .addObject("currencyTypes", CurencyTypes.values())
+                .addObject("currencyTypes", CurrencyTypes.values())
                 .addObject("currency", currency);
     }
 
@@ -61,10 +62,10 @@ public class DebtorController {
 
     @GetMapping("/debtor-debt-edit")
     public ModelAndView debtorDebtEdit(@RequestParam Long id, @RequestParam String name) {
+        
+        Optional<Debtor> debtorOpt = debtorService.findDebtorByName(name);
 
-        Optional<Debtor> debtorOptional = debtorRepo.findByName(name);
-
-        DebtorDTO debtorDTO = debtorOptional
+        DebtorDTO debtorDTO = debtorOpt
                 .map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
                 .orElse(new DebtorDTO());
         return new ModelAndView("debtor-debt-edit")
@@ -76,20 +77,20 @@ public class DebtorController {
     @PostMapping("/debtor-save")
     public ModelAndView saveDebtor(@ModelAttribute DebtorDTO debtorDTO, Principal principal,
                                    @RequestParam Long id) {
+        
+        Optional<Debtor> debtorToUpdateOpt = debtorRepo.findById(id);
 
-        Optional<Debtor> debtorToUpdateOptional = debtorRepo.findById(id);
-
-        BigDecimal actualTotalDebt = debtorToUpdateOptional
+        BigDecimal actualTotalDebt = debtorToUpdateOpt
                 .map(Debtor::getTotalDebt)
                 .orElse(new BigDecimal(0));
 
         debtorService.updateTotalDebt(id, actualTotalDebt);
 
         List<Debtor> debtorList = debtorService.findByUserName(principal.getName());
-        List<DebtorDTO> debtorDTOList1 = debtorDTOService.returnDebtorDTOList(debtorList);
+        List<DebtorDTO> debtorDTOList = debtorDTOService.returnDebtorDTOList(debtorList);
 
         return new ModelAndView("debtor-list")
-                .addObject("debtors", debtorDTOList1);
+                .addObject("debtors", debtorDTOList);
     }
 
     @PostMapping("/make-new-debtor")
@@ -98,8 +99,8 @@ public class DebtorController {
         debtorService.addNewDebtor(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(), debtorDetailsDTO.getReasonForTheDebt(), principal.getName());
 
         List<Debtor> debtorList = debtorService.findByUserName(principal.getName());
-        List<DebtorDTO> debtorDTOList1 = debtorDTOService.returnDebtorDTOList(debtorList);
+        List<DebtorDTO> debtorDTOList = debtorDTOService.returnDebtorDTOList(debtorList);
         return new ModelAndView("debtor-list")
-                .addObject("debtors", debtorDTOList1);
+                .addObject("debtors", debtorDTOList);
     }
 }
