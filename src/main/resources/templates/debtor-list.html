@@ -31,7 +31,8 @@
             <ul class="dropdown-menu">
                 <input class="form-control" id="myInput" type="text" placeholder="Search..">
                 <a th:each="currencyType : ${currencyTypes}">
-                    <li><a class="dropdown-item" th:href="@{'/debtor-list?currency=' + ${currencyType.toString()}}" th:text="${currencyType.toString()}"></p></a></li>
+                    <li><a class="dropdown-item" th:href="@{'/debtor-list?currency=' + ${currencyType.toString()}}"
+                           th:text="${currencyType.toString()}"></p></a></li>
                 </a>
             </ul>
         </div>
@@ -39,7 +40,6 @@
     <br>
     <input class="form-control" id="tableFilterInput" type="text" placeholder="Search from list">
     <br>
-
     <table class="table table-striped" data-toggle="table">
         <thead>
         <tr>
@@ -68,11 +68,12 @@
             </td>
         </tr>
         </tbody>
-    </thead>
+        </thead>
+    </table>
 </div>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         filterCurrencyDropDown();
         filterTable();
     });

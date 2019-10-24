@@ -17,9 +17,7 @@
 <body>
 <div class="container">
     <h1 align="center"> History of debts </h1>
-
     <div th:replace="nav.html :: body"></div>
-
     <div class="dropdown">
         <div class="btn-group dropleft btn-block">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Currency
@@ -27,7 +25,9 @@
             <ul class="dropdown-menu">
                 <input class="form-control" id="myInput" type="text" placeholder="Search..">
                 <a th:each="currencyType : ${currencyTypes}">
-                    <li><a class="dropdown-item" th:href="@{'/debtor-history-list?currency=' + ${currencyType.toString()}}" th:text="${currencyType.toString()}"></p></a></li>
+                    <li><a class="dropdown-item"
+                           th:href="@{'/debtor-history-list?currency=' + ${currencyType.toString()}}"
+                           th:text="${currencyType.toString()}"></p></a></li>
                 </a>
             </ul>
         </div>
@@ -35,7 +35,6 @@
     <br>
     <input class="form-control" id="tableFilterInput" type="text" placeholder="Search from list">
     <br>
-
     <table class="table table-striped" data-toggle="table">
         <thead>
         <tr>
@@ -59,7 +58,7 @@
 </div>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         filterCurrencyDropDown();
         filterTable();
     });

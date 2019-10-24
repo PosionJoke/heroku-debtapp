@@ -8,23 +8,22 @@
 </head>
 <body>
 <div class="container">
-<form action="#" th:action="@{'/debtor-save?id=' + ${id}}" th:object="${debtor}" method="post">
-    <p>
-        Add new debt value to : <span th:text="${debtor.name}"></span>
-    </p>
-    <p>
-        Actual debt : <span th:text="${debtor.debt}"></span>
-    </p>
-
-    <div class="form-group">
-        <label for="DebtValue">Enter how much money you want to add :</label>
-        <td><input type="text" class="form-control" id="DebtValue" th:field="${debtor.debt}"/></td>
-    </div>
-    <div class="checkbox">
-        <label><input type="checkbox"> Remember me</label>
-    </div>
-    <button type="submit" style="margin-bottom: 10px" class="btn btn-primary">Submit</button>
-</form>
+    <form action="#" th:action="@{'/debtor-save?id=' + ${id}}" th:object="${debtor}" method="post">
+        <p>
+            Add new debt value to : <span th:text="${debtor.name}"></span>
+        </p>
+        <p>
+            Actual debt : <span th:text="${debtor.debt}"></span>
+        </p>
+        <div class="form-group">
+            <label for="DebtValue">Enter how much money you want to add :</label>
+            <td><input type="text" class="form-control" id="DebtValue" th:field="${debtor.debt}"/></td>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox"> Remember me</label>
+        </div>
+        <button type="submit" style="margin-bottom: 10px" class="btn btn-primary">Submit</button>
+    </form>
 </div>
 <form th:action="@{/main-view}" method="GET">
     <input type="submit" class="btn btn-primary btn-block" value="Go back to main view"/>

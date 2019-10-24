@@ -11,7 +11,8 @@
     <form action="#" th:action="@{/create-new-user-authentication}" th:object="${userDTO}" method="post">
         <div class="form-group">
             <label for="AuthenticationCode">Authentication Code From Mail :</label>
-            <td><input type="text" class="form-control" id="AuthenticationCode" th:field="${userDTO.authenticationCodeInput}"/></td>
+            <td><input type="text" class="form-control" id="AuthenticationCode"
+                       th:field="${userDTO.authenticationCodeInput}"/></td>
 
             <td><input type="hidden" class="form-control" th:field="${userDTO.authenticationCode}"/></td>
             <td><input type="hidden" class="form-control" th:field="${userDTO.name}"/></td>
