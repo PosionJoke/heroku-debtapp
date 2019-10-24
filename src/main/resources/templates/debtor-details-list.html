@@ -10,8 +10,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+
     <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet"/>
 </head>
 <body>
@@ -87,18 +87,11 @@
     $(document).ready(function () {
         filterCurrencyDropDown();
         filterTable();
-        var timerFields = [];
-        var i;
-        for (i = 0; i < document.getElementById("countOfRows").textContent; i++) {
-            timerFields.push(i + 'timerField');
-        }
 
-        var secondsArrays = [];
-        var j;
-        for (j = 0; j < document.getElementById("countOfRows").textContent; j++) {
-            secondsArrays.push(j + 'totalCountOfSeconds');
-        }
-        timerList(timerFields, secondsArrays);
+        var countOfRows = document.getElementById("countOfRows").textContent;
+        var prefixTime = "timerField";
+        var prefixSeconds = "totalCountOfSeconds";
+        makeTimerList(countOfRows, prefixTime, prefixSeconds);
     });
 </script>
 

@@ -47,4 +47,20 @@ function timerList(fieldsArray, secondsArray) {
 	});
 }
 
+function makeTimerList(countOfRows, prefixTime, prefixSeconds) {
+	var timerFieldsArray = [];
+	var i;
+	for (i = 0; i < countOfRows; i++) {
+		timerFieldsArray.push(i + prefixTime);
+	}
+
+	var secondsArrays = [];
+	var j;
+	for (j = 0; j < countOfRows; j++) {
+		secondsArrays.push(j + prefixSeconds);
+	}
+
+	timerList(timerFieldsArray, secondsArrays);
+}
+
 
