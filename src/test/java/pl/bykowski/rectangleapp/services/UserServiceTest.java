@@ -17,7 +17,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-
 @RunWith(JUnitParamsRunner.class)
 public class UserServiceTest {
 
@@ -27,13 +26,8 @@ public class UserServiceTest {
     private PasswordEncoder passwordEncoder;
 
     private DebtorUserDTO debtorUserDTO = new DebtorUserDTO();
-    private String debtorName;
     private static final String roleName = "ROLE_USER";
-    private Long roleId;
-    private String password2;
-    private String email;
     private Role role = new Role();
-
 
     @Before
     public void init() {
@@ -44,11 +38,10 @@ public class UserServiceTest {
 
         userService = new UserService(debtorUserRepo, roleRepository, passwordEncoder, notificationService);
 
-
-        debtorName = "Ada";
-        password2 = "admin1234";
-        email = "example@email.com";
-        roleId = 2L;
+        String debtorName = "Ada";
+        String password2 = "admin1234";
+        String email = "example@email.com";
+        Long roleId = 2L;
         debtorUserDTO.setName(debtorName);
         debtorUserDTO.setEmail(email);
         debtorUserDTO.setPassword2(password2);
@@ -100,5 +93,4 @@ public class UserServiceTest {
         //then
         verify(debtorUserRepo).save(debtorUser);
     }
-
 }

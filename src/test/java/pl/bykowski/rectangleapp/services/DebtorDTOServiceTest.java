@@ -30,7 +30,7 @@ public class DebtorDTOServiceTest {
     private Principal principal;
 
     @Before
-    public void init(){
+    public void init() {
         principal = mock(Principal.class);
 
         DebtorDetailsRepo debtorDetailsRepo = mock(DebtorDetailsRepo.class);
@@ -105,5 +105,4 @@ public class DebtorDTOServiceTest {
         //then
         assertThat(found.getId()).isEqualTo(debtor1.getId());
     }
-
 }

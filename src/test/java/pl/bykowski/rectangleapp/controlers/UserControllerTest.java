@@ -17,8 +17,6 @@ import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.services.UserService;
 
-import javax.validation.ConstraintDefinitionException;
-
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -55,44 +53,39 @@ public class UserControllerTest {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void should_return_view_name_createNewUser_when_passwords_are_not_equals() throws Exception{
-        //given
+    public void should_return_view_name_createNewUser_when_passwords_are_not_equals() throws Exception {
         debtorUserDTO.setPassword1("1234");
         debtorUserDTO.setPassword2("1235");
         given(bindingResult.hasErrors()).willReturn(true);
-        //when
+
         mvc.perform(post("/create-new-user")
                 .flashAttr("debtorUserDTO", debtorUserDTO)
                 .flashAttr("bindingResult", bindingResult)
         )
                 .andExpect(view().name("create-new-user"))
                 .andExpect(status().isOk());
-        //then
     }
 
     @WithMockUser(TEST_USER_NAME)
     @Test
     public void should_return_view_name_createNewUserAuthentication_when_passwords_are_equals() throws Exception {
-        //given
         debtorUserDTO.setPassword1("1234");
         debtorUserDTO.setPassword2("1234");
         given(bindingResult.hasErrors()).willReturn(true);
         UserDTO userDTO = new UserDTO();
         given(userService.makeNewUser(debtorUserDTO)).willReturn(userDTO);
-        //when
+
         mvc.perform(post("/create-new-user")
                 .flashAttr("debtorUserDTO", debtorUserDTO)
                 .flashAttr("bindingResult", bindingResult)
         )
                 .andExpect(view().name("create-new-user-authentication"))
                 .andExpect(status().isOk());
-        //then
     }
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void should_return_model_name_defaultView_when_authentication_code_is_correct() throws Exception{
-        //given
+    public void should_return_model_name_defaultView_when_authentication_code_is_correct() throws Exception {
         DebtorUserDTO debtorUserDTO = new DebtorUserDTO();
         debtorUserDTO.setAuthenticationCode("1231212");
         debtorUserDTO.setAuthenticationCodeInput("1231212");
@@ -104,7 +97,7 @@ public class UserControllerTest {
         DebtorUser debtorUser = new DebtorUser();
         debtorUser.setName("Ada");
         given(userService.findByName(debtorUserDTO.getName())).willReturn(java.util.Optional.of(debtorUser));
-        //when
+
         mvc.perform(post("/create-new-user-authentication")
                 .flashAttr("debtorUserDTO", debtorUserDTO)
         )
@@ -116,8 +109,7 @@ public class UserControllerTest {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void should_return_model_name_createNewUserAuthentication_when_authentication_code_is_incorrect() throws Exception{
-        //given
+    public void should_return_model_name_createNewUserAuthentication_when_authentication_code_is_incorrect() throws Exception {
         DebtorUserDTO debtorUserDTO = new DebtorUserDTO();
         debtorUserDTO.setAuthenticationCode("1231212");
         debtorUserDTO.setAuthenticationCodeInput("1231212");
@@ -128,13 +120,11 @@ public class UserControllerTest {
 
         DebtorUser debtorUser = new DebtorUser();
         given(userService.findByName(debtorUserDTO.getName())).willReturn(java.util.Optional.of(debtorUser));
-        //when
+
         mvc.perform(post("/create-new-user-authentication")
                 .flashAttr("debtorUserDTO", debtorUserDTO)
         )
                 .andExpect(view().name("create-new-user-authentication"))
                 .andExpect(status().isOk());
-        //then
     }
-
 }

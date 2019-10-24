@@ -154,5 +154,4 @@ public class DebtorDetailsServiceTest {
         //then
         verify(debtorDetailsRepo).deleteById(debtorId);
     }
-
 }

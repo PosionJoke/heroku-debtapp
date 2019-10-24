@@ -60,7 +60,7 @@ public class DebtorDetailsControllerTests {
     private List<DebtorDetailsDTO> debtorDetailsDTOList;
 
     @Before
-    public void init(){
+    public void init() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity())
@@ -93,15 +93,14 @@ public class DebtorDetailsControllerTests {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void should_return_debtorDetailsDTOList() throws Exception{
-        //given
+    public void should_return_debtorDetailsDTOList() throws Exception {
         given(debtorDetailsService.findByUserName(principal.getName())).willReturn(debtorDetailsList);
         given(debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList)).willReturn(debtorDetailsDTOList);
         given(currencyService.calculateCurrencyRates("PLN", "PLN"))
                 .willReturn(currencyRate);
         given(currencyService.setCurrencyRates(debtorDetailsDTOList, currencyRate))
                 .willReturn(debtorDetailsDTOList);
-        //when
+
         mvc.perform(get("/debtor-details-list")
                 .flashAttr("principal", principal)
         )
@@ -116,8 +115,7 @@ public class DebtorDetailsControllerTests {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void should_return_debtorDetailsDTO() throws Exception{
-        //given
+    public void should_return_debtorDetailsDTO() throws Exception {
         Long id = 1L;
         DebtorDetails debtorDetails = new DebtorDetails();
         debtorDetails.setId(id);
@@ -127,7 +125,7 @@ public class DebtorDetailsControllerTests {
 
         given(debtorDetailsDTOService.returnDebtorDetailsDTO(debtorDetails)).willReturn(debtorDetailsDTO);
         given(debtorDetailsRepo.findById(id)).willReturn(java.util.Optional.of(debtorDetails));
-        //when
+
         mvc.perform(get("/debtor-details-debt-edit")
                 .param("id", "1")
                 .param("name", "Adrian")
@@ -140,10 +138,9 @@ public class DebtorDetailsControllerTests {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void should_return_new_debtorDetailsDTO() throws Exception{
-        //given
+    public void should_return_new_debtorDetailsDTO() throws Exception {
         String name = "Ada";
-        //when
+
         mvc.perform(get("/make-new-debtor-details")
                 .param("name", name)
         )
@@ -151,17 +148,15 @@ public class DebtorDetailsControllerTests {
                 .andExpect(model().attribute("debtorDetails", new DebtorDetailsDTO()))
                 .andExpect(model().size(4))
                 .andExpect(status().isOk());
-        //then
     }
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void should_return_debtorDetailsDTOList_and_deleteAndUpdateDebt() throws Exception{
-        //given
+    public void should_return_debtorDetailsDTOList_and_deleteAndUpdateDebt() throws Exception {
         Long id = 1L;
         given(debtorDetailsService.findByUserName(principal.getName())).willReturn(debtorDetailsList);
         given(debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList)).willReturn(debtorDetailsDTOList);
-        //when
+
         mvc.perform(get("/debtor-details-delete-by-id")
                 .param("id", String.valueOf(id))
                 .flashAttr("principal", principal)
@@ -176,8 +171,7 @@ public class DebtorDetailsControllerTests {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void example() throws Exception{
-        //given
+    public void example() throws Exception {
         String name = "Adrian";
         DebtorDetailsDTO debtorDetails = new DebtorDetailsDTO();
         debtorDetails.setName(name);
@@ -185,7 +179,7 @@ public class DebtorDetailsControllerTests {
         Debtor debtor = new Debtor();
         debtor.setName(name);
         given(debtorService.findDebtorByName(name)).willReturn(java.util.Optional.of(debtor));
-        //when
+
         mvc.perform(post("/make-new-debtor-details")
                 .flashAttr("debtorDetails", debtorDetails)
                 .flashAttr("principal", principal)
@@ -199,12 +193,11 @@ public class DebtorDetailsControllerTests {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void should_update_total_debt_by_debtorDetailsDTO_and_id() throws Exception{
-        //given
+    public void should_update_total_debt_by_debtorDetailsDTO_and_id() throws Exception {
         Long id = 1L;
         DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
         debtorDetailsDTO.setId(id);
-        //when
+
         mvc.perform(post("/debtor-details-save")
                 .flashAttr("debtorDetailsDTO", debtorDetailsDTO)
                 .flashAttr("principal", principal)

@@ -1,6 +1,5 @@
 package pl.bykowski.rectangleapp.services;
 
-
 import junitparams.JUnitParamsRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,23 +31,21 @@ public class DebtorServiceTest {
     private DebtorHistoryService debtorHistoryService;
     private Principal principal;
 
-
     @Before
-    public void init(){
-        principal = mock(Principal.class);
+    public void init() {
         debtorRepo = mock(DebtorRepo.class);
         userService = mock(UserService.class);
         debtorDetailsService = mock(DebtorDetailsService.class);
         debtorHistoryService = mock(DebtorHistoryService.class);
+        principal = mock(Principal.class);
 
         debtorService = new DebtorService(debtorRepo, userService, debtorDetailsService, debtorHistoryService);
     }
 
     @Test
-    public void name_to_change(){
+    public void should_return_debtor_with_correct_name() {
         //given
         String debtorName = "Adrian";
-
         Debtor debtor = new Debtor();
         debtor.setName(debtorName);
 
@@ -61,7 +58,7 @@ public class DebtorServiceTest {
     }
 
     @Test
-    public void should_add_new_debtor_if_name_was_never_used(){
+    public void should_add_new_debtor_if_name_was_never_used() {
         //given
         String debtorName = "Michal";
         BigDecimal debtValue = new BigDecimal(10);
@@ -81,16 +78,14 @@ public class DebtorServiceTest {
         debtor.setTotalDebt(debtValue);
         debtor.setDateOfJoining(LocalDate.now());
         debtor.setUserName(userName);
-
         //when
         debtorService.addNewDebtor(debtorName, debtValue, reasonForTheDebt, userName);
-
         //then
         verify(debtorDetailsService).addNewDebtorDetails(debtorName, debtValue, reasonForTheDebt, userName, debtor);
     }
 
     @Test
-    public void should_return_debtor_with_biggest_debt(){
+    public void should_return_debtor_with_biggest_debt() {
         //given
         Debtor debtorWithBiggestDebt = new Debtor();
         debtorWithBiggestDebt.setName("Michal");
@@ -106,13 +101,7 @@ public class DebtorServiceTest {
 
         List<Debtor> debtorList = Arrays.asList(debtorWithBiggestDebt, debtorWithMediumDebt, debtorWithLowestDebt);
 
-        Principal principal = new Principal() {
-            @Override
-            public String getName() {
-                return "Adrian";
-            }
-        };
-
+        given(principal.getName()).willReturn("Adrian");
         given(debtorRepo.findByUserName(principal.getName())).willReturn(debtorList);
         //when
         Optional<Debtor> found = debtorService.returnDebtorWithBiggestDebt(principal.getName());
@@ -121,7 +110,7 @@ public class DebtorServiceTest {
     }
 
     @Test
-    public void should_return_new_total_debt(){
+    public void should_return_new_total_debt() {
         //given
         Long id = 1L;
         BigDecimal additionalDebt = new BigDecimal(10);

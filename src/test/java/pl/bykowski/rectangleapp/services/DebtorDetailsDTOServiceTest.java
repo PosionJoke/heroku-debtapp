@@ -20,12 +20,12 @@ public class DebtorDetailsDTOServiceTest {
     private DebtorDetailsDTOService debtorDetailsDTOService;
 
     @Before
-    public void init(){
+    public void init() {
         debtorDetailsDTOService = new DebtorDetailsDTOService();
     }
 
     @Test
-    public void should_return_debtorDetailsDTOList_based_on_debtorDetailsList(){
+    public void should_return_debtorDetailsDTOList_based_on_debtorDetailsList() {
         //given
         DebtorDetails debtorDetails1 = new DebtorDetails();
         debtorDetails1.setId(1L);
@@ -52,7 +52,7 @@ public class DebtorDetailsDTOServiceTest {
     }
 
     @Test
-    public void should_return_debtorDetailsDTO_based_on_debtorDetails(){
+    public void should_return_debtorDetailsDTO_based_on_debtorDetails() {
         //given
         DebtorDetails debtorDetails = new DebtorDetails();
         debtorDetails.setId(44L);

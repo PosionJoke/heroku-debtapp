@@ -19,7 +19,7 @@ public class DebtorHistoryDTOServiceTest {
     private DebtorHistoryDTOService debtorHistoryDTOService;
 
     @Before
-    public void init(){
+    public void init() {
         debtorHistoryDTOService = new DebtorHistoryDTOService();
     }
 
@@ -34,5 +34,4 @@ public class DebtorHistoryDTOServiceTest {
         //then
         assertThat(found.size()).isEqualTo(debtorHistoryList.size());
     }
-
 }

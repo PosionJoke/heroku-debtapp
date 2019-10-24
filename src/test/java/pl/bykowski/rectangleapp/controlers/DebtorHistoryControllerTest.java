@@ -56,8 +56,7 @@ public class DebtorHistoryControllerTest {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void should_go_to_view_named_debtorHistoryList() throws Exception{
-        //given
+    public void should_go_to_view_named_debtorHistoryList() throws Exception {
         DebtorHistory debtorHistory = new DebtorHistory();
         List<DebtorHistory> debtorHistoryList = Arrays.asList(debtorHistory);
         DebtorHistoryDTO debtorHistoryDTO = new DebtorHistoryDTO();
@@ -67,7 +66,7 @@ public class DebtorHistoryControllerTest {
         given(debtorHistoryDTOService.returnDebtorHistoryDTOList(debtorHistoryList)).willReturn(debtorHistoryDTOS);
         given(currencyService.calculateCurrencyRates("PLN", "PLN"))
                 .willReturn("1");
-        //when
+
         mvc.perform(get("/debtor-history-list")
                 .flashAttr("principal", principal)
         )

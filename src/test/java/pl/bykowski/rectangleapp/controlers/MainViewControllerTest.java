@@ -47,7 +47,7 @@ public class MainViewControllerTest {
     private Principal principal;
 
     @Before
-    public void init(){
+    public void init() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity())
@@ -58,8 +58,7 @@ public class MainViewControllerTest {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void should_return_model_name_mainView_when_debtsList_is_not_empty() throws Exception{
-        //given
+    public void should_return_model_name_mainView_when_debtsList_is_not_empty() throws Exception {
 
         DebtorDetails debtorDetails = new DebtorDetails();
         List<DebtorDetails> debtsList = Arrays.asList(debtorDetails);
@@ -72,9 +71,8 @@ public class MainViewControllerTest {
         given(debtorDTOService.returnDebtorDTO(debtor)).willReturn(debtorWithBiggestDebtDTO);
         DebtorDTO debtorWithBiggestCountOfDebts = new DebtorDTO();
         debtorWithBiggestCountOfDebts.setName("ADADA");
-
         given(debtorDTOService.returnDebtorDTOWithHighestCountOfDebts(principal.getName())).willReturn(debtorWithBiggestCountOfDebts);
-        //when
+
         mvc.perform(post("/main-view")
                 .flashAttr("principal", principal)
         )
@@ -82,20 +80,16 @@ public class MainViewControllerTest {
                 .andExpect(model().attribute("debtorWithBiggestDebt", debtorWithBiggestDebtDTO))
                 .andExpect(model().attribute("debtorWithHighestCountOfDebts", debtorWithBiggestCountOfDebts))
                 .andExpect(status().isOk());
-        //then
     }
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void should_return_model_name_mainViewNewUser_when_debtsList_is_empty() throws Exception{
-        //given
-        List<DebtorDetails> debtsList = Arrays.asList();
-        //when
+    public void should_return_model_name_mainViewNewUser_when_debtsList_is_empty() throws Exception {
+
         mvc.perform(post("/main-view")
                 .flashAttr("principal", principal)
         )
                 .andExpect(view().name("main-view-new-user"))
                 .andExpect(status().isOk());
-        //then
     }
 }

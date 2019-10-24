@@ -20,17 +20,17 @@ import static java.time.temporal.ChronoUnit.DAYS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.mock;
 
 @RunWith(JUnitParamsRunner.class)
 public class DebtorHistoryTest {
 
     private DebtorHistoryService debtorHistoryService;
-
     private DebtorHistoryRepo debtorHistoryRepo;
 
     @Before
     public void init(){
-        debtorHistoryRepo = Mockito.mock(DebtorHistoryRepo.class);
+        debtorHistoryRepo = mock(DebtorHistoryRepo.class);
         debtorHistoryService = new DebtorHistoryService(debtorHistoryRepo);
     }
 
@@ -38,14 +38,13 @@ public class DebtorHistoryTest {
     @Parameters({"Adrian", "adrian", "1234", "!@#$"})
     public void should_return_debtorHistory_list_by_userName(String userNameParam) {
         //given
-        String userName = userNameParam;
         DebtorHistory debtorHistory1 = new DebtorHistory();
         DebtorHistory debtorHistory2 = new DebtorHistory();
         DebtorHistory debtorHistory3 = new DebtorHistory();
         List<DebtorHistory> debtorHistoryList = Arrays.asList(debtorHistory1, debtorHistory2, debtorHistory3);
-        given(debtorHistoryRepo.findByUserName(userName)).willReturn(debtorHistoryList);
+        given(debtorHistoryRepo.findByUserName(userNameParam)).willReturn(debtorHistoryList);
         //when
-        List<DebtorHistory> foundList = debtorHistoryService.findByUserName(userName);
+        List<DebtorHistory> foundList = debtorHistoryService.findByUserName(userNameParam);
         //then
         assertThat(foundList.size()).isEqualTo(debtorHistoryList.size());
     }
@@ -72,11 +71,9 @@ public class DebtorHistoryTest {
         debtorHistory.setUserName(debtorDetails.getUserName());
         long daysBetween = DAYS.between(debtorDetails.getDate(), LocalDate.now());
         debtorHistory.setTimeOfDebt(daysBetween);
-
         //when
         debtorHistoryService.saveEntityDebtorHistory(debtorDetails);
         //then
         verify(debtorHistoryRepo).save(debtorHistory);
     }
-
 }

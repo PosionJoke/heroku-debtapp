@@ -16,9 +16,8 @@ public class NotificationServiceTest {
 
     private NotificationService notificationService;
 
-
     @Before
-    public void init(){
+    public void init() {
         JavaMailSender javaMailSender = mock(JavaMailSender.class);
         notificationService = new NotificationService(javaMailSender);
     }
@@ -45,5 +44,4 @@ public class NotificationServiceTest {
         //then
         assertThat(returnValue).isEqualTo(false);
     }
-
 }
