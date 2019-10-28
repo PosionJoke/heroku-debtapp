@@ -107,8 +107,14 @@ public class DebtorDetailsController {
 
         Optional<Debtor> debtorOpt = debtorService.findDebtorByName(name);
 
-        debtorOpt.ifPresentOrElse(debtor -> log.debug(String.format("Debtor with [%s] was found", debtor.getId())),
-                () -> log.error(("Cant find Debtor")));
+//        debtorOpt.ifPresentOrElse(debtor -> log.debug(String.format("Debtor with [%s] was found", debtor.getId())),
+//                () -> log.error(("Cant find Debtor")));
+
+        if(debtorOpt.isPresent()){
+            log.debug(String.format("Debtor with [%s] was found", debtorOpt.get().getId()));
+        }else {
+            log.error(("Cant find Debtor"));
+        }
 
         Debtor debtor = debtorOpt.orElse(new Debtor());
 
