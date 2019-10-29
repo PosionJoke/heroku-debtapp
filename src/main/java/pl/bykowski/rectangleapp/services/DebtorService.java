@@ -81,11 +81,7 @@ public class DebtorService {
         debtorDetailsService.updateDebtorDetailsDebt(debtorDetailsId, debtorDetailsDTO.getDebt());
 
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(debtorDetailsId);
-//        debtorDetails.ifPresentOrElse(debtorDetails1 ->
-//                        updateTotalDebt(debtorDetails1.getDebtor().getId(), debtorDetailsDTO.getDebt())
-//                ,
-//                () -> log.debug("debtorDetails must be present")
-//        );
+
         debtorDetails.ifPresent(details ->
                 updateTotalDebt(details.getDebtor().getId(), debtorDetailsDTO.getDebt()));
         if(debtorDetails.isPresent()){
