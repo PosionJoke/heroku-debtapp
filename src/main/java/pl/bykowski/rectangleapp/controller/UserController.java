@@ -47,11 +47,18 @@ public class UserController {
                 debtorUserDTO.getAuthenticationCode(), debtorUserDTO.getAuthenticationCodeInput())){
 
             Optional<DebtorUser> debtorUser = userService.findByName(debtorUserDTO.getName());
-            debtorUser.ifPresentOrElse(debtorUser1 -> {
-                        debtorUser1.setActive(1);
-                        userService.save(debtorUser1);
-                    },
-                    () -> log.error(String.format("User [%s] does not exist", debtorUserDTO.getName())));
+//            debtorUser.ifPresentOrElse(debtorUser1 -> {
+////                        debtorUser1.setActive(1);
+////                        userService.save(debtorUser1);
+////                    },
+////                    () -> log.error(String.format("User [%s] does not exist", debtorUserDTO.getName())));
+
+            if(debtorUser.isPresent()){
+                debtorUser.get().setActive(1);
+                userService.save(debtorUser.get());
+            }else {
+                log.error(String.format("User [%s] does not exist", debtorUserDTO.getName()));
+            }
 
             return new  ModelAndView("default-view");
         }
