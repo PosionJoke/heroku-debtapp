@@ -98,7 +98,6 @@ public class DebtorService {
 //        debtBeforeUpdate.ifPresentOrElse(debtBefore -> {
 //            if(debtBefore.min(debtAfterUpdate).floatValue() <= 0){
 //                deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(debtorDetailsDTO.getId());
-//            }}, () -> log.error(String.format("cant find debtor details with id : [%s]", debtorDetailsDTO.getId())));
 
         if(debtBeforeUpdate.isPresent()){
             if(debtBeforeUpdate.get().min(debtAfterUpdate).floatValue() <= 0){
