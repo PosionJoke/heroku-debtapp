@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DebtorDTO implements CurrencyRate{
+public class DebtorDTO implements CurrencyRate {
     private Long id;
     private String name;
     private BigDecimal totalDebt = new BigDecimal(0);

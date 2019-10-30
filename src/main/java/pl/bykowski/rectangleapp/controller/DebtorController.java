@@ -14,8 +14,6 @@ import pl.bykowski.rectangleapp.services.CurrencyService;
 import pl.bykowski.rectangleapp.services.DebtorService;
 import pl.bykowski.rectangleapp.services.tdo_services.DebtorDTOService;
 
-
-
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DebtorDetailsDTO implements CurrencyRate{
+public class DebtorDetailsDTO implements CurrencyRate {
     private Long id;
     private String name;
     private BigDecimal debt = new BigDecimal(0);
@@ -29,7 +29,7 @@ public class DebtorDetailsDTO implements CurrencyRate{
     }
 
     @Override
-    public BigDecimal getDebt(){
+    public BigDecimal getDebt() {
         return this.debt;
     }
 }

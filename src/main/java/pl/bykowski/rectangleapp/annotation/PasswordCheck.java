@@ -12,6 +12,8 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = PasswordCheckValidator.class)
 public @interface PasswordCheck {
     String message();
-    Class<?>[] groups() default{};
+
+    Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

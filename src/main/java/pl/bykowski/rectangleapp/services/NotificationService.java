@@ -22,7 +22,7 @@ public class NotificationService {
     }
 
     boolean sendNotification(String email, String code) {
-        try{
+        try {
             SimpleMailMessage mail = new SimpleMailMessage();
             mail.setTo(email);
             mail.setFrom(APP_MAIL);
@@ -33,7 +33,7 @@ public class NotificationService {
             log.debug(String.format("Mail has been sent, from : [%s], to : [%s]", APP_MAIL, email));
 
             return true;
-        }catch (MailException mEx){
+        } catch (MailException mEx) {
             log.error("Mail not sent, error message : ", mEx);
             return false;
         }

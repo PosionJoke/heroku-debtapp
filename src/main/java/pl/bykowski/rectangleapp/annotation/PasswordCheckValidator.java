@@ -6,13 +6,13 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 public class PasswordCheckValidator implements ConstraintValidator<PasswordCheck, DebtorUserDTO> {
-   public void initialize(PasswordCheck constraint) {
-   }
+    public void initialize(PasswordCheck constraint) {
+    }
 
-   @Override
-   public boolean isValid(DebtorUserDTO value, ConstraintValidatorContext context) {
-      String password1 = value.getPassword1();
-      String password2 = value.getPassword2();
-      return password1.equals(password2);
-   }
+    @Override
+    public boolean isValid(DebtorUserDTO value, ConstraintValidatorContext context) {
+        String password1 = value.getPassword1();
+        String password2 = value.getPassword2();
+        return password1.equals(password2);
+    }
 }

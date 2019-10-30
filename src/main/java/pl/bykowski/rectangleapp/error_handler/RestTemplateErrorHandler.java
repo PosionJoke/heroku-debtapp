@@ -22,10 +22,10 @@ public class RestTemplateErrorHandler implements ResponseErrorHandler {
     public void handleError(ClientHttpResponse clientHttpResponse) throws IOException {
         if (clientHttpResponse.getStatusCode()
                 .series() == HttpStatus.Series.SERVER_ERROR) {
-            // handle SERVER_ERROR
+
         } else if (clientHttpResponse.getStatusCode()
                 .series() == HttpStatus.Series.CLIENT_ERROR) {
-            // handle CLIENT_ERROR
+
             if (clientHttpResponse.getStatusCode() == HttpStatus.NOT_FOUND) {
                 try {
                     throw new ChangeSetPersister.NotFoundException();
