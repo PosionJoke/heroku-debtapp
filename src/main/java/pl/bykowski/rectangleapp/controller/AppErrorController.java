@@ -18,7 +18,9 @@ public class AppErrorController implements ErrorController {
 
     @RequestMapping("/error")
     public ModelAndView handleError(HttpServletRequest request){
-
+//TODO This have no sens, look! what happens when we got 403 error? yep! We dont have any 404 error.html!
+//TODO in this case we should make list? or switch or w/e just some thing what can search in available html error page
+//TODO if not just return default-error-page!
         Optional<Object> status = Optional.of(request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE));
 
         if(status.isPresent()){
