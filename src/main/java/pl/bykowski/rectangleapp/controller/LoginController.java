@@ -8,13 +8,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 
     @GetMapping("/login")
-    public ModelAndView login(){
+    public ModelAndView login() {
         return new ModelAndView("login");
     }
 
     @GetMapping("/user")
-    public ModelAndView testLogin(){
+    public ModelAndView testLogin() {
         return new ModelAndView("user");
     }
-
 }

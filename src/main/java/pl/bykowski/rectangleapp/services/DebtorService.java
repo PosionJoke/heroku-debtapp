@@ -82,37 +82,33 @@ public class DebtorService {
 
         Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(debtorDetailsId);
 
-        debtorDetails.ifPresent(details ->
-                updateTotalDebt(details.getDebtor().getId(), debtorDetailsDTO.getDebt()));
-        if(debtorDetails.isPresent()){
+        if (debtorDetails.isPresent()) {
             updateTotalDebt(debtorDetails.get().getDebtor().getId(), debtorDetailsDTO.getDebt());
-        }else {
+        } else {
             log.debug("debtorDetails must be present");
         }
     }
 
-    private void deleteDebtIfIsUnderZero(DebtorDetailsDTO debtorDetailsDTO){
+    private void deleteDebtIfIsUnderZero(DebtorDetailsDTO debtorDetailsDTO) {
         BigDecimal debtAfterUpdate = debtorDetailsDTO.getDebt();
         Optional<BigDecimal> debtBeforeUpdate = debtorDetailsService.findById(debtorDetailsDTO.getId()).map(DebtorDetails::getDebt);
 
-//        debtBeforeUpdate.ifPresentOrElse(debtBefore -> {
-//            if(debtBefore.min(debtAfterUpdate).floatValue() <= 0){
-
-        if(debtBeforeUpdate.isPresent()){
-            if(debtBeforeUpdate.get().min(debtAfterUpdate).floatValue() <= 0){
+        if (debtBeforeUpdate.isPresent()) {
+            if (debtBeforeUpdate.get().min(debtAfterUpdate).floatValue() <= 0) {
                 deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(debtorDetailsDTO.getId());
             }
-        }else{
+        } else {
             log.error(String.format("cant find debtor details with id : [%s]", debtorDetailsDTO.getId()));
         }
     }
 
     public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id) {
-        Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(id);
-        debtorDetails.ifPresent(debtorDetails1 -> {
-            updateTotalDebt(debtorDetails1.getDebtor().getId(), debtorDetails1.getDebt().multiply(new BigDecimal(-1)));
-            debtorHistoryService.saveEntityDebtorHistory(debtorDetails1);
+        Optional<DebtorDetails> debtorDetailsOpt = debtorDetailsService.findById(id);
+        debtorDetailsOpt.ifPresent(debtorDetails -> {
+            updateTotalDebt(debtorDetails.getDebtor().getId(), debtorDetails.getDebt().multiply(new BigDecimal(-1)));
+            debtorHistoryService.saveEntityDebtorHistory(debtorDetails);
         });
+
         log.debug(String.format("Delete DebtorDetails id : [%s]", id));
         debtorDetailsService.deleteById(id);
     }
@@ -136,13 +132,10 @@ public class DebtorService {
                 .stream()
                 .max(Comparator.comparing(Debtor::getTotalDebt));
 
-//        debtorFound.ifPresentOrElse(debtor -> log.debug(String.format("Debtor with the biggest debt id : [%s], Debt Value : [%s]", debtor.getId(),
-//                debtor.getTotalDebt())), () -> log.error("Can't find debtor"));
-//
-        if(debtorFound.isPresent()){
+        if (debtorFound.isPresent()) {
             log.debug(String.format("Debtor with the biggest debt id : [%s], Debt Value : [%s]", debtorFound.get().getId(),
                     debtorFound.get().getTotalDebt()));
-        }else {
+        } else {
             log.error("Can't find debtor");
         }
 
@@ -152,5 +145,4 @@ public class DebtorService {
     public Optional<Debtor> findDebtorByName(String name) {
         return debtorRepo.findByName(name);
     }
-
 }

@@ -7,10 +7,10 @@ import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "base",
-    "date",
-    "time_last_updated",
-    "rates"
+        "base",
+        "date",
+        "time_last_updated",
+        "rates"
 })
 public class Currency {
 

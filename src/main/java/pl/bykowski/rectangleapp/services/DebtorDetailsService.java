@@ -36,10 +36,11 @@ public class DebtorDetailsService {
     void addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor, String debtEndDateString) {
 
         DebtorDetails debtorDetails = new DebtorDetails(debtorName, debtValue, LocalDate.now(), reasonForTheDebt,
-                        userName, returnNewLocalDateTime(debtEndDateString), debtor);
+                userName, returnNewLocalDateTime(debtEndDateString), debtor);
 
         saveDebtorDetails(debtorDetails);
     }
+
     DebtorDetails addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor) {
 
         DebtorDetails debtorDetails = new DebtorDetails(debtorName, debtValue, LocalDate.now(), reasonForTheDebt,
@@ -49,8 +50,8 @@ public class DebtorDetailsService {
         return debtorDetails;
     }
 
-    private LocalDateTime returnNewLocalDateTime(String debtEndDateString){
-        if(debtEndDateString.equals("")){
+    private LocalDateTime returnNewLocalDateTime(String debtEndDateString) {
+        if (debtEndDateString.equals("")) {
             return null;
         }
         LocalDate debtEndDate = LocalDate.parse(debtEndDateString);
@@ -80,7 +81,7 @@ public class DebtorDetailsService {
             deleteDebtById(debtorDetails.getId());
         } else {
             log.debug(String.format("Update totalDebt id : [%s], " +
-                    "actual debt : [%s], added value : [%s], new debt = [%s]",
+                            "actual debt : [%s], added value : [%s], new debt = [%s]",
                     debtorDetails.getId(), debtorDetails.getDebt(), debtValue, newDebt));
 
             debtorDetails.setDebt(newDebt);

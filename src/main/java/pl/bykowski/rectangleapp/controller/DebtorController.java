@@ -61,7 +61,7 @@ public class DebtorController {
 
     @GetMapping("/debtor-debt-edit")
     public ModelAndView debtorDebtEdit(@RequestParam Long id, @RequestParam String name) {
-        
+
         Optional<Debtor> debtorOpt = debtorService.findDebtorByName(name);
 
         DebtorDTO debtorDTO = debtorOpt

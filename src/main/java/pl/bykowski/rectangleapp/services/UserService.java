@@ -67,13 +67,13 @@ public class UserService {
         return authentication.getName();
     }
 
-    private String generateNewAuthenticationCode(){
+    private String generateNewAuthenticationCode() {
         String authenticationCode = String.valueOf((int) (Math.random() * 1000000));
         log.debug("Authentication code : " + authenticationCode);
         return authenticationCode;
     }
 
-    public boolean checkAuthenticationCode(String authCode, String authCodeInput){
+    public boolean checkAuthenticationCode(String authCode, String authCodeInput) {
         return authCode.equals(authCodeInput);
     }
 
@@ -81,9 +81,9 @@ public class UserService {
         return debtorUserRepo.findByName(name);
     }
 
-    public void save(DebtorUser debtorUser){
+    public void save(DebtorUser debtorUser) {
 
-        log.debug(String.format("Save User id : [%s], name : [%s], email : [%s]",debtorUser.getId(),
+        log.debug(String.format("Save User id : [%s], name : [%s], email : [%s]", debtorUser.getId(),
                 debtorUser.getName(), debtorUser.getEmail()));
 
         debtorUserRepo.save(debtorUser);
