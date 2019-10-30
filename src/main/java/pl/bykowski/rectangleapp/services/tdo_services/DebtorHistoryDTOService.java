@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class DebtorHistoryDTOService {
-    public List<DebtorHistoryDTO> returnDebtorHistoryDTOList(List<DebtorHistory> debtorHistoryList){
+    public List<DebtorHistoryDTO> returnDebtorHistoryDTOList(List<DebtorHistory> debtorHistoryList) {
         List<DebtorHistoryDTO> debtorHistoryDTOList = new ArrayList<>();
 
         debtorHistoryList

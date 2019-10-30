@@ -10,7 +10,6 @@ import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.dto.CurrencyTypes;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
-import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 import pl.bykowski.rectangleapp.services.CurrencyService;
 import pl.bykowski.rectangleapp.services.DebtorService;
 import pl.bykowski.rectangleapp.services.tdo_services.DebtorDTOService;
@@ -60,7 +59,7 @@ public class DebtorController {
 
     @GetMapping("/debtor-debt-edit")
     public ModelAndView debtorDebtEdit(@RequestParam Long id, @RequestParam String name) {
-        
+
         Optional<Debtor> debtorOpt = debtorService.findDebtorByName(name);
 
         DebtorDTO debtorDTO = debtorOpt

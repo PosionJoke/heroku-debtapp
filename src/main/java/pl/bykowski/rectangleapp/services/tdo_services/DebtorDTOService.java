@@ -23,19 +23,19 @@ public class DebtorDTOService {
         this.debtorService = debtorService;
     }
 
-    public List<DebtorDTO> returnDebtorDTOList(List<Debtor> debtorList){
+    public List<DebtorDTO> returnDebtorDTOList(List<Debtor> debtorList) {
         List<DebtorDTO> debtorDTOList = new ArrayList<>();
-        for(Debtor debtor : debtorList){
+        for (Debtor debtor : debtorList) {
             debtorDTOList.add(new DebtorDTO(debtor.getId(), debtor.getName(), debtor.getTotalDebt()));
         }
         return debtorDTOList;
     }
 
-    public DebtorDTO returnDebtorDTO(Debtor debtor){
+    public DebtorDTO returnDebtorDTO(Debtor debtor) {
         return new DebtorDTO(debtor.getId(), debtor.getName(), debtor.getTotalDebt());
     }
 
-    public DebtorDTO returnDebtorDTOWithHighestCountOfDebts(String userName){
+    public DebtorDTO returnDebtorDTOWithHighestCountOfDebts(String userName) {
         ArrayList<DebtorDetails> debtorDetailsArrayList = (ArrayList<DebtorDetails>) debtorDetailsService.findByUserName(userName);
         List<Long> debtorDetailsIdArrayList = new ArrayList<>();
 

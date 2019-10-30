@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class TestUserController {
     @GetMapping("/testUser")
-    public ModelAndView testUser(){
+    public ModelAndView testUser() {
         return new ModelAndView("testUser");
     }
 }

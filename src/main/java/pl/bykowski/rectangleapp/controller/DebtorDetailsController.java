@@ -106,9 +106,9 @@ public class DebtorDetailsController {
 
         Optional<Debtor> debtorOpt = debtorService.findDebtorByName(name);
 
-        if(debtorOpt.isPresent()){
+        if (debtorOpt.isPresent()) {
             log.debug(String.format("Debtor with [%s] was found", debtorOpt.get().getId()));
-        }else {
+        } else {
             log.error(("Cant find Debtor"));
         }
 

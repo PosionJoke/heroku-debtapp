@@ -19,7 +19,7 @@ public class UserPrincipalDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userName)  {
+    public UserDetails loadUserByUsername(String userName) {
         Optional<DebtorUser> debtorUser = this.debtorUserRepo.findByName(userName);
         return debtorUser.map(UserPrincipal::new).orElseGet(() -> new UserPrincipal(new DebtorUser()));
     }

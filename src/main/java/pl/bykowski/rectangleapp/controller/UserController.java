@@ -28,9 +28,9 @@ public class UserController {
 
     @PostMapping("/create-new-user")
     public ModelAndView createNewUser(@Valid @ModelAttribute DebtorUserDTO debtorUserDTO,
-                                      BindingResult bindingResult){
+                                      BindingResult bindingResult) {
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return new ModelAndView("create-new-user", bindingResult.getModel());
         }
 
@@ -41,10 +41,10 @@ public class UserController {
     }
 
     @PostMapping("/create-new-user-authentication")
-    public ModelAndView activeAccount(@ModelAttribute DebtorUserDTO debtorUserDTO){
+    public ModelAndView activeAccount(@ModelAttribute DebtorUserDTO debtorUserDTO) {
 
-        if(userService.checkAuthenticationCode(
-                debtorUserDTO.getAuthenticationCode(), debtorUserDTO.getAuthenticationCodeInput())){
+        if (userService.checkAuthenticationCode(
+                debtorUserDTO.getAuthenticationCode(), debtorUserDTO.getAuthenticationCodeInput())) {
 
             Optional<DebtorUser> debtorUser = userService.findByName(debtorUserDTO.getName());
 //            debtorUser.ifPresentOrElse(debtorUser1 -> {
@@ -53,14 +53,14 @@ public class UserController {
 ////                    },
 ////                    () -> log.error(String.format("User [%s] does not exist", debtorUserDTO.getName())));
 
-            if(debtorUser.isPresent()){
+            if (debtorUser.isPresent()) {
                 debtorUser.get().setActive(1);
                 userService.save(debtorUser.get());
-            }else {
+            } else {
                 log.error(String.format("User [%s] does not exist", debtorUserDTO.getName()));
             }
 
-            return new  ModelAndView("default-view");
+            return new ModelAndView("default-view");
         }
 
         return new ModelAndView("create-new-user-authentication")
@@ -68,7 +68,7 @@ public class UserController {
     }
 
     @GetMapping("/create-new-user")
-    public ModelAndView returnLoginForm(){
+    public ModelAndView returnLoginForm() {
         return new ModelAndView("create-new-user")
                 .addObject("debtorUserDTO", new DebtorUserDTO());
     }
