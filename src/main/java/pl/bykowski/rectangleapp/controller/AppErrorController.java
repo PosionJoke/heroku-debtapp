@@ -9,7 +9,6 @@ import pl.bykowski.rectangleapp.model.dto.ErrorTypes;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,27 +21,16 @@ public class AppErrorController implements ErrorController {
     public ModelAndView handleError(HttpServletRequest request) {
         Optional<Object> status = Optional.of(request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE));
 
-        List<Integer> errorsList = ErrorTypes.stream()
-                .map(ErrorTypes::getErrorValue)
-                .collect(Collectors.toList());
+        Integer statusCode = Integer.valueOf(status.get().toString());
 
-        if(status.isPresent()){
-            Integer statusCode = Integer.valueOf(status.get().toString());
-            if(errorsList.contains(statusCode)){
-                return showErrorHtml(statusCode);
-            }
-        }
+        log.debug(String.format("HTTP error [%s]", statusCode));
 
-        return new ModelAndView("error/default-error-page");
+        return new ModelAndView("error/default-error-page")
+                .addObject("statusCode", statusCode);
     }
 
     @Override
     public String getErrorPath() {
         return "/error";
-    }
-
-    private ModelAndView showErrorHtml(Integer errorCode) {
-        return new ModelAndView("error/error-" + errorCode)
-                .addObject("errorCode", errorCode);
     }
 }
