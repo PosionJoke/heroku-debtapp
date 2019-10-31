@@ -9,7 +9,6 @@ HELP.md
 .settings
 .springBeans
 .sts4-cache
-db.mv.db
 app.log
 
 ### IntelliJ IDEA ###
