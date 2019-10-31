@@ -57,8 +57,7 @@ public class DebtorService {
 
     @Transactional
     public void updateTotalDebtAndMakeNewDebtorDetails(DebtorDetailsDTO debtorDetails, Debtor debtor, String userName) {
-        debtorDetailsService.addNewDebtorDetails(debtorDetails.getName(), debtorDetails.getDebt(),
-                debtorDetails.getReasonForTheDebt(), userName, debtor, debtorDetails.getDebtEndDateString());
+        debtorDetailsService.addNewDebtorDetails(debtorDetails, userName, debtor);
 
         updateTotalDebt(debtor.getId(), debtorDetails.getDebt());
     }
@@ -113,17 +112,17 @@ public class DebtorService {
         debtorDetailsService.deleteById(id);
     }
 
-    public void addNewDebtor(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName) {
+    public void addNewDebtor(DebtorDetailsDTO debtorDetailsDTO, String userName) {
         String actualUserName = userService.findUserName();
-        if (isThisNameFree(debtorName, actualUserName)) {
+        if (isThisNameFree(debtorDetailsDTO.getName(), actualUserName)) {
             Debtor debtor = new Debtor();
-            debtor.setName(debtorName);
-            debtor.setTotalDebt(debtValue);
+            debtor.setName(debtorDetailsDTO.getName());
+            debtor.setTotalDebt(debtorDetailsDTO.getDebt());
             debtor.setDateOfJoining(LocalDate.now());
             debtor.setUserName(userName);
             saveDebtor(debtor);
 
-            debtorDetailsService.addNewDebtorDetails(debtorName, debtValue, reasonForTheDebt, userName, debtor);
+            debtorDetailsService.addNewDebtorDetails(debtorDetailsDTO, userName, debtor);
         }
     }
 

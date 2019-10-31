@@ -179,10 +179,7 @@ public class DebtorControllerTest {
                 .flashAttr("debtorDTO", new DebtorDTO())
                 .flashAttr("principal", principal)
         )
-                .andExpect(model().size(3))
-                .andExpect(view().name("debtor-list"))
-                .andExpect(model().attribute("debtors", debtorDTOList))
-                .andExpect(status().isOk());
+                .andExpect(status().isFound());
         //then
         verify(debtorService).updateTotalDebt(id, debtorReturn.getTotalDebt());
     }
@@ -206,13 +203,9 @@ public class DebtorControllerTest {
                 .flashAttr("debtorDetailsDTO", debtorDetailsDTO)
                 .flashAttr("principal", principal)
         )
-                .andExpect(model().size(3))
-                .andExpect(view().name("debtor-list"))
-                .andExpect(model().attribute("debtors", debtorDTOList))
-                .andExpect(status().isOk());
+                .andExpect(status().isFound());
 
         //then
-        verify(debtorService).addNewDebtor(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(),
-                debtorDetailsDTO.getReasonForTheDebt(), principal.getName());
+        verify(debtorService).addNewDebtor(debtorDetailsDTO, principal.getName());
     }
 }

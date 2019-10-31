@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.dto.CurrencyTypes;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
@@ -72,7 +73,7 @@ public class DebtorController {
     }
 
     @PostMapping("/debtor-save")
-    public ModelAndView saveDebtor(@ModelAttribute DebtorDTO debtorDTO, Principal principal,
+    public RedirectView saveDebtor(@ModelAttribute DebtorDTO debtorDTO, Principal principal,
                                    @RequestParam Long id) {
 
         Optional<Debtor> debtorToUpdateOpt = debtorService.findById(id);
@@ -84,20 +85,17 @@ public class DebtorController {
         debtorService.updateTotalDebt(id, actualTotalDebt);
 
         List<Debtor> debtorList = debtorService.findByUserName(principal.getName());
-        List<DebtorDTO> debtorDTOList = debtorDTOService.returnDebtorDTOList(debtorList);
 
-        return new ModelAndView("debtor-list")
-                .addObject("debtors", debtorDTOList);
+        return new RedirectView("/debtor-list");
     }
 
     @PostMapping("/make-new-debtor")
-    public ModelAndView makeNewDebtor(@ModelAttribute DebtorDetailsDTO debtorDetailsDTO, Principal principal) {
+    public RedirectView makeNewDebtor(@ModelAttribute DebtorDetailsDTO debtorDetailsDTO, Principal principal) {
 
-        debtorService.addNewDebtor(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(), debtorDetailsDTO.getReasonForTheDebt(), principal.getName());
+        debtorService.addNewDebtor(debtorDetailsDTO, principal.getName());
 
         List<Debtor> debtorList = debtorService.findByUserName(principal.getName());
-        List<DebtorDTO> debtorDTOList = debtorDTOService.returnDebtorDTOList(debtorList);
-        return new ModelAndView("debtor-list")
-                .addObject("debtors", debtorDTOList);
+
+        return new RedirectView("/debtor-list");
     }
 }
