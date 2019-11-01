@@ -13,10 +13,12 @@
         <div class="form-group">
             <label for="DebtValue">Debt Value :</label>
             <td><input type="text" class="form-control" id="DebtValue" th:field="${debtorDetails.debt}"/></td>
+            <td th:if="${#fields.hasErrors('debt')}" th:errors="${debtorDetails.debt}">debt error</td>
         </div>
         <div class="form-group">
             <label for="Reason">Reason for the debt :</label>
             <td><input type="text" class="form-control" id="Reason" th:field="${debtorDetails.reasonForTheDebt}"/></td>
+            <td th:if="${#fields.hasErrors('reasonForTheDebt')}" th:errors="${debtorDetails.reasonForTheDebt}">debt error</td>
         </div>
         <div class="form-group">
             <label for="DebtEndDate">Debt end date (optional) :</label>

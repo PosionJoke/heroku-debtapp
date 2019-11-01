@@ -23,8 +23,8 @@ public class DebtorUserDTO {
     private String password1;
     @NotEmpty
     private String password2;
-    private String authenticationCode;
     private String authenticationCodeInput;
+    private String authenticationCode;
 
     private boolean test = false;
 }
