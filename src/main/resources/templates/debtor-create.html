@@ -27,6 +27,7 @@
             <label for="DebtEndDate">Debt end date (optional) :</label>
             <td><input type="date" class="form-control" id="DebtEndDate" th:field="${debtorDetailsDTO.debtEndDateString}"/>
             </td>
+            <td th:if="${#fields.hasErrors('debtEndDateString')}" th:errors="${debtorDetailsDTO.debtEndDateString}">debtEndDateString error</td>
         </div>
         <div class="checkbox">
             <label><input type="checkbox"> Remember me</label>

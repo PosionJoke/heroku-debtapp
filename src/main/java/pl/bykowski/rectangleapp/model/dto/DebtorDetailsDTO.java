@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.bykowski.rectangleapp.annotation.DateCheck;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
@@ -26,6 +27,7 @@ public class DebtorDetailsDTO implements CurrencyRate {
     private String reasonForTheDebt;
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime debtEndDate;
+    @DateCheck(message = "The date must contain future days")
     private String debtEndDateString;
     private String totalCountOfSeconds;
 
