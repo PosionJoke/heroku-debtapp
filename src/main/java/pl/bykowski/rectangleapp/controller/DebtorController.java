@@ -1,6 +1,7 @@
 package pl.bykowski.rectangleapp.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import pl.bykowski.rectangleapp.services.CurrencyService;
 import pl.bykowski.rectangleapp.services.DebtorService;
 import pl.bykowski.rectangleapp.services.tdo_services.DebtorDTOService;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
@@ -55,7 +57,7 @@ public class DebtorController {
     @GetMapping("/debtor-create")
     public ModelAndView createDebtor() {
         return new ModelAndView("debtor-create")
-                .addObject("debtor", new DebtorDetailsDTO());
+                .addObject("debtorDetailsDTO", new DebtorDetailsDTO());
     }
 
     @GetMapping("/debtor-debt-edit")
@@ -73,7 +75,7 @@ public class DebtorController {
     }
 
     @PostMapping("/debtor-save")
-    public RedirectView saveDebtor(@ModelAttribute DebtorDTO debtorDTO, Principal principal,
+    public RedirectView saveDebtor(@ModelAttribute DebtorDTO debtorDTO,
                                    @RequestParam Long id) {
 
         Optional<Debtor> debtorToUpdateOpt = debtorService.findById(id);
@@ -84,18 +86,31 @@ public class DebtorController {
 
         debtorService.updateTotalDebt(id, actualTotalDebt);
 
-        List<Debtor> debtorList = debtorService.findByUserName(principal.getName());
-
         return new RedirectView("/debtor-list");
     }
 
-    @PostMapping("/make-new-debtor")
-    public RedirectView makeNewDebtor(@ModelAttribute DebtorDetailsDTO debtorDetailsDTO, Principal principal) {
+    @PostMapping("/debtor-create")
+        public ModelAndView makeNewDebtor(@Valid @ModelAttribute DebtorDetailsDTO debtorDetailsDTO, BindingResult bindingResult,
+                Principal principal,
+                @RequestParam(required = false, defaultValue = "PLN") String currency){
+
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("debtor-create", bindingResult.getModel());
+        }
 
         debtorService.addNewDebtor(debtorDetailsDTO, principal.getName());
 
         List<Debtor> debtorList = debtorService.findByUserName(principal.getName());
 
-        return new RedirectView("/debtor-list");
+        String currencyRate = currencyService.calculateCurrencyRates(currency, "PLN");
+
+        List<Debtor> debtors = debtorService.findByUserName(principal.getName());
+        List<DebtorDTO> debtorDTOList = debtorDTOService.returnDebtorDTOList(debtors);
+        List<DebtorDTO> debtorsWithCurrencyRate = currencyService.setCurrencyRates(debtorDTOList, currencyRate);
+
+        return new ModelAndView("/debtor-list")
+                .addObject("debtors", debtorsWithCurrencyRate)
+                .addObject("currencyTypes", CurrencyTypes.values())
+                .addObject("currency", currency);
     }
 }

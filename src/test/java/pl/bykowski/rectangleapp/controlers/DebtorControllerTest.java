@@ -199,11 +199,11 @@ public class DebtorControllerTest {
         given(debtorService.findByUserName(principal.getName())).willReturn(debtorList);
         given(debtorDTOService.returnDebtorDTOList(debtorList)).willReturn(debtorDTOList);
 
-        mvc.perform(post("/make-new-debtor")
+        mvc.perform(post("/debtor-create")
                 .flashAttr("debtorDetailsDTO", debtorDetailsDTO)
                 .flashAttr("principal", principal)
         )
-                .andExpect(status().isFound());
+                .andExpect(status().isOk());
 
         //then
         verify(debtorService).addNewDebtor(debtorDetailsDTO, principal.getName());

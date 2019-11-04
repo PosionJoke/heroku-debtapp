@@ -169,12 +169,17 @@ public class DebtorDetailsControllerTests {
         verify(debtorService).deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id);
     }
 
+    //TODO why this test have name example?!
     @WithMockUser(TEST_USER_NAME)
     @Test
     public void example() throws Exception {
         String name = "Adrian";
+        String reasonForTheDebt = "Coffee";
+        BigDecimal debt = new BigDecimal(10);
         DebtorDetailsDTO debtorDetails = new DebtorDetailsDTO();
         debtorDetails.setName(name);
+        debtorDetails.setReasonForTheDebt(reasonForTheDebt);
+        debtorDetails.setDebt(debt);
 
         Debtor debtor = new Debtor();
         debtor.setName(name);
@@ -185,7 +190,6 @@ public class DebtorDetailsControllerTests {
                 .flashAttr("principal", principal)
                 .param("name", name)
         )
-                .andExpect(model().size(6))
                 .andExpect(status().isOk());
         //then
         verify(debtorService).updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());

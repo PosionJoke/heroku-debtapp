@@ -80,7 +80,7 @@ public class DebtorDetailsController {
         return new ModelAndView("make-new-debtor-details")
                 .addObject("currency", currency)
                 .addObject("currencyTypes", CurrencyTypes.values())
-                .addObject("debtorDetails", new DebtorDetailsDTO())
+                .addObject("debtorDetailsDTO", new DebtorDetailsDTO())
                 .addObject("name", name);
     }
 
@@ -102,18 +102,15 @@ public class DebtorDetailsController {
     }
 
     @PostMapping("/make-new-debtor-details")
-    public ModelAndView saveNewDebtorDetails(@Valid @ModelAttribute DebtorDetailsDTO debtorDetails, Principal principal,
+    public ModelAndView saveNewDebtorDetails(@Valid @ModelAttribute DebtorDetailsDTO debtorDetailsDTO,
+                                             BindingResult bindingResult,
+                                             Principal principal,
                                              @RequestParam String name,
-                                             @RequestParam(required = false, defaultValue = "PLN") String currency,
-                                             BindingResult bindingResult) {
+                                             @RequestParam(required = false, defaultValue = "PLN") String currency) {
 
-//        if (bindingResult.hasErrors()) {
-//            return new ModelAndView("make-new-debtor-details", bindingResult.getModel())
-//                    .addObject("currency", currency)
-//                    .addObject("currencyTypes", CurrencyTypes.values())
-//                    .addObject("debtorDetails", new DebtorDetailsDTO())
-//                    .addObject("name", name);
-//        }
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("make-new-debtor-details", bindingResult.getModel());
+        }
 
         Optional<Debtor> debtorOpt = debtorService.findDebtorByName(name);
 
@@ -125,7 +122,7 @@ public class DebtorDetailsController {
 
         Debtor debtor = debtorOpt.orElse(new Debtor());
 
-        debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());
+        debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetailsDTO, debtor, principal.getName());
         List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());
         List<DebtorDetailsDTO> debtorDetailsDTOList = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
 

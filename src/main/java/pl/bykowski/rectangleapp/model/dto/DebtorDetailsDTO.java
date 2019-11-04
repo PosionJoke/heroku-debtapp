@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import pl.bykowski.rectangleapp.annotation.DebtCheck;
 
 import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,10 +16,11 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@DebtCheck(message = "Debt value can't be bigger then 1 000 000 000")
 public class DebtorDetailsDTO implements CurrencyRate {
     private Long id;
     private String name;
+    @DecimalMax(value = "1000000000.0", message = "Max debt value cant be bigger then 1 000 000 000")
+    @DecimalMin(value = "1.0", message = "Debt value cant lower then 1")
     private BigDecimal debt = new BigDecimal(0);
     private LocalDate date;
     @Size(min = 2, message = "Name should have at least 1 character")

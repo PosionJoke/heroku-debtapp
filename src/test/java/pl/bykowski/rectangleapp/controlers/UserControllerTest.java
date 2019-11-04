@@ -101,7 +101,7 @@ public class UserControllerTest {
         mvc.perform(post("/create-new-user-authentication")
                 .flashAttr("debtorUserDTO", debtorUserDTO)
         )
-                .andExpect(view().name("default-view"))
+                .andExpect(view().name("create-new-user-authentication"))
                 .andExpect(status().isOk());
         //then
         verify(userService).save(debtorUser);

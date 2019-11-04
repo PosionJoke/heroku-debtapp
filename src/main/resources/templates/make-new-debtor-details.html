@@ -8,21 +8,21 @@
 </head>
 <body>
 <div class="container">
-    <form action="#" th:action="@{'/make-new-debtor-details?name=' + ${name}}" th:object="${debtorDetails}"
+    <form action="#" th:action="@{'/make-new-debtor-details?name=' + ${name}}" th:object="${debtorDetailsDTO}"
           method="post">
         <div class="form-group">
             <label for="DebtValue">Debt Value :</label>
-            <td><input type="text" class="form-control" id="DebtValue" th:field="${debtorDetails.debt}"/></td>
-            <td th:if="${#fields.hasErrors('debt')}" th:errors="${debtorDetails.debt}">debt error</td>
+            <td><input type="text" class="form-control" id="DebtValue" th:field="${debtorDetailsDTO.debt}"/></td>
+            <td th:if="${#fields.hasErrors('debt')}" th:errors="${debtorDetailsDTO.debt}">debt error</td>
         </div>
         <div class="form-group">
             <label for="Reason">Reason for the debt :</label>
-            <td><input type="text" class="form-control" id="Reason" th:field="${debtorDetails.reasonForTheDebt}"/></td>
-            <td th:if="${#fields.hasErrors('reasonForTheDebt')}" th:errors="${debtorDetails.reasonForTheDebt}">debt error</td>
+            <td><input type="text" class="form-control" id="Reason" th:field="${debtorDetailsDTO.reasonForTheDebt}"/></td>
+            <td th:if="${#fields.hasErrors('reasonForTheDebt')}" th:errors="${debtorDetailsDTO.reasonForTheDebt}">reasonForTheDebt error</td>
         </div>
         <div class="form-group">
             <label for="DebtEndDate">Debt end date (optional) :</label>
-            <td><input type="date" class="form-control" id="DebtEndDate" th:field="${debtorDetails.debtEndDateString}"/>
+            <td><input type="date" class="form-control" id="DebtEndDate" th:field="${debtorDetailsDTO.debtEndDateString}"/>
             </td>
         </div>
         <div class="checkbox">
