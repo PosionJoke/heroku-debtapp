@@ -17,12 +17,16 @@
         </div>
         <div class="form-group">
             <label for="Reason">Reason for the debt :</label>
-            <td><input type="text" class="form-control" id="Reason" th:field="${debtorDetailsDTO.reasonForTheDebt}"/></td>
-            <td th:if="${#fields.hasErrors('reasonForTheDebt')}" th:errors="${debtorDetailsDTO.reasonForTheDebt}">reasonForTheDebt error</td>
+            <td><input class="form-control" id="Reason" th:field="${debtorDetailsDTO.reasonForTheDebt}" type="text"/>
+            </td>
+            <td th:errors="${debtorDetailsDTO.reasonForTheDebt}" th:if="${#fields.hasErrors('reasonForTheDebt')}">
+                reasonForTheDebt error
+            </td>
         </div>
         <div class="form-group">
             <label for="DebtEndDate">Debt end date (optional) :</label>
-            <td><input type="date" class="form-control" id="DebtEndDate" th:field="${debtorDetailsDTO.debtEndDateString}"/>
+            <td><input class="form-control" id="DebtEndDate" th:field="${debtorDetailsDTO.debtEndDateString}"
+                       type="date"/>
             </td>
         </div>
         <div class="checkbox">

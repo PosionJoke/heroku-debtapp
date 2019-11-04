@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.bykowski.rectangleapp.annotation.DebtCheck;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;

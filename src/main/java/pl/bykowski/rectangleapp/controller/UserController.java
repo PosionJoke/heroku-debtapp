@@ -51,11 +51,6 @@ public class UserController {
                 userDTO.getAuthenticationCode(), userDTO.getAuthenticationCodeInput())) {
 
             Optional<DebtorUser> debtorUser = userService.findByName(userDTO.getName());
-//            debtorUser.ifPresentOrElse(debtorUser1 -> {
-////                        debtorUser1.setActive(1);
-////                        userService.save(debtorUser1);
-////                    },
-////                    () -> log.error(String.format("User [%s] does not exist", debtorUserDTO.getName())));
 
             if (debtorUser.isPresent()) {
                 debtorUser.get().setActive(1);
