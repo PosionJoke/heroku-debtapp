@@ -1,22 +1,16 @@
 package pl.bykowski.rectangleapp.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.DebtorHistory;
 import pl.bykowski.rectangleapp.model.dto.CurrencyTypes;
-import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorHistoryDTO;
-import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.services.CurrencyService;
 import pl.bykowski.rectangleapp.services.DebtorHistoryService;
 import pl.bykowski.rectangleapp.services.tdo_services.DebtorHistoryDTOService;
 
-import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.Objects;

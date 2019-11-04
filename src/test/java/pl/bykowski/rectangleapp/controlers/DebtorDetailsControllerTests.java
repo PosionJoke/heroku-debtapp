@@ -145,7 +145,7 @@ public class DebtorDetailsControllerTests {
                 .param("name", name)
         )
                 .andExpect(view().name("make-new-debtor-details"))
-                .andExpect(model().attribute("debtorDetails", new DebtorDetailsDTO()))
+                .andExpect(model().attribute("debtorDetailsDTO", new DebtorDetailsDTO()))
                 .andExpect(model().size(4))
                 .andExpect(status().isOk());
     }
@@ -176,23 +176,23 @@ public class DebtorDetailsControllerTests {
         String name = "Adrian";
         String reasonForTheDebt = "Coffee";
         BigDecimal debt = new BigDecimal(10);
-        DebtorDetailsDTO debtorDetails = new DebtorDetailsDTO();
-        debtorDetails.setName(name);
-        debtorDetails.setReasonForTheDebt(reasonForTheDebt);
-        debtorDetails.setDebt(debt);
+        DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
+        debtorDetailsDTO.setName(name);
+        debtorDetailsDTO.setReasonForTheDebt(reasonForTheDebt);
+        debtorDetailsDTO.setDebt(debt);
 
         Debtor debtor = new Debtor();
         debtor.setName(name);
         given(debtorService.findDebtorByName(name)).willReturn(java.util.Optional.of(debtor));
 
         mvc.perform(post("/make-new-debtor-details")
-                .flashAttr("debtorDetails", debtorDetails)
+                .flashAttr("debtorDetailsDTO", debtorDetailsDTO)
                 .flashAttr("principal", principal)
                 .param("name", name)
         )
                 .andExpect(status().isOk());
         //then
-        verify(debtorService).updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());
+        verify(debtorService).updateTotalDebtAndMakeNewDebtorDetails(debtorDetailsDTO, debtor, principal.getName());
     }
 
     @WithMockUser(TEST_USER_NAME)

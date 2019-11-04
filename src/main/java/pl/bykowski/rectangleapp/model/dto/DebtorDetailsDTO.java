@@ -23,7 +23,7 @@ public class DebtorDetailsDTO implements CurrencyRate {
     @DecimalMin(value = "1.0", message = "Debt value cant lower then 1")
     private BigDecimal debt = new BigDecimal(0);
     private LocalDate date;
-    @Size(min = 2, message = "Name should have at least 1 character")
+    @Size(min = 2, message = "Name should have at least 2 characters")
     private String reasonForTheDebt;
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime debtEndDate;

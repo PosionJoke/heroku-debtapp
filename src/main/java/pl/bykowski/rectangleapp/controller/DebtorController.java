@@ -100,8 +100,6 @@ public class DebtorController {
 
         debtorService.addNewDebtor(debtorDetailsDTO, principal.getName());
 
-        List<Debtor> debtorList = debtorService.findByUserName(principal.getName());
-
         String currencyRate = currencyService.calculateCurrencyRates(currency, "PLN");
 
         List<Debtor> debtors = debtorService.findByUserName(principal.getName());
