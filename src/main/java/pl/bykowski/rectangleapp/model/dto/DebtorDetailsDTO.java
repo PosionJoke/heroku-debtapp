@@ -27,7 +27,7 @@ public class DebtorDetailsDTO implements CurrencyRate {
     private String reasonForTheDebt;
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime debtEndDate;
-    @DateCheck(message = "The date must contain future days")
+    @DateCheck(message = "You can sing only from next day")
     private String debtEndDateString;
     private String totalCountOfSeconds;
 
