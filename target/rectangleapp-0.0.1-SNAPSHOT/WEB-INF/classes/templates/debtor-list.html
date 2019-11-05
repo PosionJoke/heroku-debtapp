@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Getting Started Service Web Content</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="/js/currency_script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <h1 align="center"> Debtors </h1>
+
+    <div th:replace="nav.html :: body"></div>
+
+    <form th:action="@{/debtor-create}" method="GET">
+        <input type="submit" class="btn btn-success btn-block" style="margin-bottom: 10px" value="Create Debtor"/>
+    </form>
+
+    <div class="dropdown">
+        <div class="btn-group dropleft btn-block">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Currency
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                <a th:each="currencyType : ${currencyTypes}">
+                    <li><a class="dropdown-item" th:href="@{'/debtor-list?currency=' + ${currencyType.toString()}}"
+                           th:text="${currencyType.toString()}"></p></a></li>
+                </a>
+            </ul>
+        </div>
+    </div>
+    <br>
+    <input class="form-control" id="tableFilterInput" type="text" placeholder="Search from list">
+    <br>
+    <table class="table table-striped" data-toggle="table">
+        <thead>
+        <tr>
+            <th data-sortable="true">Name</th>
+            <th data-sortable="true">Total Debt</th>
+            <th>Currency</th>
+            <th>Add New Debt</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody id="tableFilter">
+        <tr th:each="oneDebtor : ${debtors}">
+            <td th:text="${oneDebtor.name}"></td>
+            <td th:text="${oneDebtor.totalDebt}"></td>
+            <td th:text="${currency}"></td>
+            <td>
+                <a class="btn btn-success btn-lg" th:href="@{'/make-new-debtor-details?name=' + ${oneDebtor.name}}">
+                    <span class="glyphicon glyphicon-plus"></span> Add Debt
+                </a>
+            </td>
+            <td>
+                <a class="btn btn-info btn-lg"
+                   th:href="@{'/debtor-debt-edit?id=' + ${oneDebtor.id} + '&name=' + ${oneDebtor.name}}">
+                    <span class="glyphicon glyphicon-pencil"></span>Edit
+                </a>
+            </td>
+        </tr>
+        </tbody>
+        </thead>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        filterCurrencyDropDown();
+        filterTable();
+    });
+</script>
+
+</body>
+</html>
