@@ -8,7 +8,6 @@
 </head>
 <body>
 <div class="container">
-<<<<<<< HEAD
     <form action="#" th:action="@{debtor-create}" th:object="${debtorDetailsDTO}" method="post">
         <div class="form-group">
             <label for="DebtorName">Debtor name :</label>
@@ -30,23 +29,6 @@
             <td><input type="date" class="form-control" id="DebtEndDate" th:field="${debtorDetailsDTO.debtEndDateString}"/>
             </td>
             <td th:if="${#fields.hasErrors('debtEndDateString')}" th:errors="${debtorDetailsDTO.debtEndDateString}">debtEndDateString error</td>
-=======
-    <form action="#" th:action="@{make-new-debtor}" th:object="${debtor}" method="post">
-        <div class="form-group">
-            <label for="DebtorName">Debtor name :</label>
-            <td><input type="text" class="form-control" id="DebtorName" th:field="${debtor.name}"/></td>
-        </div>
-        <div class="form-group">
-            <label for="DebtValue">Debt Value :</label>
-            <td><input type="text" class="form-control" id="DebtValue" th:field="${debtor.debt}"/></td>
-        </div>
-        <div class="form-group">
-            <label for="Reason">Reason for the debt :</label>
-            <td><input type="text" class="form-control" id="Reason" th:field="${debtor.reasonForTheDebt}"/></td>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox"> Remember me</label>
->>>>>>> heroku_master_metger_with_scheduled
         </div>
         <button type="submit" class="btn btn-primary" style="margin-bottom: 10px">Submit</button>
     </form>
