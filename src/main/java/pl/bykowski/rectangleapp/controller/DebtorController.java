@@ -106,7 +106,7 @@ public class DebtorController {
         List<DebtorDTO> debtorDTOList = debtorDTOService.returnDebtorDTOList(debtors);
         List<DebtorDTO> debtorsWithCurrencyRate = currencyService.setCurrencyRates(debtorDTOList, currencyRate);
 
-        return new ModelAndView("/debtor-list")
+        return new ModelAndView("debtor-list")
                 .addObject("debtors", debtorsWithCurrencyRate)
                 .addObject("currencyTypes", CurrencyTypes.values())
                 .addObject("currency", currency);
