@@ -24,7 +24,7 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -184,6 +184,7 @@ public class DebtorControllerTest {
         verify(debtorService).updateTotalDebt(id, debtorReturn.getTotalDebt());
     }
 
+    //TODO looks like we need to make date not null
     @WithMockUser(TEST_USER_NAME)
     @Test
     public void should_add_new_debtor_and_return_debtorDTOList() throws Exception {
@@ -191,9 +192,11 @@ public class DebtorControllerTest {
         String debtorDTOName = "Ada";
         BigDecimal debtValue = new BigDecimal(10);
         String reasonForTheDebt = "Coffee";
+        String dateString = "2050-10-10";
         debtorDetailsDTO.setName(debtorDTOName);
         debtorDetailsDTO.setDebt(debtValue);
         debtorDetailsDTO.setReasonForTheDebt(reasonForTheDebt);
+        debtorDetailsDTO.setDebtEndDateString(dateString);
 
         given(principal.getName()).willReturn(TEST_USER_NAME);
         given(debtorService.findByUserName(principal.getName())).willReturn(debtorList);
