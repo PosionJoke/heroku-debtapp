@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container">
-    <form action="#" th:action="@{debtor-create}" th:object="${debtorDetailsDTO}" method="post">
+    <form action="#" th:action="@{'/debtor-create'}" th:object="${debtorDetailsDTO}" method="post">
         <div class="form-group">
             <label for="DebtorName">Debtor name :</label>
             <td><input type="text" class="form-control" id="DebtorName" th:field="${debtorDetailsDTO.name}"/></td>
