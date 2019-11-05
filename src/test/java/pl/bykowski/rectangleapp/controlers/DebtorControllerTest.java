@@ -184,7 +184,6 @@ public class DebtorControllerTest {
         verify(debtorService).updateTotalDebt(id, debtorReturn.getTotalDebt());
     }
 
-    //TODO looks like we need to make date not null
     @WithMockUser(TEST_USER_NAME)
     @Test
     public void should_add_new_debtor_and_return_debtorDTOList() throws Exception {

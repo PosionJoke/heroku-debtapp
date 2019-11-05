@@ -169,10 +169,9 @@ public class DebtorDetailsControllerTests {
         verify(debtorService).deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id);
     }
 
-    //TODO why this test have name example?!
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void example() throws Exception {
+    public void should_add_new_debtor_and_new_debtor_details() throws Exception {
         String name = "Adrian";
         String reasonForTheDebt = "Coffee";
         String dateString = "2050-10-10";
