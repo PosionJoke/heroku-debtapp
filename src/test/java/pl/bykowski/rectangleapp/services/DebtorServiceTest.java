@@ -78,10 +78,15 @@ public class DebtorServiceTest {
         debtor.setTotalDebt(debtValue);
         debtor.setDateOfJoining(LocalDate.now());
         debtor.setUserName(userName);
+
+        DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
+        debtorDetailsDTO.setName(debtor.getName());
+        debtorDetailsDTO.setDebt(debtor.getTotalDebt());
+        debtorDetailsDTO.setReasonForTheDebt(reasonForTheDebt);
         //when
-        debtorService.addNewDebtor(debtorName, debtValue, reasonForTheDebt, userName);
+        debtorService.addNewDebtor(debtorDetailsDTO, userName);
         //then
-        verify(debtorDetailsService).addNewDebtorDetails(debtorName, debtValue, reasonForTheDebt, userName, debtor);
+        verify(debtorDetailsService).addNewDebtorDetails(debtorDetailsDTO, userName, debtor);
     }
 
     @Test
@@ -145,12 +150,7 @@ public class DebtorServiceTest {
         //when
         debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetailsDTO, debtor, userName);
         //then
-        verify(debtorDetailsService).addNewDebtorDetails(debtorDetailsDTO.getName(),
-                debtorDetailsDTO.getDebt(),
-                debtorDetailsDTO.getReasonForTheDebt(),
-                userName,
-                debtor,
-                null);
+        verify(debtorDetailsService).addNewDebtorDetails(debtorDetailsDTO, userName, debtor);
     }
 
     @Test

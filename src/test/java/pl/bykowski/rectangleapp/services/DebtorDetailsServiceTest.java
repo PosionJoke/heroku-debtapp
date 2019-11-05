@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
+import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 
 import java.math.BigDecimal;
@@ -68,8 +69,13 @@ public class DebtorDetailsServiceTest {
         debtorDetailsTest.setReasonForTheDebt(reasonForDebt);
         debtorDetailsTest.setDebtor(debtor);
         debtorDetailsTest.setDate(LocalDate.now());
+
+        DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
+        debtorDetailsDTO.setName(debtorDetailsTest.getName());
+        debtorDetailsDTO.setDebt(debtorDetailsTest.getDebt());
+        debtorDetailsDTO.setReasonForTheDebt(debtorDetailsTest.getReasonForTheDebt());
         //when
-        DebtorDetails created = debtorDetailsService.addNewDebtorDetails(debtorName, debtValue, reasonForDebt, userName, debtor);
+        DebtorDetails created = debtorDetailsService.addNewDebtorDetails(debtorDetailsDTO, userName, debtor);
         //then
         assertThat(created).isEqualTo(debtorDetailsTest);
     }

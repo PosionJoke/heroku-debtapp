@@ -41,30 +41,29 @@ public class UserController {
     }
 
     @PostMapping("/create-new-user-authentication")
-    public ModelAndView activeAccount(@ModelAttribute DebtorUserDTO debtorUserDTO) {
+    public ModelAndView activeAccount(@Valid @ModelAttribute UserDTO userDTO, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("create-new-user-authentication", bindingResult.getModel());
+        }
 
         if (userService.checkAuthenticationCode(
-                debtorUserDTO.getAuthenticationCode(), debtorUserDTO.getAuthenticationCodeInput())) {
+                userDTO.getAuthenticationCode(), userDTO.getAuthenticationCodeInput())) {
 
-            Optional<DebtorUser> debtorUser = userService.findByName(debtorUserDTO.getName());
-//            debtorUser.ifPresentOrElse(debtorUser1 -> {
-////                        debtorUser1.setActive(1);
-////                        userService.save(debtorUser1);
-////                    },
-////                    () -> log.error(String.format("User [%s] does not exist", debtorUserDTO.getName())));
+            Optional<DebtorUser> debtorUser = userService.findByName(userDTO.getName());
 
             if (debtorUser.isPresent()) {
                 debtorUser.get().setActive(1);
                 userService.save(debtorUser.get());
             } else {
-                log.error(String.format("User [%s] does not exist", debtorUserDTO.getName()));
+                log.error(String.format("User [%s] does not exist", userDTO.getName()));
             }
 
             return new ModelAndView("default-view");
         }
 
         return new ModelAndView("create-new-user-authentication")
-                .addObject("userDTO", debtorUserDTO);
+                .addObject("userDTO", userDTO);
     }
 
     @GetMapping("/create-new-user")

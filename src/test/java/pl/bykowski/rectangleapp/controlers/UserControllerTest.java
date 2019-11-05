@@ -86,20 +86,20 @@ public class UserControllerTest {
     @WithMockUser(TEST_USER_NAME)
     @Test
     public void should_return_model_name_defaultView_when_authentication_code_is_correct() throws Exception {
-        DebtorUserDTO debtorUserDTO = new DebtorUserDTO();
-        debtorUserDTO.setAuthenticationCode("1231212");
-        debtorUserDTO.setAuthenticationCodeInput("1231212");
+        UserDTO UserDTO = new UserDTO();
+        UserDTO.setAuthenticationCode("123121");
+        UserDTO.setAuthenticationCodeInput("123121");
 
         given(userService.checkAuthenticationCode(
-                debtorUserDTO.getAuthenticationCode(), debtorUserDTO.getAuthenticationCodeInput()))
+                UserDTO.getAuthenticationCode(), UserDTO.getAuthenticationCodeInput()))
                 .willReturn(true);
 
         DebtorUser debtorUser = new DebtorUser();
         debtorUser.setName("Ada");
-        given(userService.findByName(debtorUserDTO.getName())).willReturn(java.util.Optional.of(debtorUser));
+        given(userService.findByName(UserDTO.getName())).willReturn(java.util.Optional.of(debtorUser));
 
         mvc.perform(post("/create-new-user-authentication")
-                .flashAttr("debtorUserDTO", debtorUserDTO)
+                .flashAttr("userDTO", UserDTO)
         )
                 .andExpect(view().name("default-view"))
                 .andExpect(status().isOk());

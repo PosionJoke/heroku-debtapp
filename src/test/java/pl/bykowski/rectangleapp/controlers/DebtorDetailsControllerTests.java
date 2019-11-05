@@ -145,7 +145,7 @@ public class DebtorDetailsControllerTests {
                 .param("name", name)
         )
                 .andExpect(view().name("make-new-debtor-details"))
-                .andExpect(model().attribute("debtorDetails", new DebtorDetailsDTO()))
+                .andExpect(model().attribute("debtorDetailsDTO", new DebtorDetailsDTO()))
                 .andExpect(model().size(4))
                 .andExpect(status().isOk());
     }
@@ -171,24 +171,29 @@ public class DebtorDetailsControllerTests {
 
     @WithMockUser(TEST_USER_NAME)
     @Test
-    public void example() throws Exception {
+    public void should_add_new_debtor_and_new_debtor_details() throws Exception {
         String name = "Adrian";
-        DebtorDetailsDTO debtorDetails = new DebtorDetailsDTO();
-        debtorDetails.setName(name);
+        String reasonForTheDebt = "Coffee";
+        String dateString = "2050-10-10";
+        BigDecimal debt = new BigDecimal(10);
+        DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
+        debtorDetailsDTO.setName(name);
+        debtorDetailsDTO.setReasonForTheDebt(reasonForTheDebt);
+        debtorDetailsDTO.setDebt(debt);
+        debtorDetailsDTO.setDebtEndDateString(dateString);
 
         Debtor debtor = new Debtor();
         debtor.setName(name);
         given(debtorService.findDebtorByName(name)).willReturn(java.util.Optional.of(debtor));
 
         mvc.perform(post("/make-new-debtor-details")
-                .flashAttr("debtorDetails", debtorDetails)
+                .flashAttr("debtorDetailsDTO", debtorDetailsDTO)
                 .flashAttr("principal", principal)
                 .param("name", name)
         )
-                .andExpect(model().size(6))
                 .andExpect(status().isOk());
         //then
-        verify(debtorService).updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());
+        verify(debtorService).updateTotalDebtAndMakeNewDebtorDetails(debtorDetailsDTO, debtor, principal.getName());
     }
 
     @WithMockUser(TEST_USER_NAME)
