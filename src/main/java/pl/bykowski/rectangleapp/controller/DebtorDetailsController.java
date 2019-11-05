@@ -2,6 +2,7 @@ package pl.bykowski.rectangleapp.controller;
 
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import pl.bykowski.rectangleapp.services.DebtorDetailsService;
 import pl.bykowski.rectangleapp.services.DebtorService;
 import pl.bykowski.rectangleapp.services.tdo_services.DebtorDetailsDTOService;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
@@ -78,7 +80,7 @@ public class DebtorDetailsController {
         return new ModelAndView("make-new-debtor-details")
                 .addObject("currency", currency)
                 .addObject("currencyTypes", CurrencyTypes.values())
-                .addObject("debtorDetails", new DebtorDetailsDTO())
+                .addObject("debtorDetailsDTO", new DebtorDetailsDTO())
                 .addObject("name", name);
     }
 
@@ -100,9 +102,15 @@ public class DebtorDetailsController {
     }
 
     @PostMapping("/make-new-debtor-details")
-    public ModelAndView saveNewDebtorDetails(@ModelAttribute DebtorDetailsDTO debtorDetails, Principal principal,
+    public ModelAndView saveNewDebtorDetails(@Valid @ModelAttribute DebtorDetailsDTO debtorDetailsDTO,
+                                             BindingResult bindingResult,
+                                             Principal principal,
                                              @RequestParam String name,
                                              @RequestParam(required = false, defaultValue = "PLN") String currency) {
+
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("make-new-debtor-details", bindingResult.getModel());
+        }
 
         Optional<Debtor> debtorOpt = debtorService.findDebtorByName(name);
 
@@ -114,7 +122,7 @@ public class DebtorDetailsController {
 
         Debtor debtor = debtorOpt.orElse(new Debtor());
 
-        debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetails, debtor, principal.getName());
+        debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetailsDTO, debtor, principal.getName());
         List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());
         List<DebtorDetailsDTO> debtorDetailsDTOList = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
 

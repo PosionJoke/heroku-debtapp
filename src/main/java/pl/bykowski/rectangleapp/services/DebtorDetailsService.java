@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
+import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 
 import java.math.BigDecimal;
@@ -33,29 +34,31 @@ public class DebtorDetailsService {
         debtorDetailsRepo.save(debtorDetails);
     }
 
-    void addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor, String debtEndDateString) {
+    DebtorDetails addNewDebtorDetails(DebtorDetailsDTO debtorDetailsDTO, String userName, Debtor debtor) {
 
-        DebtorDetails debtorDetails = new DebtorDetails(debtorName, debtValue, LocalDate.now(), reasonForTheDebt,
-                userName, returnNewLocalDateTime(debtEndDateString), debtor);
+        DebtorDetails debtorDetails;
+        Optional<LocalDateTime> endDebtDateOpt = returnNewLocalDateTime(debtorDetailsDTO.getDebtEndDateString());
 
-        saveDebtorDetails(debtorDetails);
-    }
+        if(endDebtDateOpt.isPresent()){
+            LocalDateTime endDebtDate = returnNewLocalDateTime(debtorDetailsDTO.getDebtEndDateString()).get();
 
-    DebtorDetails addNewDebtorDetails(String debtorName, BigDecimal debtValue, String reasonForTheDebt, String userName, Debtor debtor) {
-
-        DebtorDetails debtorDetails = new DebtorDetails(debtorName, debtValue, LocalDate.now(), reasonForTheDebt,
-                userName, debtor);
+            debtorDetails = new DebtorDetails(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(),
+                    LocalDate.now(), debtorDetailsDTO.getReasonForTheDebt(), userName, endDebtDate, debtor);
+        }else {
+            debtorDetails = new DebtorDetails(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(),
+                    LocalDate.now(), debtorDetailsDTO.getReasonForTheDebt(), userName, debtor);
+        }
 
         saveDebtorDetails(debtorDetails);
         return debtorDetails;
     }
 
-    private LocalDateTime returnNewLocalDateTime(String debtEndDateString) {
-        if (debtEndDateString.equals("")) {
-            return null;
+    private Optional<LocalDateTime> returnNewLocalDateTime(String debtEndDateString) {
+        if (debtEndDateString == null || debtEndDateString.equals("")) {
+            return Optional.empty();
         }
         LocalDate debtEndDate = LocalDate.parse(debtEndDateString);
-        return LocalDateTime.of(debtEndDate, LocalTime.now());
+        return Optional.of(LocalDateTime.of(debtEndDate, LocalTime.now()));
     }
 
     @Transactional

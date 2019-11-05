@@ -8,21 +8,27 @@
 </head>
 <body>
 <div class="container">
-    <form action="#" th:action="@{make-new-debtor}" th:object="${debtor}" method="post">
+    <form action="#" th:action="@{debtor-create}" th:object="${debtorDetailsDTO}" method="post">
         <div class="form-group">
             <label for="DebtorName">Debtor name :</label>
-            <td><input type="text" class="form-control" id="DebtorName" th:field="${debtor.name}"/></td>
+            <td><input type="text" class="form-control" id="DebtorName" th:field="${debtorDetailsDTO.name}"/></td>
+            <td th:errors="${debtorDetailsDTO.name}" th:if="${#fields.hasErrors('name')}">name debt</td>
         </div>
         <div class="form-group">
             <label for="DebtValue">Debt Value :</label>
-            <td><input type="text" class="form-control" id="DebtValue" th:field="${debtor.debt}"/></td>
+            <td><input type="text" class="form-control" id="DebtValue" th:field="${debtorDetailsDTO.debt}"/></td>
+            <td th:if="${#fields.hasErrors('debt')}" th:errors="${debtorDetailsDTO.debt}">reasonForTheDebt debt</td>
         </div>
         <div class="form-group">
             <label for="Reason">Reason for the debt :</label>
-            <td><input type="text" class="form-control" id="Reason" th:field="${debtor.reasonForTheDebt}"/></td>
+            <td><input type="text" class="form-control" id="Reason" th:field="${debtorDetailsDTO.reasonForTheDebt}"/></td>
+            <td th:if="${#fields.hasErrors('reasonForTheDebt')}" th:errors="${debtorDetailsDTO.reasonForTheDebt}">reasonForTheDebt error</td>
         </div>
-        <div class="checkbox">
-            <label><input type="checkbox"> Remember me</label>
+        <div class="form-group">
+            <label for="DebtEndDate">Debt end date (optional) :</label>
+            <td><input type="date" class="form-control" id="DebtEndDate" th:field="${debtorDetailsDTO.debtEndDateString}"/>
+            </td>
+            <td th:if="${#fields.hasErrors('debtEndDateString')}" th:errors="${debtorDetailsDTO.debtEndDateString}">debtEndDateString error</td>
         </div>
         <button type="submit" class="btn btn-primary" style="margin-bottom: 10px">Submit</button>
     </form>

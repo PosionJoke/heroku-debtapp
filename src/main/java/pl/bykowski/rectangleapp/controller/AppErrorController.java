@@ -5,13 +5,10 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import pl.bykowski.rectangleapp.model.dto.ErrorTypes;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j
 @Controller

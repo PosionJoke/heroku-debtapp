@@ -24,7 +24,7 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -179,10 +179,7 @@ public class DebtorControllerTest {
                 .flashAttr("debtorDTO", new DebtorDTO())
                 .flashAttr("principal", principal)
         )
-                .andExpect(model().size(3))
-                .andExpect(view().name("debtor-list"))
-                .andExpect(model().attribute("debtors", debtorDTOList))
-                .andExpect(status().isOk());
+                .andExpect(status().isFound());
         //then
         verify(debtorService).updateTotalDebt(id, debtorReturn.getTotalDebt());
     }
@@ -194,25 +191,23 @@ public class DebtorControllerTest {
         String debtorDTOName = "Ada";
         BigDecimal debtValue = new BigDecimal(10);
         String reasonForTheDebt = "Coffee";
+        String dateString = "2050-10-10";
         debtorDetailsDTO.setName(debtorDTOName);
         debtorDetailsDTO.setDebt(debtValue);
         debtorDetailsDTO.setReasonForTheDebt(reasonForTheDebt);
+        debtorDetailsDTO.setDebtEndDateString(dateString);
 
         given(principal.getName()).willReturn(TEST_USER_NAME);
         given(debtorService.findByUserName(principal.getName())).willReturn(debtorList);
         given(debtorDTOService.returnDebtorDTOList(debtorList)).willReturn(debtorDTOList);
 
-        mvc.perform(post("/make-new-debtor")
+        mvc.perform(post("/debtor-create")
                 .flashAttr("debtorDetailsDTO", debtorDetailsDTO)
                 .flashAttr("principal", principal)
         )
-                .andExpect(model().size(3))
-                .andExpect(view().name("debtor-list"))
-                .andExpect(model().attribute("debtors", debtorDTOList))
                 .andExpect(status().isOk());
 
         //then
-        verify(debtorService).addNewDebtor(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(),
-                debtorDetailsDTO.getReasonForTheDebt(), principal.getName());
+        verify(debtorService).addNewDebtor(debtorDetailsDTO, principal.getName());
     }
 }
