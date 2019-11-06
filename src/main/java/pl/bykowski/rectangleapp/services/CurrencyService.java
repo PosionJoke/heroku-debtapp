@@ -6,7 +6,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import pl.bykowski.rectangleapp.error_handler.RestTemplateErrorHandler;
-import pl.bykowski.rectangleapp.model.dto.CurrencyRate;
+import pl.bykowski.rectangleapp.model.CurrencyRate;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

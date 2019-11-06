@@ -3,6 +3,7 @@ package pl.bykowski.rectangleapp.model.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.bykowski.rectangleapp.model.CurrencyRate;
 
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;

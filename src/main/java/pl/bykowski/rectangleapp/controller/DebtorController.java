@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import pl.bykowski.rectangleapp.model.Debtor;
-import pl.bykowski.rectangleapp.model.dto.CurrencyTypes;
+import pl.bykowski.rectangleapp.model.CurrencyTypes;
 import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.services.CurrencyService;

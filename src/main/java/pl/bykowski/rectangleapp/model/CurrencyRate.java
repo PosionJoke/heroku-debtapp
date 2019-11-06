@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp.model.dto;
+package pl.bykowski.rectangleapp.model;
 
 import java.math.BigDecimal;
 

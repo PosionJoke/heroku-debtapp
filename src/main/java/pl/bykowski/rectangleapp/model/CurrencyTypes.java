@@ -1,4 +1,4 @@
-package pl.bykowski.rectangleapp.model.dto;
+package pl.bykowski.rectangleapp.model;
 
 public enum CurrencyTypes {
     USD, AED, ARS, AUD, BGN, BRL, BSD, CAD, CHF, CLP, CNY, COP, CZK, DKK,
