@@ -60,7 +60,8 @@ public class MainViewControllerTest {
     @Test
     public void should_return_model_name_mainView_when_debtsList_is_not_empty() throws Exception {
 
-        DebtorDetails debtorDetails = new DebtorDetails();
+//        DebtorDetails debtorDetails = new DebtorDetails();
+        DebtorDetails debtorDetails = DebtorDetails.builder().build();
         List<DebtorDetails> debtsList = Arrays.asList(debtorDetails);
         given(debtorDetailsService.findByUserName(principal.getName())).willReturn(debtsList);
 

@@ -157,10 +157,13 @@ public class DebtorServiceTest {
     public void delete_debtorDetails_update_total_debt_make_new_debtor_history() {
         //given
         Long id = 1L;
-        DebtorDetails debtorDetails = new DebtorDetails();
         Debtor debtor = new Debtor();
         debtor.setId(1L);
-        debtorDetails.setDebtor(debtor);
+//        DebtorDetails debtorDetails = new DebtorDetails();
+//        debtorDetails.setDebtor(debtor);
+        DebtorDetails debtorDetails = DebtorDetails.builder()
+                .debtor(debtor)
+                .build();
         given(debtorDetailsService.findById(id)).willReturn(Optional.of(debtorDetails));
         //when
         debtorService.deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id);
@@ -179,9 +182,13 @@ public class DebtorServiceTest {
         DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
         debtorDetailsDTO.setDebt(debtorDetailsDTODebt);
 
-        DebtorDetails debtorDetails = new DebtorDetails();
-        debtorDetails.setId(debtorDetailsId);
-        debtorDetails.setUserName(debtorDetailsUserName);
+//        DebtorDetails debtorDetails = new DebtorDetails();
+//        debtorDetails.setId(debtorDetailsId);
+//        debtorDetails.setUserName(debtorDetailsUserName);
+        DebtorDetails debtorDetails = DebtorDetails.builder()
+                .id(debtorDetailsId)
+                .userName(debtorDetailsUserName)
+                .build();
         //when
         debtorService.updateTotalDebtAndUpdateDebtorDetailsDebt(debtorDetailsDTO, debtorDetailsId);
         //then

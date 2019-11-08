@@ -42,11 +42,29 @@ public class DebtorDetailsService {
         if(endDebtDateOpt.isPresent()){
             LocalDateTime endDebtDate = returnNewLocalDateTime(debtorDetailsDTO.getDebtEndDateString()).get();
 
-            debtorDetails = new DebtorDetails(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(),
-                    LocalDate.now(), debtorDetailsDTO.getReasonForTheDebt(), userName, endDebtDate, debtor);
+//            debtorDetails = new DebtorDetails(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(),
+//                    LocalDate.now(), debtorDetailsDTO.getReasonForTheDebt(), userName, endDebtDate, debtor);
+            debtorDetails = DebtorDetails.builder()
+                    .name(debtorDetailsDTO.getName())
+                    .debt(debtorDetailsDTO.getDebt())
+                    .date(LocalDate.now())
+                    .reasonForTheDebt(debtorDetailsDTO.getReasonForTheDebt())
+                    .userName(userName)
+                    .debtEndDate(endDebtDate)
+                    .debtor(debtor)
+                    .build();
+
         }else {
-            debtorDetails = new DebtorDetails(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(),
-                    LocalDate.now(), debtorDetailsDTO.getReasonForTheDebt(), userName, debtor);
+//            debtorDetails = new DebtorDetails(debtorDetailsDTO.getName(), debtorDetailsDTO.getDebt(),
+//                    LocalDate.now(), debtorDetailsDTO.getReasonForTheDebt(), userName, debtor);
+            debtorDetails = DebtorDetails.builder()
+                    .name(debtorDetailsDTO.getName())
+                    .debt(debtorDetailsDTO.getDebt())
+                    .date(LocalDate.now())
+                    .reasonForTheDebt(debtorDetailsDTO.getReasonForTheDebt())
+                    .userName(userName)
+                    .debtor(debtor)
+                    .build();
         }
 
         saveDebtorDetails(debtorDetails);
