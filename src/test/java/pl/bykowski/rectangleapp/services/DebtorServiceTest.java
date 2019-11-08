@@ -73,11 +73,11 @@ public class DebtorServiceTest {
         List<Debtor> debtorList = Arrays.asList(fakeDebtor1, fakeDebtor2);
         given(debtorRepo.findByUserName(userName)).willReturn(debtorList);
 
-        Debtor debtor = new Debtor();
-        debtor.setName(debtorName);
-        debtor.setTotalDebt(debtValue);
-        debtor.setDateOfJoining(LocalDate.now());
-        debtor.setUserName(userName);
+        Debtor debtor = Debtor.builder()
+                .name(debtorName)
+                .totalDebt(debtValue)
+                .userName(userName)
+                .build();
 
         DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
         debtorDetailsDTO.setName(debtor.getName());

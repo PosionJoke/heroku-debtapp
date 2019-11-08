@@ -42,11 +42,7 @@ public class DebtorController {
     public ModelAndView showDebtorList(Principal principal,
                                        @RequestParam(required = false, defaultValue = "PLN") String currency) {
 
-        String currencyRate = currencyService.calculateCurrencyRates(currency, "PLN");
-
-        List<Debtor> debtors = debtorService.findByUserName(principal.getName());
-        List<DebtorDTO> debtorDTOList = debtorDTOService.returnDebtorDTOList(debtors);
-        List<DebtorDTO> debtorsWithCurrencyRate = currencyService.setCurrencyRates(debtorDTOList, currencyRate);
+        List<DebtorDTO> debtorsWithCurrencyRate = setCurrencyRateToDebtorDTO(principal, currency);
 
         return new ModelAndView("debtor-list")
                 .addObject("debtors", debtorsWithCurrencyRate)
@@ -100,15 +96,19 @@ public class DebtorController {
 
         debtorService.addNewDebtor(debtorDetailsDTO, principal.getName());
 
-        String currencyRate = currencyService.calculateCurrencyRates(currency, "PLN");
-
-        List<Debtor> debtors = debtorService.findByUserName(principal.getName());
-        List<DebtorDTO> debtorDTOList = debtorDTOService.returnDebtorDTOList(debtors);
-        List<DebtorDTO> debtorsWithCurrencyRate = currencyService.setCurrencyRates(debtorDTOList, currencyRate);
+        List<DebtorDTO> debtorsWithCurrencyRate = setCurrencyRateToDebtorDTO(principal, currency);
 
         return new ModelAndView("/debtor-list")
                 .addObject("debtors", debtorsWithCurrencyRate)
                 .addObject("currencyTypes", CurrencyTypes.values())
                 .addObject("currency", currency);
+    }
+
+    private List<DebtorDTO> setCurrencyRateToDebtorDTO(Principal principal, String currency){
+        String currencyRate = currencyService.calculateCurrencyRates(currency, "PLN");
+
+        List<Debtor> debtors = debtorService.findByUserName(principal.getName());
+        List<DebtorDTO> debtorDTOList = debtorDTOService.returnDebtorDTOList(debtors);
+        return currencyService.setCurrencyRates(debtorDTOList, currencyRate);
     }
 }

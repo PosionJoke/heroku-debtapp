@@ -1,8 +1,6 @@
 package pl.bykowski.rectangleapp.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -14,6 +12,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class
 Debtor {
     @Id
@@ -23,7 +22,8 @@ Debtor {
     private String name;
     private BigDecimal debt = new BigDecimal(0);
     private BigDecimal totalDebt = new BigDecimal(0);
-    private LocalDate dateOfJoining;
+    @Builder.Default
+    private LocalDate dateOfJoining = LocalDate.now();
     private String userName;
     @OneToMany(mappedBy = "debtor", fetch = FetchType.LAZY)
     private Set<DebtorDetails> debtorDetailsList = new HashSet<>();

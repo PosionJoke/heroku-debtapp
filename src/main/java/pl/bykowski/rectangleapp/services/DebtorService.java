@@ -115,11 +115,13 @@ public class DebtorService {
     public void addNewDebtor(DebtorDetailsDTO debtorDetailsDTO, String userName) {
         String actualUserName = userService.findUserName();
         if (isThisNameFree(debtorDetailsDTO.getName(), actualUserName)) {
-            Debtor debtor = new Debtor();
-            debtor.setName(debtorDetailsDTO.getName());
-            debtor.setTotalDebt(debtorDetailsDTO.getDebt());
-            debtor.setDateOfJoining(LocalDate.now());
-            debtor.setUserName(userName);
+
+            Debtor debtor = Debtor.builder()
+                    .name(debtorDetailsDTO.getName())
+                    .totalDebt(debtorDetailsDTO.getDebt())
+                    .userName(userName)
+                    .build();
+
             saveDebtor(debtor);
 
             debtorDetailsService.addNewDebtorDetails(debtorDetailsDTO, userName, debtor);

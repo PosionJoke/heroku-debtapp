@@ -63,18 +63,23 @@ public class DebtorControllerTest {
                 .apply(springSecurity())
                 .build();
 
-        Debtor debtor = new Debtor();
-        debtor.setId(1L);
-        debtor.setTotalDebt(new BigDecimal(1));
-        debtor.setName("Adrian");
-        Debtor debtor1 = new Debtor();
-        debtor1.setId(2L);
-        debtor1.setTotalDebt(new BigDecimal(2));
-        debtor1.setName("Adrian1");
-        Debtor debtor2 = new Debtor();
-        debtor2.setId(3L);
-        debtor2.setTotalDebt(new BigDecimal(3));
-        debtor2.setName("Adrian2");
+        Debtor debtor = Debtor.builder()
+                .id(1L)
+                .totalDebt(new BigDecimal(1))
+                .name("Adrian")
+                .build();
+
+        Debtor debtor1 = Debtor.builder()
+                .id(2L)
+                .totalDebt(new BigDecimal(2))
+                .name("Adrian1")
+                .build();
+
+        Debtor debtor2 = Debtor.builder()
+                .id(3L)
+                .totalDebt(new BigDecimal(3))
+                .name("Adrian2")
+                .build();
 
         debtorList = Arrays.asList(debtor, debtor1, debtor2);
 
@@ -100,18 +105,22 @@ public class DebtorControllerTest {
         String userName = TEST_USER_NAME;
         String debtorName1 = "Adam";
         String debtorName2 = "Artur";
-        Debtor debtor1 = new Debtor();
-        debtor1.setName(debtorName1);
-        debtor1.setUserName(userName);
 
-        Debtor debtor2 = new Debtor();
-        debtor2.setName(debtorName2);
-        debtor2.setUserName(userName);
+        Debtor debtor1 = Debtor.builder()
+                .name(debtorName1)
+                .userName(userName)
+                .build();
+
+        Debtor debtor2 = Debtor.builder()
+                .name(debtorName2)
+                .userName(userName)
+                .build();
+
         List<Debtor> debtorList = Arrays.asList(debtor1, debtor2);
         DebtorDTO debtorDTO1 = new DebtorDTO();
-        debtorDTO1.setName(debtor1.getName());
+        debtorDTO1.setName(debtorName1);
         DebtorDTO debtorDTO2 = new DebtorDTO();
-        debtorDTO2.setName(debtor2.getName());
+        debtorDTO2.setName(debtorName2);
         List<DebtorDTO> debtorDTOList = Arrays.asList(debtorDTO1, debtorDTO2);
 
         given(debtorService.findByUserName(userName)).willReturn(debtorList);
@@ -140,8 +149,10 @@ public class DebtorControllerTest {
         requestParams.add("id", "1");
         requestParams.add("name", debtorName);
 
-        Debtor debtor = new Debtor();
-        debtor.setName(debtorName);
+        Debtor debtor = Debtor.builder()
+                .name(debtorName)
+                .build();
+
         given(debtorService.findDebtorByName(debtorName)).willReturn(java.util.Optional.of(debtor));
 
         mvc.perform(get("/debtor-debt-edit")
@@ -162,9 +173,11 @@ public class DebtorControllerTest {
     public void should_update_total_debt_and_return_debtorDTOList() throws Exception {
         Long id = 1L;
         BigDecimal totalDebt = new BigDecimal(100);
-        Debtor debtorReturn = new Debtor();
-        debtorReturn.setId(id);
-        debtorReturn.setTotalDebt(totalDebt);
+
+        Debtor debtorReturn = Debtor.builder()
+                .id(id)
+                .totalDebt(totalDebt)
+                .build();
 
         given(debtorService.findById(id)).willReturn(java.util.Optional.of(debtorReturn));
         given(principal.getName()).willReturn(TEST_USER_NAME);
@@ -181,7 +194,7 @@ public class DebtorControllerTest {
         )
                 .andExpect(status().isFound());
         //then
-        verify(debtorService).updateTotalDebt(id, debtorReturn.getTotalDebt());
+        verify(debtorService).updateTotalDebt(id, totalDebt);
     }
 
     @WithMockUser(TEST_USER_NAME)
