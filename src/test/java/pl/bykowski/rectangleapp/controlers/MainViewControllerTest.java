@@ -20,6 +20,7 @@ import pl.bykowski.rectangleapp.services.tdo_services.DebtorDTOService;
 
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -61,7 +62,7 @@ public class MainViewControllerTest {
     public void should_return_model_name_mainView_when_debtsList_is_not_empty() throws Exception {
 
         DebtorDetails debtorDetails = DebtorDetails.builder().build();
-        List<DebtorDetails> debtsList = Arrays.asList(debtorDetails);
+        List<DebtorDetails> debtsList = Collections.singletonList(debtorDetails);
         given(debtorDetailsService.findByUserName(principal.getName())).willReturn(debtsList);
 
         Debtor debtor = new Debtor();

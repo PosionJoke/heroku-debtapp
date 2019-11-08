@@ -27,20 +27,12 @@ public class DebtorDetailsDTOServiceTest {
     @Test
     public void should_return_debtorDetailsDTOList_based_on_debtorDetailsList() {
         //given
-//        DebtorDetails debtorDetails1 = new DebtorDetails();
-//        debtorDetails1.setId(1L);
-//        debtorDetails1.setDebt(new BigDecimal(10));
-//        debtorDetails1.setReasonForTheDebt("coffee");
         DebtorDetails debtorDetails1 = DebtorDetails.builder()
                 .id(1L)
                 .debt(new BigDecimal(10))
                 .reasonForTheDebt("coffee")
                 .build();
 
-//        DebtorDetails debtorDetails2 = new DebtorDetails();
-//        debtorDetails2.setId(2L);
-//        debtorDetails2.setDebt(new BigDecimal(11));
-//        debtorDetails2.setReasonForTheDebt("milk");
         DebtorDetails debtorDetails2 = DebtorDetails.builder()
                 .id(2L)
                 .debt(new BigDecimal(11))
@@ -64,9 +56,6 @@ public class DebtorDetailsDTOServiceTest {
     @Test
     public void should_return_debtorDetailsDTO_based_on_debtorDetails() {
         //given
-//        DebtorDetails debtorDetails = new DebtorDetails();
-//        debtorDetails.setId(44L);
-//        debtorDetails.setDebt(new BigDecimal(15));
         DebtorDetails debtorDetails = DebtorDetails.builder()
                 .id(44L)
                 .debt(new BigDecimal(15))
