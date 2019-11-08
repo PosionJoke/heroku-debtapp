@@ -11,7 +11,6 @@ import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -50,17 +49,9 @@ public class DebtorDetailsServiceTest {
         debtor = new Debtor();
         debtorId = 3L;
 
-//        debtorDetails.setName(debtorName);
-//        debtorDetails.setDebt(debtValue);
-//        debtorDetails.setDate(LocalDate.now());
-//        debtorDetails.setReasonForTheDebt(reasonForDebt);
-//        debtorDetails.setUserName(userName);
-//        debtorDetails.setDebtor(debtor);
-//        debtorDetails.setId(debtorId);
         debtorDetails = DebtorDetails.builder()
                 .name(debtorName)
                 .debt(debtValue)
-                .date(LocalDate.now())
                 .reasonForTheDebt(reasonForDebt)
                 .userName(userName)
                 .debtor(debtor)
@@ -71,20 +62,12 @@ public class DebtorDetailsServiceTest {
     @Test
     public void should_save_new_DebtorDetails() {
         //given
-//        DebtorDetails debtorDetailsTest = new DebtorDetails();
-//        debtorDetailsTest.setUserName(userName);
-//        debtorDetailsTest.setName(debtorName);
-//        debtorDetailsTest.setDebt(debtValue);
-//        debtorDetailsTest.setReasonForTheDebt(reasonForDebt);
-//        debtorDetailsTest.setDebtor(debtor);
-//        debtorDetailsTest.setDate(LocalDate.now());
         DebtorDetails debtorDetailsTest = DebtorDetails.builder()
                 .userName(userName)
                 .name(debtorName)
                 .debt(debtValue)
                 .reasonForTheDebt(reasonForDebt)
                 .debtor(debtor)
-                .date(LocalDate.now())
                 .build();
 
         DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
@@ -100,17 +83,9 @@ public class DebtorDetailsServiceTest {
     @Test
     public void should_delete_debt_by_Id() {
         //given
-//        DebtorDetails debtorDetailsFoundById = new DebtorDetails();
-//        debtorDetailsFoundById.setId(1L);
-//        debtorDetailsFoundById.setName("Alex");
-//        debtorDetailsFoundById.setDate(LocalDate.now());
-//        debtorDetailsFoundById.setReasonForTheDebt("Coffee");
-//        debtorDetailsFoundById.setUserName("Adrian");
-//        debtorDetailsFoundById.setDebtor(new Debtor());
         DebtorDetails debtorDetailsFoundById = DebtorDetails.builder()
                 .id(1L)
                 .name("Alex")
-                .date(LocalDate.now())
                 .reasonForTheDebt("Coffee")
                 .userName("Adrian")
                 .debtor(new Debtor())
@@ -149,18 +124,12 @@ public class DebtorDetailsServiceTest {
     @Parameters({"Adrian", "adrian", "adrian1234", "1234"})
     public void should_return_DebtorDetailsList_by_user_name(String debtorName) {
         //given
-//        DebtorDetails debtorDetails1 = new DebtorDetails();
-//        debtorDetails1.setUserName(debtorName);
         DebtorDetails debtorDetails1 = DebtorDetails.builder()
                 .userName(debtorName)
                 .build();
-//        DebtorDetails debtorDetails2 = new DebtorDetails();
-//        debtorDetails2.setUserName(debtorName);
         DebtorDetails debtorDetails2 = DebtorDetails.builder()
                 .userName(debtorName)
                 .build();
-//        DebtorDetails debtorDetails3 = new DebtorDetails();
-//        debtorDetails3.setUserName(debtorName);
         DebtorDetails debtorDetails3 = DebtorDetails.builder()
                 .userName(debtorName)
                 .build();
@@ -176,8 +145,6 @@ public class DebtorDetailsServiceTest {
     @Parameters({"1", "0", "-1"})
     public void should_return_debtorDetails_by_id(Long debtorId) {
         //given
-//        DebtorDetails debtorDetails = new DebtorDetails();
-//        debtorDetails.setId(debtorId);
         DebtorDetails debtorDetails = DebtorDetails.builder()
                 .id(debtorId)
                 .build();

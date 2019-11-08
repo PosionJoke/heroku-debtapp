@@ -26,7 +26,8 @@ public class DebtorDetails {
     private BigDecimal debt = new BigDecimal(0);
     @Builder.Default
     private BigDecimal totalDebt = new BigDecimal(0);
-    private LocalDate date;
+    @Builder.Default
+    private LocalDate date = LocalDate.now();
     private String reasonForTheDebt;
     private String userName;
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
