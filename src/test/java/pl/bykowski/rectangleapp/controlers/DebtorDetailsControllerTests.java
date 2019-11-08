@@ -68,23 +68,16 @@ public class DebtorDetailsControllerTests {
 
         given(principal.getName()).willReturn(TEST_USER_NAME);
 
-//        DebtorDetails debtorDetails1 = new DebtorDetails();
-//        debtorDetails1.setName("Adrian1");
-//        debtorDetails1.setDebt(new BigDecimal(1));
         DebtorDetails debtorDetails1 = DebtorDetails.builder()
                 .name("Adrian1")
                 .debt(new BigDecimal(1))
                 .build();
-//        DebtorDetails debtorDetails2 = new DebtorDetails();
-//        debtorDetails2.setName("Adrian2");
-//        debtorDetails2.setDebt(new BigDecimal(2));
+
         DebtorDetails debtorDetails2 = DebtorDetails.builder()
                 .name("Adrian2")
                 .debt(new BigDecimal(2))
                 .build();
-//        DebtorDetails debtorDetails3 = new DebtorDetails();
-//        debtorDetails2.setName("Adrian3");
-//        debtorDetails2.setDebt(new BigDecimal(3));
+
         DebtorDetails debtorDetails3 = DebtorDetails.builder()
                 .name("Adrian3")
                 .debt(new BigDecimal(3))
@@ -129,8 +122,6 @@ public class DebtorDetailsControllerTests {
     @Test
     public void should_return_debtorDetailsDTO() throws Exception {
         Long id = 1L;
-//        DebtorDetails debtorDetails = new DebtorDetails();
-//        debtorDetails.setId(id);
         DebtorDetails debtorDetails = DebtorDetails.builder()
                 .id(id)
                 .build();
