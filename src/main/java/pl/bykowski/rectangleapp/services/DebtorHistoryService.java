@@ -23,11 +23,12 @@ public class DebtorHistoryService {
     }
 
     void saveEntityDebtorHistory(DebtorDetails debtorDetails) {
-        DebtorHistory debtorHistory = new DebtorHistory();
-        debtorHistory.setDebt(debtorDetails.getDebt());
-        debtorHistory.setName(debtorDetails.getName());
-        debtorHistory.setReasonForTheDebt(debtorDetails.getReasonForTheDebt());
-        debtorHistory.setUserName(debtorDetails.getUserName());
+        DebtorHistory debtorHistory = DebtorHistory.builder()
+                .debt(debtorDetails.getDebt())
+                .name(debtorDetails.getName())
+                .reasonForTheDebt(debtorDetails.getReasonForTheDebt())
+                .userName(debtorDetails.getUserName())
+                .build();
 
         long daysBetween = DAYS.between(debtorDetails.getDate(), LocalDate.now());
         debtorHistory.setTimeOfDebt(daysBetween);

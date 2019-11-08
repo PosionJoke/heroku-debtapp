@@ -82,25 +82,17 @@ public class DebtorDTOServiceTest {
         debtor2.setId(idDebtor2);
 
         given(principal.getName()).willReturn(principalName);
-//        DebtorDetails debtorDetails1 = new DebtorDetails();
-//        debtorDetails1.setDebtor(debtor1);
-//        debtorDetails1.setId(debtorDetails1Id);
+
         DebtorDetails debtorDetails1 = DebtorDetails.builder()
                 .debtor(debtor1)
                 .id(debtorDetails1Id)
                 .build();
 
-//        DebtorDetails debtorDetails2 = new DebtorDetails();
-//        debtorDetails2.setDebtor(debtor1);
-//        debtorDetails2.setId(debtorDetails2Id);
         DebtorDetails debtorDetails2 = DebtorDetails.builder()
                 .debtor(debtor1)
                 .id(debtorDetails2Id)
                 .build();
 
-//        DebtorDetails debtorDetails3 = new DebtorDetails();
-//        debtorDetails3.setDebtor(debtor2);
-//        debtorDetails3.setId(debtorDetails3Id);
         DebtorDetails debtorDetails3 = DebtorDetails.builder()
                 .debtor(debtor2)
                 .id(debtorDetails3Id)

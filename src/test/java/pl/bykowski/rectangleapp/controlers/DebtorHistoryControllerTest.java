@@ -18,7 +18,7 @@ import pl.bykowski.rectangleapp.services.DebtorHistoryService;
 import pl.bykowski.rectangleapp.services.tdo_services.DebtorHistoryDTOService;
 
 import java.security.Principal;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -58,9 +58,9 @@ public class DebtorHistoryControllerTest {
     @Test
     public void should_go_to_view_named_debtorHistoryList() throws Exception {
         DebtorHistory debtorHistory = new DebtorHistory();
-        List<DebtorHistory> debtorHistoryList = Arrays.asList(debtorHistory);
+        List<DebtorHistory> debtorHistoryList = Collections.singletonList(debtorHistory);
         DebtorHistoryDTO debtorHistoryDTO = new DebtorHistoryDTO();
-        List<DebtorHistoryDTO> debtorHistoryDTOS = Arrays.asList(debtorHistoryDTO);
+        List<DebtorHistoryDTO> debtorHistoryDTOS = Collections.singletonList(debtorHistoryDTO);
         given(principal.getName()).willReturn(TEST_USER_NAME);
         given(debtorHistoryService.findByUserName(principal.getName())).willReturn(debtorHistoryList);
         given(debtorHistoryDTOService.returnDebtorHistoryDTOList(debtorHistoryList)).willReturn(debtorHistoryDTOS);

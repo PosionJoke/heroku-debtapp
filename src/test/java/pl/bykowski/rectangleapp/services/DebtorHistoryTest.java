@@ -57,12 +57,6 @@ public class DebtorHistoryTest {
         String userName = "Adrian";
         LocalDate debtDate = LocalDate.of(2019, Month.FEBRUARY, 2);
 
-//        DebtorDetails debtorDetails = new DebtorDetails();
-//        debtorDetails.setDebt(debtValue);
-//        debtorDetails.setName(name);
-//        debtorDetails.setReasonForTheDebt(reasonForTheDebt);
-//        debtorDetails.setUserName(userName);
-//        debtorDetails.setDate(debtDate);
         DebtorDetails debtorDetails = DebtorDetails.builder()
                 .debt(debtValue)
                 .name(name)
@@ -71,12 +65,15 @@ public class DebtorHistoryTest {
                 .date(debtDate)
                 .build();
 
-        DebtorHistory debtorHistory = new DebtorHistory();
-        debtorHistory.setDebt(debtorDetails.getDebt());
-        debtorHistory.setName(debtorDetails.getName());
-        debtorHistory.setReasonForTheDebt(debtorDetails.getReasonForTheDebt());
-        debtorHistory.setUserName(debtorDetails.getUserName());
         long daysBetween = DAYS.between(debtorDetails.getDate(), LocalDate.now());
+
+        DebtorHistory debtorHistory = DebtorHistory.builder()
+                .debt(debtorDetails.getDebt())
+                .name(debtorDetails.getName())
+                .reasonForTheDebt(debtorDetails.getReasonForTheDebt())
+                .userName(debtorDetails.getUserName())
+                .build();
+
         debtorHistory.setTimeOfDebt(daysBetween);
         //when
         debtorHistoryService.saveEntityDebtorHistory(debtorDetails);
