@@ -34,24 +34,4 @@ public class DebtorDetails {
     private LocalDateTime debtEndDate;
     @ManyToOne(fetch = FetchType.LAZY)
     private Debtor debtor;
-
-    //TODO CHECK IS IN EVERYWHERE USING FOR DATE LocalDate.now(), only 1 time i didnt use LocalDate.now()
-//    public DebtorDetails(String name, BigDecimal debt, LocalDate date, String reasonForTheDebt, String userName, Debtor debtor) {
-//        this.name = name;
-//        this.debt = debt;
-//        this.date = date;
-//        this.reasonForTheDebt = reasonForTheDebt;
-//        this.userName = userName;
-//        this.debtor = debtor;
-//    }
-
-//    public DebtorDetails(String name, BigDecimal debt, LocalDate date, String reasonForTheDebt, String userName, LocalDateTime debtEndDate, Debtor debtor) {
-//        this.name = name;
-//        this.debt = debt;
-//        this.date = date;
-//        this.reasonForTheDebt = reasonForTheDebt;
-//        this.userName = userName;
-//        this.debtEndDate = debtEndDate;
-//        this.debtor = debtor;
-//    }
 }
