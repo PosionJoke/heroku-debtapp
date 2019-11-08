@@ -11,7 +11,6 @@ import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 
 import java.math.BigDecimal;
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -159,8 +158,6 @@ public class DebtorServiceTest {
         Long id = 1L;
         Debtor debtor = new Debtor();
         debtor.setId(1L);
-//        DebtorDetails debtorDetails = new DebtorDetails();
-//        debtorDetails.setDebtor(debtor);
         DebtorDetails debtorDetails = DebtorDetails.builder()
                 .debtor(debtor)
                 .build();
@@ -176,19 +173,10 @@ public class DebtorServiceTest {
     public void should_update_debt_ind_debtorDetails_and_in_debtor() {
         //given
         Long debtorDetailsId = 1L;
-        String debtorDetailsUserName = "Adrian";
         BigDecimal debtorDetailsDTODebt = new BigDecimal(10);
 
         DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
         debtorDetailsDTO.setDebt(debtorDetailsDTODebt);
-
-//        DebtorDetails debtorDetails = new DebtorDetails();
-//        debtorDetails.setId(debtorDetailsId);
-//        debtorDetails.setUserName(debtorDetailsUserName);
-        DebtorDetails debtorDetails = DebtorDetails.builder()
-                .id(debtorDetailsId)
-                .userName(debtorDetailsUserName)
-                .build();
         //when
         debtorService.updateTotalDebtAndUpdateDebtorDetailsDebt(debtorDetailsDTO, debtorDetailsId);
         //then
