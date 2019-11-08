@@ -41,14 +41,13 @@ public class UserService {
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(singleRole.get());
 
-        DebtorUser newDebtorUser = new DebtorUser(
-                debtorUserDTO.getName(),
-                passwordEncoder.encode(debtorUserDTO.getPassword2()),
-                roleSet,
-                "",
-                debtorUserDTO.getEmail(),
-                0,
-                authenticationCode);
+        DebtorUser newDebtorUser = DebtorUser.builder()
+                .name(debtorUserDTO.getName())
+                .password(passwordEncoder.encode(debtorUserDTO.getPassword2()))
+                .roles(roleSet)
+                .email(debtorUserDTO.getEmail())
+                .authenticationCode(authenticationCode)
+                .build();
 
 
         Future.of(() -> notificationService.sendNotification(newDebtorUser.getEmail(), authenticationCode));

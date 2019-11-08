@@ -1,6 +1,7 @@
 package pl.bykowski.rectangleapp.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class DebtorUser implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +22,12 @@ public class DebtorUser implements Serializable {
     private float debt;
     private long timeOfDebt;
     private String password;
-    private Integer active;
-    private String permissions;
+    @Builder.Default
+    private Integer active = 0;
+    @Builder.Default
+    private String permissions = "";
     private String email;
-    private String authenticationCode = "";
+    private String authenticationCode;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
@@ -32,14 +36,4 @@ public class DebtorUser implements Serializable {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
-
-    public DebtorUser(String name, String password, Set<Role> roles, String permissions, String email, Integer active, String authenticationCode) {
-        this.name = name;
-        this.password = password;
-        this.roles = roles;
-        this.permissions = permissions;
-        this.active = active;
-        this.email = email;
-        this.authenticationCode = authenticationCode;
-    }
 }
