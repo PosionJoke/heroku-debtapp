@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 @Service
 public class DebtorDTOService {
 
-    private DebtorDetailsService debtorDetailsService;
-    private DebtorService debtorService;
+    private final DebtorDetailsService debtorDetailsService;
+    private final DebtorService debtorService;
 
     public DebtorDTOService(DebtorDetailsService debtorDetailsService, DebtorService debtorService) {
         this.debtorDetailsService = debtorDetailsService;

@@ -28,7 +28,7 @@ public class DebtorController {
 
     private final DebtorService debtorService;
     private final CurrencyService currencyService;
-    private DebtorDTOService debtorDTOService;
+    private final DebtorDTOService debtorDTOService;
 
     public DebtorController(DebtorService debtorService, CurrencyService currencyService,
                             DebtorDTOService debtorDTOService) {

@@ -19,7 +19,7 @@ public class MainViewController {
 
     private final DebtorService debtorService;
     private final DebtorDetailsService debtorDetailsService;
-    private DebtorDTOService debtorDTOService;
+    private final DebtorDTOService debtorDTOService;
 
     public MainViewController(DebtorService debtorService, DebtorDTOService debtorDTOService, DebtorDetailsService debtorDetailsService) {
         this.debtorService = Objects.requireNonNull(debtorService, "debtorService must be not null");

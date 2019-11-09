@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UserPrincipal implements UserDetails {
 
-    private DebtorUser debtorUser;
+    private final DebtorUser debtorUser;
 
     UserPrincipal(DebtorUser debtorUser) {
         this.debtorUser = debtorUser;

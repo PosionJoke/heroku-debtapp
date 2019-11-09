@@ -17,7 +17,7 @@ import java.util.List;
 public class CurrencyService {
 
     private static final String httpCurrentRate = "https://api.exchangerate-api.com/v4/latest/";
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public CurrencyService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder

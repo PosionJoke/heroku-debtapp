@@ -32,7 +32,7 @@ public class DebtorDetailsController {
     private final DebtorDetailsService debtorDetailsService;
     private final DebtorService debtorService;
     private final CurrencyService currencyService;
-    private DebtorDetailsDTOService debtorDetailsDTOService;
+    private final DebtorDetailsDTOService debtorDetailsDTOService;
 
     public DebtorDetailsController(DebtorDetailsRepo debtorDetailsRepo, DebtorDetailsService debtorDetailsService,
                                    DebtorDetailsDTOService debtorDetailsDTOService, DebtorService debtorService, CurrencyService currencyService) {

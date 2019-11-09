@@ -21,6 +21,7 @@ public class DebtorHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Builder.Default
     private BigDecimal debt = new BigDecimal(0);
     private long timeOfDebt;
     private String reasonForTheDebt;

@@ -20,7 +20,7 @@ public class DebtorHistoryController {
 
     private final DebtorHistoryService debtorHistoryService;
     private final CurrencyService currencyService;
-    private DebtorHistoryDTOService debtorHistoryDTOService;
+    private final DebtorHistoryDTOService debtorHistoryDTOService;
 
     public DebtorHistoryController(DebtorHistoryDTOService debtorHistoryDTOService,
                                    DebtorHistoryService debtorHistoryService, CurrencyService currencyService) {

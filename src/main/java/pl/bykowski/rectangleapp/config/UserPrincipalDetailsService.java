@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class UserPrincipalDetailsService implements UserDetailsService {
 
-    private DebtorUserRepo debtorUserRepo;
+    private final DebtorUserRepo debtorUserRepo;
 
     public UserPrincipalDetailsService(DebtorUserRepo debtorUserRepo) {
         this.debtorUserRepo = Objects.requireNonNull(debtorUserRepo, "debtorUserRepo must be not null");
