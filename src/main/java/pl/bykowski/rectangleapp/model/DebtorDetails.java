@@ -21,6 +21,7 @@ public class DebtorDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String registeredUser_name;
     private String name;
     @Builder.Default
     private BigDecimal debt = new BigDecimal(0);

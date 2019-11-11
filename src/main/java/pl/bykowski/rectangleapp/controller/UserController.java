@@ -13,8 +13,10 @@ import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.services.UserService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @Log4j
 @Controller
@@ -70,5 +72,28 @@ public class UserController {
     public ModelAndView returnLoginForm() {
         return new ModelAndView("create-new-user")
                 .addObject("debtorUserDTO", new DebtorUserDTO());
+    }
+
+    @GetMapping("/create-new-friend")
+    public ModelAndView returnCreateFriendForm(){
+        return new ModelAndView("friend-list")
+                .addObject("debtorUserDTO", new DebtorUserDTO());
+    }
+
+    @PostMapping("/save-new-friend")
+    public ModelAndView saveNewFriend(@ModelAttribute DebtorUserDTO debtorUserDTO, Principal principal){
+        Optional<DebtorUser> debtorUser = userService.findByName(principal.getName());
+        Optional<DebtorUser> newFriend = userService.findByName(debtorUserDTO.getName());
+
+        Set<DebtorUser> actualFriendList = debtorUser.get().getFriendsList();
+
+        debtorUser.ifPresent(user -> actualFriendList.add(newFriend.get()));
+
+        debtorUser.get().setFriendsList(actualFriendList);
+
+        userService.save(debtorUser.get());
+
+        return new ModelAndView("tmp-friend-list")
+                .addObject("debtorUserFriendsSet", debtorUser.get().getFriendsList());
     }
 }

@@ -20,6 +20,7 @@ Debtor {
     private Long id;
 
     private String name;
+    private String registeredUser_name;
     private BigDecimal debt = new BigDecimal(0);
     private BigDecimal totalDebt = new BigDecimal(0);
     @Builder.Default

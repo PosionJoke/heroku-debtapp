@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Getting Started Service Web Content</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="/js/currency_script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <form action="#" th:action="@{save-new-friend}" th:object="${debtorUserDTO}" method="post">
+        <div class="form-group">
+            <label for="DebtorName">DebtorUser name :</label>
+            <td><input type="text" class="form-control" id="DebtorName" th:field="${debtorUserDTO.name}"/></td>
+            <!--<td th:errors="${debtorUserDTO.name}" th:if="${#fields.hasErrors('name')}">name debt</td>-->
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-bottom: 10px">Submit</button>
+    </form>
+</div>
+</body>
+</html>

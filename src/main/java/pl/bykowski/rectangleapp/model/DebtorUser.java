@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -28,6 +29,14 @@ public class DebtorUser implements Serializable {
     private String permissions = "";
     private String email;
     private String authenticationCode;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "debotUser_friends",
+            joinColumns = @JoinColumn(
+                    name = "debtorUser_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "friendUsed_id", referencedColumnName = "id"))
+    private Set<DebtorUser> friendsList;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
