@@ -21,6 +21,7 @@ public class DebtorDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //TODO only for working friend list
     private String registeredUser_name;
     private String name;
     @Builder.Default

@@ -30,14 +30,16 @@ public class DebtorUser implements Serializable {
     private String email;
     private String authenticationCode;
     //TODO make new model to save data about the invite_list between user and user
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "invite_to_friend_list",
-            joinColumns = @JoinColumn(
-                    name = "debtorUserFAKESTRING_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "inviting_user_id", referencedColumnName = "id"))
-    private Set<DebtorUser> invitesToFriendList;
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//            name = "invite_to_friend_list",
+//            joinColumns = @JoinColumn(
+//                    name = "debtorUserFAKESTRING_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(
+//                    name = "inviting_user_id", referencedColumnName = "id"))
+//    private Set<DebtorUser> invitesToFriendList;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private InvitesToFriendList invitesToFriendList;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "debtorUser_friends",

@@ -1,16 +1,19 @@
 package pl.bykowski.rectangleapp.services;
 
 import io.vavr.concurrent.Future;
+import lombok.Builder;
 import lombok.extern.log4j.Log4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.bykowski.rectangleapp.model.DebtorUser;
+import pl.bykowski.rectangleapp.model.InvitesToFriendList;
 import pl.bykowski.rectangleapp.model.Role;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
+import pl.bykowski.rectangleapp.repositories.InvitesToFriendListRepo;
 import pl.bykowski.rectangleapp.repositories.RoleRepository;
 
 import java.util.HashSet;
@@ -26,12 +29,16 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final NotificationService notificationService;
+    //TODO THIS SHOULD BE SERVICE
+    private final InvitesToFriendListRepo invitesToFriendListRepo;
 
-    public UserService(DebtorUserRepo debtorUserRepo, RoleRepository roleRepository, PasswordEncoder passwordEncoder, NotificationService notificationService) {
+    public UserService(DebtorUserRepo debtorUserRepo, RoleRepository roleRepository, PasswordEncoder passwordEncoder,
+                       NotificationService notificationService, InvitesToFriendListRepo invitesToFriendListRepo) {
         this.debtorUserRepo = Objects.requireNonNull(debtorUserRepo, "debtorUserRepo must be not null");
         this.roleRepository = Objects.requireNonNull(roleRepository, "roleRepository must be not null");
         this.passwordEncoder = Objects.requireNonNull(passwordEncoder, "passwordEncoder must be not null");
         this.notificationService = Objects.requireNonNull(notificationService, "notificationService must be not null");
+        this.invitesToFriendListRepo = Objects.requireNonNull(invitesToFriendListRepo, "invitesToFriendListRepo must be not null");
     }
 
     public UserDTO makeNewUser(DebtorUserDTO debtorUserDTO) {
@@ -49,10 +56,21 @@ public class UserService {
                 .authenticationCode(authenticationCode)
                 .build();
 
+        InvitesToFriendList invitesToFriendList = InvitesToFriendList.builder()
+                .userName(debtorUserDTO.getName())
+                .build();
+
+        invitesToFriendListRepo.save(invitesToFriendList);
+
+        newDebtorUser.setInvitesToFriendList(invitesToFriendList);
+
 
         Future.of(() -> notificationService.sendNotification(newDebtorUser.getEmail(), authenticationCode));
 
         debtorUserRepo.save(newDebtorUser);
+
+
+
 
         UserDTO userDTO = new UserDTO();
         userDTO.setAuthenticationCode(authenticationCode);

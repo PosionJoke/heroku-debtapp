@@ -8,13 +8,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.DebtorUser;
+import pl.bykowski.rectangleapp.model.InvitesToFriendList;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
+import pl.bykowski.rectangleapp.repositories.InvitesToFriendListRepo;
+import pl.bykowski.rectangleapp.services.DebtorDetailsService;
 import pl.bykowski.rectangleapp.services.UserService;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -24,9 +29,15 @@ import java.util.Set;
 public class UserController {
 
     private final UserService userService;
+    //TODO this should be service
+    private final InvitesToFriendListRepo invitesToFriendListRepo;
+    //TODO THIS IS ONLY FOR TESTS
+    private final DebtorDetailsService debtorDetailsService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, InvitesToFriendListRepo invitesToFriendListRepo, DebtorDetailsService debtorDetailsService) {
         this.userService = Objects.requireNonNull(userService, "userService must be not null");
+        this.invitesToFriendListRepo = Objects.requireNonNull(invitesToFriendListRepo, "invitesToFriendListRepo must be not null");
+        this.debtorDetailsService = Objects.requireNonNull(debtorDetailsService, "debtorDetailsService must be not null");
     }
 
     @PostMapping("/create-new-user")
@@ -80,7 +91,7 @@ public class UserController {
         Optional<DebtorUser> debtorUser = userService.findByName(principal.getName());
         return new ModelAndView("tmp-friend-list")
                 .addObject("debtorUserFriendsSet", debtorUser.get().getFriendsList())
-                .addObject("debtorUserInvitesSet", debtorUser.get().getInvitesToFriendList());
+                .addObject("debtorUserInvitesSet", debtorUser.get().getInvitesToFriendList().getUsersWhoSendInvite());
     }
 
     @GetMapping("/create-new-friend")
@@ -94,16 +105,19 @@ public class UserController {
         Optional<DebtorUser> debtorUser = userService.findByName(principal.getName());
         Optional<DebtorUser> newFriend = userService.findByName(debtorUserDTO.getName());
 
-        Set<DebtorUser> actualDebtorUserSet = newFriend.get().getInvitesToFriendList();
-        actualDebtorUserSet.add(debtorUser.get());
+        //actual set of users who want to add you to friend list
+        List<DebtorDetails> debtorDetails = debtorDetailsService.findByUserName(principal.getName());
 
-        newFriend.get().setFriendsList(actualDebtorUserSet);
+        List<InvitesToFriendList> actualDebtorUserSet = invitesToFriendListRepo.findByUserName(newFriend.get().getName());
+//        actualDebtorUserSet.add(debtorUser.get());
+
+//        newFriend.get().getInvitesToFriendList().setUsersWhoSendInvite(actualDebtorUserSet);
 
         userService.save(newFriend.get());
 
         return new ModelAndView("tmp-friend-list")
                 .addObject("debtorUserFriendsSet", debtorUser.get().getFriendsList())
-                .addObject("debtorUserInvitesSet", debtorUser.get().getInvitesToFriendList());
+                .addObject("debtorUserInvitesSet", debtorUser.get().getInvitesToFriendList().getUsersWhoSendInvite());
     }
 
     @PostMapping("/add-to-friend-list")
@@ -116,16 +130,16 @@ public class UserController {
 
         debtorUser.get().setFriendsList(actualFriendSet);
 
-        Set<DebtorUser> actualInviteSet = debtorUser.get().getInvitesToFriendList();
+        Set<DebtorUser> actualInviteSet = debtorUser.get().getInvitesToFriendList().getUsersWhoSendInvite();
         actualInviteSet.remove(newFriend.get());
 
-        debtorUser.get().setInvitesToFriendList(actualInviteSet);
+        debtorUser.get().getInvitesToFriendList().setUsersWhoSendInvite(actualInviteSet);
 
         userService.save(debtorUser.get());
 
 
         return new ModelAndView("tmp-friend-list")
                 .addObject("debtorUserFriendsSet", debtorUser.get().getFriendsList())
-                .addObject("debtorUserInvitesSet", debtorUser.get().getInvitesToFriendList());
+                .addObject("debtorUserInvitesSet", debtorUser.get().getInvitesToFriendList().getUsersWhoSendInvite());
     }
 }
