@@ -6,6 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,21 +18,30 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class InvitesToFriendList {
+public class InvitesToFriendList implements Externalizable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String userName;
     private Long userId;
-//    @ManyToMany(mappedBy = "invitesToFriendList", fetch = FetchType.LAZY)
+//    @ManyToMany(mappedBy = "invitesToFriendListSet", fetch = FetchType.LAZY)
 //    @JoinTable(
 //            name = "invite_to_friend_list",
 //            joinColumns = @JoinColumn(
 //                    name = "debtorUser_id", referencedColumnName = "userId"),
 //            inverseJoinColumns = @JoinColumn(
 //                    name = "inviting_user_id", referencedColumnName = "id"))
-    @OneToMany(mappedBy = "invitesToFriendList", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "invitesToFriendListSet", fetch = FetchType.LAZY)
     private Set<DebtorUser> usersWhoSendInvite = new HashSet<>();
 
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+
+    }
 }

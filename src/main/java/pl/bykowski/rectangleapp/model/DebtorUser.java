@@ -1,5 +1,6 @@
 package pl.bykowski.rectangleapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,15 +38,19 @@ public class DebtorUser implements Serializable {
 //                    name = "debtorUserFAKESTRING_id", referencedColumnName = "id"),
 //            inverseJoinColumns = @JoinColumn(
 //                    name = "inviting_user_id", referencedColumnName = "id"))
-//    private Set<DebtorUser> invitesToFriendList;
-    @ManyToMany(fetch = FetchType.EAGER)
+//    private Set<DebtorUser> invitesToFriendListSet;
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "invite_lists",
             joinColumns = @JoinColumn(
                     name = "user1_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "user2_id", referencedColumnName = "userId"))
-    private Set<InvitesToFriendList> invitesToFriendList;
+    private Set<InvitesToFriendList> invitesToFriendListSet;
+    //-----------------------------------------------------
+
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "debtorUser_friends",
@@ -54,6 +59,22 @@ public class DebtorUser implements Serializable {
             inverseJoinColumns = @JoinColumn(
                     name = "friendUsed_id", referencedColumnName = "id"))
     private Set<DebtorUser> friendsList;
+
+//    @JsonIgnore
+//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "friendsList", cascade = CascadeType.PERSIST)
+//    private Set<DebtorUser> friendTo;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "debtorUser_friends",
+            joinColumns = @JoinColumn(
+                    name = "friendUsed_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "debtorUser_id", referencedColumnName = "id"))
+    private List<DebtorUser> friendOf;
+
+    //-----------------------------------------------------
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
@@ -62,4 +83,12 @@ public class DebtorUser implements Serializable {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
+
+    @Override
+    public String toString() {
+        return "DebtorUser{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

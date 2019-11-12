@@ -27,9 +27,9 @@
             </thead>
             <tbody id="tableFilterInvites">
             <tr th:each="oneFriend, iter : ${debtorUserInvitesSet}">
-                <td th:text="${oneFriend.name}"></td>
+                <td th:text="${oneFriend.getUserName()}"></td>
                 <td>
-                    <form method="POST" th:action="@{'/add-to-friend-list?id' + ${oneFriend.id}}">
+                    <form method="POST" th:action="@{'/add-to-friend-list?id=' + ${oneFriend.getUserId()}}">
                         <button type="submit"  class="glyphicon glyphicon-plus" ></button>
                     </form>
                 </td>
@@ -46,6 +46,9 @@
             <tbody id="tableFilter">
             <tr th:each="oneFriend, iter : ${debtorUserFriendsSet}">
                 <td th:text="${oneFriend.name}"></td>
+            </tr>
+            <tr th:each="oneFriendOf, iter : ${debtorUserFriendOfSet}">
+                <td th:text="${oneFriendOf.name}"></td>
             </tr>
             </tbody>
         </table>
