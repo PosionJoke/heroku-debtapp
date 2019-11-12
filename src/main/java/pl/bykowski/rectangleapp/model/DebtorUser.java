@@ -38,8 +38,14 @@ public class DebtorUser implements Serializable {
 //            inverseJoinColumns = @JoinColumn(
 //                    name = "inviting_user_id", referencedColumnName = "id"))
 //    private Set<DebtorUser> invitesToFriendList;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private InvitesToFriendList invitesToFriendList;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "invite_lists",
+            joinColumns = @JoinColumn(
+                    name = "user1_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "user2_id", referencedColumnName = "userId"))
+    private Set<InvitesToFriendList> invitesToFriendList;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "debtorUser_friends",

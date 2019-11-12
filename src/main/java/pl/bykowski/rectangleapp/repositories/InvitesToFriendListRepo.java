@@ -6,6 +6,6 @@ import pl.bykowski.rectangleapp.model.InvitesToFriendList;
 import java.util.List;
 
 public interface InvitesToFriendListRepo extends CrudRepository<InvitesToFriendList, Long> {
-    InvitesToFriendList findByUserId(Long id);
+    List<InvitesToFriendList> findByUserId(Long id);
     List<InvitesToFriendList> findByUserName(String userName);
 }

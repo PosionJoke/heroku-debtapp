@@ -56,21 +56,16 @@ public class UserService {
                 .authenticationCode(authenticationCode)
                 .build();
 
+        debtorUserRepo.save(newDebtorUser);
+
         InvitesToFriendList invitesToFriendList = InvitesToFriendList.builder()
                 .userName(debtorUserDTO.getName())
+                .userId(newDebtorUser.getId())
                 .build();
 
         invitesToFriendListRepo.save(invitesToFriendList);
 
-        newDebtorUser.setInvitesToFriendList(invitesToFriendList);
-
-
         Future.of(() -> notificationService.sendNotification(newDebtorUser.getEmail(), authenticationCode));
-
-        debtorUserRepo.save(newDebtorUser);
-
-
-
 
         UserDTO userDTO = new UserDTO();
         userDTO.setAuthenticationCode(authenticationCode);
