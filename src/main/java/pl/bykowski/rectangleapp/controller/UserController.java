@@ -6,6 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.DebtorUser;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
@@ -73,6 +74,14 @@ public class UserController {
         return new ModelAndView("create-new-user")
                 .addObject("debtorUserDTO", new DebtorUserDTO());
     }
+//---------------------------------------------------------------------------------------------------------------------
+    @GetMapping("/tmp-friend-list")
+    public ModelAndView returnFriendList(Principal principal){
+        Optional<DebtorUser> debtorUser = userService.findByName(principal.getName());
+        return new ModelAndView("tmp-friend-list")
+                .addObject("debtorUserFriendsSet", debtorUser.get().getFriendsList())
+                .addObject("debtorUserInvitesSet", debtorUser.get().getInvitesToFriendList());
+    }
 
     @GetMapping("/create-new-friend")
     public ModelAndView returnCreateFriendForm(){
@@ -85,15 +94,38 @@ public class UserController {
         Optional<DebtorUser> debtorUser = userService.findByName(principal.getName());
         Optional<DebtorUser> newFriend = userService.findByName(debtorUserDTO.getName());
 
-        Set<DebtorUser> actualFriendList = debtorUser.get().getFriendsList();
+        Set<DebtorUser> actualDebtorUserSet = newFriend.get().getInvitesToFriendList();
+        actualDebtorUserSet.add(debtorUser.get());
 
-        debtorUser.ifPresent(user -> actualFriendList.add(newFriend.get()));
+        newFriend.get().setFriendsList(actualDebtorUserSet);
 
-        debtorUser.get().setFriendsList(actualFriendList);
+        userService.save(newFriend.get());
+
+        return new ModelAndView("tmp-friend-list")
+                .addObject("debtorUserFriendsSet", debtorUser.get().getFriendsList())
+                .addObject("debtorUserInvitesSet", debtorUser.get().getInvitesToFriendList());
+    }
+
+    @PostMapping("/add-to-friend-list")
+    public ModelAndView addToFriendList(Principal principal, @RequestParam Long id){
+        Optional<DebtorUser> debtorUser = userService.findByName(principal.getName());
+        Optional<DebtorUser> newFriend = userService.findById(id);
+
+        Set<DebtorUser> actualFriendSet = debtorUser.get().getFriendsList();
+        actualFriendSet.add(newFriend.get());
+
+        debtorUser.get().setFriendsList(actualFriendSet);
+
+        Set<DebtorUser> actualInviteSet = debtorUser.get().getInvitesToFriendList();
+        actualInviteSet.remove(newFriend.get());
+
+        debtorUser.get().setInvitesToFriendList(actualInviteSet);
 
         userService.save(debtorUser.get());
 
+
         return new ModelAndView("tmp-friend-list")
-                .addObject("debtorUserFriendsSet", debtorUser.get().getFriendsList());
+                .addObject("debtorUserFriendsSet", debtorUser.get().getFriendsList())
+                .addObject("debtorUserInvitesSet", debtorUser.get().getInvitesToFriendList());
     }
 }

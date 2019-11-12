@@ -80,6 +80,10 @@ public class UserService {
         return debtorUserRepo.findByName(name);
     }
 
+    public Optional<DebtorUser> findById(Long id){
+        return debtorUserRepo.findById(id);
+    }
+
     public void save(DebtorUser debtorUser) {
 
         log.debug(String.format("Save User id : [%s], name : [%s], email : [%s]", debtorUser.getId(),

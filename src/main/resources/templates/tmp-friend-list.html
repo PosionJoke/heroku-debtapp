@@ -18,6 +18,25 @@
     <div class="container">
         <h1 align="center">Friend List</h1>
         <div th:replace="nav.html :: body"></div>
+
+        <table class="table table-striped" data-toggle="table">
+            <thead>
+            <tr>
+                <th>Invites to friend list</th>
+            </tr>
+            </thead>
+            <tbody id="tableFilterInvites">
+            <tr th:each="oneFriend, iter : ${debtorUserInvitesSet}">
+                <td th:text="${oneFriend.name}"></td>
+                <td>
+                    <form method="POST" th:action="@{'/add-to-friend-list?id' + ${oneFriend.id}}">
+                        <button type="submit"  class="glyphicon glyphicon-plus" ></button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
         <table class="table table-striped" data-toggle="table">
             <thead>
             <tr>
