@@ -14,13 +14,16 @@ public class FriendListTokenService {
 
     private final FriendListTokenRepo friendListTokenRepo;
 
-    public FriendListTokenService(FriendListTokenRepo friendListTokenRepo){
-        this.friendListTokenRepo = Objects.requireNonNull( friendListTokenRepo,
+    public FriendListTokenService(FriendListTokenRepo friendListTokenRepo) {
+        this.friendListTokenRepo = Objects.requireNonNull(friendListTokenRepo,
                 "friendListTokenRepo must be not null");
     }
 
-    public Optional<FriendListToken> findByUserName(String name){
+    public Optional<FriendListToken> findByUserName(String name) {
         return friendListTokenRepo.findByUserName(name);
     }
 
+    public Optional<FriendListToken> findByUserId(Long id) {
+        return friendListTokenRepo.findByUserId(id);
+    }
 }
