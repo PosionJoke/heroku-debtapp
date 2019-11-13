@@ -98,8 +98,10 @@ public class UserService {
                 String.format("Unable to get DebtorUser name : [%s]", name)));
     }
 
-    public Optional<DebtorUser> findById(Long id){
-        return debtorUserRepo.findById(id);
+    public DebtorUser findById(Long id){
+        Optional<DebtorUser> debtorUserOpt = debtorUserRepo.findById(id);
+        return debtorUserOpt.orElseThrow(() -> new EntityNotFoundException(
+                String.format("Unable to get DebtorUser id : [%s]", id)));
     }
 
     public void save(DebtorUser debtorUser) {
