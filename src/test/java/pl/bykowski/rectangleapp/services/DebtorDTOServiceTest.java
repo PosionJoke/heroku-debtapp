@@ -103,7 +103,7 @@ public class DebtorDTOServiceTest {
         debtorDetailsArrayList.add(debtorDetails3);
         debtorDetailsArrayList.add(debtorDetails2);
         given(debtorDetailsService.findByUserName(principal.getName())).willReturn(debtorDetailsArrayList);
-        given(debtorService.findById(debtor1.getId())).willReturn(java.util.Optional.of(debtor1));
+        given(debtorService.findById(debtor1.getId())).willReturn(debtor1);
         //when
         DebtorDTO found = debtorDTOService.returnDebtorDTOWithHighestCountOfDebts(principal.getName());
         //then

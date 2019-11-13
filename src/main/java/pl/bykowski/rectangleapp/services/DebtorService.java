@@ -8,8 +8,8 @@ import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorRepo;
 
+import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -39,8 +39,10 @@ public class DebtorService {
         debtorRepo.save(debtor);
     }
 
-    public Optional<Debtor> findById(Long id) {
-        return debtorRepo.findById(id);
+    public Debtor findById(Long id) {
+        Optional<Debtor> debtorOpt = debtorRepo.findById(id);
+        return debtorOpt.orElseThrow(() -> new EntityNotFoundException(
+                String.format("Unable to get Debtor id : [%s]", id)));
     }
 
     public List<Debtor> findByUserName(String name) {
@@ -62,14 +64,17 @@ public class DebtorService {
     }
 
     public BigDecimal updateTotalDebt(Long debtorId, BigDecimal debtValue) {
-        Optional<Debtor> changedDebtor = findById(debtorId);
-        changedDebtor.ifPresent(debtor -> {
-            BigDecimal newDebt = debtValue.add(debtor.getTotalDebt());
-            debtor.setTotalDebt(newDebt);
-            saveDebtor(debtor);
-        });
-        return changedDebtor.map(Debtor::getTotalDebt)
-                .orElse(new BigDecimal(0));
+        Debtor changedDebtor = findById(debtorId);
+        BigDecimal newDebt = debtValue.add(changedDebtor.getTotalDebt());
+        changedDebtor.setTotalDebt(newDebt);
+        saveDebtor(changedDebtor);
+
+//        changedDebtor.ifPresent(debtor -> {
+//            BigDecimal newDebt = debtValue.add(debtor.getTotalDebt());
+//            debtor.setTotalDebt(newDebt);
+//            saveDebtor(debtor);
+//        });
+        return changedDebtor.getTotalDebt();
     }
 
     @Transactional
@@ -142,7 +147,9 @@ public class DebtorService {
         return debtorFound;
     }
 
-    public Optional<Debtor> findDebtorByName(String name) {
-        return debtorRepo.findByName(name);
+    public Debtor findDebtorByName(String name) {
+        Optional<Debtor> debtorOpt = debtorRepo.findByName(name);
+        return debtorOpt.orElseThrow(() -> new EntityNotFoundException(
+                String.format("Unable to get Debtor name : [%s]", name)));
     }
 }

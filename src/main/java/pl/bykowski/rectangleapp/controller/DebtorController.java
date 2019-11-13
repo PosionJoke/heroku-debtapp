@@ -59,11 +59,11 @@ public class DebtorController {
     @GetMapping("/debtor-debt-edit")
     public ModelAndView debtorDebtEdit(@RequestParam Long id, @RequestParam String name) {
 
-        Optional<Debtor> debtorOpt = debtorService.findDebtorByName(name);
+        Debtor debtorOpt = debtorService.findDebtorByName(name);
 
-        DebtorDTO debtorDTO = debtorOpt
-                .map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
-                .orElse(new DebtorDTO());
+        DebtorDTO debtorDTO = debtorDTOService.returnDebtorDTO(debtorOpt);
+//                .map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
+//                .orElse(new DebtorDTO());
         return new ModelAndView("debtor-debt-edit")
                 .addObject("name", name)
                 .addObject("id", id)
@@ -74,11 +74,11 @@ public class DebtorController {
     public RedirectView saveDebtor(@ModelAttribute DebtorDTO debtorDTO,
                                    @RequestParam Long id) {
 
-        Optional<Debtor> debtorToUpdateOpt = debtorService.findById(id);
+        Debtor debtorToUpdateOpt = debtorService.findById(id);
 
-        BigDecimal actualTotalDebt = debtorToUpdateOpt
-                .map(Debtor::getTotalDebt)
-                .orElse(new BigDecimal(0));
+        BigDecimal actualTotalDebt = debtorToUpdateOpt.getTotalDebt();
+//                .map(Debtor::getTotalDebt)
+//                .orElse(new BigDecimal(0));
 
         debtorService.updateTotalDebt(id, actualTotalDebt);
 

@@ -153,7 +153,7 @@ public class DebtorControllerTest {
                 .name(debtorName)
                 .build();
 
-        given(debtorService.findDebtorByName(debtorName)).willReturn(java.util.Optional.of(debtor));
+        given(debtorService.findDebtorByName(debtorName)).willReturn(debtor);
 
         mvc.perform(get("/debtor-debt-edit")
                 .params(requestParams)
@@ -179,7 +179,7 @@ public class DebtorControllerTest {
                 .totalDebt(totalDebt)
                 .build();
 
-        given(debtorService.findById(id)).willReturn(java.util.Optional.of(debtorReturn));
+        given(debtorService.findById(id)).willReturn(debtorReturn);
         given(principal.getName()).willReturn(TEST_USER_NAME);
         given(debtorService.findByUserName(TEST_USER_NAME)).willReturn(debtorList);
         given(debtorDTOService.returnDebtorDTOList(debtorList)).willReturn(debtorDTOList);

@@ -113,15 +113,15 @@ public class DebtorDetailsController {
             return new ModelAndView("make-new-debtor-details", bindingResult.getModel());
         }
 
-        Optional<Debtor> debtorOpt = debtorService.findDebtorByName(name);
+        Debtor debtor = debtorService.findDebtorByName(name);
 
-        if (debtorOpt.isPresent()) {
-            log.debug(String.format("Debtor with [%s] was found", debtorOpt.get().getId()));
-        } else {
-            log.error(("Cant find Debtor"));
-        }
+//        if (debtorOpt.isPresent()) {
+//            log.debug(String.format("Debtor with [%s] was found", debtorOpt.get().getId()));
+//        } else {
+//            log.error(("Cant find Debtor"));
+//        }
 
-        Debtor debtor = debtorOpt.orElse(new Debtor());
+//        Debtor debtor = debtorOpt;
 
         debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetailsDTO, debtor, principal.getName());
         List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());

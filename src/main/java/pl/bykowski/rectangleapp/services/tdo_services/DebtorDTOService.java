@@ -54,8 +54,8 @@ public class DebtorDTOService {
         Long debtorId = idAndCountOfDebtsMap.getKey();
 
         Long countOfDebts = idAndCountOfDebtsMap.getValue();
-        Optional<Debtor> debtor = debtorService.findById(debtorId);
-        DebtorDTO debtorDTO = debtor.map(this::returnDebtorDTO).orElse(new DebtorDTO());
+        Debtor debtor = debtorService.findById(debtorId);
+        DebtorDTO debtorDTO = returnDebtorDTO(debtor);
         debtorDTO.setCountOfDebts(countOfDebts);
 
         log.debug(String.format("Id debtor with highest count of debts : [%s], count of debts : [%s]",

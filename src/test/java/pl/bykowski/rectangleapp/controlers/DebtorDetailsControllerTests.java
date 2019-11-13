@@ -190,7 +190,7 @@ public class DebtorDetailsControllerTests {
 
         Debtor debtor = new Debtor();
         debtor.setName(name);
-        given(debtorService.findDebtorByName(name)).willReturn(java.util.Optional.of(debtor));
+        given(debtorService.findDebtorByName(name)).willReturn(debtor);
 
         mvc.perform(post("/make-new-debtor-details")
                 .flashAttr("debtorDetailsDTO", debtorDetailsDTO)
