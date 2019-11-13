@@ -1,19 +1,18 @@
 package pl.bykowski.rectangleapp.services;
 
 import io.vavr.concurrent.Future;
-import lombok.Builder;
 import lombok.extern.log4j.Log4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.bykowski.rectangleapp.model.DebtorUser;
-import pl.bykowski.rectangleapp.model.InvitesToFriendList;
+import pl.bykowski.rectangleapp.model.FriendListToken;
 import pl.bykowski.rectangleapp.model.Role;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
-import pl.bykowski.rectangleapp.repositories.InvitesToFriendListRepo;
+import pl.bykowski.rectangleapp.repositories.FriendListTokenRepo;
 import pl.bykowski.rectangleapp.repositories.RoleRepository;
 
 import java.util.HashSet;
@@ -30,10 +29,10 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final NotificationService notificationService;
     //TODO THIS SHOULD BE SERVICE
-    private final InvitesToFriendListRepo invitesToFriendListRepo;
+    private final FriendListTokenRepo invitesToFriendListRepo;
 
     public UserService(DebtorUserRepo debtorUserRepo, RoleRepository roleRepository, PasswordEncoder passwordEncoder,
-                       NotificationService notificationService, InvitesToFriendListRepo invitesToFriendListRepo) {
+                       NotificationService notificationService, FriendListTokenRepo invitesToFriendListRepo) {
         this.debtorUserRepo = Objects.requireNonNull(debtorUserRepo, "debtorUserRepo must be not null");
         this.roleRepository = Objects.requireNonNull(roleRepository, "roleRepository must be not null");
         this.passwordEncoder = Objects.requireNonNull(passwordEncoder, "passwordEncoder must be not null");
@@ -41,6 +40,8 @@ public class UserService {
         this.invitesToFriendListRepo = Objects.requireNonNull(invitesToFriendListRepo, "invitesToFriendListRepo must be not null");
     }
 
+    //TODO IDK where but right now this program give permission to add two users with the same name witch is bad idea
+    //TODO add validation in some annotation on controller side
     public UserDTO makeNewUser(DebtorUserDTO debtorUserDTO) {
         String authenticationCode = generateNewAuthenticationCode();
 
@@ -58,7 +59,7 @@ public class UserService {
 
         debtorUserRepo.save(newDebtorUser);
 
-        InvitesToFriendList invitesToFriendList = InvitesToFriendList.builder()
+        FriendListToken invitesToFriendList = FriendListToken.builder()
                 .userName(debtorUserDTO.getName())
                 .userId(newDebtorUser.getId())
                 .build();

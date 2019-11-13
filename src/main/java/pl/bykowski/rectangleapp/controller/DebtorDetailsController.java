@@ -48,6 +48,7 @@ public class DebtorDetailsController {
                                               @RequestParam(required = false, defaultValue = "PLN") String currency) {
 
         List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());
+        //TODO WHY this variable is named debtorDetailsDTOList1
         List<DebtorDetailsDTO> debtorDetailsDTOList1 = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
 
         String currencyRate = currencyService.calculateCurrencyRates(currency, "PLN");

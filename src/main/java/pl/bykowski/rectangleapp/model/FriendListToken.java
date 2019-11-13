@@ -18,7 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class InvitesToFriendList implements Externalizable {
+public class FriendListToken implements Externalizable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

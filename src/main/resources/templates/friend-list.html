@@ -5,11 +5,12 @@
 </head>
 <body>
     <div class="container">
-        <h1 align="center">Friend List</h1>
+        <h1 align="center">Friends</h1>
         <div th:replace="nav.html :: body"></div>
         <form th:action="@{/create-new-friend}" method="GET">
             <input type="submit" class="btn btn-success btn-block" style="margin-bottom: 10px" value="Add new friend"/>
         </form>
+        <h2 align="center">Invites List</h2>
         <table class="table table-striped" data-toggle="table">
             <thead>
             <tr>
@@ -20,18 +21,27 @@
             <tr th:each="oneFriend, iter : ${debtorUserInvitesSet}">
                 <td th:text="${oneFriend.getUserName()}"></td>
                 <td>
-                    <form method="POST" th:action="@{'/add-to-friend-list?id=' + ${oneFriend.getUserId()}}">
-                        <button type="submit"  class="glyphicon glyphicon-plus" ></button>
-                    </form>
+                    <!--<form class="btn btn-success btn-lg" method="POST" th:action="@{'/add-to-friend-list?id=' + ${oneFriend.getUserId()}}">-->
+                        <!--<span class="glyphicon glyphicon-plus"></span> Add-->
+                    <!--</form>-->
+                    <a class="btn btn-success btn-lg" th:href="@{'/add-to-friend-list?id=' + ${oneFriend.getUserId()}}">
+                        <span>Add to friend list</span>
+                    </a>
                 </td>
+                <!--<td>-->
+                    <!--<a class="btn btn-success btn-lg" th:href="@{'/make-new-debtor-details?name=' + ${oneDebtor.name}}">-->
+                        <!--<span class="glyphicon glyphicon-plus"></span> Add-->
+                    <!--</a>-->
+                <!--</td>-->
             </tr>
             </tbody>
         </table>
 
+        <h2 align="center">Friends List</h2>
         <table class="table table-striped" data-toggle="table">
             <thead>
             <tr>
-                <th>debtor friend name</th>
+                <th>name</th>
             </tr>
             </thead>
             <tbody id="tableFilter">

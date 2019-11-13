@@ -6,12 +6,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.bykowski.rectangleapp.model.DebtorUser;
-import pl.bykowski.rectangleapp.model.InvitesToFriendList;
 import pl.bykowski.rectangleapp.model.Role;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
-import pl.bykowski.rectangleapp.repositories.InvitesToFriendListRepo;
+import pl.bykowski.rectangleapp.repositories.FriendListTokenRepo;
 import pl.bykowski.rectangleapp.repositories.RoleRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,7 +26,7 @@ public class UserServiceTest {
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
     //TODO this should be service
-    private InvitesToFriendListRepo invitesToFriendListRepo;
+    private FriendListTokenRepo invitesToFriendListRepo;
 
     private DebtorUserDTO debtorUserDTO = new DebtorUserDTO();
     private static final String roleName = "ROLE_USER";
@@ -38,7 +37,7 @@ public class UserServiceTest {
         debtorUserRepo = mock(DebtorUserRepo.class);
         roleRepository = mock(RoleRepository.class);
         passwordEncoder = mock(PasswordEncoder.class);
-        invitesToFriendListRepo = mock(InvitesToFriendListRepo.class);
+        invitesToFriendListRepo = mock(FriendListTokenRepo.class);
         NotificationService notificationService = mock(NotificationService.class);
 
         userService = new UserService(debtorUserRepo, roleRepository, passwordEncoder, notificationService, invitesToFriendListRepo);

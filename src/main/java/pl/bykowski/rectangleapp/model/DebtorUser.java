@@ -47,7 +47,7 @@ public class DebtorUser implements Serializable {
                     name = "user1_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "user2_id", referencedColumnName = "userId"))
-    private Set<InvitesToFriendList> invitesToFriendListSet;
+    private Set<FriendListToken> invitesToFriendListSet;
     //-----------------------------------------------------
 
     @JsonIgnore
