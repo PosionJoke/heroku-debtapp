@@ -24,17 +24,11 @@ public class FriendService {
     }
 
     public void addToInvitedList(String actualUserName, String newFriendName) {
-
         DebtorUser actualUser = userService.findByName(actualUserName);
 
         DebtorUser newFriend = userService.findByName(newFriendName);
 
-        Optional<FriendListToken> friendListTokenOpt = friendListTokenService.findByUserName(actualUser.getName());
-        if (!friendListTokenOpt.isPresent()) {
-            log.warn(String.format("Can't find FriendListToken with user name : [%s]", actualUser.getName()));
-        }
-
-        FriendListToken friendListToken = friendListTokenOpt.orElseGet(FriendListToken::new);
+        FriendListToken friendListToken = friendListTokenService.findByUserName(actualUser.getName());
 
         Set<FriendListToken> invitesToFriendList = newFriend.getInvitesToFriendListSet();
         invitesToFriendList.add(friendListToken);
@@ -43,14 +37,9 @@ public class FriendService {
     }
 
     public void addToFriendList(String actualUserName, Long newFriendId) {
-
         DebtorUser actualUser = userService.findByName(actualUserName);
 
         DebtorUser newFriend = userService.findById(newFriendId);
-//        if (!newFriendOpt.isPresent()) {
-//            log.warn(String.format("Can't find DebtorUser with user name : [%s]", newFriendId));
-//        }
-//        DebtorUser newFriend = newFriendOpt;
 
         Set<DebtorUser> friendList = actualUser.getFriendsList();
         friendList.add(newFriend);
@@ -62,16 +51,8 @@ public class FriendService {
 
     private void deleteFromInviteList(Long userId, Long userInListId){
         DebtorUser user = userService.findById(userId);
-//        if (!userOpt.isPresent()) {
-//            log.warn(String.format("Can't find DebtorUser with id : [%s]", userId));
-//        }
-//        DebtorUser user = userOpt.orElseGet(DebtorUser::new);
 
-        Optional<FriendListToken> invitesToFriendListFromOpt = friendListTokenService.findByUserId(userInListId);
-        if (!invitesToFriendListFromOpt.isPresent()) {
-            log.warn(String.format("Can't find FriendListToken with user_id : [%s]", userInListId));
-        }
-        FriendListToken invitesToFriendListFrom = invitesToFriendListFromOpt.orElseGet(FriendListToken::new);
+        FriendListToken invitesToFriendListFrom = friendListTokenService.findByUserId(userInListId);
 
         Set<FriendListToken> invitesToFriendList = user.getInvitesToFriendListSet();
         invitesToFriendList.remove(invitesToFriendListFrom);

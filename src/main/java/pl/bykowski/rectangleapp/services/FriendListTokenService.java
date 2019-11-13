@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.bykowski.rectangleapp.model.FriendListToken;
 import pl.bykowski.rectangleapp.repositories.FriendListTokenRepo;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -19,11 +20,15 @@ public class FriendListTokenService {
                 "friendListTokenRepo must be not null");
     }
 
-    public Optional<FriendListToken> findByUserName(String name) {
-        return friendListTokenRepo.findByUserName(name);
+    public FriendListToken findByUserName(String name) {
+        Optional<FriendListToken> token = friendListTokenRepo.findByUserName(name);
+        return token.orElseThrow(() -> new EntityNotFoundException(
+                String.format("Unable to get FriendListToken name : [%s]", name)));
     }
 
-    public Optional<FriendListToken> findByUserId(Long id) {
-        return friendListTokenRepo.findByUserId(id);
+    public FriendListToken findByUserId(Long id) {
+        Optional<FriendListToken> token = friendListTokenRepo.findByUserId(id);
+        return token.orElseThrow(() -> new EntityNotFoundException(
+                String.format("Unable to get FriendListToken id : [%s]", id)));
     }
 }
