@@ -3,11 +3,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Getting Started Service Web Content</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
+    <h1 align="center">Edit total debt</h1>
+    <div th:replace="nav.html :: body"></div>
+
     <form action="#" th:action="@{'/debtor-save?id=' + ${id}}" th:object="${debtor}" method="post">
         <p>
             Add new debt value to : <span th:text="${debtor.name}"></span>

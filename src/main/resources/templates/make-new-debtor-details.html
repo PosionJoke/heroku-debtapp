@@ -8,6 +8,9 @@
 </head>
 <body>
 <div class="container">
+    <h1 align="center">Make new debt</h1>
+    <div th:replace="nav.html :: body"></div>
+
     <form action="#" th:action="@{'/make-new-debtor-details?name=' + ${name}}" th:object="${debtorDetailsDTO}"
           method="post">
         <div class="form-group">
