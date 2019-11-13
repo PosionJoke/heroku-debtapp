@@ -7,7 +7,9 @@
     <div class="container">
         <h1 align="center">Friend List</h1>
         <div th:replace="nav.html :: body"></div>
-
+        <form th:action="@{/create-new-friend}" method="GET">
+            <input type="submit" class="btn btn-success btn-block" style="margin-bottom: 10px" value="Add new friend"/>
+        </form>
         <table class="table table-striped" data-toggle="table">
             <thead>
             <tr>
