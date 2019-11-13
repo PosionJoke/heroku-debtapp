@@ -88,7 +88,7 @@ public class UserController {
     @GetMapping("/tmp-friend-list")
     public ModelAndView returnFriendList(Principal principal){
         Optional<DebtorUser> debtorUser = userService.findByName(principal.getName());
-        return new ModelAndView("tmp-friend-list")
+        return new ModelAndView("friend-list")
                 .addObject("debtorUserFriendsSet", debtorUser.get().getFriendsList())
                 .addObject("debtorUserFriendOfSet", debtorUser.get().getFriendOf())
                 .addObject("debtorUserInvitesSet", debtorUser.get().getInvitesToFriendListSet());
@@ -117,7 +117,7 @@ public class UserController {
         //save changes
         userService.save(newFriend.get());
 
-        return new ModelAndView("tmp-friend-list")
+        return new ModelAndView("friend-list")
                 .addObject("debtorUserFriendsSet", debtorUser.get().getFriendsList())
                 .addObject("debtorUserInvitesSet", debtorUser.get().getInvitesToFriendListSet());
     }
@@ -151,7 +151,7 @@ public class UserController {
 
 
 
-        return new ModelAndView("tmp-friend-list")
+        return new ModelAndView("friend-list")
                 .addObject("debtorUserFriendsSet", debtorUser.get().getFriendsList())
                 .addObject("debtorUserInvitesSet", debtorUser.get().getInvitesToFriendListSet());
     }
