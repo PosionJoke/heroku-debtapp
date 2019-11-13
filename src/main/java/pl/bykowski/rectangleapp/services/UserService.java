@@ -2,6 +2,7 @@ package pl.bykowski.rectangleapp.services;
 
 import io.vavr.concurrent.Future;
 import lombok.extern.log4j.Log4j;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,7 @@ import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
 import pl.bykowski.rectangleapp.repositories.FriendListTokenRepo;
 import pl.bykowski.rectangleapp.repositories.RoleRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
@@ -90,8 +92,10 @@ public class UserService {
         return authCode.equals(authCodeInput);
     }
 
-    public Optional<DebtorUser> findByName(String name) {
-        return debtorUserRepo.findByName(name);
+    public DebtorUser findByName(String name) {
+        Optional<DebtorUser> debtorUserOpt = debtorUserRepo.findByName(name);
+        return debtorUserOpt.orElseThrow(() -> new EntityNotFoundException(
+                String.format("Unable to get DebtorUser name : [%s]", name)));
     }
 
     public Optional<DebtorUser> findById(Long id){

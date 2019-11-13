@@ -96,7 +96,7 @@ public class UserControllerTest {
 
         DebtorUser debtorUser = new DebtorUser();
         debtorUser.setName("Ada");
-        given(userService.findByName(UserDTO.getName())).willReturn(java.util.Optional.of(debtorUser));
+        given(userService.findByName(UserDTO.getName())).willReturn(debtorUser);
 
         mvc.perform(post("/create-new-user-authentication")
                 .flashAttr("userDTO", UserDTO)
@@ -119,7 +119,7 @@ public class UserControllerTest {
                 .willReturn(false);
 
         DebtorUser debtorUser = new DebtorUser();
-        given(userService.findByName(debtorUserDTO.getName())).willReturn(java.util.Optional.of(debtorUser));
+        given(userService.findByName(debtorUserDTO.getName())).willReturn(debtorUser);
 
         mvc.perform(post("/create-new-user-authentication")
                 .flashAttr("debtorUserDTO", debtorUserDTO)

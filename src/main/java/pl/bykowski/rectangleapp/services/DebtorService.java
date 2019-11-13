@@ -36,7 +36,6 @@ public class DebtorService {
 
     private void saveDebtor(Debtor debtor) {
         log.debug(String.format("Save Debtor id : [%s], name : [%s]", debtor.getId(), debtor.getName()));
-
         debtorRepo.save(debtor);
     }
 

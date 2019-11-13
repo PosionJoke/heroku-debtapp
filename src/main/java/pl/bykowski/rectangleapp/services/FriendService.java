@@ -26,16 +26,17 @@ public class FriendService {
     //TODO Find better way to deal with Optional
     public void addToInvitedList(String actualUserName, String newFriendName) {
 
-        Optional<DebtorUser> actualUserOpt = userService.findByName(actualUserName);
-        if (!actualUserOpt.isPresent()) {
-            log.warn(String.format("Can't find DebtorUser with user name : [%s]", actualUserName));
-        }
-        DebtorUser actualUser = actualUserOpt.orElseGet(DebtorUser::new);
+//        Optional<DebtorUser> actualUserOpt = userService.findByName(actualUserName);
+//        if (!actualUserOpt.isPresent()) {
+//            log.warn(String.format("Can't find DebtorUser with user name : [%s]", actualUserName));
+//        }
+        DebtorUser actualUser = userService.findByName(actualUserName);
 
-        Optional<DebtorUser> newFriendOpt = userService.findByName(newFriendName);
-        if (!newFriendOpt.isPresent()) {
-            log.warn(String.format("Can't find DebtorUser with user name : [%s]", newFriendName));
-        }
+//        Optional<DebtorUser> newFriendOpt = userService.findByName(newFriendName);
+//        if (!newFriendOpt.isPresent()) {
+//            log.warn(String.format("Can't find DebtorUser with user name : [%s]", newFriendName));
+//        }
+        DebtorUser newFriend = userService.findByName(newFriendName);
 
         Optional<FriendListToken> friendListTokenOpt = friendListTokenService.findByUserName(actualUser.getName());
         if (!friendListTokenOpt.isPresent()) {
@@ -44,21 +45,25 @@ public class FriendService {
 
         FriendListToken friendListToken = friendListTokenOpt.orElseGet(FriendListToken::new);
 
-        newFriendOpt.ifPresent(newFriend -> {
-            Set<FriendListToken> invitesToFriendList = newFriend.getInvitesToFriendListSet();
-            invitesToFriendList.add(friendListToken);
-            newFriend.setInvitesToFriendListSet(invitesToFriendList);
-            userService.save(newFriend);
-        });
+//        newFriendOpt.ifPresent(newFriend -> {
+//            Set<FriendListToken> invitesToFriendList = newFriend.getInvitesToFriendListSet();
+//            invitesToFriendList.add(friendListToken);
+//            newFriend.setInvitesToFriendListSet(invitesToFriendList);
+//            userService.save(newFriend);
+//        });
+        Set<FriendListToken> invitesToFriendList = newFriend.getInvitesToFriendListSet();
+        invitesToFriendList.add(friendListToken);
+        newFriend.setInvitesToFriendListSet(invitesToFriendList);
+        userService.save(newFriend);
     }
 
     public void addToFriendList(String actualUserName, Long newFriendId) {
 
-        Optional<DebtorUser> actualUserOpt = userService.findByName(actualUserName);
-        if (!actualUserOpt.isPresent()) {
-            log.warn(String.format("Can't find DebtorUser with user name : [%s]", actualUserName));
-        }
-        DebtorUser actualUser = actualUserOpt.orElseGet(DebtorUser::new);
+//        Optional<DebtorUser> actualUserOpt = userService.findByName(actualUserName);
+//        if (!actualUserOpt.isPresent()) {
+//            log.warn(String.format("Can't find DebtorUser with user name : [%s]", actualUserName));
+//        }
+        DebtorUser actualUser = userService.findByName(actualUserName);
 
         Optional<DebtorUser> newFriendOpt = userService.findById(newFriendId);
         if (!newFriendOpt.isPresent()) {

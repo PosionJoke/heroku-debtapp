@@ -63,14 +63,17 @@ public class UserController {
         if (userService.checkAuthenticationCode(
                 userDTO.getAuthenticationCode(), userDTO.getAuthenticationCodeInput())) {
 
-            Optional<DebtorUser> debtorUser = userService.findByName(userDTO.getName());
-
-            if (debtorUser.isPresent()) {
-                debtorUser.get().setActive(1);
-                userService.save(debtorUser.get());
-            } else {
-                log.error(String.format("User [%s] does not exist", userDTO.getName()));
-            }
+//            Optional<DebtorUser> debtorUser = userService.findByName(userDTO.getName());
+//
+//            if (debtorUser.isPresent()) {
+//                debtorUser.get().setActive(1);
+//                userService.save(debtorUser.get());
+//            } else {
+//                log.error(String.format("User [%s] does not exist", userDTO.getName()));
+//            }
+            DebtorUser debtorUser = userService.findByName(userDTO.getName());
+            debtorUser.setActive(1);
+            userService.save(debtorUser);
 
             return new ModelAndView("default-view");
         }
@@ -87,11 +90,11 @@ public class UserController {
 //---------------------------------------------------------------------------------------------------------------------
     @GetMapping("/friend-list")
     public ModelAndView returnFriendList(Principal principal){
-        Optional<DebtorUser> debtorUser = userService.findByName(principal.getName());
+        DebtorUser debtorUser = userService.findByName(principal.getName());
         return new ModelAndView("friend-list")
-                .addObject("debtorUserFriendsSet", debtorUser.get().getFriendsList())
-                .addObject("debtorUserFriendOfSet", debtorUser.get().getFriendOf())
-                .addObject("debtorUserInvitesSet", debtorUser.get().getInvitesToFriendListSet());
+                .addObject("debtorUserFriendsSet", debtorUser.getFriendsList())
+                .addObject("debtorUserFriendOfSet", debtorUser.getFriendOf())
+                .addObject("debtorUserInvitesSet", debtorUser.getInvitesToFriendListSet());
     }
 
     @GetMapping("/create-new-friend")
@@ -103,7 +106,7 @@ public class UserController {
     @PostMapping("/add-to-invite-list")
     public ModelAndView saveNewFriend(@ModelAttribute DebtorUserDTO debtorUserDTO, Principal principal){
         friendService.addToInvitedList(principal.getName(), debtorUserDTO.getName());
-        DebtorUser debtorUser = userService.findByName(principal.getName()).orElseGet(DebtorUser::new);
+        DebtorUser debtorUser = userService.findByName(principal.getName());
 
         return new ModelAndView("friend-list")
                 .addObject("debtorUserFriendsSet", debtorUser.getFriendsList())
@@ -113,7 +116,7 @@ public class UserController {
     @GetMapping("/add-to-friend-list")
     public ModelAndView addToFriendList(Principal principal, @RequestParam Long id){
         friendService.addToFriendList(principal.getName(), id);
-        DebtorUser debtorUser = userService.findByName(principal.getName()).orElseGet(DebtorUser::new);
+        DebtorUser debtorUser = userService.findByName(principal.getName());
 
         return new ModelAndView("friend-list")
                 .addObject("debtorUserFriendsSet", debtorUser.getFriendsList())
