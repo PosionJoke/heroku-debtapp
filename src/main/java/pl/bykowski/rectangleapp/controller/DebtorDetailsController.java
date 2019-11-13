@@ -110,18 +110,11 @@ public class DebtorDetailsController {
                                              @RequestParam(required = false, defaultValue = "PLN") String currency) {
 
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("make-new-debtor-details", bindingResult.getModel());
+            return new ModelAndView("make-new-debtor-details", bindingResult.getModel())
+                    .addObject("name", debtorDetailsDTO.getName());
         }
 
         Debtor debtor = debtorService.findDebtorByName(name);
-
-//        if (debtorOpt.isPresent()) {
-//            log.debug(String.format("Debtor with [%s] was found", debtorOpt.get().getId()));
-//        } else {
-//            log.error(("Cant find Debtor"));
-//        }
-
-//        Debtor debtor = debtorOpt;
 
         debtorService.updateTotalDebtAndMakeNewDebtorDetails(debtorDetailsDTO, debtor, principal.getName());
         List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());

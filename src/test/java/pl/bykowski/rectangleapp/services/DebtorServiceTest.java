@@ -161,7 +161,7 @@ public class DebtorServiceTest {
         DebtorDetails debtorDetails = DebtorDetails.builder()
                 .debtor(debtor)
                 .build();
-        given(debtorDetailsService.findById(id)).willReturn(Optional.of(debtorDetails));
+        given(debtorDetailsService.findById(id)).willReturn(debtorDetails);
         //when
         debtorService.deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(id);
         //then

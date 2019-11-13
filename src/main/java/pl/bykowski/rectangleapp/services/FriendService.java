@@ -2,6 +2,7 @@ package pl.bykowski.rectangleapp.services;
 
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.bykowski.rectangleapp.model.DebtorUser;
 import pl.bykowski.rectangleapp.model.FriendListToken;
 
@@ -35,6 +36,7 @@ public class FriendService {
         userService.save(newFriend);
     }
 
+    @Transactional
     public void addToFriendList(String actualUserName, Long newFriendId) {
         DebtorUser actualUser = userService.findByName(actualUserName);
 

@@ -69,11 +69,6 @@ public class DebtorService {
         changedDebtor.setTotalDebt(newDebt);
         saveDebtor(changedDebtor);
 
-//        changedDebtor.ifPresent(debtor -> {
-//            BigDecimal newDebt = debtValue.add(debtor.getTotalDebt());
-//            debtor.setTotalDebt(newDebt);
-//            saveDebtor(debtor);
-//        });
         return changedDebtor.getTotalDebt();
     }
 
@@ -83,34 +78,30 @@ public class DebtorService {
 
         debtorDetailsService.updateDebtorDetailsDebt(debtorDetailsId, debtorDetailsDTO.getDebt());
 
-        Optional<DebtorDetails> debtorDetails = debtorDetailsService.findById(debtorDetailsId);
+        DebtorDetails debtorDetails = debtorDetailsService.findById(debtorDetailsId);
 
-        if (debtorDetails.isPresent()) {
-            updateTotalDebt(debtorDetails.get().getDebtor().getId(), debtorDetailsDTO.getDebt());
-        } else {
-            log.debug("debtorDetails must be present");
-        }
+        updateTotalDebt(debtorDetails.getDebtor().getId(), debtorDetailsDTO.getDebt());
     }
 
     private void deleteDebtIfIsUnderZero(DebtorDetailsDTO debtorDetailsDTO) {
         BigDecimal debtAfterUpdate = debtorDetailsDTO.getDebt();
-        Optional<BigDecimal> debtBeforeUpdate = debtorDetailsService.findById(debtorDetailsDTO.getId()).map(DebtorDetails::getDebt);
+        BigDecimal debtBeforeUpdate = debtorDetailsService.findById(debtorDetailsDTO.getId()).getDebt();
 
-        if (debtBeforeUpdate.isPresent()) {
-            if (debtBeforeUpdate.get().min(debtAfterUpdate).floatValue() <= 0) {
-                deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(debtorDetailsDTO.getId());
-            }
-        } else {
-            log.error(String.format("cant find debtor details with id : [%s]", debtorDetailsDTO.getId()));
+        if (debtBeforeUpdate.min(debtAfterUpdate).floatValue() <= 0) {
+            deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(debtorDetailsDTO.getId());
         }
     }
 
     public void deleteDebtorDetailsUpdateTotalDebtMakeNewDebtorHistory(Long id) {
-        Optional<DebtorDetails> debtorDetailsOpt = debtorDetailsService.findById(id);
-        debtorDetailsOpt.ifPresent(debtorDetails -> {
-            updateTotalDebt(debtorDetails.getDebtor().getId(), debtorDetails.getDebt().multiply(new BigDecimal(-1)));
-            debtorHistoryService.saveEntityDebtorHistory(debtorDetails);
-        });
+        DebtorDetails debtorDetailsOpt = debtorDetailsService.findById(id);
+
+        updateTotalDebt(debtorDetailsOpt.getDebtor().getId(), debtorDetailsOpt.getDebt().multiply(new BigDecimal(-1)));
+        debtorHistoryService.saveEntityDebtorHistory(debtorDetailsOpt);
+
+//        debtorDetailsOpt.ifPresent(debtorDetails -> {
+//            updateTotalDebt(debtorDetails.getDebtor().getId(), debtorDetails.getDebt().multiply(new BigDecimal(-1)));
+//            debtorHistoryService.saveEntityDebtorHistory(debtorDetails);
+//        });
 
         log.debug(String.format("Delete DebtorDetails id : [%s]", id));
         debtorDetailsService.deleteById(id);

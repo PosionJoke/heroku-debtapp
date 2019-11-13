@@ -8,6 +8,7 @@ import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 
+import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -79,8 +80,10 @@ public class DebtorDetailsService {
         debtorDetails.ifPresent(debtorD -> isThisDebtUnderZero(debtorD, debtValue));
     }
 
-    Optional<DebtorDetails> findById(Long id) {
-        return debtorDetailsRepo.findById(id);
+    DebtorDetails findById(Long id) {
+        Optional<DebtorDetails> debtorDetailsOpt = debtorDetailsRepo.findById(id);
+        return debtorDetailsOpt.orElseThrow(() -> new EntityNotFoundException(
+                String.format("Unable to get DebtorDetails id : [%s]", id)));
     }
 
     void deleteById(Long id) {
