@@ -98,11 +98,6 @@ public class DebtorService {
         updateTotalDebt(debtorDetailsOpt.getDebtor().getId(), debtorDetailsOpt.getDebt().multiply(new BigDecimal(-1)));
         debtorHistoryService.saveEntityDebtorHistory(debtorDetailsOpt);
 
-//        debtorDetailsOpt.ifPresent(debtorDetails -> {
-//            updateTotalDebt(debtorDetails.getDebtor().getId(), debtorDetails.getDebt().multiply(new BigDecimal(-1)));
-//            debtorHistoryService.saveEntityDebtorHistory(debtorDetails);
-//        });
-
         log.debug(String.format("Delete DebtorDetails id : [%s]", id));
         debtorDetailsService.deleteById(id);
     }

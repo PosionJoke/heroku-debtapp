@@ -9,19 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.DebtorUser;
-import pl.bykowski.rectangleapp.model.FriendListToken;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
-import pl.bykowski.rectangleapp.repositories.FriendListTokenRepo;
 import pl.bykowski.rectangleapp.services.FriendService;
 import pl.bykowski.rectangleapp.services.UserService;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
 
 @Log4j
 @Controller
@@ -29,13 +24,9 @@ public class UserController {
 
     private final UserService userService;
     private final FriendService friendService;
-    //TODO this should be service
-    private final FriendListTokenRepo friendListTokenRepo;
 
-    public UserController(UserService userService, FriendListTokenRepo invitesToFriendListRepo,
-                          FriendService friendService) {
+    public UserController(UserService userService, FriendService friendService) {
         this.userService = Objects.requireNonNull(userService, "userService must be not null");
-        this.friendListTokenRepo = Objects.requireNonNull(invitesToFriendListRepo, "friendListTokenRepo must be not null");
         this.friendService = Objects.requireNonNull(friendService, "friendService must be not null");
     }
 
@@ -63,14 +54,6 @@ public class UserController {
         if (userService.checkAuthenticationCode(
                 userDTO.getAuthenticationCode(), userDTO.getAuthenticationCodeInput())) {
 
-//            Optional<DebtorUser> debtorUser = userService.findByName(userDTO.getName());
-//
-//            if (debtorUser.isPresent()) {
-//                debtorUser.get().setActive(1);
-//                userService.save(debtorUser.get());
-//            } else {
-//                log.error(String.format("User [%s] does not exist", userDTO.getName()));
-//            }
             DebtorUser debtorUser = userService.findByName(userDTO.getName());
             debtorUser.setActive(1);
             userService.save(debtorUser);
@@ -87,7 +70,7 @@ public class UserController {
         return new ModelAndView("create-new-user")
                 .addObject("debtorUserDTO", new DebtorUserDTO());
     }
-//---------------------------------------------------------------------------------------------------------------------
+
     @GetMapping("/friend-list")
     public ModelAndView returnFriendList(Principal principal){
         DebtorUser debtorUser = userService.findByName(principal.getName());

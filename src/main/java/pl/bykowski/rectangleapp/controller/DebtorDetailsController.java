@@ -12,7 +12,6 @@ import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
 import pl.bykowski.rectangleapp.model.CurrencyTypes;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
-import pl.bykowski.rectangleapp.repositories.DebtorDetailsRepo;
 import pl.bykowski.rectangleapp.services.CurrencyService;
 import pl.bykowski.rectangleapp.services.DebtorDetailsService;
 import pl.bykowski.rectangleapp.services.DebtorService;
@@ -22,23 +21,23 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Log4j
 @Controller
 public class DebtorDetailsController {
 
-    private final DebtorDetailsRepo debtorDetailsRepo;
     private final DebtorDetailsService debtorDetailsService;
     private final DebtorService debtorService;
     private final CurrencyService currencyService;
     private final DebtorDetailsDTOService debtorDetailsDTOService;
 
-    public DebtorDetailsController(DebtorDetailsRepo debtorDetailsRepo, DebtorDetailsService debtorDetailsService,
-                                   DebtorDetailsDTOService debtorDetailsDTOService, DebtorService debtorService, CurrencyService currencyService) {
-        this.debtorDetailsDTOService = Objects.requireNonNull(debtorDetailsDTOService, "debtorDetailsDTOService must be not null");
-        this.debtorDetailsService = Objects.requireNonNull(debtorDetailsService, "debtorDetailsService must be not null");
-        this.debtorDetailsRepo = Objects.requireNonNull(debtorDetailsRepo, "debtorDetailsRepo must be not null");
+    public DebtorDetailsController(DebtorDetailsService debtorDetailsService,
+                                   DebtorDetailsDTOService debtorDetailsDTOService, DebtorService debtorService,
+                                   CurrencyService currencyService) {
+        this.debtorDetailsDTOService = Objects.requireNonNull(debtorDetailsDTOService,
+                "debtorDetailsDTOService must be not null");
+        this.debtorDetailsService = Objects.requireNonNull(debtorDetailsService,
+                "debtorDetailsService must be not null");
         this.debtorService = Objects.requireNonNull(debtorService, "debtorService must be not null");
         this.currencyService = Objects.requireNonNull(currencyService, "currencyService must be not null");
     }
@@ -64,11 +63,9 @@ public class DebtorDetailsController {
     @GetMapping("/debtor-details-debt-edit")
     public ModelAndView editDebtorDetails(@RequestParam Long id) {
 
-        Optional<DebtorDetails> debtorDetailsOpt = debtorDetailsRepo.findById(id);
+        DebtorDetails debtorDetailsOpt = debtorDetailsService.findById(id);
 
-        DebtorDetailsDTO debtorDetailsDTO = debtorDetailsOpt
-                .map(debtorDetails2 -> debtorDetailsDTOService.returnDebtorDetailsDTO(debtorDetails2))
-                .orElse(new DebtorDetailsDTO());
+        DebtorDetailsDTO debtorDetailsDTO = debtorDetailsDTOService.returnDebtorDetailsDTO(debtorDetailsOpt);
 
         return new ModelAndView("debtor-details-debt-edit")
                 .addObject("id", id)

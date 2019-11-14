@@ -25,16 +25,10 @@ public class FriendListToken implements Externalizable {
     private Long id;
     private String userName;
     private Long userId;
-//    @ManyToMany(mappedBy = "invitesToFriendListSet", fetch = FetchType.LAZY)
-//    @JoinTable(
-//            name = "invite_to_friend_list",
-//            joinColumns = @JoinColumn(
-//                    name = "debtorUser_id", referencedColumnName = "userId"),
-//            inverseJoinColumns = @JoinColumn(
-//                    name = "inviting_user_id", referencedColumnName = "id"))
     @OneToMany(mappedBy = "invitesToFriendListSet", fetch = FetchType.LAZY)
     private Set<DebtorUser> usersWhoSendInvite = new HashSet<>();
 
+    //TODO check is this is necessary
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
 

@@ -21,7 +21,6 @@ import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Controller
 public class DebtorController {
@@ -59,11 +58,10 @@ public class DebtorController {
     @GetMapping("/debtor-debt-edit")
     public ModelAndView debtorDebtEdit(@RequestParam Long id, @RequestParam String name) {
 
-        Debtor debtorOpt = debtorService.findDebtorByName(name);
+        Debtor debtor = debtorService.findDebtorByName(name);
 
-        DebtorDTO debtorDTO = debtorDTOService.returnDebtorDTO(debtorOpt);
-//                .map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
-//                .orElse(new DebtorDTO());
+        DebtorDTO debtorDTO = debtorDTOService.returnDebtorDTO(debtor);
+
         return new ModelAndView("debtor-debt-edit")
                 .addObject("name", name)
                 .addObject("id", id)

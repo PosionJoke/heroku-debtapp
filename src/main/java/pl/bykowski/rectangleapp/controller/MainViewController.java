@@ -46,7 +46,7 @@ public class MainViewController {
         } else {
             Optional<Debtor> debtorWithBiggestDebtOpt = debtorService.returnDebtorWithBiggestDebt(principal.getName());
 
-            DebtorDTO debtorWithBiggestDebtDTO = debtorWithBiggestDebtOpt.map(debtor -> debtorDTOService.returnDebtorDTO(debtor))
+            DebtorDTO debtorWithBiggestDebtDTO = debtorWithBiggestDebtOpt.map(debtorDTOService::returnDebtorDTO)
                     .orElse(new DebtorDTO());
             DebtorDTO debtorWithHighestCountOfDebtsDTO = debtorDTOService.returnDebtorDTOWithHighestCountOfDebts(principal.getName());
             return new ModelAndView("main-view")

@@ -7,6 +7,7 @@ import pl.bykowski.rectangleapp.model.CurrencyRate;
 
 import java.math.BigDecimal;
 
+//TODO ADD BUILDER TO DTO class
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

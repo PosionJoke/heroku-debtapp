@@ -26,6 +26,7 @@ public class FriendListTokenService {
                 String.format("Unable to get FriendListToken name : [%s]", name)));
     }
 
+    //TODO is this can be package private?
     public FriendListToken findByUserId(Long id) {
         Optional<FriendListToken> token = friendListTokenRepo.findByUserId(id);
         return token.orElseThrow(() -> new EntityNotFoundException(

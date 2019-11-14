@@ -128,9 +128,12 @@ public class DebtorDetailsControllerTests {
 
         DebtorDetailsDTO debtorDetailsDTO = new DebtorDetailsDTO();
         debtorDetailsDTO.setId(debtorDetails.getId());
+        debtorDetailsDTO.setName("Adrian");
 
         given(debtorDetailsDTOService.returnDebtorDetailsDTO(debtorDetails)).willReturn(debtorDetailsDTO);
         given(debtorDetailsRepo.findById(id)).willReturn(java.util.Optional.of(debtorDetails));
+        given(debtorDetailsService.findById(id)).willReturn(debtorDetails);
+        given(debtorDetailsDTOService.returnDebtorDetailsDTO(debtorDetails)).willReturn(debtorDetailsDTO);
 
         mvc.perform(get("/debtor-details-debt-edit")
                 .param("id", "1")

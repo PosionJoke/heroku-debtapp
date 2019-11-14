@@ -80,7 +80,7 @@ public class DebtorDetailsService {
         debtorDetails.ifPresent(debtorD -> isThisDebtUnderZero(debtorD, debtValue));
     }
 
-    DebtorDetails findById(Long id) {
+    public DebtorDetails findById(Long id) {
         Optional<DebtorDetails> debtorDetailsOpt = debtorDetailsRepo.findById(id);
         return debtorDetailsOpt.orElseThrow(() -> new EntityNotFoundException(
                 String.format("Unable to get DebtorDetails id : [%s]", id)));

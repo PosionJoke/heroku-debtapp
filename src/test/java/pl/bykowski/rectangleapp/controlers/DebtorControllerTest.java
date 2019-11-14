@@ -150,10 +150,13 @@ public class DebtorControllerTest {
         requestParams.add("name", debtorName);
 
         Debtor debtor = Debtor.builder()
-                .name(debtorName)
                 .build();
 
+        DebtorDTO debtorDTO = new DebtorDTO();
+        debtorDTO.setName(debtor.getName());
+
         given(debtorService.findDebtorByName(debtorName)).willReturn(debtor);
+        given(debtorDTOService.returnDebtorDTO(debtor)).willReturn(debtorDTO);
 
         mvc.perform(get("/debtor-debt-edit")
                 .params(requestParams)
