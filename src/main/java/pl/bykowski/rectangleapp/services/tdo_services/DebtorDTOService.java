@@ -53,6 +53,7 @@ public class DebtorDTOService {
                 .filter(debtor -> debtor.getId() != null)
                 .forEach(debtor -> debtorDetailsIdArrayList.add(debtor.getDebtor().getId()));
 
+        //TODO why there is using .get() like that?
         Map.Entry<Long, Long> idAndCountOfDebtsMap =
                 debtorDetailsIdArrayList.stream()
                         .collect(Collectors.groupingBy(w -> w, Collectors.counting()))
