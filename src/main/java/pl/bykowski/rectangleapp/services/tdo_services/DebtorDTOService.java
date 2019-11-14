@@ -26,13 +26,23 @@ public class DebtorDTOService {
     public List<DebtorDTO> returnDebtorDTOList(List<Debtor> debtorList) {
         List<DebtorDTO> debtorDTOList = new ArrayList<>();
         for (Debtor debtor : debtorList) {
-            debtorDTOList.add(new DebtorDTO(debtor.getId(), debtor.getName(), debtor.getTotalDebt()));
+            debtorDTOList.add(
+                    DebtorDTO.builder()
+                    .id(debtor.getId())
+                    .name(debtor.getName())
+                    .totalDebt(debtor.getTotalDebt())
+                    .build()
+            );
         }
         return debtorDTOList;
     }
 
     public DebtorDTO returnDebtorDTO(Debtor debtor) {
-        return new DebtorDTO(debtor.getId(), debtor.getName(), debtor.getTotalDebt());
+        return DebtorDTO.builder()
+                .id(debtor.getId())
+                .name(debtor.getName())
+                .totalDebt(debtor.getTotalDebt())
+                .build();
     }
 
     public DebtorDTO returnDebtorDTOWithHighestCountOfDebts(String userName) {

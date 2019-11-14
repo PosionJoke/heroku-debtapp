@@ -1,6 +1,7 @@
 package pl.bykowski.rectangleapp.model.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.bykowski.rectangleapp.annotation.PasswordCheck;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @PasswordCheck(message = "Passwords must be equals")

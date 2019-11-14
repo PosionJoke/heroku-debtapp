@@ -1,6 +1,7 @@
 package pl.bykowski.rectangleapp.model.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.bykowski.rectangleapp.model.CurrencyRate;
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 
 //TODO ADD BUILDER TO DTO class
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class DebtorDTO implements CurrencyRate {
@@ -17,11 +19,11 @@ public class DebtorDTO implements CurrencyRate {
     private BigDecimal totalDebt = new BigDecimal(0);
     private Long countOfDebts;
 
-    public DebtorDTO(Long id, String name, BigDecimal totalDebt) {
-        this.id = id;
-        this.name = name;
-        this.totalDebt = totalDebt;
-    }
+//    public DebtorDTO(Long id, String name, BigDecimal totalDebt) {
+//        this.id = id;
+//        this.name = name;
+//        this.totalDebt = totalDebt;
+//    }
 
     @Override
     public BigDecimal getDebt() {
