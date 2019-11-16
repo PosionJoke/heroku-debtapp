@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.DebtorUser;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
+import pl.bykowski.rectangleapp.model.dto.NewFriendDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.services.FriendService;
 import pl.bykowski.rectangleapp.services.UserService;
@@ -83,13 +84,18 @@ public class UserController {
     @GetMapping("/create-new-friend")
     public ModelAndView returnCreateFriendForm(){
         return new ModelAndView("add-to-invite-list")
-                .addObject("debtorUserDTO", new DebtorUserDTO());
+                .addObject("NewFriendDTO", new NewFriendDTO());
     }
 
     @PostMapping("/add-to-invite-list")
-    public ModelAndView saveNewFriend(@ModelAttribute DebtorUserDTO debtorUserDTO, Principal principal){
-        friendService.addToInvitedList(principal.getName(), debtorUserDTO.getName());
+    public ModelAndView saveNewFriend(@ModelAttribute NewFriendDTO NewFriendDTO, Principal principal,
+                                      BindingResult bindingResult){
+        friendService.addToInvitedList(principal.getName(), NewFriendDTO.getName());
         DebtorUser debtorUser = userService.findByName(principal.getName());
+
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("create-new-user-authentication", bindingResult.getModel());
+        }
 
         return new ModelAndView("friend-list")
                 .addObject("debtorUserFriendsSet", debtorUser.getFriendsList())

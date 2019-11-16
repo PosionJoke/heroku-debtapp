@@ -110,4 +110,9 @@ public class UserService {
 
         debtorUserRepo.save(debtorUser);
     }
+
+    public boolean isThisUserNameExist(String userName){
+        Optional<DebtorUser> found = debtorUserRepo.findByName(userName);
+        return found.isPresent();
+    }
 }
