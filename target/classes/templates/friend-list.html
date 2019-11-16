@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Getting Started Service Web Content</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="/js/currency_script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="container">
+        <h1 align="center">Friends</h1>
+        <div th:replace="nav.html :: body"></div>
+        <form th:action="@{/create-new-friend}" method="GET">
+            <input type="submit" class="btn btn-success btn-block" style="margin-bottom: 10px" value="Add new friend"/>
+        </form>
+        <h2 align="center">Invites List</h2>
+        <table class="table table-striped" data-toggle="table">
+            <thead>
+            <tr>
+                <th>Invites to friend list</th>
+            </tr>
+            </thead>
+            <tbody id="tableFilterInvites">
+            <tr th:each="oneFriend, iter : ${debtorUserInvitesSet}">
+                <td th:text="${oneFriend.getUserName()}">
+
+                </td>
+                <td>
+                    <a class="btn btn-success btn-lg" th:href="@{'/add-to-friend-list?id=' + ${oneFriend.getUserId()}}">
+                        <span>Add to friend list</span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h2 align="center">Friends List</h2>
+        <table class="table table-striped" data-toggle="table">
+            <thead>
+            <tr>
+                <th>name</th>
+            </tr>
+            </thead>
+            <tbody id="tableFilter">
+            <tr th:each="oneFriend, iter : ${debtorUserFriendsSet}">
+                <td th:text="${oneFriend.name}">
+                </td>
+                <td>
+                    <a class="btn btn-danger btn-lg" th:href="@{'/delete-friend?id=' + ${oneFriend.getId()}}">
+                        <span>Delete Friend</span>
+                    </a>
+                </td>
+            </tr>
+            <tr th:each="oneFriendOf, iter : ${debtorUserFriendOfSet}">
+                <td th:text="${oneFriendOf.name}">
+                </td>
+                <td>
+                    <a class="btn btn-danger btn-lg" th:href="@{'/delete-friend?id=' + ${oneFriendOf.getId()}}">
+                        <span>Delete Friend</span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>
