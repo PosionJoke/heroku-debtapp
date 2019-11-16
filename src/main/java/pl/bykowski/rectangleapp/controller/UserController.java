@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bykowski.rectangleapp.model.DebtorUser;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
+import pl.bykowski.rectangleapp.model.dto.NewFriendDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.services.FriendService;
 import pl.bykowski.rectangleapp.services.UserService;
@@ -83,12 +84,19 @@ public class UserController {
     @GetMapping("/create-new-friend")
     public ModelAndView returnCreateFriendForm(){
         return new ModelAndView("add-to-invite-list")
-                .addObject("debtorUserDTO", new DebtorUserDTO());
+                .addObject("newFriendDTO", new NewFriendDTO());
     }
 
     @PostMapping("/add-to-invite-list")
-    public ModelAndView saveNewFriend(@ModelAttribute DebtorUserDTO debtorUserDTO, Principal principal){
-        friendService.addToInvitedList(principal.getName(), debtorUserDTO.getName());
+    public ModelAndView saveNewFriend(@Valid @ModelAttribute NewFriendDTO newFriendDTO, BindingResult bindingResult,
+                                      Principal principal){
+
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("add-to-invite-list", bindingResult.getModel())
+                    .addObject("newFriendDTO", new NewFriendDTO());
+        }
+
+        friendService.addToInvitedList(principal.getName(), newFriendDTO.getName());
         DebtorUser debtorUser = userService.findByName(principal.getName());
 
         return new ModelAndView("friend-list")
@@ -115,5 +123,22 @@ public class UserController {
         return new ModelAndView("friend-list")
                 .addObject("debtorUserFriendsSet", debtorUser.getFriendsList())
                 .addObject("debtorUserInvitesSet", debtorUser.getInvitesToFriendListSet());
+    }
+
+    @GetMapping("/test-user-test")
+    public ModelAndView sdsd(){
+        return new ModelAndView("TESTuser")
+                .addObject("newFriendDTO", new NewFriendDTO());
+    }
+
+    @PostMapping("/test-user")
+    public ModelAndView sdsdsd(@Valid @ModelAttribute NewFriendDTO newFriendDTO, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("TESTuser", bindingResult.getModel())
+                    .addObject("newFriendDTO", new NewFriendDTO());
+        }
+
+        return new ModelAndView("main-view");
     }
 }
