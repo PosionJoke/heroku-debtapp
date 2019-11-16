@@ -105,4 +105,15 @@ public class UserController {
                 .addObject("debtorUserFriendsSet", debtorUser.getFriendsList())
                 .addObject("debtorUserInvitesSet", debtorUser.getInvitesToFriendListSet());
     }
+
+    @GetMapping("/delete-friend")
+    public ModelAndView deleteFriend(Principal principal, @RequestParam Long id){
+        DebtorUser debtorUser = userService.findByName(principal.getName());
+
+        friendService.deleteFriend(debtorUser.getId(), id);
+
+        return new ModelAndView("friend-list")
+                .addObject("debtorUserFriendsSet", debtorUser.getFriendsList())
+                .addObject("debtorUserInvitesSet", debtorUser.getInvitesToFriendListSet());
+    }
 }
