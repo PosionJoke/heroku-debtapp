@@ -6,8 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.bykowski.rectangleapp.model.DebtorUser;
 import pl.bykowski.rectangleapp.model.FriendListToken;
 
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Log4j
 @Service
@@ -60,5 +59,24 @@ public class FriendService {
         user.setInvitesToFriendListSet(invitesToFriendList);
 
         userService.save(user);
+    }
+
+    @Transactional
+    public void deleteFriend(Long userId, Long friendToRemoveId){
+        DebtorUser actualUser = userService.findById(userId);
+        DebtorUser friendToRemove = userService.findById(friendToRemoveId);
+
+        Set<DebtorUser> actualUserFriendList = actualUser.getFriendsList();
+        Set<DebtorUser> friendToRemoveFriendList = friendToRemove.getFriendsList();
+
+        if(!actualUserFriendList.remove(friendToRemove)){
+            log.warn(String.format("Unable to remove [%s] from [%s] friendsList", friendToRemove, actualUser));
+        }
+        if(!friendToRemoveFriendList.remove(actualUser)){
+            log.warn(String.format("Unable to remove [%s] from [%s] friendsList", actualUser, friendToRemove));
+        }
+
+        userService.save(actualUser);
+        userService.save(friendToRemove);
     }
 }
