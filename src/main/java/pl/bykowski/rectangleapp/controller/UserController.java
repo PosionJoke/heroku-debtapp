@@ -84,18 +84,20 @@ public class UserController {
     @GetMapping("/create-new-friend")
     public ModelAndView returnCreateFriendForm(){
         return new ModelAndView("add-to-invite-list")
-                .addObject("NewFriendDTO", new NewFriendDTO());
+                .addObject("newFriendDTO", new NewFriendDTO());
     }
 
     @PostMapping("/add-to-invite-list")
-    public ModelAndView saveNewFriend(@ModelAttribute NewFriendDTO NewFriendDTO, Principal principal,
-                                      BindingResult bindingResult){
-        friendService.addToInvitedList(principal.getName(), NewFriendDTO.getName());
-        DebtorUser debtorUser = userService.findByName(principal.getName());
+    public ModelAndView saveNewFriend(@Valid @ModelAttribute NewFriendDTO newFriendDTO, BindingResult bindingResult,
+                                      Principal principal){
 
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("create-new-user-authentication", bindingResult.getModel());
+            return new ModelAndView("add-to-invite-list", bindingResult.getModel())
+                    .addObject("newFriendDTO", new NewFriendDTO());
         }
+
+        friendService.addToInvitedList(principal.getName(), newFriendDTO.getName());
+        DebtorUser debtorUser = userService.findByName(principal.getName());
 
         return new ModelAndView("friend-list")
                 .addObject("debtorUserFriendsSet", debtorUser.getFriendsList())
@@ -121,5 +123,22 @@ public class UserController {
         return new ModelAndView("friend-list")
                 .addObject("debtorUserFriendsSet", debtorUser.getFriendsList())
                 .addObject("debtorUserInvitesSet", debtorUser.getInvitesToFriendListSet());
+    }
+
+    @GetMapping("/test-user-test")
+    public ModelAndView sdsd(){
+        return new ModelAndView("TESTuser")
+                .addObject("newFriendDTO", new NewFriendDTO());
+    }
+
+    @PostMapping("/test-user")
+    public ModelAndView sdsdsd(@Valid @ModelAttribute NewFriendDTO newFriendDTO, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("TESTuser", bindingResult.getModel())
+                    .addObject("newFriendDTO", new NewFriendDTO());
+        }
+
+        return new ModelAndView("main-view");
     }
 }

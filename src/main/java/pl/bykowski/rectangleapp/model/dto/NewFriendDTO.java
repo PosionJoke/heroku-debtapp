@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.bykowski.rectangleapp.annotation.IsThisUserNameExistCheck;
 
+import javax.validation.constraints.Size;
+
 @Data
 @Builder
 @NoArgsConstructor
