@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.bykowski.rectangleapp.annotation.IsThisUserNameShouldExistCheck;
 import pl.bykowski.rectangleapp.annotation.PasswordCheck;
 
 import javax.validation.constraints.Email;
@@ -18,6 +19,7 @@ import javax.validation.constraints.Size;
 public class DebtorUserDTO {
     @NotEmpty
     @Size(min = 2, message = "Name should have at least 2 characters")
+    @IsThisUserNameShouldExistCheck(value = false, message = "This user already exist!")
     private String name;
     @Email
     private String email;
