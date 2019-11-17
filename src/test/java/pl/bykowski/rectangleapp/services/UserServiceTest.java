@@ -10,7 +10,6 @@ import pl.bykowski.rectangleapp.model.Role;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
-import pl.bykowski.rectangleapp.repositories.FriendListTokenRepo;
 import pl.bykowski.rectangleapp.repositories.RoleRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,8 +24,7 @@ public class UserServiceTest {
     private DebtorUserRepo debtorUserRepo;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
-    //TODO this should be service
-    private FriendListTokenRepo invitesToFriendListRepo;
+    private FriendListTokenService friendListTokenService;
 
     private DebtorUserDTO debtorUserDTO = new DebtorUserDTO();
     private static final String roleName = "ROLE_USER";
@@ -37,10 +35,10 @@ public class UserServiceTest {
         debtorUserRepo = mock(DebtorUserRepo.class);
         roleRepository = mock(RoleRepository.class);
         passwordEncoder = mock(PasswordEncoder.class);
-        invitesToFriendListRepo = mock(FriendListTokenRepo.class);
+        friendListTokenService = mock(FriendListTokenService.class);
         NotificationService notificationService = mock(NotificationService.class);
 
-        userService = new UserService(debtorUserRepo, roleRepository, passwordEncoder, notificationService, invitesToFriendListRepo);
+        userService = new UserService(debtorUserRepo, roleRepository, passwordEncoder, notificationService, friendListTokenService);
 
         String debtorName = "Ada";
         String password2 = "admin1234";

@@ -12,8 +12,6 @@ import pl.bykowski.rectangleapp.model.Role;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
-import pl.bykowski.rectangleapp.repositories.FriendListTokenRepo;
-import pl.bykowski.rectangleapp.repositories.RoleRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.HashSet;
@@ -27,15 +25,15 @@ public class UserService {
 
     private final DebtorUserRepo debtorUserRepo;
 
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
     private final NotificationService notificationService;
     private final FriendListTokenService friendListTokenService;
 
-    public UserService(DebtorUserRepo debtorUserRepo, RoleRepository roleRepository, PasswordEncoder passwordEncoder,
+    public UserService(DebtorUserRepo debtorUserRepo, RoleService roleService, PasswordEncoder passwordEncoder,
                        NotificationService notificationService, FriendListTokenService friendListTokenService) {
         this.debtorUserRepo = Objects.requireNonNull(debtorUserRepo, "debtorUserRepo must be not null");
-        this.roleRepository = Objects.requireNonNull(roleRepository, "roleRepository must be not null");
+        this.roleService = Objects.requireNonNull(roleService, "roleService must be not null");
         this.passwordEncoder = Objects.requireNonNull(passwordEncoder, "passwordEncoder must be not null");
         this.notificationService = Objects.requireNonNull(notificationService, "notificationService must be not null");
         this.friendListTokenService = Objects.requireNonNull(friendListTokenService, "friendListTokenService must be not null");
@@ -46,9 +44,9 @@ public class UserService {
     public UserDTO makeNewUser(DebtorUserDTO debtorUserDTO) {
         String authenticationCode = generateNewAuthenticationCode();
 
-        Optional<Role> singleRole = roleRepository.findByName("ROLE_USER");
+        Role singleRole = roleService.findByName("ROLE_USER");
         Set<Role> roleSet = new HashSet<>();
-        roleSet.add(singleRole.get());
+        roleSet.add(singleRole);
 
         DebtorUser newDebtorUser = DebtorUser.builder()
                 .name(debtorUserDTO.getName())
