@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 public class DebtorDTO implements CurrencyRate {
     private Long id;
     private String name;
+    @Builder.Default
     private BigDecimal totalDebt = new BigDecimal(0);
     private Long countOfDebts;
 
