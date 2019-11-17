@@ -12,8 +12,4 @@ public interface DebtorRepo extends CrudRepository<Debtor, Long> {
     Optional<Debtor> findByName(String name);
 
     List<Debtor> findByUserName(String userName);
-
-    List<Debtor> findAll();
-
-    Optional<Debtor> findById(Long id);
 }

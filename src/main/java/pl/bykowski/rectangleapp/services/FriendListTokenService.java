@@ -32,4 +32,8 @@ public class FriendListTokenService {
         return token.orElseThrow(() -> new EntityNotFoundException(
                 String.format("Unable to get FriendListToken id : [%s]", id)));
     }
+
+    public void save(FriendListToken friendListToken){
+        friendListTokenRepo.save(friendListToken);
+    }
 }

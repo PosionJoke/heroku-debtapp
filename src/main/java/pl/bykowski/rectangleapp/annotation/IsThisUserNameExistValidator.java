@@ -1,13 +1,11 @@
 package pl.bykowski.rectangleapp.annotation;
 
-import org.springframework.stereotype.Component;
 import pl.bykowski.rectangleapp.services.UserService;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Objects;
 
-//@Component
 public class IsThisUserNameExistValidator implements ConstraintValidator<IsThisUserNameExistCheck, String> {
 
     private final UserService userService;

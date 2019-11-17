@@ -26,19 +26,19 @@ import java.util.Set;
 public class UserService {
 
     private final DebtorUserRepo debtorUserRepo;
+
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final NotificationService notificationService;
-    //TODO THIS SHOULD BE SERVICE
-    private final FriendListTokenRepo invitesToFriendListRepo;
+    private final FriendListTokenService friendListTokenService;
 
     public UserService(DebtorUserRepo debtorUserRepo, RoleRepository roleRepository, PasswordEncoder passwordEncoder,
-                       NotificationService notificationService, FriendListTokenRepo invitesToFriendListRepo) {
+                       NotificationService notificationService, FriendListTokenService friendListTokenService) {
         this.debtorUserRepo = Objects.requireNonNull(debtorUserRepo, "debtorUserRepo must be not null");
         this.roleRepository = Objects.requireNonNull(roleRepository, "roleRepository must be not null");
         this.passwordEncoder = Objects.requireNonNull(passwordEncoder, "passwordEncoder must be not null");
         this.notificationService = Objects.requireNonNull(notificationService, "notificationService must be not null");
-        this.invitesToFriendListRepo = Objects.requireNonNull(invitesToFriendListRepo, "invitesToFriendListRepo must be not null");
+        this.friendListTokenService = Objects.requireNonNull(friendListTokenService, "friendListTokenService must be not null");
     }
 
     //TODO IDK where but right now this program give permission to add two users with the same name witch is bad idea
@@ -65,7 +65,7 @@ public class UserService {
                 .userId(newDebtorUser.getId())
                 .build();
 
-        invitesToFriendListRepo.save(invitesToFriendList);
+        friendListTokenService.save(invitesToFriendList);
 
         Future.of(() -> notificationService.sendNotification(newDebtorUser.getEmail(), authenticationCode));
 

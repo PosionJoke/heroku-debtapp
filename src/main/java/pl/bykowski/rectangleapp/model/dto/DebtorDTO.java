@@ -8,7 +8,6 @@ import pl.bykowski.rectangleapp.model.CurrencyRate;
 
 import java.math.BigDecimal;
 
-//TODO ADD BUILDER TO DTO class
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,12 +17,6 @@ public class DebtorDTO implements CurrencyRate {
     private String name;
     private BigDecimal totalDebt = new BigDecimal(0);
     private Long countOfDebts;
-
-//    public DebtorDTO(Long id, String name, BigDecimal totalDebt) {
-//        this.id = id;
-//        this.name = name;
-//        this.totalDebt = totalDebt;
-//    }
 
     @Override
     public BigDecimal getDebt() {
