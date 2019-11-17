@@ -8,7 +8,10 @@ import pl.bykowski.rectangleapp.model.dto.DebtorDTO;
 import pl.bykowski.rectangleapp.services.DebtorDetailsService;
 import pl.bykowski.rectangleapp.services.DebtorService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Log4j
@@ -53,14 +56,13 @@ public class DebtorDTOService {
                 .filter(debtor -> debtor.getId() != null)
                 .forEach(debtor -> debtorDetailsIdArrayList.add(debtor.getDebtor().getId()));
 
-        //TODO why there is using .get() like that?
         Map.Entry<Long, Long> idAndCountOfDebtsMap =
                 debtorDetailsIdArrayList.stream()
                         .collect(Collectors.groupingBy(w -> w, Collectors.counting()))
                         .entrySet()
                         .stream()
                         .max(Comparator.comparing(Map.Entry::getValue))
-                        .get();
+                        .orElseThrow(() -> new IllegalStateException("Can't load id of debtors"));
 
         Long debtorId = idAndCountOfDebtsMap.getKey();
 

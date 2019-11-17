@@ -10,7 +10,6 @@ import pl.bykowski.rectangleapp.model.Role;
 import pl.bykowski.rectangleapp.model.dto.DebtorUserDTO;
 import pl.bykowski.rectangleapp.model.dto.UserDTO;
 import pl.bykowski.rectangleapp.repositories.DebtorUserRepo;
-import pl.bykowski.rectangleapp.repositories.RoleRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -22,7 +21,7 @@ public class UserServiceTest {
 
     private UserService userService;
     private DebtorUserRepo debtorUserRepo;
-    private RoleRepository roleRepository;
+    private RoleService roleService;
     private PasswordEncoder passwordEncoder;
     private FriendListTokenService friendListTokenService;
 
@@ -33,12 +32,12 @@ public class UserServiceTest {
     @Before
     public void init() {
         debtorUserRepo = mock(DebtorUserRepo.class);
-        roleRepository = mock(RoleRepository.class);
+        roleService = mock(RoleService.class);
         passwordEncoder = mock(PasswordEncoder.class);
         friendListTokenService = mock(FriendListTokenService.class);
         NotificationService notificationService = mock(NotificationService.class);
 
-        userService = new UserService(debtorUserRepo, roleRepository, passwordEncoder, notificationService, friendListTokenService);
+        userService = new UserService(debtorUserRepo, roleService, passwordEncoder, notificationService, friendListTokenService);
 
         String debtorName = "Ada";
         String password2 = "admin1234";
@@ -56,7 +55,7 @@ public class UserServiceTest {
     @Test
     public void should_return_UserDTO_based_on_DebtorUserDTO() {
         //given
-        given(roleRepository.findByName(roleName)).willReturn(java.util.Optional.ofNullable(role));
+        given(roleService.findByName(roleName)).willReturn(role);
         given(passwordEncoder.encode(debtorUserDTO.getPassword2())).willReturn("1234");
         //when
         UserDTO created = userService.makeNewUser(debtorUserDTO);

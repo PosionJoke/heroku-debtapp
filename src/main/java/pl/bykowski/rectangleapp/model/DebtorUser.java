@@ -30,15 +30,7 @@ public class DebtorUser implements Serializable {
     private String permissions = "";
     private String email;
     private String authenticationCode;
-    //TODO make new model to save data about the invite_list between user and user
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(
-//            name = "invite_to_friend_list",
-//            joinColumns = @JoinColumn(
-//                    name = "debtorUserFAKESTRING_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(
-//                    name = "inviting_user_id", referencedColumnName = "id"))
-//    private Set<DebtorUser> invitesToFriendListSet;
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -48,7 +40,6 @@ public class DebtorUser implements Serializable {
             inverseJoinColumns = @JoinColumn(
                     name = "user2_id", referencedColumnName = "userId"))
     private Set<FriendListToken> invitesToFriendListSet;
-    //-----------------------------------------------------
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
@@ -60,10 +51,6 @@ public class DebtorUser implements Serializable {
                     name = "friendUsed_id", referencedColumnName = "id"))
     private Set<DebtorUser> friendsList;
 
-//    @JsonIgnore
-//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "friendsList", cascade = CascadeType.PERSIST)
-//    private Set<DebtorUser> friendTo;
-
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -74,7 +61,6 @@ public class DebtorUser implements Serializable {
                     name = "debtorUser_id", referencedColumnName = "id"))
     private List<DebtorUser> friendOf;
 
-    //-----------------------------------------------------
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",

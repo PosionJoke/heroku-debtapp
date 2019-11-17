@@ -124,21 +124,4 @@ public class UserController {
                 .addObject("debtorUserFriendsSet", debtorUser.getFriendsList())
                 .addObject("debtorUserInvitesSet", debtorUser.getInvitesToFriendListSet());
     }
-
-    @GetMapping("/test-user-test")
-    public ModelAndView sdsd(){
-        return new ModelAndView("TESTuser")
-                .addObject("newFriendDTO", new NewFriendDTO());
-    }
-
-    @PostMapping("/test-user")
-    public ModelAndView sdsdsd(@Valid @ModelAttribute NewFriendDTO newFriendDTO, BindingResult bindingResult){
-
-        if (bindingResult.hasErrors()) {
-            return new ModelAndView("TESTuser", bindingResult.getModel())
-                    .addObject("newFriendDTO", new NewFriendDTO());
-        }
-
-        return new ModelAndView("main-view");
-    }
 }

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import pl.bykowski.rectangleapp.model.CurrencyTypes;
 import pl.bykowski.rectangleapp.model.Debtor;
 import pl.bykowski.rectangleapp.model.DebtorDetails;
-import pl.bykowski.rectangleapp.model.CurrencyTypes;
 import pl.bykowski.rectangleapp.model.dto.DebtorDetailsDTO;
 import pl.bykowski.rectangleapp.services.CurrencyService;
 import pl.bykowski.rectangleapp.services.DebtorDetailsService;
@@ -47,12 +47,12 @@ public class DebtorDetailsController {
                                               @RequestParam(required = false, defaultValue = "PLN") String currency) {
 
         List<DebtorDetails> debtorDetailsList = debtorDetailsService.findByUserName(principal.getName());
-        //TODO WHY this variable is named debtorDetailsDTOList1
-        List<DebtorDetailsDTO> debtorDetailsDTOList1 = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
+
+        List<DebtorDetailsDTO> debtorDetailsDTOList = debtorDetailsDTOService.returnDebtorDetailsDTOList(debtorDetailsList);
 
         String currencyRate = currencyService.calculateCurrencyRates(currency, "PLN");
 
-        List<DebtorDetailsDTO> debtorDetailsDTOWithCurrencyRate = currencyService.setCurrencyRates(debtorDetailsDTOList1, currencyRate);
+        List<DebtorDetailsDTO> debtorDetailsDTOWithCurrencyRate = currencyService.setCurrencyRates(debtorDetailsDTOList, currencyRate);
 
         return new ModelAndView("debtor-details-list")
                 .addObject("debtorDetailsDTOList", debtorDetailsDTOWithCurrencyRate)

@@ -26,9 +26,9 @@ public class FriendListToken implements Externalizable {
     private String userName;
     private Long userId;
     @OneToMany(mappedBy = "invitesToFriendListSet", fetch = FetchType.LAZY)
+    @Builder.Default
     private Set<DebtorUser> usersWhoSendInvite = new HashSet<>();
 
-    //TODO check is this is necessary
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
 
